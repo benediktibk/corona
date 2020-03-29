@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="NLog" Version="4.7.0" />
+    <PackageReference Include="structuremap" Version="4.7.1" />
+  </ItemGroup>
+
+</Project>

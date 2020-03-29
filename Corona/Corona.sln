@@ -5,6 +5,17 @@ VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoronaSpreadViewer", "CoronaSpreadViewer\CoronaSpreadViewer.csproj", "{0F208BEC-2851-4D13-A09F-560CBC1FDAD6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{73FB3627-DFF5-448F-A39A-6B71B80A867E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{F1A13FEF-7B0E-42D0-9576-4E370117F5B1}"
+	ProjectSection(SolutionItems) = preProject
+		Development.config = Development.config
+		HostMap.config = HostMap.config
+		Production.config = Production.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{748B85B0-77E5-4CCA-BCC2-326A6CE835CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +26,14 @@ Global
 		{0F208BEC-2851-4D13-A09F-560CBC1FDAD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F208BEC-2851-4D13-A09F-560CBC1FDAD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F208BEC-2851-4D13-A09F-560CBC1FDAD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FB3627-DFF5-448F-A39A-6B71B80A867E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FB3627-DFF5-448F-A39A-6B71B80A867E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FB3627-DFF5-448F-A39A-6B71B80A867E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FB3627-DFF5-448F-A39A-6B71B80A867E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748B85B0-77E5-4CCA-BCC2-326A6CE835CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748B85B0-77E5-4CCA-BCC2-326A6CE835CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748B85B0-77E5-4CCA-BCC2-326A6CE835CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748B85B0-77E5-4CCA-BCC2-326A6CE835CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
