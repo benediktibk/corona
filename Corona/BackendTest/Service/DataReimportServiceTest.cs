@@ -13,6 +13,7 @@ namespace BackendTest.Service
         private DataReimportService _dataReimportService;
         private Mock<ICsvFileRepository> _csvFileRepository;
         private Mock<IInfectionSpreadDataPointRepository> _infectionSpreadDataPointRepository;
+        private Mock<IGitRepository> _gitRepository;
         private Mock<IUnitOfWork> _unitOfWork;
         private CsvFileRepository _realCsvFileRepository;
 
@@ -20,8 +21,9 @@ namespace BackendTest.Service
         public void Setup() {
             _csvFileRepository = new Mock<ICsvFileRepository>();
             _infectionSpreadDataPointRepository = new Mock<IInfectionSpreadDataPointRepository>();
+            _gitRepository = new Mock<IGitRepository>();
             _unitOfWork = new Mock<IUnitOfWork>();
-            _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, "blub");
+            _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, _gitRepository.Object, "filePath", "gitRepo");
             _realCsvFileRepository = new CsvFileRepository();
         }
 
@@ -48,7 +50,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object, 
                     It.Is<InfectionSpreadDataPointDao>(y => 
-                        y.Country == (int)CountryType.SouthKorea && 
+                        y.Country == CountryType.SouthKorea && 
                         y.InfectedTotal == 1 && 
                         y.DeathsTotal == 0 && 
                         y.RecoveredTotal == 0)), 
@@ -67,7 +69,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == (int)CountryType.China &&
+                        y.Country == CountryType.China &&
                         y.InfectedTotal == 549 &&
                         y.DeathsTotal == 17 &&
                         y.RecoveredTotal == 28)),
@@ -86,7 +88,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == (int)CountryType.Taiwan &&
+                        y.Country == CountryType.Taiwan &&
                         y.InfectedTotal == 1 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
@@ -105,7 +107,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == (int)CountryType.Usa &&
+                        y.Country == CountryType.Usa &&
                         y.InfectedTotal == 1 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
@@ -124,7 +126,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == (int)CountryType.Japan &&
+                        y.Country == CountryType.Japan &&
                         y.InfectedTotal == 2 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
@@ -143,7 +145,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == (int)CountryType.Thailand &&
+                        y.Country == CountryType.Thailand &&
                         y.InfectedTotal == 2 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
