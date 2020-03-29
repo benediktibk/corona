@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Backend.Repository
 {
@@ -16,6 +17,17 @@ namespace Backend.Repository
 
                 while (!file.EndOfStream) {
                     var line = file.ReadLine();
+
+                    while(true) {
+                        var newLine = Regex.Replace(line, "\"([^\";]*);([^\"]*)\"", "\"$1,$2\"");
+
+                        if (newLine == line) {
+                            break;
+                        }
+
+                        line = newLine;
+                    }
+
                     var values = line.Split(',');
                     var lineResult = new Dictionary<string, string>();
 

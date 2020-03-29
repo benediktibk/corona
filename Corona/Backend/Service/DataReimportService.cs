@@ -205,9 +205,11 @@ namespace Backend.Service
                 case "Hong Kong":
                 case "Macau":
                 case "Mainland China":
+                case "China":
                     country = CountryType.China;
                     break;
                 case "Taiwan":
+                case "Taiwan*":
                     country = CountryType.Taiwan;
                     break;
                 case "US":
