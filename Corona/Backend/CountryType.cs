@@ -2,6 +2,7 @@
 {
     public enum CountryType
     {
+        Invalid,
         Austria,
         Italy,
         Germany,
