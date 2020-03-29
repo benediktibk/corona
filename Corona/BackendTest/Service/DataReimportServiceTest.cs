@@ -168,5 +168,75 @@ namespace BackendTest.Service
                         y.Date == new System.DateTime(2020, 1, 22, 17, 0, 0))),
                 Times.Once);
         }
+
+        [TestMethod]
+        public void ReimportAll_NewFileType_CorrectValueForUsa() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/03-27-2020.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.Is<InfectionSpreadDataPointDao>(y =>
+                        y.Country == CountryType.Usa &&
+                        y.InfectedTotal == 101657 &&
+                        y.DeathsTotal == 1581 &&
+                        y.RecoveredTotal == 869)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public void ReimportAll_NewFileType_CorrectTimestampForUsa() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/03-27-2020.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.Is<InfectionSpreadDataPointDao>(y =>
+                        y.Country == CountryType.Usa &&
+                        y.Date == new System.DateTime(2020, 3, 27, 22, 14, 0))),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public void ReimportAll_NewFileType_CorrectValueForAustria() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/03-27-2020.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.Is<InfectionSpreadDataPointDao>(y =>
+                        y.Country == CountryType.Austria &&
+                        y.InfectedTotal == 7657 &&
+                        y.DeathsTotal == 58 &&
+                        y.RecoveredTotal == 225)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public void ReimportAll_NewFileType_EveryCountryGotImported() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/03-27-2020.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.IsAny<InfectionSpreadDataPointDao>()),
+                Times.Exactly(176));
+        }
     }
 }
