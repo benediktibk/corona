@@ -70,7 +70,7 @@ namespace BackendTest.Service
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
                         y.Country == CountryType.China &&
-                        y.InfectedTotal == 549 &&
+                        y.InfectedTotal == 548 &&
                         y.DeathsTotal == 17 &&
                         y.RecoveredTotal == 28)),
                 Times.Once);

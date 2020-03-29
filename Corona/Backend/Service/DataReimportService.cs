@@ -98,6 +98,11 @@ namespace Backend.Service
                 return false;
             }
 
+            if (string.IsNullOrEmpty(value)) {
+                confirmed = 0;
+                return true;
+            }
+
             if (!int.TryParse(value, out confirmed)) {
                 _logger.Warn($"unable to parse {value} to an integer");
                 return false;
@@ -113,6 +118,11 @@ namespace Backend.Service
                 return false;
             }
 
+            if (string.IsNullOrEmpty(value)) {
+                deaths = 0;
+                return true;
+            }
+
             if (!int.TryParse(value, out deaths)) {
                 _logger.Warn($"unable to parse {value} to an integer");
                 return false;
@@ -126,6 +136,11 @@ namespace Backend.Service
                 _logger.Warn($"failed to parse recovered from line with headers {string.Join(";", line.Select(x => x.Key))}");
                 recovered = 0;
                 return false;
+            }
+
+            if (string.IsNullOrEmpty(value)) {
+                recovered = 0;
+                return true;
             }
 
             if (!int.TryParse(value, out recovered)) {
