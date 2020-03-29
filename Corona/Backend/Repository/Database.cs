@@ -12,29 +12,12 @@ namespace Backend.Repository
         }
 
         public void Initialize(IUnitOfWork unitOfWork) {
-            unitOfWork.ExecuteDatabaseCommand(@"
-                CREATE TABLE Country 
-                (
-                    Id INT PRIMARY KEY IDENTITY(1, 1),
-                    Name NVARCHAR(100) NOT NULL,
-                    Inhabitants INT NOT NULL,
-                    IcuBeds INT NOT NULL,
-                    MoratilityRatePerOneMillionPerDay FLOAT NOT NULL
-                )
-");
-            unitOfWork.ExecuteDatabaseCommand(@"
-                CREATE TABLE InfectionSpreadDataPoint 
-                (
-                    Id INT PRIMARY KEY NOT NULL IDENTITY,
-                    [Date] DATETIME NOT NULL,
-                    Country INT NOT NULL,
-                    InfectedTotal INT NOT NULL
-                        CONSTRAINT FK_InfectionSpreadDataPoint_Country_Id
-                        REFERENCES Country(Id),
-                    DeathsTotal INT NOT NULL,
-                    RecoveredTotal INT NOT NULL
-                )
-");
+            DeleteAllTables(unitOfWork);
+            CreateTables(unitOfWork);
+            InsertCountries(unitOfWork);
+        }
+
+        private void InsertCountries(IUnitOfWork unitOfWork) {
             var countries = new List<CountryDao> {
                 new CountryDao {
                     Id = CountryType.Austria,
@@ -73,6 +56,45 @@ namespace Backend.Repository
             }
 
             unitOfWork.ExecuteDatabaseCommand(@"SET IDENTITY_INSERT Country OFF");
+        }
+
+        private void CreateTables(IUnitOfWork unitOfWork) {
+            unitOfWork.ExecuteDatabaseCommand(@"
+                CREATE TABLE Country 
+                (
+                    Id INT PRIMARY KEY IDENTITY(1, 1),
+                    Name NVARCHAR(100) NOT NULL,
+                    Inhabitants INT NOT NULL,
+                    IcuBeds INT NOT NULL,
+                    MoratilityRatePerOneMillionPerDay FLOAT NOT NULL
+                )
+");
+            unitOfWork.ExecuteDatabaseCommand(@"
+                CREATE TABLE InfectionSpreadDataPoint 
+                (
+                    Id INT PRIMARY KEY NOT NULL IDENTITY,
+                    [Date] DATETIME NOT NULL,
+                    Country INT NOT NULL,
+                    InfectedTotal INT NOT NULL
+                        CONSTRAINT FK_InfectionSpreadDataPoint_Country_Id
+                        REFERENCES Country(Id),
+                    DeathsTotal INT NOT NULL,
+                    RecoveredTotal INT NOT NULL
+                )
+");
+        }
+
+        private void DeleteAllTables(IUnitOfWork unitOfWork) {
+            var tables = unitOfWork.QueryDatabase<string>("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='dbo'");
+            var foreignKeyConstraints = unitOfWork.QueryDatabase<ForeignKeyConstraintAndTable>("SELECT fk.name as [ForeignKeyConstraint], t.name as [Table] FROM sys.foreign_keys fk JOIN sys.tables t on t.object_id = fk.parent_object_id");
+
+            foreach (var foreignKeyConstraint in foreignKeyConstraints) {
+                unitOfWork.ExecuteDatabaseCommand($"ALTER TABLE \"{foreignKeyConstraint.Table}\" DROP CONSTRAINT \"{foreignKeyConstraint.ForeignKeyConstraint}\"");
+            }
+
+            foreach (var table in tables) {
+                unitOfWork.ExecuteDatabaseCommand($"DROP TABLE {table}");
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Dapper;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Backend
 {
@@ -50,12 +52,16 @@ namespace Backend
             _databaseConnection.Execute(sql: command, transaction: _transaction);
         }
 
-        public void QueryDatabase(string command, object param) {
+        public void ExecuteDatabaseCommand(string command, object param) {
             if (_transaction == null) {
                 throw new InvalidOperationException("no transaction is open");
             }
 
             _databaseConnection.Query(sql: command, param: param, transaction: _transaction);
+        }
+
+        public List<T> QueryDatabase<T>(string command) {
+            return _databaseConnection.Query<T>(sql: command, transaction: _transaction).ToList();
         }
 
         public void Dispose() {

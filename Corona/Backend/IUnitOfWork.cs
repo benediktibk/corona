@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Backend
 {
@@ -8,6 +9,7 @@ namespace Backend
         void CommitDatabaseTransaction();
         void RollbackDatabaseTransaction();
         void ExecuteDatabaseCommand(string command);
-        void QueryDatabase(string command, object param);
+        void ExecuteDatabaseCommand(string command, object param);
+        List<T> QueryDatabase<T>(string command);
     }
 }

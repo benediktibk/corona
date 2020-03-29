@@ -5,7 +5,7 @@ namespace Backend.Repository
     public class CountryRepository : ICountryRepository
     {
         public void Insert(IUnitOfWork unitOfWork, CountryDao country) {
-            unitOfWork.QueryDatabase(@"
+            unitOfWork.ExecuteDatabaseCommand(@"
                 INSERT Country 
                 (
                     Id,
