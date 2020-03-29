@@ -209,6 +209,9 @@ namespace Backend.Service
                 case "South Korea":
                     country = CountryType.SouthKorea;
                     break;
+                case "Austria":
+                    country = CountryType.Austria;
+                    break;
                 default:
                     _logger.Warn($"unable to parse the country {countryString}");
                     country = CountryType.Invalid;

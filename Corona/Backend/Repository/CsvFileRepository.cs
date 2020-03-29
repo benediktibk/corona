@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace Backend.Repository
                     var values = line.Split(',');
                     var lineResult = new Dictionary<string, string>();
 
-                    for (var i = 0; i < values.Length; ++i) {
+                    for (var i = 0; i < Math.Min(values.Length, columnNames.Length); ++i) {
                         lineResult.Add(columnNames[i], values[i]);
                     }
 
