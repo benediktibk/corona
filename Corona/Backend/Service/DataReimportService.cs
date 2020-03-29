@@ -51,13 +51,13 @@ namespace Backend.Service
                     continue;
                 }
 
-                if (result.TryGetValue(dataPoint.Country, out var previousDataPoint)) {
+                if (result.TryGetValue(dataPoint.CountryId, out var previousDataPoint)) {
                     previousDataPoint.InfectedTotal += dataPoint.InfectedTotal;
                     previousDataPoint.DeathsTotal += dataPoint.DeathsTotal;
                     previousDataPoint.RecoveredTotal += dataPoint.RecoveredTotal;
                 }
                 else {
-                    result.Add(dataPoint.Country, dataPoint);
+                    result.Add(dataPoint.CountryId, dataPoint);
                 }
             }
 
@@ -89,7 +89,7 @@ namespace Backend.Service
                 return false;
             }
 
-            dataPoint.Country = country;
+            dataPoint.CountryId = country;
             dataPoint.InfectedTotal = confirmed;
             dataPoint.DeathsTotal = deaths;
             dataPoint.RecoveredTotal = recovered;

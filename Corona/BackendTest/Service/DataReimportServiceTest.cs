@@ -50,7 +50,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object, 
                     It.Is<InfectionSpreadDataPointDao>(y => 
-                        y.Country == CountryType.SouthKorea && 
+                        y.CountryId == CountryType.SouthKorea && 
                         y.InfectedTotal == 1 && 
                         y.DeathsTotal == 0 && 
                         y.RecoveredTotal == 0)), 
@@ -69,7 +69,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.China &&
+                        y.CountryId == CountryType.China &&
                         y.InfectedTotal == 548 &&
                         y.DeathsTotal == 17 &&
                         y.RecoveredTotal == 28)),
@@ -88,7 +88,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Taiwan &&
+                        y.CountryId == CountryType.Taiwan &&
                         y.InfectedTotal == 1 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
@@ -107,7 +107,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Usa &&
+                        y.CountryId == CountryType.Usa &&
                         y.InfectedTotal == 1 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
@@ -126,7 +126,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Japan &&
+                        y.CountryId == CountryType.Japan &&
                         y.InfectedTotal == 2 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
@@ -145,7 +145,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Thailand &&
+                        y.CountryId == CountryType.Thailand &&
                         y.InfectedTotal == 2 &&
                         y.DeathsTotal == 0 &&
                         y.RecoveredTotal == 0)),
@@ -164,7 +164,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Thailand &&
+                        y.CountryId == CountryType.Thailand &&
                         y.Date == new System.DateTime(2020, 1, 22, 17, 0, 0))),
                 Times.Once);
         }
@@ -181,7 +181,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Usa &&
+                        y.CountryId == CountryType.Usa &&
                         y.InfectedTotal == 101657 &&
                         y.DeathsTotal == 1581 &&
                         y.RecoveredTotal == 869)),
@@ -200,7 +200,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Usa &&
+                        y.CountryId == CountryType.Usa &&
                         y.Date == new System.DateTime(2020, 3, 27, 22, 14, 0))),
                 Times.Once);
         }
@@ -217,7 +217,7 @@ namespace BackendTest.Service
                 x => x.Insert(
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.Country == CountryType.Austria &&
+                        y.CountryId == CountryType.Austria &&
                         y.InfectedTotal == 7657 &&
                         y.DeathsTotal == 58 &&
                         y.RecoveredTotal == 225)),

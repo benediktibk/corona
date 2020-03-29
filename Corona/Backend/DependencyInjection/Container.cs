@@ -14,6 +14,7 @@ namespace Backend.DependencyInjection
                 x.For<IUnitOfWork>().Use<UnitOfWork>();
                 x.ForConcreteType<UnitOfWork>().Configure.Ctor<string>("databaseConnectionString").Is(connectionString);
                 x.For<ICountryRepository>().Use<CountryRepository>();
+                x.For<ICountryDetailedRepository>().Use<CountryDetailedRepository>();
             });
         }
 

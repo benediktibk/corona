@@ -9,18 +9,12 @@ namespace Backend.Repository
                 INSERT Country 
                 (
                     Id,
-                    Name,
-                    Inhabitants,
-                    IcuBeds,
-                    MoratilityRatePerOneMillionPerDay
+                    Name
                 )
                 VALUES
                 (
                     @Id,
-                    @Name,
-                    @Inhabitants,
-                    @IcuBeds,
-                    @MoratilityRatePerOneMillionPerDay
+                    @Name
                 )", country);
         }
     }
