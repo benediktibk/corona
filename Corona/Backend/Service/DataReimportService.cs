@@ -159,14 +159,23 @@ namespace Backend.Service
         }
 
         private bool TryParseLastUpdatedFromLine(Dictionary<string, string> line, out DateTime lastUpdated) {
-            if (!line.TryGetValue("Last Update", out var value)) {
+            var success = false;
+            string valueAsString;
+
+            success = line.TryGetValue("Last Update", out valueAsString);
+
+            if (!success) {
+                success = line.TryGetValue("Last_Update", out valueAsString);
+            }
+
+            if (!success) {
                 _logger.Warn($"failed to parse last updated from line with headers {string.Join(";", line.Select(x => x.Key))}");
                 lastUpdated = new DateTime();
                 return false;
             }
 
-            if (!DateTime.TryParse(value, CultureInfo.CreateSpecificCulture("en-US"), DateTimeStyles.None, out lastUpdated)) {
-                _logger.Warn($"unable to parse {value} to a DateTime");
+            if (!DateTime.TryParse(valueAsString, CultureInfo.CreateSpecificCulture("en-US"), DateTimeStyles.None, out lastUpdated)) {
+                _logger.Warn($"unable to parse {valueAsString} to a DateTime");
                 return false;
             }
 
