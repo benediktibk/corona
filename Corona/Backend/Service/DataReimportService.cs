@@ -55,6 +55,10 @@ namespace Backend.Service
                     previousDataPoint.InfectedTotal += dataPoint.InfectedTotal;
                     previousDataPoint.DeathsTotal += dataPoint.DeathsTotal;
                     previousDataPoint.RecoveredTotal += dataPoint.RecoveredTotal;
+
+                    if (dataPoint.Date > previousDataPoint.Date) {
+                        previousDataPoint.Date = dataPoint.Date;
+                    }
                 }
                 else {
                     result.Add(dataPoint.CountryId, dataPoint);

@@ -201,7 +201,7 @@ namespace BackendTest.Service
                     _unitOfWork.Object,
                     It.Is<InfectionSpreadDataPointDao>(y =>
                         y.CountryId == CountryType.Usa &&
-                        y.Date == new System.DateTime(2020, 3, 27, 22, 14, 0))),
+                        y.Date == new System.DateTime(2020, 3, 27, 22, 14, 55))),
                 Times.Once);
         }
 
