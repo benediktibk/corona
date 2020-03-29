@@ -151,5 +151,22 @@ namespace BackendTest.Service
                         y.RecoveredTotal == 0)),
                 Times.Once);
         }
+
+        [TestMethod]
+        public void ReimportAll_OldFileType_CorrectTimestampForThailand() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/01-22-2020.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.Is<InfectionSpreadDataPointDao>(y =>
+                        y.Country == CountryType.Thailand &&
+                        y.Date == new System.DateTime(2020, 1, 22, 17, 0, 0))),
+                Times.Once);
+        }
     }
 }

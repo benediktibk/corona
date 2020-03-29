@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Backend.Repository;
 using NLog;
@@ -83,10 +85,15 @@ namespace Backend.Service
                 return false;
             }
 
+            if (!TryParseLastUpdatedFromLine(line, out var lastUpdated)) {
+                return false;
+            }
+
             dataPoint.Country = country;
             dataPoint.InfectedTotal = confirmed;
             dataPoint.DeathsTotal = deaths;
             dataPoint.RecoveredTotal = recovered;
+            dataPoint.Date = lastUpdated;
 
             return true;
         }
@@ -145,6 +152,21 @@ namespace Backend.Service
 
             if (!int.TryParse(value, out recovered)) {
                 _logger.Warn($"unable to parse {value} to an integer");
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryParseLastUpdatedFromLine(Dictionary<string, string> line, out DateTime lastUpdated) {
+            if (!line.TryGetValue("Last Update", out var value)) {
+                _logger.Warn($"failed to parse last updated from line with headers {string.Join(";", line.Select(x => x.Key))}");
+                lastUpdated = new DateTime();
+                return false;
+            }
+
+            if (!DateTime.TryParse(value, CultureInfo.CreateSpecificCulture("en-US"), DateTimeStyles.None, out lastUpdated)) {
+                _logger.Warn($"unable to parse {value} to a DateTime");
                 return false;
             }
 
