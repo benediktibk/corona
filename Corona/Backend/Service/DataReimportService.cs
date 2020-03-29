@@ -10,15 +10,25 @@ namespace Backend.Service
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly ICsvFileRepository _csvFileRepository;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
+        private readonly IGitRepository _gitRepository;
         private readonly string _sourceFilePath;
+        private readonly string _gitRepoUrl;
 
-        public DataReimportService(ICsvFileRepository csvFileRepository, IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, string sourceFilePath) {
+        public DataReimportService(
+            ICsvFileRepository csvFileRepository, 
+            IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, 
+            IGitRepository gitRepository,
+            string sourceFilePath,
+            string gitRepoUrl) {
             _csvFileRepository = csvFileRepository;
             _sourceFilePath = sourceFilePath;
+            _gitRepoUrl = gitRepoUrl;
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
+            _gitRepository = gitRepository;
         }
 
         public void ReimportAll(IUnitOfWork unitOfWork) {
+            _gitRepository.FetchLatestCommit(_gitRepoUrl, _sourceFilePath);
             _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
 
             var files = _csvFileRepository.ListAllCsvFilesIn(_sourceFilePath);
