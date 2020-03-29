@@ -5,6 +5,12 @@
         Austria,
         Italy,
         Germany,
-        UnitedKingdom
+        UnitedKingdom,
+        SouthKorea,
+        China,
+        Usa,
+        Japan,
+        Thailand,
+        Taiwan
     }
 }
