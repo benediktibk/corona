@@ -16,8 +16,8 @@ namespace CoronaSpreadViewer.Controllers
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        [HttpPut]
-        public HttpResponseMessage Put() {
+        [HttpPost]
+        public HttpResponseMessage Post() {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 unitOfWork.BeginDatabaseTransaction();
                 _dataReimportService.ReimportAll(unitOfWork);
