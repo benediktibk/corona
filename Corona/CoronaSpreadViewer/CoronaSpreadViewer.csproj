@@ -108,6 +108,7 @@
   <ItemGroup>
     <Content Include="..\HostMap.config">
       <Link>HostMap.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Development.Corona.config">
       <Link>Config\Development.Corona.config</Link>

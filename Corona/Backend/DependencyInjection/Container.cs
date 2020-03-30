@@ -10,11 +10,18 @@ namespace Backend.DependencyInjection
 
         public Container() {
             _container = new StructureMap.Container(x => {
-                x.For<Settings>().Use(() => new Settings {
-                    DatabaseConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Database"].ConnectionString,
-                    GitRepo = System.Configuration.ConfigurationManager.AppSettings["GitRepo"],
-                    LocalPath = System.Configuration.ConfigurationManager.AppSettings["LocalPath"]
-                });
+                var connectionStrings = System.Configuration.ConfigurationManager.ConnectionStrings;
+                var appSettings = System.Configuration.ConfigurationManager.AppSettings;
+                var connectionString = connectionStrings["Database"].ConnectionString;
+                var gitRepo = appSettings["GitRepo"];
+                var localPath = appSettings["LocalPath"];
+
+                x.For<Settings>().Use(() => 
+                    new Settings {
+                        DatabaseConnectionString = connectionString,
+                        GitRepo = gitRepo,
+                        LocalPath = localPath
+                    });
 
                 x.For<IDatabase>().Use<Database>();
                 x.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
