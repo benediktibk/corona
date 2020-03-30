@@ -38,7 +38,7 @@ namespace Backend.Service
 
             _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
 
-            var files = _csvFileRepository.ListAllCsvFilesIn(_sourceFilePath);
+            var files = _csvFileRepository.ListAllCsvFilesIn($"{_sourceFilePath}/csse_covid_19_data/csse_covid_19_daily_reports");
 
             foreach (var file in files) {
                 ReimportAll(unitOfWork, file);

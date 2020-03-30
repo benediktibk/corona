@@ -4,6 +4,7 @@ using Backend.Repository;
 using Backend.Service;
 using NConfig;
 using NLog;
+using System;
 
 namespace Updater
 {
@@ -36,6 +37,11 @@ namespace Updater
                 unitOfWork.CommitDatabaseTransaction();
                 _logger.Info("successfully initialized the database");
             }
+
+#if DEBUG
+            Console.WriteLine("Press enter to close...");
+            Console.ReadLine();
+#endif
         }
     }
 }

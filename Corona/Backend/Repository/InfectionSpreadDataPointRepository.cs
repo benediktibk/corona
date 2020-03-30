@@ -11,7 +11,7 @@
                 INSERT InfectionSpreadDataPoint
                 (
                     [Date],
-                    Country,
+                    CountryId,
                     InfectedTotal,
                     DeathsTotal,
                     RecoveredTotal
@@ -19,7 +19,7 @@
                 VALUES
                 (
                     @Date,
-                    @Country,
+                    @CountryId,
                     @InfectedTotal,
                     @DeathsTotal,
                     @RecoveredTotal
