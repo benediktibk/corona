@@ -17,7 +17,7 @@ namespace ScalableVectorGraphic
         public double Width { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder) {
-            throw new System.NotImplementedException();
+            stringBuilder.Append($"<line x1=\"{Start.X}\" y1=\"{Start.Y}\" x2=\"{Start.X}\" y2=\"{Start.Y}\" style=\"stroke:rgb({Color.Red},{Color.Green},{Color.Blue});stroke-width:{Width}\" />");
         }
     }
 }

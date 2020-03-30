@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ScalableVectorGraphic\ScalableVectorGraphic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.DirectoryServices.AccountManagement" />
   </ItemGroup>
 

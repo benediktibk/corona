@@ -19,10 +19,14 @@ namespace ScalableVectorGraphic
 
         public string CreateXml() {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append($"<svg height=\"{Height}\" width=\"{Width}\">");
+            stringBuilder.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+            stringBuilder.Append("\n");
+            stringBuilder.Append($"<svg height=\"{Height}\" width=\"{Width}\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">");
+            stringBuilder.Append("\n");
 
             foreach (var element in _elements) {
                 element.AppendXmlTo(stringBuilder);
+                stringBuilder.Append("\n");
             }
 
             stringBuilder.Append($"</svg>");

@@ -15,7 +15,7 @@ namespace ScalableVectorGraphic
         public Point Position { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder) {
-            throw new System.NotImplementedException();
+            stringBuilder.Append($"<circle cx=\"{Position.X}\" cy=\"{Position.Y}\" r=\"{Radius}\" fill=\"rgb({Color.Red},{Color.Green},{Color.Blue})\" />");
         }
     }
 }
