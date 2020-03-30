@@ -10,10 +10,9 @@ namespace CoronaSpreadViewer.Controllers
     {
         private readonly IGraphService _graphService;
 
-        /*public GraphController(IDataReimportService dataReimportService, IUnitOfWorkFactory unitOfWorkFactory) {
-            _dataReimportService = dataReimportService;
-            _unitOfWorkFactory = unitOfWorkFactory;
-        }*/
+        public GraphController(IGraphService graphService) {
+            _graphService = graphService;
+        }
 
         [HttpGet]
         public HttpResponseMessage Get(string id) {

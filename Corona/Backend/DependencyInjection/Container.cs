@@ -1,5 +1,6 @@
 ﻿using Backend.Repository;
 using Backend.Service;
+using System;
 
 namespace Backend.DependencyInjection
 {
@@ -16,18 +17,25 @@ namespace Backend.DependencyInjection
                 });
 
                 x.For<IDatabase>().Use<Database>();
+                x.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
+
                 x.For<ICountryRepository>().Use<CountryRepository>();
                 x.For<ICountryDetailedRepository>().Use<CountryDetailedRepository>();
                 x.For<IGitRepository>().Use<GitRepository>();
                 x.For<ICsvFileRepository>().Use<CsvFileRepository>();
                 x.For<IInfectionSpreadDataPointRepository>().Use<InfectionSpreadDataPointRepository>();
+
                 x.For<IDataReimportService>().Use<DataReimportService>();
-                x.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
+                x.For<IGraphService>().Use<GraphService>();
             });
         }
 
         public T GetInstance<T>() {
             return _container.GetInstance<T>();
+        }
+
+        public object GetInstance(Type type) {
+            return _container.GetInstance(type);
         }
     }
 }
