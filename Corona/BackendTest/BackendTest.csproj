@@ -75,6 +75,12 @@
     <None Include="testdata\01-22-2020.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="testdata\02-25-2020.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="testdata\02-25-2020_txDiamondOnly.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="testdata\03-27-2020.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

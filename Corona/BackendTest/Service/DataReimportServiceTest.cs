@@ -276,5 +276,43 @@ namespace BackendTest.Service
                     It.IsAny<InfectionSpreadDataPointDao>()),
                 Times.Exactly(176));
         }
+
+        [TestMethod]
+        public void ReimportAll_OldFileTypeWithDiamondPrincess_CorrectValueForUsa() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/02-25-2020.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.Is<InfectionSpreadDataPointDao>(y =>
+                        y.CountryId == CountryType.Usa &&
+                        y.InfectedTotal == 10052 &&
+                        y.DeathsTotal == 0 &&
+                        y.RecoveredTotal == 105)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public void ReimportAll_OldFileTypeWithDiamondPrincessInTxOnly_CorrectValueForUsa() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/02-25-2020_txDiamondOnly.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.Is<InfectionSpreadDataPointDao>(y =>
+                        y.CountryId == CountryType.Usa &&
+                        y.InfectedTotal == 9999 &&
+                        y.DeathsTotal == 0 &&
+                        y.RecoveredTotal == 0)),
+                Times.Once);
+        }
     }
 }
