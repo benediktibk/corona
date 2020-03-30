@@ -96,7 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReimportController.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
