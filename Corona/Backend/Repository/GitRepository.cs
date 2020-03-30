@@ -55,22 +55,7 @@ namespace Backend.Repository
             }
 
             try {
-                var files = directory.GetFiles().ToList();
-                var directories = directory.GetDirectories().ToList();
-
-                _logger.Debug($"must delete {files.Count()} files");
-                foreach (var file in files) {
-                    _logger.Debug($"deleting {file.FullName}");
-                    file.Delete();
-                }
-
-                _logger.Debug($"must delete {directories.Count()} directories");
-                foreach (var subdirectory in directories) {
-                    _logger.Debug($"deleting {subdirectory.FullName}");
-                    subdirectory.Delete(true);
-                }
-
-                directory.Delete(true);
+                DeleteContentOfPathRecursively(directory);
             }
             catch (Exception e) {
                 _logger.Error(e, $"unable to delete directory {destinationPath}");
@@ -78,6 +63,26 @@ namespace Backend.Repository
             }
 
             return true;
+        }
+
+        private void DeleteContentOfPathRecursively(DirectoryInfo directoryInfo) {
+            _logger.Debug($"deleting directory {directoryInfo.FullName}");
+
+            var files = directoryInfo.GetFiles().ToList();
+            var directories = directoryInfo.GetDirectories().ToList();
+
+            foreach (var file in files) {
+                _logger.Debug($"removing readonly attribute of {file.FullName}");
+                File.SetAttributes(file.FullName, file.Attributes & ~FileAttributes.ReadOnly);
+                _logger.Debug($"deleting {file.FullName}");
+                file.Delete();
+            }
+
+            foreach (var subdirectory in directories) {
+                DeleteContentOfPathRecursively(subdirectory);
+            }
+
+            directoryInfo.Delete();
         }
     }
 }
