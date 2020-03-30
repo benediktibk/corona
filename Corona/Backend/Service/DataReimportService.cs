@@ -210,16 +210,31 @@ namespace Backend.Service
 
             switch (countryString) {
                 case "Hong Kong":
+                case "Hong Kong SAR":
                 case "Macau":
+                case "Macao SAR":
                 case "Mainland China":
                 case "China":
                     country = CountryType.China;
                     break;
                 case "Taiwan":
                 case "Taiwan*":
+                case "Taipei and environs":
                     country = CountryType.Taiwan;
                     break;
                 case "US":
+                case "NE":
+                case "NE (from Diamond Princess)":
+                case " NE (From Diamond Princess)":
+                case "TX":
+                case "TX (from Diamond Princess)":
+                case " TX (From Diamond Princess)":
+                case "CA":
+                case "CA (from Diamond Princess)":
+                case " CA (From Diamond Princess)":
+                case "Jersey":
+                case "Puerto Rico":
+                case "Guam":
                     country = CountryType.Usa;
                     break;
                 case "Japan":
@@ -230,6 +245,7 @@ namespace Backend.Service
                     break;
                 case "South Korea":
                 case "Korea South":
+                case "Republic of Korea":
                     country = CountryType.SouthKorea;
                     break;
                 case "Austria":
@@ -263,9 +279,12 @@ namespace Backend.Service
                     country = CountryType.Australia;
                     break;
                 case "Azerbaijan":
+                case " Azerbaijan":
                     country = CountryType.Azerbaijan;
                     break;
                 case "Bahamas":
+                case "The Bahamas":
+                case "Bahamas The":
                     country = CountryType.Bahamas;
                     break;
                 case "Bahrain":
@@ -279,6 +298,9 @@ namespace Backend.Service
                     break;
                 case "Belarus":
                     country = CountryType.Belarus;
+                    break;
+                case "Aruba":
+                    country = CountryType.Aruba;
                     break;
                 case "Belgium":
                     country = CountryType.Belgium;
@@ -314,6 +336,7 @@ namespace Backend.Service
                     country = CountryType.Burma;
                     break;
                 case "Cabo Verde":
+                case "Cape Verde":
                     country = CountryType.CaboVerde;
                     break;
                 case "Cambodia":
@@ -343,10 +366,15 @@ namespace Backend.Service
                 case "Congo (Kinshasa)":
                     country = CountryType.CongoKinshasa;
                     break;
+                case "Republic of Congo":
+                case "Republic of the Congo":
+                    country = CountryType.RepublicOfCongo;
+                    break;
                 case "Costa Rica":
                     country = CountryType.CostaRica;
                     break;
                 case "Cote d'Ivoire":
+                case "Ivory Coast":
                     country = CountryType.CotedIvoire;
                     break;
                 case "Croatia":
@@ -355,20 +383,33 @@ namespace Backend.Service
                 case "Cuba":
                     country = CountryType.Cuba;
                     break;
+                case "Mayotte":
+                    country = CountryType.Mayotte;
+                    break;
                 case "Cyprus":
                     country = CountryType.Cyprus;
                     break;
                 case "Czechia":
+                case "Czech Republic":
                     country = CountryType.Czechia;
                     break;
                 case "Denmark":
                     country = CountryType.Denmark;
                     break;
                 case "Diamond Princess":
-                    country = CountryType.DiamondPrincess;
+                case "Others":
+                case "Cruise Ship":
+                case "MS Zaandam":
+                    country = CountryType.Others;
                     break;
                 case "Djibouti":
                     country = CountryType.Djibouti;
+                    break;
+                case "Cayman Islands":
+                    country = CountryType.CaymanIslands;
+                    break;
+                case "Guadeloupe":
+                    country = CountryType.Guadeloupe;
                     break;
                 case "Dominica":
                     country = CountryType.Dominica;
@@ -394,6 +435,19 @@ namespace Backend.Service
                 case "Estonia":
                     country = CountryType.Estonia;
                     break;
+                case "Saint Barthelemy":
+                    country = CountryType.SaintBarthelemy;
+                    break;
+                case "Martinique":
+                    country = CountryType.Martinique;
+                    break;
+                case "St. Martin":
+                case "Saint Martin":
+                    country = CountryType.SaintMartin;
+                    break;
+                case "French Guiana":
+                    country = CountryType.FrenchGuiana;
+                    break;
                 case "Eswatini":
                     country = CountryType.Eswatini;
                     break;
@@ -413,6 +467,8 @@ namespace Backend.Service
                     country = CountryType.Gabon;
                     break;
                 case "Gambia":
+                case "Gambia The":
+                case "The Gambia":
                     country = CountryType.Gambia;
                     break;
                 case "Georgia":
@@ -464,12 +520,14 @@ namespace Backend.Service
                     country = CountryType.Indonesia;
                     break;
                 case "Iran":
+                case "Iran (Islamic Republic of)":
                     country = CountryType.Iran;
                     break;
                 case "Iraq":
                     country = CountryType.Iraq;
                     break;
                 case "Ireland":
+                case "Republic of Ireland":
                     country = CountryType.Ireland;
                     break;
                 case "Israel":
@@ -548,6 +606,7 @@ namespace Backend.Service
                     country = CountryType.Mexico;
                     break;
                 case "Moldova":
+                case "Republic of Moldova":
                     country = CountryType.Moldova;
                     break;
                 case "Monaco":
@@ -555,6 +614,9 @@ namespace Backend.Service
                     break;
                 case "Mongolia":
                     country = CountryType.Mongolia;
+                    break;
+                case "Channel Islands":
+                    country = CountryType.ChannelIslands;
                     break;
                 case "Montenegro":
                     country = CountryType.Montenegro;
@@ -626,6 +688,7 @@ namespace Backend.Service
                     country = CountryType.Romania;
                     break;
                 case "Russia":
+                case "Russian Federation":
                     country = CountryType.Russia;
                     break;
                 case "Rwanda":
@@ -695,6 +758,7 @@ namespace Backend.Service
                     country = CountryType.Tanzania;
                     break;
                 case "Timor-Leste":
+                case "East Timor":
                     country = CountryType.TimorLeste;
                     break;
                 case "Togo":
@@ -718,7 +782,12 @@ namespace Backend.Service
                 case "United Arab Emirates":
                     country = CountryType.UnitedArabEmirates;
                     break;
+                case "Gibraltar":
+                    country = CountryType.Gibraltar;
+                    break;
                 case "United Kingdom":
+                case "UK":
+                case "North Ireland":
                     country = CountryType.UnitedKingdom;
                     break;
                 case "Uruguay":
@@ -731,16 +800,39 @@ namespace Backend.Service
                     country = CountryType.Venezuela;
                     break;
                 case "Vietnam":
+                case "Viet Nam":
                     country = CountryType.Vietnam;
                     break;
                 case "West Bank and Gaza":
+                case "Palestine":
+                case "Palestinian territory":
+                case "occupied Palestinian territory":
                     country = CountryType.WestBankAndGaza;
                     break;
                 case "Zambia":
                     country = CountryType.Zambia;
                     break;
+                case "Reunion":
+                    country = CountryType.Reunion;
+                    break;
                 case "Zimbabwe":
                     country = CountryType.Zimbabwe;
+                    break;
+                case "Vatican City":
+                case "Vatican":
+                    country = CountryType.Vatican;
+                    break;
+                case "Faroe Islands":
+                    country = CountryType.FaroeIslands;
+                    break;
+                case "Greenland":
+                    country = CountryType.Greenland;
+                    break;
+                case "Guernsey":
+                    country = CountryType.Guernsey;
+                    break;
+                case "Curacao":
+                    country = CountryType.Curacao;
                     break;
                 default:
                     _logger.Warn($"unable to parse the country {countryString}");

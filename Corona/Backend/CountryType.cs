@@ -3,6 +3,7 @@
     public enum CountryType
     {
         Invalid,
+        Others,
         Afghanistan,
         Albania,
         Algeria,
@@ -48,7 +49,6 @@
         Cyprus,
         Czechia,
         Denmark,
-        DiamondPrincess,
         Djibouti,
         Dominica,
         DominicanRepublic,
@@ -178,6 +178,23 @@
         Vietnam,
         WestBankAndGaza,
         Zambia,
-        Zimbabwe
+        Zimbabwe,
+        Gibraltar,
+        Vatican,
+        FaroeIslands,
+        FrenchGuiana,
+        SaintBarthelemy,
+        Martinique,
+        SaintMartin,
+        ChannelIslands,
+        CaymanIslands,
+        Guadeloupe,
+        Aruba,
+        RepublicOfCongo,
+        Mayotte,
+        Reunion,
+        Greenland,
+        Curacao,
+        Guernsey
     }
 }

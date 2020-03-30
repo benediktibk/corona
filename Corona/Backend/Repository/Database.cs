@@ -201,8 +201,8 @@ namespace Backend.Repository
                     Name = "Denmark"
                 },
                 new CountryDao {
-                    Id = CountryType.DiamondPrincess,
-                    Name = "Diamond Princess"
+                    Id = CountryType.Others,
+                    Name = "Others"
                 },
                 new CountryDao {
                     Id = CountryType.Djibouti,
@@ -723,6 +723,74 @@ namespace Backend.Repository
                 new CountryDao {
 	                Id = CountryType.Zimbabwe,
 	                Name = "Zimbabwe"
+                },
+                new CountryDao {
+                    Id = CountryType.Gibraltar,
+                    Name = "Gibraltar"
+                },
+                new CountryDao {
+                    Id = CountryType.Vatican,
+                    Name = "Vatican"
+                },
+                new CountryDao {
+                    Id = CountryType.FaroeIslands,
+                    Name = "Faroe Islands"
+                },
+                new CountryDao {
+                    Id = CountryType.FrenchGuiana,
+                    Name = "French Guiana"
+                },
+                new CountryDao {
+                    Id = CountryType.SaintBarthelemy,
+                    Name = "Saint Barthelemy"
+                },
+                new CountryDao {
+                    Id = CountryType.Martinique,
+                    Name = "Martinique"
+                },
+                new CountryDao {
+                    Id = CountryType.SaintMartin,
+                    Name = "Saint Martin"
+                },
+                new CountryDao {
+                    Id = CountryType.ChannelIslands,
+                    Name = "Channel Islands"
+                },
+                new CountryDao {
+                    Id = CountryType.CaymanIslands,
+                    Name = "Cayman Islands"
+                },
+                new CountryDao {
+                    Id = CountryType.Guadeloupe,
+                    Name = "Guadeloupe"
+                },
+                new CountryDao {
+                    Id = CountryType.Aruba,
+                    Name = "Aruba"
+                },
+                new CountryDao {
+                    Id = CountryType.RepublicOfCongo,
+                    Name = "Republic of Congo"
+                },
+                new CountryDao {
+                    Id = CountryType.Mayotte,
+                    Name = "Mayotte"
+                },
+                new CountryDao {
+                    Id = CountryType.Reunion,
+                    Name = "Reunion"
+                },
+                new CountryDao {
+                    Id = CountryType.Greenland,
+                    Name = "Greenland"
+                },
+                new CountryDao {
+                    Id = CountryType.Guernsey,
+                    Name = "Guernsey"
+                },
+                new CountryDao {
+                    Id = CountryType.Curacao,
+                    Name = "Curacao"
                 }
             };
 
