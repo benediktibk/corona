@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Backend.Repository
 {
@@ -49,14 +50,23 @@ namespace Backend.Repository
             var directory = new DirectoryInfo(destinationPath);
 
             if (!directory.Exists) {
+                _logger.Debug("destination path does not even exist, nothing to do yet");
                 return true;
             }
 
             try {
-                foreach (var file in directory.GetFiles()) {
+                var files = directory.GetFiles().ToList();
+                var directories = directory.GetDirectories().ToList();
+
+                _logger.Debug($"must delete {files.Count()} files");
+                foreach (var file in files) {
+                    _logger.Debug($"deleting {file.FullName}");
                     file.Delete();
                 }
-                foreach (var subdirectory in directory.GetDirectories()) {
+
+                _logger.Debug($"must delete {directories.Count()} directories");
+                foreach (var subdirectory in directories) {
+                    _logger.Debug($"deleting {subdirectory.FullName}");
                     subdirectory.Delete(true);
                 }
 
