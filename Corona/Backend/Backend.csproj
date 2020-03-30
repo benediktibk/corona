@@ -10,4 +10,8 @@
     <PackageReference Include="structuremap" Version="4.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+  </ItemGroup>
+
 </Project>

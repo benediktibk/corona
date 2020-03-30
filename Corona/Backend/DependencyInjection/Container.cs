@@ -15,13 +15,9 @@ namespace Backend.DependencyInjection
                 var connectionString = connectionStrings["Database"].ConnectionString;
                 var gitRepo = appSettings["GitRepo"];
                 var localPath = appSettings["LocalPath"];
+                var adminUsers = appSettings["AdminUsers"];
 
-                x.For<Settings>().Use(() => 
-                    new Settings {
-                        DatabaseConnectionString = connectionString,
-                        GitRepo = gitRepo,
-                        LocalPath = localPath
-                    });
+                x.For<ISettings>().Use(() => new Settings(connectionString, gitRepo, localPath, adminUsers));
 
                 x.For<IDatabase>().Use<Database>();
                 x.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
@@ -34,6 +30,7 @@ namespace Backend.DependencyInjection
 
                 x.For<IDataReimportService>().Use<DataReimportService>();
                 x.For<IGraphService>().Use<GraphService>();
+                x.For<IAuthorizationService>().Use<AuthorizationService>();
             });
         }
 

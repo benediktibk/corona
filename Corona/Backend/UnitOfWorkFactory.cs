@@ -2,9 +2,9 @@
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
-        private readonly Settings _settings;
+        private readonly ISettings _settings;
 
-        public UnitOfWorkFactory(Settings settings) {
+        public UnitOfWorkFactory(ISettings settings) {
             _settings = settings;
         }
 

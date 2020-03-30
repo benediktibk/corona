@@ -8,12 +8,12 @@
     <div class="header">
     </div>
     <div class="content">
-        <form action="api/reimport" method="post">
+        <form>
             <label for="username">Username</label>
-            <input id="username" maxlength="100" type="text" required />
+            <input name="username" maxlength="100" type="text" required autocomplete="on" />
             <label for="password">Password</label>
-            <input id="password" maxlength="100" type="password" required />
-            <button name="reimport" type="submit">update data</button>
+            <input name="password" maxlength="100" type="password" required autocomplete="off" />
+            <input name="reimport" type="submit" formaction="api/reimport" formmethod="post" value="Update"/>
         </form>
     </div>
 </body>

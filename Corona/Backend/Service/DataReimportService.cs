@@ -20,7 +20,7 @@ namespace Backend.Service
             ICsvFileRepository csvFileRepository,
             IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository,
             IGitRepository gitRepository,
-            Settings settings) {
+            ISettings settings) {
             _csvFileRepository = csvFileRepository;
             _sourceFilePath = settings.LocalPath;
             _gitRepoUrl = settings.GitRepo;
