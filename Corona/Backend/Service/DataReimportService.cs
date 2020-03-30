@@ -56,6 +56,7 @@ namespace Backend.Service
             var content = _csvFileRepository.ReadFile(file);
             var result = new Dictionary<CountryType, InfectionSpreadDataPointDao>();
 
+            _logger.Info($"parsing content of file {file}");
             foreach (var line in content) {
                 InfectionSpreadDataPointDao dataPoint;
                 if (!TryParseDataPointFromLine(line, out dataPoint)) {
@@ -77,6 +78,7 @@ namespace Backend.Service
                 }
             }
 
+            _logger.Info($"adding {result.Count()} data points to the database");
             foreach (var dataPoint in result.Select(x => x.Value)) {
                 _infectionSpreadDataPointRepository.Insert(unitOfWork, dataPoint);
             }
