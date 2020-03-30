@@ -36,14 +36,19 @@ namespace Backend.Service
                 return false;
             }
 
+            _logger.Info("deleting all existing data points");
             _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
 
+            _logger.Info("search for daily reports");
             var files = _csvFileRepository.ListAllCsvFilesIn($"{_sourceFilePath}/csse_covid_19_data/csse_covid_19_daily_reports");
 
+            _logger.Info($"found {files.Count} daily reports, starting to import them");
             foreach (var file in files) {
+                _logger.Info($"importing {file}");
                 ReimportAll(unitOfWork, file);
             }
 
+            _logger.Info("successfully executed the reimport");
             return true;
         }
 
