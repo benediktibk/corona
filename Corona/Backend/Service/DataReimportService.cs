@@ -7,7 +7,7 @@ using NLog;
 
 namespace Backend.Service
 {
-    public class DataReimportService
+    public class DataReimportService : IDataReimportService
     {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly ICsvFileRepository _csvFileRepository;
@@ -17,20 +17,25 @@ namespace Backend.Service
         private readonly string _gitRepoUrl;
 
         public DataReimportService(
-            ICsvFileRepository csvFileRepository, 
-            IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, 
+            ICsvFileRepository csvFileRepository,
+            IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository,
             IGitRepository gitRepository,
-            string sourceFilePath,
-            string gitRepoUrl) {
+            Settings settings) {
             _csvFileRepository = csvFileRepository;
-            _sourceFilePath = sourceFilePath;
-            _gitRepoUrl = gitRepoUrl;
+            _sourceFilePath = settings.LocalPath;
+            _gitRepoUrl = settings.GitRepo;
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
             _gitRepository = gitRepository;
         }
 
-        public void ReimportAll(IUnitOfWork unitOfWork) {
-            _gitRepository.FetchLatestCommit(_gitRepoUrl, _sourceFilePath);
+        public bool ReimportAll(IUnitOfWork unitOfWork) {
+            var result = _gitRepository.FetchLatestCommit(_gitRepoUrl, _sourceFilePath);
+
+            if (!result) {
+                _logger.Error("skipping the update process, could not fetch the latest data");
+                return false;
+            }
+
             _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
 
             var files = _csvFileRepository.ListAllCsvFilesIn(_sourceFilePath);
@@ -38,6 +43,8 @@ namespace Backend.Service
             foreach (var file in files) {
                 ReimportAll(unitOfWork, file);
             }
+
+            return true;
         }
 
         private void ReimportAll(IUnitOfWork unitOfWork, string file) {

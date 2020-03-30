@@ -23,7 +23,7 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository = new Mock<IInfectionSpreadDataPointRepository>();
             _gitRepository = new Mock<IGitRepository>();
             _unitOfWork = new Mock<IUnitOfWork>();
-            _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, _gitRepository.Object, "filePath", "gitRepo");
+            _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, _gitRepository.Object, new Settings());
             _realCsvFileRepository = new CsvFileRepository();
         }
 

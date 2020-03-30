@@ -13,8 +13,8 @@ namespace Backend
         private readonly SqlConnection _databaseConnection;
         private SqlTransaction _transaction;
 
-        public UnitOfWork(string databaseConnectionString) {
-            _databaseConnection = new SqlConnection(databaseConnectionString);
+        public UnitOfWork(Settings settings) {
+            _databaseConnection = new SqlConnection(settings.DatabaseConnectionString);
             _databaseConnection.Open();
         }
 

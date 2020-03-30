@@ -2,6 +2,6 @@
 {
     public interface IGitRepository
     {
-        void FetchLatestCommit(string repoUrl, string destinationPath);
+        bool FetchLatestCommit(string repoUrl, string destinationPath);
     }
 }
