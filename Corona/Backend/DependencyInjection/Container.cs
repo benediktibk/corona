@@ -16,13 +16,13 @@ namespace Backend.DependencyInjection
                 });
 
                 x.For<IDatabase>().Use<Database>();
-                x.For<IUnitOfWork>().Use<UnitOfWork>();
                 x.For<ICountryRepository>().Use<CountryRepository>();
                 x.For<ICountryDetailedRepository>().Use<CountryDetailedRepository>();
                 x.For<IGitRepository>().Use<GitRepository>();
                 x.For<ICsvFileRepository>().Use<CsvFileRepository>();
                 x.For<IInfectionSpreadDataPointRepository>().Use<InfectionSpreadDataPointRepository>();
                 x.For<IDataReimportService>().Use<DataReimportService>();
+                x.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
             });
         }
 

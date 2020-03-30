@@ -21,8 +21,9 @@ namespace Updater
                 var container = new Container();
                 var database = container.GetInstance<IDatabase>();
                 var dataReimportService = container.GetInstance<IDataReimportService>();
+                var unitOfWorkFactory = container.GetInstance<IUnitOfWorkFactory>();
 
-                using (var unitOfWork = container.GetInstance<UnitOfWork>()) {
+                using (var unitOfWork = unitOfWorkFactory.Create()) {
                     unitOfWork.BeginDatabaseTransaction();
 
                     _logger.Info("initializing database");
