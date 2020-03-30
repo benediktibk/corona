@@ -36,23 +36,25 @@ namespace Backend.Service
                 return false;
             }
 
-            _logger.Info("deleting all existing data points");
-            _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
-
             _logger.Info("search for daily reports");
             var files = _csvFileRepository.ListAllCsvFilesIn($"{_sourceFilePath}/csse_covid_19_data/csse_covid_19_daily_reports");
 
             _logger.Info($"found {files.Count} daily reports, starting to import them");
+            var dataPoints = new List<InfectionSpreadDataPointDao>();
             foreach (var file in files) {
                 _logger.Info($"importing {file}");
-                ReimportAll(unitOfWork, file);
+                dataPoints.AddRange(ParseFileContent(unitOfWork, file));
             }
+
+            _logger.Info("reimporting data points");
+            _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
+            _infectionSpreadDataPointRepository.Insert(unitOfWork, dataPoints);
 
             _logger.Info("successfully executed the reimport");
             return true;
         }
 
-        private void ReimportAll(IUnitOfWork unitOfWork, string file) {
+        private List<InfectionSpreadDataPointDao> ParseFileContent(IUnitOfWork unitOfWork, string file) {
             var content = _csvFileRepository.ReadFile(file);
             var result = new Dictionary<CountryType, InfectionSpreadDataPointDao>();
 
@@ -78,10 +80,7 @@ namespace Backend.Service
                 }
             }
 
-            _logger.Info($"adding {result.Count()} data points to the database");
-            foreach (var dataPoint in result.Select(x => x.Value)) {
-                _infectionSpreadDataPointRepository.Insert(unitOfWork, dataPoint);
-            }
+            return result.Select(x => x.Value).ToList();
         }
 
         private bool TryParseDataPointFromLine(Dictionary<string, string> line, out InfectionSpreadDataPointDao dataPoint) {
