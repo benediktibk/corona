@@ -23,6 +23,8 @@ namespace Backend.Repository
                     for (var i = 0; i < matches.Count; ++i) {
                         var match = matches[i].Groups[1].Value;
                         var matchReplacement = Regex.Replace(match, ",", "");
+                        match = match.Replace("(", "\\(");
+                        match = match.Replace(")", "\\)");
                         line = Regex.Replace(line, $"\"{match}\"", matchReplacement);
                     }
 

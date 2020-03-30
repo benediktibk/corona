@@ -25,6 +25,8 @@ namespace BackendTest.Service
             _unitOfWork = new Mock<IUnitOfWork>();
             _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, _gitRepository.Object, new Settings());
             _realCsvFileRepository = new CsvFileRepository();
+
+            _gitRepository.Setup(x => x.FetchLatestCommit(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
         }
 
         [TestMethod]
