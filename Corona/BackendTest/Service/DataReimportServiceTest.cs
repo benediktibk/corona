@@ -244,6 +244,25 @@ namespace BackendTest.Service
         }
 
         [TestMethod]
+        public void ReimportAll_NewFileTypeReducedOnSouthKorea_CorrectValueForSouthKorea() {
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/03-27-2020_southKoreaOnly.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(
+                x => x.Insert(
+                    _unitOfWork.Object,
+                    It.Is<InfectionSpreadDataPointDao>(y =>
+                        y.CountryId == CountryType.SouthKorea &&
+                        y.InfectedTotal == 9332 &&
+                        y.DeathsTotal == 139 &&
+                        y.RecoveredTotal == 4528)),
+                Times.Once);
+        }
+
+        [TestMethod]
         public void ReimportAll_NewFileType_EveryCountryGotImported() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))

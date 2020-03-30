@@ -18,14 +18,12 @@ namespace Backend.Repository
                 while (!file.EndOfStream) {
                     var line = file.ReadLine();
 
-                    while(true) {
-                        var newLine = Regex.Replace(line, "\"([^\";]*);([^\"]*)\"", "\"$1,$2\"");
+                    var matches = Regex.Matches(line, "\"([^\",]*,[^\"]*)\"");
 
-                        if (newLine == line) {
-                            break;
-                        }
-
-                        line = newLine;
+                    for (var i = 0; i < matches.Count; ++i) {
+                        var match = matches[i].Groups[1].Value;
+                        var matchReplacement = Regex.Replace(match, ",", "");
+                        line = Regex.Replace(line, $"\"{match}\"", matchReplacement);
                     }
 
                     var values = line.Split(',');

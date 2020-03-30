@@ -222,6 +222,7 @@ namespace Backend.Service
                     country = CountryType.Thailand;
                     break;
                 case "South Korea":
+                case "Korea South":
                     country = CountryType.SouthKorea;
                     break;
                 case "Austria":
