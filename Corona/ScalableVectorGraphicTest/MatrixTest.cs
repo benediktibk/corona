@@ -17,5 +17,12 @@ namespace ScalableVectorGraphicTest
             y.X.Should().BeApproximately(42.5, 1e-5);
             y.Y.Should().BeApproximately(6, 1e-5);
         }
+
+        [TestMethod]
+        public void Determinant_FullMatrix_CorrectResult() {
+            var matrix = new Matrix(new Vector(2.5, -3), new Vector(10, 7));
+
+            matrix.Determinant.Should().BeApproximately(47.5, 1e-5);
+        }
     }
 }
