@@ -9,7 +9,6 @@ namespace ScalableVectorGraphic
         private const double _tickMarkWidth = 0.001;
         private const string _labelFont = "monospace";
         private const double _fontSize = 0.02;
-        private const double _labelOffsetFromAxis = -0.02;
 
         public LinearAxis(IGenericNumericOperations<T> numericOperations) {
             NumericOperations = numericOperations;
@@ -28,7 +27,7 @@ namespace ScalableVectorGraphic
                 var label = NumericOperations.CreateLabel(i);
                 var halfLabelLength = label.Length / 2.0;
                 var labelOffsetFromTick = halfLabelLength * _fontSize * (-0.5);
-                result.Add(new Text("horizontal axis tick label", new Point(position + labelOffsetFromTick, _labelOffsetFromAxis), label, Color.Black, 0, _labelFont, _fontSize));
+                result.Add(new Text("horizontal axis tick label", new Point(position + labelOffsetFromTick, (-1.1) * _fontSize), label, Color.Black, 0, _labelFont, _fontSize));
             }
 
             return result;
