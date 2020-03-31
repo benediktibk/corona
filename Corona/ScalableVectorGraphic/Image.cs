@@ -8,17 +8,15 @@ namespace ScalableVectorGraphic
     {
         private readonly List<IGraphicElement> _elements;
 
-        public Image(int width, int height, IReadOnlyList<IGraphicElement> elements, Transformation transformation) {
+        public Image(int width, int height, IReadOnlyList<IGraphicElement> elements) {
             Width = width;
             Height = height;
             _elements = elements.ToList();
-            Transformation = transformation;
         }
 
         public int Width { get; }
         public int Height { get; }
         public IReadOnlyList<IGraphicElement> Elements => _elements;
-        public Transformation Transformation { get; }
 
         public string CreateXml() {
             var stringBuilder = new StringBuilder();
@@ -28,8 +26,7 @@ namespace ScalableVectorGraphic
             stringBuilder.Append("\n");
 
             foreach (var element in _elements) {
-                var elementTransformed = element.ApplyTransformation(Transformation);
-                elementTransformed.AppendXmlTo(stringBuilder);
+                element.AppendXmlTo(stringBuilder);
                 stringBuilder.Append("\n");
             }
 

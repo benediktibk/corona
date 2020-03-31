@@ -19,7 +19,8 @@ namespace ScalableVectorGraphic
             elements.AddRange(elementsXAxis);
 
             var transformGraphToImage = new Transformation(new Matrix(new Vector(1, 0), new Vector(0, -1)), new Vector(0, height));
-            _image = new Image(width, height, elements, transformGraphToImage);
+            elements = transformGraphToImage.Apply(elements);
+            _image = new Image(width, height, elements);
         }
 
         public string ToSvg() {
