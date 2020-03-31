@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ScalableVectorGraphic
 {
@@ -24,6 +25,10 @@ namespace ScalableVectorGraphic
 
         public Point Apply(Point point) {
             return new Point(_matrix * new Vector(point) + _offset);
+        }
+
+        public double Apply(double value) {
+            return value * Math.Abs(_matrix.Determinant);
         }
     }
 }

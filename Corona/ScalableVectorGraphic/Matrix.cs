@@ -11,7 +11,10 @@ namespace ScalableVectorGraphic
                 column1,
                 column2
             };
+            Determinant = column1.X * column2.Y - column1.Y * column2.X;
         }
+
+        public double Determinant { get; }
 
         public static Vector operator *(Matrix matrix, Vector vector) {
             return new Vector(
