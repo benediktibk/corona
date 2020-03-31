@@ -52,6 +52,7 @@
     <Compile Include="Text.cs" />
     <Compile Include="Transformation.cs" />
     <Compile Include="Vector.cs" />
+    <Compile Include="XYGraph.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
