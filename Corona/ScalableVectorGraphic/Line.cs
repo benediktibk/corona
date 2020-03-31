@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace ScalableVectorGraphic
@@ -21,9 +22,9 @@ namespace ScalableVectorGraphic
 
         public string Description { get; }
 
-        public void AppendXmlTo(StringBuilder stringBuilder) {
+        public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
             stringBuilder.Append($"<!-- {Description} -->\n");
-            stringBuilder.Append($"<line x1=\"{Start.X}\" y1=\"{Start.Y}\" x2=\"{End.X}\" y2=\"{End.Y}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width}\" />\n");
+            stringBuilder.Append($"<line x1=\"{Start.X.ToString(culture)}\" y1=\"{Start.Y.ToString(culture)}\" x2=\"{End.X.ToString(culture)}\" y2=\"{End.Y.ToString(culture)}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width.ToString(culture)}\" />\n");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

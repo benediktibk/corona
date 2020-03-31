@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace ScalableVectorGraphic
@@ -24,9 +25,9 @@ namespace ScalableVectorGraphic
         public string Font { get; }
         public int FontSize { get; }
 
-        public void AppendXmlTo(StringBuilder stringBuilder) {
+        public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
             stringBuilder.Append($"<!-- {Description} -->\n");
-            stringBuilder.Append($"<text x=\"{Position.X}\" y=\"{Position.Y}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees} {Position.X},{Position.Y})\" font-size=\"{FontSize}\">");
+            stringBuilder.Append($"<text x=\"{Position.X.ToString(culture)}\" y=\"{Position.Y.ToString(culture)}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees.ToString(culture)} {Position.X.ToString(culture)},{Position.Y.ToString(culture)})\" font-size=\"{FontSize.ToString(culture)}\">");
             stringBuilder.Append(Content);
             stringBuilder.Append("</text>\n");
         }

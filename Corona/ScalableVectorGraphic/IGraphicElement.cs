@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace ScalableVectorGraphic
 {
@@ -6,7 +7,7 @@ namespace ScalableVectorGraphic
     {
         string Description { get; }
 
-        void AppendXmlTo(StringBuilder stringBuilder);
+        void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture);
         IGraphicElement ApplyTransformation(Transformation transformation);
     }
 }

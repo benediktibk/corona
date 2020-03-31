@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace ScalableVectorGraphic
 {
@@ -16,9 +17,9 @@ namespace ScalableVectorGraphic
         public Color Color { get; }
         public Point Position { get; }
 
-        public void AppendXmlTo(StringBuilder stringBuilder) {
+        public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
             stringBuilder.Append($"<!-- {Description} -->\n");
-            stringBuilder.Append($"<circle cx=\"{Position.X}\" cy=\"{Position.Y}\" r=\"{Radius}\" fill=\"{Color.ToSvg()}\" />\n");
+            stringBuilder.Append($"<circle cx=\"{Position.X.ToString(culture)}\" cy=\"{Position.Y.ToString(culture)}\" r=\"{Radius.ToString(culture)}\" fill=\"{Color.ToSvg()}\" />\n");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
