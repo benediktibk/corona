@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ScalableVectorGraphic
 {
@@ -17,6 +18,36 @@ namespace ScalableVectorGraphic
         }
 
         public double Determinant { get; }
+
+        public double EstimateRotationInDegrees() {
+            var possibilities = new List<double>();
+
+            var m11 = this[0, 0] / Determinant;
+            if (m11 >= -1 && m11 <= 1) {
+                possibilities.Add(Math.Acos(m11));
+            }
+
+            var m22 = this[1, 1] / Determinant;
+            if (m22 >= -1 && m22 <= 1) {
+                possibilities.Add(Math.Acos(m22));
+            }
+
+            var m12 = this[0, 1] / Determinant * (-1);
+            if (m12 >= -1 && m12 <= 1) {
+                possibilities.Add(Math.Asin(m12));
+            }
+
+            var m21 = this[1, 0] / Determinant;
+            if (m21 >= -1 && m21 <= 1) {
+                possibilities.Add(Math.Asin(m21));
+            }
+
+            if (possibilities.Count == 0) {
+                return 0;
+            }
+
+            return possibilities.Sum() / possibilities.Count * 180 / Math.PI;
+        }
 
         public static Vector operator *(Matrix matrix, Vector vector) {
             return new Vector(

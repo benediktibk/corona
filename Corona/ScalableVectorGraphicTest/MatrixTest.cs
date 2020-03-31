@@ -24,5 +24,14 @@ namespace ScalableVectorGraphicTest
 
             matrix.Determinant.Should().BeApproximately(47.5, 1e-5);
         }
+
+        [TestMethod]
+        public void EstimateRotationInDegrees_RealRotationMatrix_CorrectAngle() {
+            var matrix = new Matrix(new Vector(0.86602540378443864676372317075294, 0.5), new Vector(-0.5, 0.86602540378443864676372317075294));
+
+            var result = matrix.EstimateRotationInDegrees();
+
+            result.Should().BeApproximately(30, 1e-5);
+        }
     }
 }
