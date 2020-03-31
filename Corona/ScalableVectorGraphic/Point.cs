@@ -1,5 +1,8 @@
-﻿namespace ScalableVectorGraphic
+﻿using System.Diagnostics;
+
+namespace ScalableVectorGraphic
 {
+    [DebuggerDisplay("Point ({X}, {Y})")]
     public class Point
     {
         public Point(double x, double y) {

@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace ScalableVectorGraphic
 {
+    [DebuggerDisplay("Text {Content}")]
     public class Text : IGraphicElement
     {
         public Text(Point position, string content, Color color, double rotationInDegrees, string font, int fontSize) {

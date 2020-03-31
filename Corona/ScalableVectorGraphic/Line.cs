@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace ScalableVectorGraphic
 {
+    [DebuggerDisplay("Line ({Start.X.ToString(\"F2\")}, {Start.Y.ToString(\"F2\")}) - ({End.X.ToString(\"F2\")}, {End.Y.ToString(\"F2\")})")]
     public class Line : IGraphicElement
     {
         public Line(Point start, Point end, Color color, double width) {

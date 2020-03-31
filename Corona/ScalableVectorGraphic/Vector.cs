@@ -1,5 +1,8 @@
-﻿namespace ScalableVectorGraphic
+﻿using System.Diagnostics;
+
+namespace ScalableVectorGraphic
 {
+    [DebuggerDisplay("Vector ({X}, {Y})")]
     public class Vector
     {
         public Vector(double x, double y) {
