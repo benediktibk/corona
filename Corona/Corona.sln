@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTest", "BackendTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalableVectorGraphic", "ScalableVectorGraphic\ScalableVectorGraphic.csproj", "{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalableVectorGraphicTest", "ScalableVectorGraphicTest\ScalableVectorGraphicTest.csproj", "{712DD91B-3DFC-4425-B132-22B9E6A50A4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712DD91B-3DFC-4425-B132-22B9E6A50A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712DD91B-3DFC-4425-B132-22B9E6A50A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712DD91B-3DFC-4425-B132-22B9E6A50A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712DD91B-3DFC-4425-B132-22B9E6A50A4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
