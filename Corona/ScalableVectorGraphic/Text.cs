@@ -21,7 +21,7 @@ namespace ScalableVectorGraphic
         public int FontSize { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder) {
-            stringBuilder.Append($"<text x=\"{Position.X}\" y=\"{Position.Y}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees} {Position.X},{Position.Y})\" font-size=\"{FontSize}em\">");
+            stringBuilder.Append($"<text x=\"{Position.X}\" y=\"{Position.Y}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees} {Position.X},{Position.Y})\" font-size=\"{FontSize}\">");
             stringBuilder.Append(Content);
             stringBuilder.Append("</text>");
         }
