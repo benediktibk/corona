@@ -13,7 +13,7 @@ namespace Backend.Service
         }
 
         public string CreateGraph() {
-            var graph = new XYGraph(200, 100);
+            var graph = new XYGraph(1000, 800);
             return graph.ToSvg();
         }
     }
