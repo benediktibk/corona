@@ -2,6 +2,8 @@
 {
     public interface IAxisTransformation
     {
-        double Scale(double value);
+        double ScalingFactor { get; }
+
+        double Apply(double value);
     }
 }

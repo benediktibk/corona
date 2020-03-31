@@ -19,8 +19,8 @@ namespace ScalableVectorGraphic
 
         public Point Apply(IAxisTransformation xAxisTransformation, IAxisTransformation yAxisTransformation) {
             return new Point(
-                xAxisTransformation.Scale(X),
-                yAxisTransformation.Scale(Y)
+                xAxisTransformation.Apply(X),
+                yAxisTransformation.Apply(Y)
                 );
         }
     }
