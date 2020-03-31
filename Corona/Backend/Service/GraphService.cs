@@ -37,7 +37,7 @@ namespace Backend.Service
                 new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
                 new LinearAxis<double>(new NumericOperationsDouble()),
                 allDataSeries,
-                new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1)).Reference.AddDays(15), 1);
+                new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1)).Reference.AddDays(10), 10000);
             return graph.ToSvg();
         }
     }
