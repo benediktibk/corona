@@ -26,9 +26,9 @@ namespace ScalableVectorGraphic
             }
 
             var overallMinimumX = allMinimumXValues.Min();
-            var overallMaximumX = allMinimumXValues.Max();
+            var overallMaximumX = allMaximumXValues.Max();
             var overallMinimumY = allMinimumYValues.Min();
-            var overallMaximumY = allMinimumYValues.Max();
+            var overallMaximumY = allMaximumYValues.Max();
 
             var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, (1 - _ratioYAxisLengthToImageSize) / 2 * height);
 
