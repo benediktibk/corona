@@ -19,5 +19,9 @@ namespace ScalableVectorGraphic
         public void AppendXmlTo(StringBuilder stringBuilder) {
             stringBuilder.Append($"<line x1=\"{Start.X}\" y1=\"{Start.Y}\" x2=\"{Start.X}\" y2=\"{Start.Y}\" style=\"stroke:rgb({Color.Red},{Color.Green},{Color.Blue});stroke-width:{Width}\" />");
         }
+
+        public IGraphicElement ApplyTransformation(Transformation transformation) {
+            return new Line(transformation.Apply(Start), transformation.Apply(End), Color, Width);
+        }
     }
 }

@@ -17,5 +17,9 @@ namespace ScalableVectorGraphic
         public void AppendXmlTo(StringBuilder stringBuilder) {
             stringBuilder.Append($"<circle cx=\"{Position.X}\" cy=\"{Position.Y}\" r=\"{Radius}\" fill=\"rgb({Color.Red},{Color.Green},{Color.Blue})\" />");
         }
+
+        public IGraphicElement ApplyTransformation(Transformation transformation) {
+            return new Circle(Radius, Color, transformation.Apply(Position));
+        }
     }
 }

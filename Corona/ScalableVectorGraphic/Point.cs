@@ -7,6 +7,10 @@
             Y = y;
         }
 
+        public Point(Vector vector) :
+            this(vector.X, vector.Y) {
+        }
+
         public double X { get; }
         public double Y { get; }
     }

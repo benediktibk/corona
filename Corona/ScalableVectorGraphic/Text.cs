@@ -25,5 +25,9 @@ namespace ScalableVectorGraphic
             stringBuilder.Append(Content);
             stringBuilder.Append("</text>");
         }
+
+        public IGraphicElement ApplyTransformation(Transformation transformation) {
+            return new Text(transformation.Apply(Position), Content, Color, RotationInDegrees, Font, FontSize);
+        }
     }
 }
