@@ -11,5 +11,6 @@ namespace Backend
         void ExecuteDatabaseCommand(string command);
         void ExecuteDatabaseCommand(string command, object param);
         List<T> QueryDatabase<T>(string command);
+        List<T> QueryDatabase<T>(string command, object param);
     }
 }

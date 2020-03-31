@@ -64,6 +64,10 @@ namespace Backend
             return _databaseConnection.Query<T>(sql: command, transaction: _transaction).ToList();
         }
 
+        public List<T> QueryDatabase<T>(string command, object param) {
+            return _databaseConnection.Query<T>(sql: command, transaction: _transaction, param: param).ToList();
+        }
+
         public void Dispose() {
             if (_transaction != null) {
                 _logger.Warn("transaction is still open, rolling it back");

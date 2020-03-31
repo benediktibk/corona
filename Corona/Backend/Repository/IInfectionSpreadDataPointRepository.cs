@@ -7,5 +7,6 @@ namespace Backend.Repository
         void DeleteAll(IUnitOfWork unitOfWork);
         void Insert(IUnitOfWork unitOfWork, InfectionSpreadDataPointDao dataPoint);
         void Insert(IUnitOfWork unitOfWork, IReadOnlyList<InfectionSpreadDataPointDao> dataPoints);
+        List<InfectionSpreadDataPointDao> GetAllForCountry(IUnitOfWork unitOfWork, CountryType country);
     }
 }
