@@ -24,7 +24,7 @@ namespace Backend.Service
                     new DataPoint<double, double>(25, 7),
                     new DataPoint<double, double>(13, -1),
                 },
-                5);
+                5, 1);
             return graph.ToSvg();
         }
     }
