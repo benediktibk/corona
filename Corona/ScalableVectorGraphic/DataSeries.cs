@@ -14,16 +14,16 @@ namespace ScalableVectorGraphic
             _color = color;
         }
 
-        public void FindRangeOfXValues(IGenericNumericOperations<X> numericOperations, out X minimum, out X maximum) {
-            var allValues = _dataPoints.Select(dataPoint => dataPoint.XValue).ToList();
-            minimum = numericOperations.FindSmallest(allValues);
-            maximum = numericOperations.FindBiggest(allValues);
+        public void FindRangeOfXValuesAsDouble(IGenericNumericOperations<X> numericOperations, out double minimum, out double maximum) {
+            var allValues = _dataPoints.Select(dataPoint => numericOperations.ConvertToDoubleEquivalent(dataPoint.XValue)).ToList();
+            minimum = allValues.Min();
+            maximum = allValues.Max();
         }
 
-        public void FindRangeOfYValues(IGenericNumericOperations<Y> numericOperations, out Y minimum, out Y maximum) {
-            var allValues = _dataPoints.Select(dataPoint => dataPoint.YValue).ToList();
-            minimum = numericOperations.FindSmallest(allValues);
-            maximum = numericOperations.FindBiggest(allValues);
+        public void FindRangeOfYValuesAsDouble(IGenericNumericOperations<Y> numericOperations, out double minimum, out double maximum) {
+            var allValues = _dataPoints.Select(dataPoint => numericOperations.ConvertToDoubleEquivalent(dataPoint.YValue)).ToList();
+            minimum = allValues.Min();
+            maximum = allValues.Max();
         }
 
         public List<IGraphicElement> CreateGraphicElements(IGenericNumericOperations<X> numericOperationsX, IGenericNumericOperations<Y> numericOperationsY) {

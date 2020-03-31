@@ -11,24 +11,24 @@ namespace ScalableVectorGraphic
 
         public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, X tickMarkDistanceXAxis, Y tickMarkDistanceYAxis) {
             var elements = new List<IGraphicElement>();
-            var allMinimumXValues = new List<X>();
-            var allMaximumXValues = new List<X>();
-            var allMinimumYValues = new List<Y>();
-            var allMaximumYValues = new List<Y>();
+            var allMinimumXValues = new List<double>();
+            var allMaximumXValues = new List<double>();
+            var allMinimumYValues = new List<double>();
+            var allMaximumYValues = new List<double>();
 
             foreach (var dataSeries in allDataSeries) {
-                dataSeries.FindRangeOfXValues(xAxis.NumericOperations, out var minimumX, out var maximumX);
-                dataSeries.FindRangeOfYValues(yAxis.NumericOperations, out var minimumY, out var maximumY);
+                dataSeries.FindRangeOfXValuesAsDouble(xAxis.NumericOperations, out var minimumX, out var maximumX);
+                dataSeries.FindRangeOfYValuesAsDouble(yAxis.NumericOperations, out var minimumY, out var maximumY);
                 allMinimumXValues.Add(minimumX);
                 allMaximumXValues.Add(maximumX);
                 allMinimumYValues.Add(minimumY);
                 allMaximumYValues.Add(maximumY);
             }
 
-            var overallMinimumX = xAxis.NumericOperations.FindSmallest(allMinimumXValues);
-            var overallMaximumX = xAxis.NumericOperations.FindBiggest(allMinimumXValues);
-            var overallMinimumY = yAxis.NumericOperations.FindSmallest(allMinimumYValues);
-            var overallMaximumY = yAxis.NumericOperations.FindBiggest(allMinimumYValues);
+            var overallMinimumX = allMinimumXValues.Min();
+            var overallMaximumX = allMinimumXValues.Max();
+            var overallMinimumY = allMinimumYValues.Min();
+            var overallMaximumY = allMinimumYValues.Max();
 
             var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, (1 - _ratioYAxisLengthToImageSize) / 2 * height);
 
