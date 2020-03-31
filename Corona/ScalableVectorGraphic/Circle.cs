@@ -23,7 +23,7 @@ namespace ScalableVectorGraphic
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
-            return new Circle(Description, transformation.Apply(Radius), Color, transformation.Apply(Position));
+            return new Circle(Description, transformation.ApplyToWidth(Radius), Color, transformation.ApplyToPoint(Position));
         }
     }
 }

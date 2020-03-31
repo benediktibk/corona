@@ -7,12 +7,12 @@ namespace ScalableVectorGraphic
     {
         private readonly Matrix _matrix;
         private readonly Vector _offset;
-        private readonly double _ratio;
+        private readonly double _widthScaling;
 
         public Transformation(Matrix matrix, Vector offset) {
             _matrix = matrix;
             _offset = offset;
-            _ratio = Math.Sqrt(Math.Abs(_matrix.Determinant));
+            _widthScaling = Math.Sqrt(Math.Abs(_matrix.Determinant));
         }
 
         public List<IGraphicElement> Apply(List<IGraphicElement> elements) {
@@ -25,12 +25,12 @@ namespace ScalableVectorGraphic
             return result;
         }
 
-        public Point Apply(Point point) {
+        public Point ApplyToPoint(Point point) {
             return new Point(_matrix * new Vector(point) + _offset);
         }
 
-        public double Apply(double value) {
-            return value * _ratio;
+        public double ApplyToWidth(double value) {
+            return value * _widthScaling;
         }
     }
 }

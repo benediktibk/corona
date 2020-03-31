@@ -33,7 +33,7 @@ namespace ScalableVectorGraphic
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
-            return new Text(Description, transformation.Apply(Position), Content, Color, RotationInDegrees, Font, transformation.Apply(FontSize));
+            return new Text(Description, transformation.ApplyToPoint(Position), Content, Color, RotationInDegrees, Font, transformation.ApplyToWidth(FontSize));
         }
     }
 }

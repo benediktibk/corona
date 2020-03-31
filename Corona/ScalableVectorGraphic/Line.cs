@@ -28,7 +28,7 @@ namespace ScalableVectorGraphic
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
-            return new Line(Description, transformation.Apply(Start), transformation.Apply(End), Color, transformation.Apply(Width));
+            return new Line(Description, transformation.ApplyToPoint(Start), transformation.ApplyToPoint(End), Color, transformation.ApplyToWidth(Width));
         }
     }
 }

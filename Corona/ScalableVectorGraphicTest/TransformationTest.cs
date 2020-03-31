@@ -12,7 +12,7 @@ namespace ScalableVectorGraphicTest
             var x = new Point(5, 3);
             var transformation = new Transformation(new Matrix(new Vector(2.5, -3), new Vector(10, 7)), new Vector(-4, 9.3));
 
-            var y = transformation.Apply(x);
+            var y = transformation.ApplyToPoint(x);
 
             y.X.Should().BeApproximately(42.5 - 4, 1e-5);
             y.Y.Should().BeApproximately(6 + 9.3, 1e-5);

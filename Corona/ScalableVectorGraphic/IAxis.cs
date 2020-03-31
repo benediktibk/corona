@@ -6,6 +6,7 @@ namespace ScalableVectorGraphic
     {
         IGenericNumericOperations<T> NumericOperations { get; }
 
-        List<IGraphicElement> CreateGraphicElements(T minimumValue, T maximumValue, T tickMarkDistance);
+        List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(T minimumValue, T maximumValue, T tickMarkDistance);
+        List<IGraphicElement> CreateGraphicElementsForVerticalAxis(T minimumValue, T maximumValue, T tickMarkDistance);
     }
 }
