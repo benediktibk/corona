@@ -16,7 +16,12 @@ namespace CoronaSpreadViewer.Controllers
 
         [HttpGet]
         public HttpResponseMessage Get(string id) {
-            var result = _graphService.CreateGraph();
+            var result = _graphService.CreateGraph(id);
+
+            if (string.IsNullOrEmpty(result)) {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             response.Content = new StringContent(result);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/svg+xml");
