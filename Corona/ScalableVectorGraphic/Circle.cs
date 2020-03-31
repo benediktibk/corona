@@ -4,12 +4,14 @@ namespace ScalableVectorGraphic
 {
     public class Circle : IGraphicElement
     {
-        public Circle(double radius, Color color, Point position) {
+        public Circle(string description, double radius, Color color, Point position) {
+            Description = description;
             Radius = radius;
             Color = color;
             Position = position;
         }
 
+        public string Description { get; }
         public double Radius { get; }
         public Color Color { get; }
         public Point Position { get; }
@@ -19,7 +21,7 @@ namespace ScalableVectorGraphic
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
-            return new Circle(Radius, Color, transformation.Apply(Position));
+            return new Circle(Description, Radius, Color, transformation.Apply(Position));
         }
     }
 }

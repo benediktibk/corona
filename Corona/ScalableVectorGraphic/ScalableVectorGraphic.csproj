@@ -45,7 +45,7 @@
     <Compile Include="Circle.cs" />
     <Compile Include="DataPoint.cs" />
     <Compile Include="GenericNumericOperations.cs" />
-    <Compile Include="GraphicElement.cs" />
+    <Compile Include="IGraphicElement.cs" />
     <Compile Include="IAxis.cs" />
     <Compile Include="IGenericNumericOperations.cs" />
     <Compile Include="Image.cs" />

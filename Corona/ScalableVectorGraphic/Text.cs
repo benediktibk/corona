@@ -3,10 +3,11 @@ using System.Text;
 
 namespace ScalableVectorGraphic
 {
-    [DebuggerDisplay("Text {Content}")]
+    [DebuggerDisplay("Text {Description} {Content}")]
     public class Text : IGraphicElement
     {
-        public Text(Point position, string content, Color color, double rotationInDegrees, string font, int fontSize) {
+        public Text(string description, Point position, string content, Color color, double rotationInDegrees, string font, int fontSize) {
+            Description = description;
             Position = position;
             Content = content;
             Color = color;
@@ -15,6 +16,7 @@ namespace ScalableVectorGraphic
             FontSize = fontSize;
         }
 
+        public string Description { get; }
         public Point Position { get; }
         public string Content { get; }
         public Color Color { get; }
@@ -29,7 +31,7 @@ namespace ScalableVectorGraphic
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
-            return new Text(transformation.Apply(Position), Content, Color, RotationInDegrees, Font, FontSize);
+            return new Text(Description, transformation.Apply(Position), Content, Color, RotationInDegrees, Font, FontSize);
         }
     }
 }

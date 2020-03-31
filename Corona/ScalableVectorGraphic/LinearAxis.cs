@@ -19,13 +19,13 @@ namespace ScalableVectorGraphic
 
         public List<IGraphicElement> CreateGraphicElements(T minimumValue, T maximumValue, T tickMarkDistance) {
             var result = new List<IGraphicElement>();
-            result.Add(new Line(new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
+            result.Add(new Line("axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
 
             for (var i = minimumValue; NumericOperations.SmallerThan(i, maximumValue); i = NumericOperations.Add(i, tickMarkDistance)) {
                 double position = NumericOperations.ScaleBetween0And1(minimumValue, maximumValue, i);
-                result.Add(new Line(new Point(position, 0), new Point(position, _tickMarkLength), Color.Black, _tickMarkWidth));
+                result.Add(new Line("axis tick mark", new Point(position, 0), new Point(position, _tickMarkLength), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
-                result.Add(new Text(new Point(position, _labelOffset), label, Color.Black, 0, _labelFont, _fontSize));
+                result.Add(new Text("axis tick label", new Point(position, _labelOffset), label, Color.Black, 0, _labelFont, _fontSize));
             }
 
             return result;
