@@ -15,7 +15,7 @@ namespace CoronaSpreadViewer.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(string id) {
+        public HttpResponseMessage Get(int id) {
             var result = _graphService.CreateGraph(id);
 
             if (string.IsNullOrEmpty(result)) {

@@ -2,6 +2,6 @@
 {
     public interface IGraphService
     {
-        string CreateGraph(string id);
+        string CreateGraph(int id);
     }
 }
