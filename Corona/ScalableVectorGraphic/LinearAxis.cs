@@ -18,7 +18,7 @@ namespace ScalableVectorGraphic
 
         public List<IGraphicElement> CreateGraphicElements(T minimumValue, T maximumValue, T tickMarkDistance) {
             var result = new List<IGraphicElement>();
-            result.Add(new Line(new Point(0, 0), new Point(0, 1), Color.Black, _axisWidth));
+            result.Add(new Line(new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
 
             for (var i = minimumValue; _numericOperations.SmallerThan(i, maximumValue); i = _numericOperations.Add(i, tickMarkDistance)) {
                 double position = _numericOperations.ScaleBetween0And1(minimumValue, maximumValue, i);
