@@ -8,6 +8,7 @@ namespace ScalableVectorGraphic
         private readonly List<DataPoint<X, Y>> _dataPoints;
         private readonly Color _color;
         private const double _radius = 0.1;
+        private const double _lineWidth = 0.05;
 
         public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color) {
             _dataPoints = dataPoints.ToList();
@@ -30,9 +31,17 @@ namespace ScalableVectorGraphic
             var result = new List<IGraphicElement>();
 
             var dataPointsConverted = _dataPoints.Select(dataPoint => new Point(numericOperationsX.ConvertToDoubleEquivalent(dataPoint.XValue), numericOperationsY.ConvertToDoubleEquivalent(dataPoint.YValue)));
+            var dataPointsConvertedAndOrderd = dataPointsConverted.OrderBy(dataPoint => dataPoint.X).ToList();
 
-            foreach (var dataPoint in dataPointsConverted) {
+            foreach (var dataPoint in dataPointsConvertedAndOrderd) {
                 result.Add(new Circle($"data point ({dataPoint.X},{dataPoint.Y})", _radius, _color, dataPoint));
+            }
+
+            for (var i = 1; i < dataPointsConvertedAndOrderd.Count(); ++i) {
+                var previous = dataPointsConvertedAndOrderd[i - 1];
+                var current = dataPointsConvertedAndOrderd[i];
+
+                result.Add(new Line($"data point connection from ({previous.X},{previous.Y}) to ({current.X},{current.Y})", previous, current, _color, _lineWidth));
             }
 
             return result;
