@@ -8,12 +8,16 @@ namespace ScalableVectorGraphic
     {
         private readonly double[,] _values;
 
-        public Matrix(Vector column1, Vector column2) {
+        public Matrix(double m11, double m22) :
+            this(m11, 0, 0, m22) {
+        }
+
+        public Matrix(double m11, double m12, double m21, double m22) {
             _values = new double[2, 2];
-            this[0, 0] = column1.X;
-            this[1, 0] = column1.Y;
-            this[0, 1] = column2.X;
-            this[1, 1] = column2.Y;
+            this[0, 0] = m11;
+            this[1, 0] = m21;
+            this[0, 1] = m12;
+            this[1, 1] = m22;
             Determinant = this[0, 0] * this[1, 1] - this[0, 1] * this[1, 0];
         }
 

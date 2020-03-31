@@ -10,7 +10,7 @@ namespace ScalableVectorGraphicTest
         [TestMethod]
         public void Apply_ValidValues_CorrectResult() {
             var x = new Point(5, 3);
-            var transformation = new Transformation(new Matrix(new Vector(2.5, -3), new Vector(10, 7)), new Vector(-4, 9.3));
+            var transformation = new Transformation(new Matrix(2.5, 10, -3, 7), new Vector(-4, 9.3));
 
             var y = transformation.ApplyToPoint(x);
 

@@ -40,9 +40,9 @@ namespace ScalableVectorGraphic
                 dataSeriesElements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations));
             }
 
-            var transformGraphToImageSize = new Transformation(new Matrix(new Vector(_ratioXAxisLengthToImageSize * width, 0), new Vector(0, _ratioYAxisLengthToImageSize * height)), originOffset);
+            var transformGraphToImageSize = new Transformation(new Matrix(_ratioXAxisLengthToImageSize * width, _ratioYAxisLengthToImageSize * height), originOffset);
             elements = transformGraphToImageSize.Apply(elements);
-            var transformImageToSvgCoordinates = new Transformation(new Matrix(new Vector(1, 0), new Vector(0, -1)), new Vector(0, height));
+            var transformImageToSvgCoordinates = new Transformation(new Matrix(1, -1), new Vector(0, height));
             elements = transformImageToSvgCoordinates.Apply(elements);
             _image = new Image(width, height, elements);
         }
