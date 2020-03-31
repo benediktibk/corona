@@ -44,7 +44,8 @@
     <Compile Include="Color.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="DataPoint.cs" />
-    <Compile Include="GenericNumericOperations.cs" />
+    <Compile Include="DataSeries.cs" />
+    <Compile Include="NumericOperationsDouble.cs" />
     <Compile Include="IGraphicElement.cs" />
     <Compile Include="IAxis.cs" />
     <Compile Include="IGenericNumericOperations.cs" />

@@ -9,17 +9,36 @@ namespace ScalableVectorGraphic
         private const double _ratioXAxisLengthToImageSize = 0.90;
         private const double _ratioYAxisLengthToImageSize = 0.95;
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataPoint<X, Y>> dataPoints, X tickMarkDistanceXAxis, Y tickMarkDistanceYAxis) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, X tickMarkDistanceXAxis, Y tickMarkDistanceYAxis) {
             var elements = new List<IGraphicElement>();
-            var allXValues = dataPoints.Select(dataPoint => dataPoint.XValue).ToList();
-            var allYValues = dataPoints.Select(dataPoint => dataPoint.YValue).ToList();
+            var allMinimumXValues = new List<X>();
+            var allMaximumXValues = new List<X>();
+            var allMinimumYValues = new List<Y>();
+            var allMaximumYValues = new List<Y>();
+
+            foreach (var dataSeries in allDataSeries) {
+                dataSeries.FindRangeOfXValues(xAxis.NumericOperations, out var minimumX, out var maximumX);
+                dataSeries.FindRangeOfYValues(yAxis.NumericOperations, out var minimumY, out var maximumY);
+                allMinimumXValues.Add(minimumX);
+                allMaximumXValues.Add(maximumX);
+                allMinimumYValues.Add(minimumY);
+                allMaximumYValues.Add(maximumY);
+            }
+
+            var overallMinimumX = xAxis.NumericOperations.FindSmallest(allMinimumXValues);
+            var overallMaximumX = xAxis.NumericOperations.FindBiggest(allMinimumXValues);
+            var overallMinimumY = yAxis.NumericOperations.FindSmallest(allMinimumYValues);
+            var overallMaximumY = yAxis.NumericOperations.FindBiggest(allMinimumYValues);
+
             var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, (1 - _ratioYAxisLengthToImageSize) / 2 * height);
 
-            var elementsXAxis = xAxis.CreateGraphicElementsForHorizontalAxis(xAxis.NumericOperations.FindSmallest(allXValues), xAxis.NumericOperations.FindBiggest(allXValues), tickMarkDistanceXAxis);
-            elements.AddRange(elementsXAxis);
+            elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(overallMinimumX, overallMaximumX, tickMarkDistanceXAxis));
+            elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(overallMinimumY, overallMaximumY, tickMarkDistanceYAxis));
 
-            var elementsYAxis = yAxis.CreateGraphicElementsForVerticalAxis(yAxis.NumericOperations.FindSmallest(allYValues), yAxis.NumericOperations.FindBiggest(allYValues), tickMarkDistanceYAxis);
-            elements.AddRange(elementsYAxis);
+            var dataSeriesElements = new List<IGraphicElement>();
+            foreach (var dataSeries in allDataSeries) {
+                dataSeriesElements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations));
+            }
 
             var transformGraphToImageSize = new Transformation(new Matrix(new Vector(_ratioXAxisLengthToImageSize * width, 0), new Vector(0, _ratioYAxisLengthToImageSize * height)), originOffset);
             elements = transformGraphToImageSize.Apply(elements);

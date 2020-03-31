@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ScalableVectorGraphic
 {
-    public class GenericNumericOperations : IGenericNumericOperations<double>
+    public class NumericOperationsDouble : IGenericNumericOperations<double>
     {
         private const string _labelFormat = "F1";
 
@@ -30,6 +30,10 @@ namespace ScalableVectorGraphic
 
         public double FindBiggest(IReadOnlyList<double> values) {
             return values.Max();
+        }
+
+        public double ConvertToDoubleEquivalent(double value) {
+            return value;
         }
     }
 }

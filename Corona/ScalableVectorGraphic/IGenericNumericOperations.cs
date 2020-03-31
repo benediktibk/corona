@@ -10,5 +10,6 @@ namespace ScalableVectorGraphic
         double ScaleBetween0And1(T minimumValue, T maximumValue, T value);
         T FindSmallest(IReadOnlyList<T> values);
         T FindBiggest(IReadOnlyList<T> values);
+        double ConvertToDoubleEquivalent(T value);
     }
 }

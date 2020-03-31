@@ -13,7 +13,7 @@ namespace Backend.Service
         }
 
         public string CreateGraph() {
-            var numericOperations = new GenericNumericOperations();
+            var numericOperations = new NumericOperationsDouble();
             var graph = new XYGraph<double, double>(
                 1000, 800, 
                 new LinearAxis<double>(numericOperations), 
