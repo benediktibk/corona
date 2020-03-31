@@ -4,9 +4,9 @@ namespace ScalableVectorGraphic
 {
     public class LinearAxis<T> : IAxis<T>
     {
-        private const double _axisWidth = 0.001;
+        private const double _axisWidth = 0.002;
         private const double _tickMarkLength = 0.01;
-        private const double _tickMarkWidth = 0.0005;
+        private const double _tickMarkWidth = 0.001;
         private const string _labelFont = "monospace";
         private const double _fontSize = 0.02;
         private const double _labelOffsetFromAxis = -0.02;
@@ -30,8 +30,9 @@ namespace ScalableVectorGraphic
                 }
 
                 var label = NumericOperations.CreateLabel(i);
-                var labelOffsetFromTick = (label.Length / 2.0) * (_fontSize / -10.0);
-                result.Add(new Text("axis tick label", new Point(position /*+ labelOffsetFromTick*/, _labelOffsetFromAxis), label, Color.Black, 0, _labelFont, _fontSize));
+                var halfLabelLength = label.Length / 2.0;
+                var labelOffsetFromTick = halfLabelLength * _fontSize * (-0.5);
+                result.Add(new Text("axis tick label", new Point(position + labelOffsetFromTick, _labelOffsetFromAxis), label, Color.Black, 0, _labelFont, _fontSize));
                 nextTickRequired = true;
             }
 
