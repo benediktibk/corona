@@ -4,11 +4,11 @@ namespace ScalableVectorGraphic
 {
     public class LinearAxis<T> : IAxis<T>
     {
-        private const double _axisWidth = 1;
+        private const double _axisWidth = 0.001;
         private const double _tickMarkLength = 0.01;
-        private const double _tickMarkWidth = 0.5;
+        private const double _tickMarkWidth = 0.0005;
         private const string _labelFont = "monospace";
-        private const double _fontSize = 0.01;
+        private const double _fontSize = 0.02;
         private const double _labelOffsetFromAxis = -0.02;
 
         public LinearAxis(IGenericNumericOperations<T> numericOperations) {

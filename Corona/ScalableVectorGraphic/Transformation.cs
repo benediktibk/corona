@@ -7,10 +7,12 @@ namespace ScalableVectorGraphic
     {
         private readonly Matrix _matrix;
         private readonly Vector _offset;
+        private readonly double _ratio;
 
         public Transformation(Matrix matrix, Vector offset) {
             _matrix = matrix;
             _offset = offset;
+            _ratio = Math.Sqrt(Math.Abs(_matrix.Determinant));
         }
 
         public List<IGraphicElement> Apply(List<IGraphicElement> elements) {
@@ -28,7 +30,7 @@ namespace ScalableVectorGraphic
         }
 
         public double Apply(double value) {
-            return value * Math.Abs(_matrix.Determinant);
+            return value * _ratio;
         }
     }
 }
