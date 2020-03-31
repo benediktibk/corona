@@ -8,12 +8,12 @@ namespace ScalableVectorGraphic
         private readonly Image _image;
         private const double _ratioAxisLengthToImageSize = 0.95;
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataPoint<X, Y>> dataPoints, IGenericNumericOperations<X> xAxisNumericOperations, IGenericNumericOperations<Y> yAxisNumericOperations, X tickMarkDistanceXAxis) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataPoint<X, Y>> dataPoints, X tickMarkDistanceXAxis) {
             var elements = new List<IGraphicElement>();
             var allXValues = dataPoints.Select(dataPoint => dataPoint.XValue).ToList();
             var allYValues = dataPoints.Select(dataPoint => dataPoint.YValue).ToList();
 
-            var elementsXAxis = xAxis.CreateGraphicElements(xAxisNumericOperations.FindSmallest(allXValues), xAxisNumericOperations.FindBiggest(allXValues), tickMarkDistanceXAxis);
+            var elementsXAxis = xAxis.CreateGraphicElements(xAxis.NumericOperations.FindSmallest(allXValues), xAxis.NumericOperations.FindBiggest(allXValues), tickMarkDistanceXAxis);
             var transformXToGraph = new Transformation(new Matrix(new Vector(_ratioAxisLengthToImageSize * width, 0), new Vector(0, _ratioAxisLengthToImageSize * height)), new Vector(0, (1 - _ratioAxisLengthToImageSize)/2*height));
             elementsXAxis = transformXToGraph.Apply(elementsXAxis);
             elements.AddRange(elementsXAxis);
