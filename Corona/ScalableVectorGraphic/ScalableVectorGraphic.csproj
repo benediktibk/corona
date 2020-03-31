@@ -45,6 +45,9 @@
     <Compile Include="Circle.cs" />
     <Compile Include="DataPoint.cs" />
     <Compile Include="DataSeries.cs" />
+    <Compile Include="DataSeriesRange.cs" />
+    <Compile Include="IAxisTransformation.cs" />
+    <Compile Include="LinearAxisTransformation.cs" />
     <Compile Include="NumericOperationsDouble.cs" />
     <Compile Include="IGraphicElement.cs" />
     <Compile Include="IAxis.cs" />

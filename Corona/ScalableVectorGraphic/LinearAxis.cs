@@ -16,6 +16,10 @@ namespace ScalableVectorGraphic
 
         public IGenericNumericOperations<T> NumericOperations { get; }
 
+        public IAxisTransformation CreateAxisTransformation(double minimumValue, double maximumValue) {
+            return new LinearAxisTransformation(minimumValue, maximumValue);
+        }
+
         public List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue, T tickMarkDistance) {
             var result = new List<IGraphicElement>();
             result.Add(new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));

@@ -8,5 +8,6 @@ namespace ScalableVectorGraphic
 
         List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue, T tickMarkDistance);
         List<IGraphicElement> CreateGraphicElementsForVerticalAxis(double minimumValue, double maximumValue, T tickMarkDistance);
+        IAxisTransformation CreateAxisTransformation(double minimumValue, double maximumValue);
     }
 }

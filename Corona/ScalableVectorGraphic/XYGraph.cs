@@ -25,28 +25,19 @@ namespace ScalableVectorGraphic
                 allMaximumYValues.Add(maximumY);
             }
 
-            var overallMinimumX = allMinimumXValues.Min();
-            var overallMaximumX = allMaximumXValues.Max();
-            var overallMinimumY = allMinimumYValues.Min();
-            var overallMaximumY = allMaximumYValues.Max();
+            var dataSeriesRange = new DataSeriesRange(allMinimumXValues.Min(), allMaximumXValues.Max(), allMinimumYValues.Min(), allMaximumYValues.Max());
 
             var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, (1 - _ratioYAxisLengthToImageSize) / 2 * height);
 
-            elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(overallMinimumX, overallMaximumX, tickMarkDistanceXAxis));
-            elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(overallMinimumY, overallMaximumY, tickMarkDistanceYAxis));
+            elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX, tickMarkDistanceXAxis));
+            elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY, tickMarkDistanceYAxis));
 
-            var dataSeriesElements = new List<IGraphicElement>();
+            var xAxisTransformation = xAxis.CreateAxisTransformation(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX);
+            var yAxisTransformation = yAxis.CreateAxisTransformation(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY);
+
             foreach (var dataSeries in allDataSeries) {
-                dataSeriesElements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations));
+                elements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations, xAxisTransformation, yAxisTransformation));
             }
-
-            var xScale = 1.0 / (overallMaximumX - overallMinimumX);
-            var xOffset = (-1.0) * overallMinimumX * xScale;
-            var yScale = 1.0 / (overallMaximumY - overallMinimumY);
-            var yOffset = (-1.0) * overallMinimumY * yScale;
-            var transformationDataSeriesToGraph = new Transformation(new Matrix(xScale, yScale), new Vector(xOffset, yOffset));
-            dataSeriesElements = transformationDataSeriesToGraph.Apply(dataSeriesElements);
-            elements.AddRange(dataSeriesElements);
 
             var transformGraphToImageSize = new Transformation(new Matrix(_ratioXAxisLengthToImageSize * width, _ratioYAxisLengthToImageSize * height), originOffset);
             elements = transformGraphToImageSize.Apply(elements);
