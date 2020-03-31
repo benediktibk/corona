@@ -4,6 +4,7 @@ using Backend.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BackendTest.Service
 {
@@ -53,11 +54,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object, 
-                    It.Is<InfectionSpreadDataPointDao>(y => 
-                        y.CountryId == CountryType.SouthKorea && 
-                        y.InfectedTotal == 1 && 
-                        y.DeathsTotal == 0 && 
-                        y.RecoveredTotal == 0)), 
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z => 
+                        z.CountryId == CountryType.SouthKorea && 
+                        z.InfectedTotal == 1 && 
+                        z.DeathsTotal == 0 && 
+                        z.RecoveredTotal == 0))), 
                 Times.Once);
         }
 
@@ -72,11 +73,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.China &&
-                        y.InfectedTotal == 548 &&
-                        y.DeathsTotal == 17 &&
-                        y.RecoveredTotal == 28)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.China &&
+                        z.InfectedTotal == 548 &&
+                        z.DeathsTotal == 17 &&
+                        z.RecoveredTotal == 28))),
                 Times.Once);
         }
 
@@ -91,11 +92,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Taiwan &&
-                        y.InfectedTotal == 1 &&
-                        y.DeathsTotal == 0 &&
-                        y.RecoveredTotal == 0)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Taiwan &&
+                        z.InfectedTotal == 1 &&
+                        z.DeathsTotal == 0 &&
+                        z.RecoveredTotal == 0))),
                 Times.Once);
         }
 
@@ -110,11 +111,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Usa &&
-                        y.InfectedTotal == 1 &&
-                        y.DeathsTotal == 0 &&
-                        y.RecoveredTotal == 0)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Usa &&
+                        z.InfectedTotal == 1 &&
+                        z.DeathsTotal == 0 &&
+                        z.RecoveredTotal == 0))),
                 Times.Once);
         }
 
@@ -129,11 +130,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Japan &&
-                        y.InfectedTotal == 2 &&
-                        y.DeathsTotal == 0 &&
-                        y.RecoveredTotal == 0)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Japan &&
+                        z.InfectedTotal == 2 &&
+                        z.DeathsTotal == 0 &&
+                        z.RecoveredTotal == 0))),
                 Times.Once);
         }
 
@@ -148,11 +149,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Thailand &&
-                        y.InfectedTotal == 2 &&
-                        y.DeathsTotal == 0 &&
-                        y.RecoveredTotal == 0)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Thailand &&
+                        z.InfectedTotal == 2 &&
+                        z.DeathsTotal == 0 &&
+                        z.RecoveredTotal == 0))),
                 Times.Once);
         }
 
@@ -167,9 +168,9 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Thailand &&
-                        y.Date == new System.DateTime(2020, 1, 22, 17, 0, 0))),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Thailand &&
+                        z.Date == new System.DateTime(2020, 1, 22, 17, 0, 0)))),
                 Times.Once);
         }
 
@@ -184,11 +185,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Usa &&
-                        y.InfectedTotal == 101657 &&
-                        y.DeathsTotal == 1581 &&
-                        y.RecoveredTotal == 869)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Usa &&
+                        z.InfectedTotal == 101657 &&
+                        z.DeathsTotal == 1581 &&
+                        z.RecoveredTotal == 869))),
                 Times.Once);
         }
 
@@ -203,9 +204,9 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Usa &&
-                        y.Date == new System.DateTime(2020, 3, 27, 22, 14, 55))),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Usa &&
+                        z.Date == new System.DateTime(2020, 3, 27, 22, 14, 55)))),
                 Times.Once);
         }
 
@@ -220,11 +221,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Austria &&
-                        y.InfectedTotal == 7657 &&
-                        y.DeathsTotal == 58 &&
-                        y.RecoveredTotal == 225)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Austria &&
+                        z.InfectedTotal == 7657 &&
+                        z.DeathsTotal == 58 &&
+                        z.RecoveredTotal == 225))),
                 Times.Once);
         }
 
@@ -239,11 +240,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Austria &&
-                        y.InfectedTotal == 7657 &&
-                        y.DeathsTotal == 58 &&
-                        y.RecoveredTotal == 225)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Austria &&
+                        z.InfectedTotal == 7657 &&
+                        z.DeathsTotal == 58 &&
+                        z.RecoveredTotal == 225))),
                 Times.Once);
         }
 
@@ -258,11 +259,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.SouthKorea &&
-                        y.InfectedTotal == 9332 &&
-                        y.DeathsTotal == 139 &&
-                        y.RecoveredTotal == 4528)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.SouthKorea &&
+                        z.InfectedTotal == 9332 &&
+                        z.DeathsTotal == 139 &&
+                        z.RecoveredTotal == 4528))),
                 Times.Once);
         }
 
@@ -277,8 +278,8 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.IsAny<InfectionSpreadDataPointDao>()),
-                Times.Exactly(176));
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Count() == 176)),
+                Times.Once());
         }
 
         [TestMethod]
@@ -292,11 +293,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Usa &&
-                        y.InfectedTotal == 10052 &&
-                        y.DeathsTotal == 0 &&
-                        y.RecoveredTotal == 105)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Usa &&
+                        z.InfectedTotal == 10052 &&
+                        z.DeathsTotal == 0 &&
+                        z.RecoveredTotal == 105))),
                 Times.Once);
         }
 
@@ -311,11 +312,11 @@ namespace BackendTest.Service
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
                     _unitOfWork.Object,
-                    It.Is<InfectionSpreadDataPointDao>(y =>
-                        y.CountryId == CountryType.Usa &&
-                        y.InfectedTotal == 9999 &&
-                        y.DeathsTotal == 0 &&
-                        y.RecoveredTotal == 0)),
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.Usa &&
+                        z.InfectedTotal == 9999 &&
+                        z.DeathsTotal == 0 &&
+                        z.RecoveredTotal == 0))),
                 Times.Once);
         }
     }
