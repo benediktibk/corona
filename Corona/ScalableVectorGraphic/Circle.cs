@@ -17,7 +17,8 @@ namespace ScalableVectorGraphic
         public Point Position { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder) {
-            stringBuilder.Append($"<circle cx=\"{Position.X}\" cy=\"{Position.Y}\" r=\"{Radius}\" fill=\"{Color.ToSvg()}\" />");
+            stringBuilder.Append($"<!-- {Description} -->\n");
+            stringBuilder.Append($"<circle cx=\"{Position.X}\" cy=\"{Position.Y}\" r=\"{Radius}\" fill=\"{Color.ToSvg()}\" />\n");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

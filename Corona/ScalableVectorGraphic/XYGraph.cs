@@ -14,7 +14,8 @@ namespace ScalableVectorGraphic
             var allYValues = dataPoints.Select(dataPoint => dataPoint.YValue).ToList();
 
             var elementsXAxis = xAxis.CreateGraphicElements(xAxis.NumericOperations.FindSmallest(allXValues), xAxis.NumericOperations.FindBiggest(allXValues), tickMarkDistanceXAxis);
-            var transformXToGraph = new Transformation(new Matrix(new Vector(_ratioAxisLengthToImageSize * width, 0), new Vector(0, _ratioAxisLengthToImageSize * height)), new Vector(0, (1 - _ratioAxisLengthToImageSize)/2*height));
+            var originOffset = new Vector((1 - _ratioAxisLengthToImageSize) / 2 * width, (1 - _ratioAxisLengthToImageSize) / 2 * height);
+            var transformXToGraph = new Transformation(new Matrix(new Vector(_ratioAxisLengthToImageSize * width, 0), new Vector(0, _ratioAxisLengthToImageSize * height)), originOffset);
             elementsXAxis = transformXToGraph.Apply(elementsXAxis);
             elements.AddRange(elementsXAxis);
 

@@ -22,7 +22,8 @@ namespace ScalableVectorGraphic
         public string Description { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder) {
-            stringBuilder.Append($"<line x1=\"{Start.X}\" y1=\"{Start.Y}\" x2=\"{End.X}\" y2=\"{End.Y}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width}\" />");
+            stringBuilder.Append($"<!-- {Description} -->\n");
+            stringBuilder.Append($"<line x1=\"{Start.X}\" y1=\"{Start.Y}\" x2=\"{End.X}\" y2=\"{End.Y}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width}\" />\n");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

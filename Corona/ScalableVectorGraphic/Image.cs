@@ -27,7 +27,6 @@ namespace ScalableVectorGraphic
 
             foreach (var element in _elements) {
                 element.AppendXmlTo(stringBuilder);
-                stringBuilder.Append("\n");
             }
 
             stringBuilder.Append($"</svg>");
