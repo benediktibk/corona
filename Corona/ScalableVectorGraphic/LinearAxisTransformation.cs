@@ -1,4 +1,6 @@
-﻿namespace ScalableVectorGraphic
+﻿using System;
+
+namespace ScalableVectorGraphic
 {
     public class LinearAxisTransformation : IAxisTransformation
     {
@@ -17,6 +19,10 @@
 
         public double Apply(double value) {
             return value * ScalingFactor + _offset;
+        }
+
+        public double ApplyToLineWidth(double value) {
+            return value * Math.Sqrt(Math.Abs(ScalingFactor));
         }
 
         public double CalculateNextTick(double value) {

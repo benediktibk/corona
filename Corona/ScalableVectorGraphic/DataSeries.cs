@@ -27,7 +27,7 @@ namespace ScalableVectorGraphic
             maximum = allValues.Max();
         }
 
-        public List<IGraphicElement> CreateGraphicElements(IGenericNumericOperations<X> numericOperationsX, IGenericNumericOperations<Y> numericOperationsY, IAxisTransformation xAxisTransformation, IAxisTransformation yAxisTransformation, double overallScalingFactor) {
+        public List<IGraphicElement> CreateGraphicElements(IGenericNumericOperations<X> numericOperationsX, IGenericNumericOperations<Y> numericOperationsY, IAxisTransformation xAxisTransformation, IAxisTransformation yAxisTransformation) {
             var result = new List<IGraphicElement>();
 
             var dataPointsConverted = _dataPoints.Select(dataPoint => new Point(numericOperationsX.ConvertToDoubleEquivalent(dataPoint.XValue), numericOperationsY.ConvertToDoubleEquivalent(dataPoint.YValue)));
@@ -35,14 +35,14 @@ namespace ScalableVectorGraphic
             var dataPointsConvertedAndOrderd = dataPointsScaled.OrderBy(dataPoint => dataPoint.X).ToList();
 
             for (var i = 0; i < dataPointsConvertedAndOrderd.Count(); ++i) {
-                result.Add(new Circle($"data point ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", _radius * overallScalingFactor, _color, dataPointsConvertedAndOrderd[i]));
+                result.Add(new Circle($"data point ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", yAxisTransformation.ApplyToLineWidth(xAxisTransformation.ApplyToLineWidth(_radius)), _color, dataPointsConvertedAndOrderd[i]));
             }
 
             for (var i = 1; i < dataPointsConvertedAndOrderd.Count(); ++i) {
                 var previous = dataPointsConvertedAndOrderd[i - 1];
                 var current = dataPointsConvertedAndOrderd[i];
 
-                result.Add(new Line($"data point connection from ({_dataPoints[i - 1].XValue},{_dataPoints[i - 1].YValue}) to ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", previous, current, _color, _lineWidth * overallScalingFactor));
+                result.Add(new Line($"data point connection from ({_dataPoints[i - 1].XValue},{_dataPoints[i - 1].YValue}) to ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", previous, current, _color, yAxisTransformation.ApplyToLineWidth(xAxisTransformation.ApplyToLineWidth(_lineWidth))));
             }
 
             return result;

@@ -21,6 +21,10 @@ namespace ScalableVectorGraphic
             return Math.Log10(value) * ScalingFactor + _offset;
         }
 
+        public double ApplyToLineWidth(double value) {
+            return value * Math.Sqrt(Math.Abs(ScalingFactor));
+        }
+
         public double CalculateNextTick(double value) {
             return value * 10;
         }
