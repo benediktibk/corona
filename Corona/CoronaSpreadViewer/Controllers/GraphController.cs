@@ -1,6 +1,7 @@
 ﻿using Backend;
 using Backend.Service;
 using ScalableVectorGraphic;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -20,18 +21,20 @@ namespace CoronaSpreadViewer.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(int id) {
+        [Route("api/graph/infected-absolute-linear")]
+        public HttpResponseMessage Get([FromUri] string[] country) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
-                var result = _graphService.CreateGraph(unitOfWork, (GraphType)id, new List<CountryAndColor> {
-                new CountryAndColor {
-                    Country = CountryType.Austria,
-                    Color = Color.Red
-                },
-                new CountryAndColor {
-                    Country = CountryType.Italy,
-                    Color = Color.Blue
+                var countries = new List<CountryType>();
+
+                foreach (var countrySingle in country) {
+                    if (!Enum.TryParse<CountryType>(countrySingle, true, out var countryParsed)) {
+                        return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    }
+
+                    countries.Add(countryParsed);
                 }
-            });
+
+                var result = _graphService.CreateGraphInfectedAbsoluteLinear(unitOfWork, countries);
 
                 if (string.IsNullOrEmpty(result)) {
                     return new HttpResponseMessage(HttpStatusCode.NotFound);

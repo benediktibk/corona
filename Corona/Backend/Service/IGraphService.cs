@@ -4,6 +4,6 @@ namespace Backend.Service
 {
     public interface IGraphService
     {
-        string CreateGraph(IUnitOfWork unitOfWork, GraphType type, IReadOnlyList<CountryAndColor> countries);
+        string CreateGraphInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
     }
 }

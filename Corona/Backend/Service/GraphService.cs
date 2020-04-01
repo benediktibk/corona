@@ -14,21 +14,13 @@ namespace Backend.Service
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
         }
 
-        public string CreateGraph(IUnitOfWork unitOfWork, GraphType type, IReadOnlyList<CountryAndColor> countries) {
-            switch(type) {
-                case GraphType.InfectedAbsoluteLinear:
-                    return CreateInfectedAbsoluteLinear(unitOfWork, countries);
-                default:
-                    return string.Empty;
-            }
-        }
-
-        private string CreateInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryAndColor> countries) {
+        public string CreateGraphInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
-            foreach (var country in countries) {
-                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, country.Country);
+
+            for (var i = 0; i < countries.Count(); ++i) {
+                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, dataPoint.InfectedTotal)).ToList();
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, country.Color);
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
                 allDataSeries.Add(dataSeries);
             }
 
