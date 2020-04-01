@@ -112,7 +112,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Update.cshtml" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -141,7 +140,7 @@
       <Link>Config\Production.Corona.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Index.cshtml" />
+    <Content Include="index.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Production.pubxml" />
     <None Include="Web.Debug.config">
