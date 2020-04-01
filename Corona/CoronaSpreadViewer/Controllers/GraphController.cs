@@ -46,6 +46,32 @@ namespace CoronaSpreadViewer.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/graph/infected-per-population-logarithmic")]
+        public HttpResponseMessage GetInfectedPerPopulationLogarithmic([FromUri] string[] country) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                if (!TryParseCountries(country, out var countriesParsed)) {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
+                var result = _graphService.CreateGraphInfectedPerPopulationLogarithmic(unitOfWork, countriesParsed);
+                return CreateResponse(result);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/graph/deaths-per-population-logarithmic")]
+        public HttpResponseMessage GetDeathsPerPopulationLogarithmic([FromUri] string[] country) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                if (!TryParseCountries(country, out var countriesParsed)) {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
+                var result = _graphService.CreateGraphDeathsPerPopulationLogarithmic(unitOfWork, countriesParsed);
+                return CreateResponse(result);
+            }
+        }
+
         private bool TryParseCountries(string[] country, out List<CountryType> result) {
             result = new List<CountryType>();
 

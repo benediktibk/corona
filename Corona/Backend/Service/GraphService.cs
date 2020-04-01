@@ -14,6 +14,23 @@ namespace Backend.Service
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
         }
 
+        public string CreateGraphDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<DateTime, double>>();
+
+            allDataSeries.Add(new DataSeries<DateTime, double>(new List<DataPoint<DateTime, double>> {
+                new DataPoint<DateTime, double>(new DateTime(2020, 3, 1), 0),
+                new DataPoint<DateTime, double>(new DateTime(2020, 3, 2), 0.5),
+                new DataPoint<DateTime, double>(new DateTime(2020, 3, 3), 1)
+            }, Color.Red));
+
+            var graph = new XYGraph<DateTime, double>(
+                1000, 800,
+                new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
+                new LinearAxis<double>(new NumericOperationsDouble()),
+                allDataSeries);
+            return graph.ToSvg();
+        }
+
         public string CreateGraphInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
 
@@ -41,6 +58,23 @@ namespace Backend.Service
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
                 allDataSeries.Add(dataSeries);
             }
+
+            var graph = new XYGraph<DateTime, double>(
+                1000, 800,
+                new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
+                new LogarithmicAxis<double>(new NumericOperationsDouble()),
+                allDataSeries);
+            return graph.ToSvg();
+        }
+
+        public string CreateGraphInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<DateTime, double>>();
+
+            allDataSeries.Add(new DataSeries<DateTime, double>(new List<DataPoint<DateTime, double>> {
+                new DataPoint<DateTime, double>(new DateTime(2020, 3, 1), 1),
+                new DataPoint<DateTime, double>(new DateTime(2020, 3, 2), 10),
+                new DataPoint<DateTime, double>(new DateTime(2020, 3, 3), 100)
+            }, Color.Red));
 
             var graph = new XYGraph<DateTime, double>(
                 1000, 800,
