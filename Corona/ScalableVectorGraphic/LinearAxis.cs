@@ -26,7 +26,7 @@ namespace ScalableVectorGraphic
         public List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue) {
             var result = new List<IGraphicElement>();
             result.Add(new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
-            var tickMarkDistance = (maximumValue - minimumValue)/5;
+            var tickMarkDistance = (maximumValue - minimumValue) / 7;
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
             for (var i = minimumValue + tickMarkDistance; i < maximumValue; i += tickMarkDistance) {
@@ -43,7 +43,7 @@ namespace ScalableVectorGraphic
         public List<IGraphicElement> CreateGraphicElementsForVerticalAxis(double minimumValue, double maximumValue) {
             var result = new List<IGraphicElement>();
             result.Add(new Line("vertical axis", new Point(0, 0), new Point(0, 1), Color.Black, _axisWidth));
-            var tickMarkDistance = (maximumValue - minimumValue) / 5;
+            var tickMarkDistance = (maximumValue - minimumValue) / 10;
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
             for (var i = minimumValue + tickMarkDistance; i < maximumValue; i += tickMarkDistance) {
