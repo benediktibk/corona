@@ -40,3 +40,26 @@ div.credentialLabels {
 
 div.credentialValues {
 }
+
+div.content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+div.legend {
+    margin-top: 10px;
+}
+
+div.legendAndGraph {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+div.graphs {
+    width: 100%;
+}
+
+img.graph {
+    width: 100%;
+}

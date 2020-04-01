@@ -26,7 +26,7 @@ namespace Backend.Service
                 elements.Add(new Line($"line for {countries[i]}", new Point(13 - _lineLength / 2, y), new Point(13 + _lineLength / 2, y), currentColor, _lineWidth));
             }
 
-            var legend = new Image(300, 2 * _borderTopAndBottom + _heightPerCountry * countries.Count(), elements);
+            var legend = new Image(200, 2 * _borderTopAndBottom + _heightPerCountry * countries.Count(), elements);
             return legend.CreateXml();
         }
     }
