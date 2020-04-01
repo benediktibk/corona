@@ -47,6 +47,8 @@
     <Compile Include="DataSeries.cs" />
     <Compile Include="DataSeriesRange.cs" />
     <Compile Include="IAxisTransformation.cs" />
+    <Compile Include="LogarithmicAxisTransformation.cs" />
+    <Compile Include="LogarithmicAxis.cs" />
     <Compile Include="LinearAxisTransformation.cs" />
     <Compile Include="NumericOperationsDateTime.cs" />
     <Compile Include="NumericOperationsDouble.cs" />

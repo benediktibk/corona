@@ -2,7 +2,7 @@
 
 namespace ScalableVectorGraphic
 {
-    public class LinearAxis<T> : IAxis<T>
+    public class LogarithmicAxis<T> : IAxis<T>
     {
         private const double _axisWidth = 0.002;
         private const double _tickMarkLength = 0.01;
@@ -10,14 +10,14 @@ namespace ScalableVectorGraphic
         private const string _labelFont = "monospace";
         private const double _fontSize = 0.02;
 
-        public LinearAxis(IGenericNumericOperations<T> numericOperations) {
+        public LogarithmicAxis(IGenericNumericOperations<T> numericOperations) {
             NumericOperations = numericOperations;
         }
 
         public IGenericNumericOperations<T> NumericOperations { get; }
 
         public IAxisTransformation CreateAxisTransformation(double minimumValue, double maximumValue) {
-            return new LinearAxisTransformation(minimumValue, maximumValue);
+            return new LogarithmicAxisTransformation(minimumValue, maximumValue);
         }
 
         public List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue, T tickMarkDistance) {
