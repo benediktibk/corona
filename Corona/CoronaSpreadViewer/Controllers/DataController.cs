@@ -7,20 +7,21 @@ using System.Web.Http;
 
 namespace CoronaSpreadViewer.Controllers
 {
-    public class ReimportController : ApiController
+    public class DataController : ApiController
     {
         private readonly IDataReimportService _dataReimportService;
         private readonly IAuthorizationService _authorizationService;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
-        public ReimportController(IDataReimportService dataReimportService, IAuthorizationService authorizationService, IUnitOfWorkFactory unitOfWorkFactory) {
+        public DataController(IDataReimportService dataReimportService, IAuthorizationService authorizationService, IUnitOfWorkFactory unitOfWorkFactory) {
             _dataReimportService = dataReimportService;
             _authorizationService = authorizationService;
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
         [HttpPost]
-        public HttpResponseMessage Post(Credentials credentials) {
+        [Route("api/data/reimport")]
+        public HttpResponseMessage Reimport(Credentials credentials) {
             if (!_authorizationService.IsAllowedToUpdateData(credentials.Username, credentials.Password)) {
                 return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
