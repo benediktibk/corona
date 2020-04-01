@@ -45,7 +45,7 @@ namespace Backend.Service
             var graph = new XYGraph<DateTime, double>(
                 1000, 800,
                 new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
-                new LinearAxis<double>(new NumericOperationsDouble()),
+                new LogarithmicAxis<double>(new NumericOperationsDouble()),
                 allDataSeries);
             return graph.ToSvg();
         }

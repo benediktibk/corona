@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ScalableVectorGraphic
 {
@@ -25,7 +26,7 @@ namespace ScalableVectorGraphic
             result.Add(new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
-            for (var i = minimumValue + 5; i < maximumValue; i += 5) {
+            for (var i = axisTransformation.AxisStartValue * 10; i < axisTransformation.AxisEndValue; i = i * 10) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("horizontal axis tick mark", new Point(position, 0), new Point(position, _tickMarkLength), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
@@ -42,7 +43,7 @@ namespace ScalableVectorGraphic
             result.Add(new Line("vertical axis", new Point(0, 0), new Point(0, 1), Color.Black, _axisWidth));
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
-            for (var i = minimumValue + 5; i < maximumValue; i += 5) {
+            for (var i = axisTransformation.AxisStartValue * 10; i < axisTransformation.AxisEndValue; i = i * 10) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("vertical axis tick mark", new Point(0, position), new Point(_tickMarkLength, position), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
