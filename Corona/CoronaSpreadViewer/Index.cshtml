@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Corona Spread Viewer</title>
+</head>
+<body>
+    <div class="header">
+    </div>
+    <div class="content">
+        <div class="countrySelection">
+            <form>
+                @{
+                    var countriesParam = Request.Params["countries"];
+                    var selectedCountries = new HashSet<Backend.CountryType>();
+
+                    if (string.IsNullOrEmpty(countriesParam)) {
+                        selectedCountries.Add(Backend.CountryType.Austria);
+                        selectedCountries.Add(Backend.CountryType.Italy);
+                        selectedCountries.Add(Backend.CountryType.Usa);
+                        selectedCountries.Add(Backend.CountryType.China);
+                        selectedCountries.Add(Backend.CountryType.Germany);
+                        selectedCountries.Add(Backend.CountryType.UnitedKingdom);
+                    }
+                    else {
+                        var countriesAsString = countriesParam.Split(',');
+                        foreach (var countryAsString in countriesAsString) {
+                            if (!System.Enum.TryParse<Backend.CountryType>(countryAsString, true, out var result)) {
+                                continue;
+                            }
+
+                            if (selectedCountries.Contains(result)) {
+                                continue;
+                            }
+
+                            selectedCountries.Add(result);
+                        }
+                    }
+
+                    var values = Enum.GetValues(typeof(Backend.CountryType));
+                    foreach (var value in values) {
+                        var valueCasted = (Backend.CountryType)value;
+
+                        if (selectedCountries.Contains(valueCasted)) {
+                            <input type="checkbox" value="@valueCasted" id="@valueCasted" checked/>
+                        }
+                        else {
+                            <input type="checkbox" value="@valueCasted" id="@valueCasted" />
+                        }
+                        <label for="@valueCasted">@valueCasted.ToString()</label>
+                    }
+
+                    var graphUriParameter = "";
+                    foreach (var country in selectedCountries) {
+                        graphUriParameter += $"country={country.ToString()}&";
+                    }
+
+                    graphUriParameter = graphUriParameter.Substring(0, graphUriParameter.Length - 1);
+                }
+            </form>
+        </div>
+        <div class="graph">
+            <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" />
+        </div>
+        <div class="graph">
+            <img src="api/graph/infected-absolute-linear?@graphUriParameter" />
+        </div>
+        <div class="graph">
+            <img src="api/graph/infected-per-population-logarithmic?@graphUriParameter" />
+        </div>
+        <div class="graph">
+            <img src="api/graph/deaths-per-population-logarithmic?@graphUriParameter" />
+        </div>
+    </div>
+</body>
+</html>
