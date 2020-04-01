@@ -18,5 +18,11 @@
         public double Apply(double value) {
             return value * ScalingFactor + _offset;
         }
+
+        public double CalculateNextTick(double value) {
+            var tickCount = 7;
+            var tickDistance = (AxisEndValue - AxisStartValue) / tickCount;
+            return value + tickDistance;
+        }
     }
 }

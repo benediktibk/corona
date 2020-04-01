@@ -20,5 +20,9 @@ namespace ScalableVectorGraphic
         public double Apply(double value) {
             return Math.Log10(value) * ScalingFactor + _offset;
         }
+
+        public double CalculateNextTick(double value) {
+            return value * 10;
+        }
     }
 }

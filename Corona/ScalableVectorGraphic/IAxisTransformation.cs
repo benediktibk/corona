@@ -7,5 +7,6 @@
         double AxisEndValue { get; }
 
         double Apply(double value);
+        double CalculateNextTick(double value);
     }
 }
