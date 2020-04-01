@@ -20,13 +20,12 @@ namespace ScalableVectorGraphic
             return new LogarithmicAxisTransformation(minimumValue, maximumValue);
         }
 
-        public List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue, T tickMarkDistance) {
+        public List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue) {
             var result = new List<IGraphicElement>();
             result.Add(new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
-            var tickMarkDistanceAsDouble = NumericOperations.ConvertToDoubleEquivalent(tickMarkDistance);
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
-            for (var i = minimumValue + tickMarkDistanceAsDouble; i < maximumValue; i += tickMarkDistanceAsDouble) {
+            for (var i = minimumValue + 5; i < maximumValue; i += 5) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("horizontal axis tick mark", new Point(position, 0), new Point(position, _tickMarkLength), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
@@ -38,13 +37,12 @@ namespace ScalableVectorGraphic
             return result;
         }
 
-        public List<IGraphicElement> CreateGraphicElementsForVerticalAxis(double minimumValue, double maximumValue, T tickMarkDistance) {
+        public List<IGraphicElement> CreateGraphicElementsForVerticalAxis(double minimumValue, double maximumValue) {
             var result = new List<IGraphicElement>();
             result.Add(new Line("vertical axis", new Point(0, 0), new Point(0, 1), Color.Black, _axisWidth));
-            var tickMarkDistanceAsDouble = NumericOperations.ConvertToDoubleEquivalent(tickMarkDistance);
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
-            for (var i = minimumValue + tickMarkDistanceAsDouble; i < maximumValue; i += tickMarkDistanceAsDouble) {
+            for (var i = minimumValue + 5; i < maximumValue; i += 5) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("vertical axis tick mark", new Point(0, position), new Point(_tickMarkLength, position), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);

@@ -28,8 +28,7 @@ namespace Backend.Service
                 1000, 800,
                 new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
                 new LinearAxis<double>(new NumericOperationsDouble()),
-                allDataSeries,
-                new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1)).Reference.AddDays(10), 10000);
+                allDataSeries);
             return graph.ToSvg();
         }
 
@@ -47,8 +46,7 @@ namespace Backend.Service
                 1000, 800,
                 new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
                 new LinearAxis<double>(new NumericOperationsDouble()),
-                allDataSeries,
-                new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1)).Reference.AddDays(10), 10000);
+                allDataSeries);
             return graph.ToSvg();
         }
     }
