@@ -7,6 +7,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Corona Spread Viewer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="header">
@@ -14,63 +15,85 @@
     <div class="content">
         <div class="dataUpdate">
             <form>
-                <label for="username">Username</label>
-                <input name="username" maxlength="100" type="text" required autocomplete="on" />
-                <label for="password">Password</label>
-                <input name="password" maxlength="100" type="password" required autocomplete="off" />
+                <div class="credentials">
+                    <div class="credentialLabels">
+                        <label for="username">Username</label>
+                        <br />
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="credentialValues">
+                        <input name="username" maxlength="100" type="text" required autocomplete="on" />
+                        <br />
+                        <input name="password" maxlength="100" type="password" required autocomplete="off" />
+                    </div>
+                </div>
                 <input name="reimport" type="submit" formaction="api/data/reimport" formmethod="post" value="Update" />
             </form>
         </div>
         <div class="countrySelection">
             <form>
-                @{
-                    var countriesParam = Request.Params["countries"];
-                    var selectedCountries = new HashSet<Backend.CountryType>();
+                <div class="countrySelectionInForm">
+                    @{
+                        var countriesParam = Request.Params["countries"];
+                        var selectedCountries = new HashSet<Backend.CountryType>();
 
-                    if (string.IsNullOrEmpty(countriesParam)) {
-                        selectedCountries.Add(Backend.CountryType.Austria);
-                        selectedCountries.Add(Backend.CountryType.Italy);
-                        selectedCountries.Add(Backend.CountryType.Usa);
-                        selectedCountries.Add(Backend.CountryType.China);
-                        selectedCountries.Add(Backend.CountryType.Germany);
-                        selectedCountries.Add(Backend.CountryType.UnitedKingdom);
-                    }
-                    else {
-                        var countriesAsString = countriesParam.Split(',');
-                        foreach (var countryAsString in countriesAsString) {
-                            if (!System.Enum.TryParse<Backend.CountryType>(countryAsString, true, out var result)) {
-                                continue;
-                            }
-
-                            if (selectedCountries.Contains(result)) {
-                                continue;
-                            }
-
-                            selectedCountries.Add(result);
-                        }
-                    }
-
-                    var values = Enum.GetValues(typeof(Backend.CountryType));
-                    foreach (var value in values) {
-                        var valueCasted = (Backend.CountryType)value;
-
-                        if (selectedCountries.Contains(valueCasted)) {
-                            <input type="checkbox" value="@valueCasted" name="selectedCountries" checked />
+                        if (string.IsNullOrEmpty(countriesParam)) {
+                            selectedCountries.Add(Backend.CountryType.Austria);
+                            selectedCountries.Add(Backend.CountryType.Italy);
+                            selectedCountries.Add(Backend.CountryType.Usa);
+                            selectedCountries.Add(Backend.CountryType.China);
+                            selectedCountries.Add(Backend.CountryType.Germany);
+                            selectedCountries.Add(Backend.CountryType.UnitedKingdom);
                         }
                         else {
-                            <input type="checkbox" value="@valueCasted" name="selectedCountries" />
+                            var countriesAsString = countriesParam.Split(',');
+                            foreach (var countryAsString in countriesAsString) {
+                                if (!System.Enum.TryParse<Backend.CountryType>(countryAsString, true, out var result)) {
+                                    continue;
+                                }
+
+                                if (selectedCountries.Contains(result)) {
+                                    continue;
+                                }
+
+                                selectedCountries.Add(result);
+                            }
                         }
-                        <label for="@valueCasted">@valueCasted.ToString()</label>
-                    }
 
-                    var graphUriParameter = "";
-                    foreach (var country in selectedCountries) {
-                        graphUriParameter += $"country={country.ToString()}&";
-                    }
+                        var values = Enum.GetValues(typeof(Backend.CountryType));
+                        var valuesReduced = new List<Backend.CountryType>();
 
-                    graphUriParameter = graphUriParameter.Substring(0, graphUriParameter.Length - 1);
-                }
-                <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply" />
+                        foreach (var value in values) {
+                            var valueCasted = (Backend.CountryType)value;
+                            if (valueCasted == Backend.CountryType.Invalid) {
+                                continue;
+                            }
+
+                            valuesReduced.Add(valueCasted);
+                        }
+
+                        for (var i = 0; i < valuesReduced.Count(); ++i) {
+                            var value = valuesReduced[i];
+                            <div class="countrySelectionBox">
+                                @if (selectedCountries.Contains(value)) {
+                                    <input type="checkbox" value="@value" name="selectedCountries" checked />
+                                }
+                                else {
+                                    <input type="checkbox" value="@value" name="selectedCountries" />
+                                }
+                                <label for="@value">@value.ToString()</label>
+                            </div>
+                        }
+
+                        var graphUriParameter = "";
+                        foreach (var country in selectedCountries) {
+                            graphUriParameter += $"country={country.ToString()}&";
+                        }
+
+                        graphUriParameter = graphUriParameter.Substring(0, graphUriParameter.Length - 1);
+                    }
+                </div>
+                <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply Selection" />
             </form>
         </div>
         <div class="graph">

@@ -1,0 +1,42 @@
+﻿div.header {
+    width: 100%;
+}
+
+div.footer {
+    width: 100%;
+}
+
+div.content {
+    width: 100%;
+}
+
+div.dataUpdate {
+}
+
+div.countrySelection {
+    width: 100%;
+}
+
+div.countrySelectionInForm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+div.countrySelectionBox {
+    width: 250px;
+}
+
+div.credentials {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+div.credentialLabels {
+    margin-right: 10px;
+}
+
+div.credentialValues {
+}
