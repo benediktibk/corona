@@ -1,5 +1,38 @@
 ﻿@{
     Layout = null;
+
+    var countriesParam = Request.Params["countries"];
+    var selectedCountries = new HashSet<Backend.CountryType>();
+
+    if (string.IsNullOrEmpty(countriesParam)) {
+        selectedCountries.Add(Backend.CountryType.Austria);
+        selectedCountries.Add(Backend.CountryType.Italy);
+        selectedCountries.Add(Backend.CountryType.Usa);
+        selectedCountries.Add(Backend.CountryType.China);
+        selectedCountries.Add(Backend.CountryType.Germany);
+        selectedCountries.Add(Backend.CountryType.UnitedKingdom);
+    }
+    else {
+        var countriesAsString = countriesParam.Split(',');
+        foreach (var countryAsString in countriesAsString) {
+            if (!System.Enum.TryParse<Backend.CountryType>(countryAsString, true, out var result)) {
+                continue;
+            }
+
+            if (selectedCountries.Contains(result)) {
+                continue;
+            }
+
+            selectedCountries.Add(result);
+        }
+    }
+
+    var graphUriParameter = "";
+    foreach (var country in selectedCountries) {
+        graphUriParameter += $"country={country.ToString()}&";
+    }
+
+    graphUriParameter = graphUriParameter.Substring(0, graphUriParameter.Length - 1);
 }
 
 <!DOCTYPE html>
@@ -34,32 +67,6 @@
             <form>
                 <div class="countrySelectionInForm">
                     @{
-                        var countriesParam = Request.Params["countries"];
-                        var selectedCountries = new HashSet<Backend.CountryType>();
-
-                        if (string.IsNullOrEmpty(countriesParam)) {
-                            selectedCountries.Add(Backend.CountryType.Austria);
-                            selectedCountries.Add(Backend.CountryType.Italy);
-                            selectedCountries.Add(Backend.CountryType.Usa);
-                            selectedCountries.Add(Backend.CountryType.China);
-                            selectedCountries.Add(Backend.CountryType.Germany);
-                            selectedCountries.Add(Backend.CountryType.UnitedKingdom);
-                        }
-                        else {
-                            var countriesAsString = countriesParam.Split(',');
-                            foreach (var countryAsString in countriesAsString) {
-                                if (!System.Enum.TryParse<Backend.CountryType>(countryAsString, true, out var result)) {
-                                    continue;
-                                }
-
-                                if (selectedCountries.Contains(result)) {
-                                    continue;
-                                }
-
-                                selectedCountries.Add(result);
-                            }
-                        }
-
                         var values = Enum.GetValues(typeof(Backend.CountryType));
                         var valuesReduced = new List<Backend.CountryType>();
 
@@ -84,29 +91,30 @@
                                 <label for="@value">@value.ToString()</label>
                             </div>
                         }
-
-                        var graphUriParameter = "";
-                        foreach (var country in selectedCountries) {
-                            graphUriParameter += $"country={country.ToString()}&";
-                        }
-
-                        graphUriParameter = graphUriParameter.Substring(0, graphUriParameter.Length - 1);
                     }
                 </div>
                 <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply Selection" />
             </form>
         </div>
-        <div class="graph">
-            <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" />
-        </div>
-        <div class="graph">
-            <img src="api/graph/infected-absolute-linear?@graphUriParameter" />
-        </div>
-        <div class="graph">
-            <img src="api/graph/infected-per-population-logarithmic?@graphUriParameter" />
-        </div>
-        <div class="graph">
-            <img src="api/graph/deaths-per-population-logarithmic?@graphUriParameter" />
+
+        <div class="legendAndGraph">
+            <div class="legend">
+                <img src="api/graph/legend?@graphUriParameter" />
+            </div>
+            <div class="graphs">
+                <div class="graph">
+                    <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" />
+                </div>
+                <div class="graph">
+                    <img src="api/graph/infected-absolute-linear?@graphUriParameter" />
+                </div>
+                <div class="graph">
+                    <img src="api/graph/infected-per-population-logarithmic?@graphUriParameter" />
+                </div>
+                <div class="graph">
+                    <img src="api/graph/deaths-per-population-logarithmic?@graphUriParameter" />
+                </div>
+            </div>
         </div>
     </div>
 </body>

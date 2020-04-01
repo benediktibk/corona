@@ -31,6 +31,7 @@ namespace Backend.DependencyInjection
                 x.For<IDataReimportService>().Use<DataReimportService>();
                 x.For<IGraphService>().Use<GraphService>();
                 x.For<IAuthorizationService>().Use<AuthorizationService>();
+                x.For<IGraphLegendService>().Use<GraphLegendService>();
             });
         }
 

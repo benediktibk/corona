@@ -1,6 +1,5 @@
 ﻿using Backend;
 using Backend.Service;
-using ScalableVectorGraphic;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -12,12 +11,25 @@ namespace CoronaSpreadViewer.Controllers
 {
     public class GraphController : ApiController
     {
-        private readonly IGraphService _graphService;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IGraphService _graphService;
+        private readonly IGraphLegendService _graphLegendService;
 
-        public GraphController(IUnitOfWorkFactory unitOfWorkFactory, IGraphService graphService) {
+        public GraphController(IUnitOfWorkFactory unitOfWorkFactory, IGraphService graphService, IGraphLegendService graphLegendService) {
             _unitOfWorkFactory = unitOfWorkFactory;
             _graphService = graphService;
+            _graphLegendService = graphLegendService;
+        }
+
+        [HttpGet]
+        [Route("api/graph/legend")]
+        public HttpResponseMessage GetLegend([FromUri] string[] country) {
+            if (!TryParseCountries(country, out var countriesParsed)) {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+
+            var result = _graphLegendService.CreateLegend(countriesParsed);
+            return CreateResponse(result);
         }
 
         [HttpGet]
