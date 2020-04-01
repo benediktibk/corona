@@ -9,6 +9,8 @@ namespace ScalableVectorGraphic
         private const double _tickMarkWidth = 0.001;
         private const string _labelFont = "monospace";
         private const double _fontSize = 0.02;
+        private const double _labelOffsetFromHorizontalAxis = 0.005;
+        private const double _labelOffsetFromVerticalAxis = 0.005 + _tickMarkLength;
 
         public LinearAxis(IGenericNumericOperations<T> numericOperations) {
             NumericOperations = numericOperations;
@@ -30,9 +32,7 @@ namespace ScalableVectorGraphic
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("horizontal axis tick mark", new Point(position, 0), new Point(position, _tickMarkLength), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
-                var halfLabelLength = label.Length / 2.0;
-                var labelOffsetFromTick = halfLabelLength * _fontSize * (-0.5);
-                result.Add(new Text("horizontal axis tick label", new Point(position + labelOffsetFromTick, (-1.1) * _fontSize), label, Color.Black, 0, _labelFont, _fontSize));
+                result.Add(new Text("horizontal axis tick label", new Point(position, (-1) * _labelOffsetFromHorizontalAxis), label, Color.Black, 0, _labelFont, _fontSize, "hanging", "middle"));
             }
 
             return result;
@@ -48,8 +48,7 @@ namespace ScalableVectorGraphic
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("vertical axis tick mark", new Point(0, position), new Point(_tickMarkLength, position), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
-                var labelOffsetFromTick = label.Length * _fontSize * (-1);
-                result.Add(new Text("vertical axis tick label", new Point(labelOffsetFromTick, position - _fontSize/2), label, Color.Black, 0, _labelFont, _fontSize));
+                result.Add(new Text("vertical axis tick label", new Point(_labelOffsetFromVerticalAxis, position), label, Color.Black, 0, _labelFont, _fontSize, "middle", "auto"));
             }
 
             return result;

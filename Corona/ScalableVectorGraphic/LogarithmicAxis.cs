@@ -31,7 +31,7 @@ namespace ScalableVectorGraphic
                 var label = NumericOperations.CreateLabel(i);
                 var halfLabelLength = label.Length / 2.0;
                 var labelOffsetFromTick = halfLabelLength * _fontSize * (-0.5);
-                result.Add(new Text("horizontal axis tick label", new Point(position + labelOffsetFromTick, (-1.1) * _fontSize), label, Color.Black, 0, _labelFont, _fontSize));
+                result.Add(new Text("horizontal axis tick label", new Point(position + labelOffsetFromTick, (-1.1) * _fontSize), label, Color.Black, 0, _labelFont, _fontSize, "middle", "middle"));
             }
 
             return result;
@@ -47,7 +47,7 @@ namespace ScalableVectorGraphic
                 result.Add(new Line("vertical axis tick mark", new Point(0, position), new Point(_tickMarkLength, position), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
                 var labelOffsetFromTick = label.Length * _fontSize * (-1);
-                result.Add(new Text("vertical axis tick label", new Point(labelOffsetFromTick, position - _fontSize/2), label, Color.Black, 0, _labelFont, _fontSize));
+                result.Add(new Text("vertical axis tick label", new Point(labelOffsetFromTick, position - _fontSize/2), label, Color.Black, 0, _labelFont, _fontSize, "middle", "middle"));
             }
 
             return result;

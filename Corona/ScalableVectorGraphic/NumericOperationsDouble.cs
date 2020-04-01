@@ -2,10 +2,8 @@
 {
     public class NumericOperationsDouble : IGenericNumericOperations<double>
     {
-        private const string _labelFormat = "F1";
-
         public string CreateLabel(double value) {
-            return value.ToString(_labelFormat);
+            return value.ToString("F0");
         }
 
         public double ConvertToDoubleEquivalent(double value) {
