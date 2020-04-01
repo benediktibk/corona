@@ -22,7 +22,7 @@ namespace ScalableVectorGraphic
         }
 
         public double ApplyToLineWidth(double value) {
-            return value * Math.Sqrt(Math.Abs(ScalingFactor));
+            return value;
         }
 
         public double CalculateNextTick(double value) {

@@ -7,8 +7,8 @@ namespace ScalableVectorGraphic
     {
         private readonly List<DataPoint<X, Y>> _dataPoints;
         private readonly Color _color;
-        private const double _radius = 0.1;
-        private const double _lineWidth = 0.05;
+        private const double _radius = 0.005;
+        private const double _lineWidth = 0.002;
 
         public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color) {
             _dataPoints = dataPoints.ToList();
@@ -35,14 +35,14 @@ namespace ScalableVectorGraphic
             var dataPointsConvertedAndOrderd = dataPointsScaled.OrderBy(dataPoint => dataPoint.X).ToList();
 
             for (var i = 0; i < dataPointsConvertedAndOrderd.Count(); ++i) {
-                result.Add(new Circle($"data point ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", yAxisTransformation.ApplyToLineWidth(xAxisTransformation.ApplyToLineWidth(_radius)), _color, dataPointsConvertedAndOrderd[i]));
+                result.Add(new Circle($"data point ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", _radius, _color, dataPointsConvertedAndOrderd[i]));
             }
 
             for (var i = 1; i < dataPointsConvertedAndOrderd.Count(); ++i) {
                 var previous = dataPointsConvertedAndOrderd[i - 1];
                 var current = dataPointsConvertedAndOrderd[i];
 
-                result.Add(new Line($"data point connection from ({_dataPoints[i - 1].XValue},{_dataPoints[i - 1].YValue}) to ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", previous, current, _color, yAxisTransformation.ApplyToLineWidth(xAxisTransformation.ApplyToLineWidth(_lineWidth))));
+                result.Add(new Line($"data point connection from ({_dataPoints[i - 1].XValue},{_dataPoints[i - 1].YValue}) to ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", previous, current, _color, _lineWidth));
             }
 
             return result;

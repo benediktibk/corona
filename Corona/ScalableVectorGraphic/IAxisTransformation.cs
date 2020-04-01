@@ -8,6 +8,5 @@
 
         double Apply(double value);
         double CalculateNextTick(double value);
-        double ApplyToLineWidth(double value);
     }
 }
