@@ -46,10 +46,10 @@
                         var valueCasted = (Backend.CountryType)value;
 
                         if (selectedCountries.Contains(valueCasted)) {
-                            <input type="checkbox" value="@valueCasted" id="@valueCasted" checked/>
+                            <input type="checkbox" value="@valueCasted" name="selectedCountries" checked />
                         }
                         else {
-                            <input type="checkbox" value="@valueCasted" id="@valueCasted" />
+                            <input type="checkbox" value="@valueCasted" name="selectedCountries" />
                         }
                         <label for="@valueCasted">@valueCasted.ToString()</label>
                     }
@@ -61,6 +61,7 @@
 
                     graphUriParameter = graphUriParameter.Substring(0, graphUriParameter.Length - 1);
                 }
+                <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply" />
             </form>
         </div>
         <div class="graph">

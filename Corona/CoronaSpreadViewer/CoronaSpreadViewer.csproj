@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ServiceActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\SelectionController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Credentials.cs" />
