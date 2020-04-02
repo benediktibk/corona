@@ -47,13 +47,11 @@ div.content {
 }
 
 div.legend {
-    margin-top: 10px;
-}
-
-div.legendAndGraph {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+    position: fixed;
+    top: 10px;
+    left: calc(((100% - 1000px)/2 - 200px)/2);
+    display: inline;
+    width: 200px;
 }
 
 div.graphs {

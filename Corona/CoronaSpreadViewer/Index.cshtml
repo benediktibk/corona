@@ -46,24 +46,10 @@
     <div class="header">
     </div>
     <div class="content">
-        <div class="dataUpdate">
-            <form>
-                <div class="credentials">
-                    <div class="credentialLabels">
-                        <label for="username">Username</label>
-                        <br />
-                        <label for="password">Password</label>
-                    </div>
-                    <div class="credentialValues">
-                        <input name="username" maxlength="100" type="text" required autocomplete="on" />
-                        <br />
-                        <input name="password" maxlength="100" type="password" required autocomplete="off" />
-                    </div>
-                </div>
-                <input name="reimport" type="submit" formaction="api/data/reimport" formmethod="post" value="Update" />
-            </form>
-        </div>
         <div class="countrySelection">
+            <div class="contentHeading">
+                <h1>Country Selection</h1>
+            </div>
             <form>
                 <div class="countrySelectionInForm">
                     @{
@@ -96,37 +82,54 @@
                 <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply Selection" />
             </form>
         </div>
-
-        <div class="legendAndGraph">
-            <div class="legend">
-                <img src="api/graph/legend?@graphUriParameter" />
+        <div class="legend">
+            <img src="api/graph/legend?@graphUriParameter" />
+        </div>
+        <div class="graphs">
+            <div class="graph">
+                <div class="contentHeading">
+                    <h1>Infected Persons Total, Logarithmic</h1>
+                </div>
+                <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" class="graph" />
             </div>
-            <div class="graphs">
-                <div class="graph">
-                    <div class="graphHeading">
-                        <h1>Infected Persons Total, Logarithmic</h1>
-                    </div>
-                    <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" class="graph" />
+            <div class="graph">
+                <div class="contentHeading">
+                    <h1>Infected Persons Total, Linear</h1>
                 </div>
-                <div class="graph">
-                    <div class="graphHeading">
-                        <h1>Infected Persons Total, Linear</h1>
-                    </div>
-                    <img src="api/graph/infected-absolute-linear?@graphUriParameter" class="graph" />
-                </div>
-                <div class="graph">
-                    <div class="graphHeading">
-                        <h1>Infected Persons Total per Population</h1>
-                    </div>
-                    <img src="api/graph/infected-per-population-logarithmic?@graphUriParameter" class="graph" />
-                </div>
-                <div class="graph">
-                    <div class="graphHeading">
-                        <h1>Deaths this Day per Population</h1>
-                    </div>
-                    <img src="api/graph/deaths-per-population-logarithmic?@graphUriParameter" class="graph" />
-                </div>
+                <img src="api/graph/infected-absolute-linear?@graphUriParameter" class="graph" />
             </div>
+            <div class="graph">
+                <div class="contentHeading">
+                    <h1>Infected Persons Total per Population</h1>
+                </div>
+                <img src="api/graph/infected-per-population-logarithmic?@graphUriParameter" class="graph" />
+            </div>
+            <div class="graph">
+                <div class="contentHeading">
+                    <h1>Deaths this Day per Population</h1>
+                </div>
+                <img src="api/graph/deaths-per-population-logarithmic?@graphUriParameter" class="graph" />
+            </div>
+        </div>
+        <div class="dataUpdate">
+            <div class="contentHeading">
+                <h1>Data Update</h1>
+            </div>
+            <form>
+                <div class="credentials">
+                    <div class="credentialLabels">
+                        <label for="username">Username</label>
+                        <br />
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="credentialValues">
+                        <input name="username" maxlength="100" type="text" required autocomplete="on" />
+                        <br />
+                        <input name="password" maxlength="100" type="password" required autocomplete="off" />
+                    </div>
+                </div>
+                <input name="reimport" type="submit" formaction="api/data/reimport" formmethod="post" value="Update" />
+            </form>
         </div>
     </div>
 </body>
