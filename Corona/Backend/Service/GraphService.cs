@@ -115,5 +115,29 @@ namespace Backend.Service
                 allDataSeries);
             return graph.ToSvg();
         }
+
+        public string CreateGraphStillInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<DateTime, double>>();
+            var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
+            var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
+
+            for (var i = 0; i < countries.Count(); ++i) {
+                if (!availableCountriesSet.TryGetValue(countries[i], out var inhabitants)) {
+                    continue;
+                }
+
+                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
+                var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, (double)(dataPoint.InfectedTotal - dataPoint.DeathsTotal - dataPoint.RecoveredTotal) / inhabitants * 100)).ToList();
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
+                allDataSeries.Add(dataSeries);
+            }
+
+            var graph = new XYGraph<DateTime, double>(
+                1000, 800,
+                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
+                new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]"),
+                allDataSeries);
+            return graph.ToSvg();
+        }
     }
 }
