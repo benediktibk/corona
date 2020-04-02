@@ -8,6 +8,8 @@ namespace Backend.Service
 {
     public class GraphService : IGraphService
     {
+        private const int _graphWidth = 1000;
+        private const int _graphHeight = 500;
         private readonly NumericOperationsDateTimeForDatesOnly _numericOperationsDates;
         private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
@@ -49,7 +51,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(
-                1000, 800,
+                _graphWidth, _graphHeight,
                 new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
                 new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]"),
                 allDataSeries);
@@ -67,7 +69,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(
-                1000, 800,
+                _graphWidth, _graphHeight,
                 new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
                 new LinearAxis<double>(_numericOperationsDouble, "Persons"),
                 allDataSeries);
@@ -85,7 +87,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(
-                1000, 800,
+                _graphWidth, _graphHeight,
                 new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
                 new LogarithmicAxis<double>(_numericOperationsDouble, "Persons"),
                 allDataSeries);
@@ -109,7 +111,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(
-                1000, 800,
+                _graphWidth, _graphHeight,
                 new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
                 new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]"),
                 allDataSeries);
@@ -133,7 +135,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(
-                1000, 800,
+                _graphWidth, _graphHeight,
                 new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
                 new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]"),
                 allDataSeries);
