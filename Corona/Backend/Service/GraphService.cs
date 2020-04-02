@@ -140,7 +140,7 @@ namespace Backend.Service
 
                 foreach (var dataPoint in dataPoints) {
                     var x = dataPoint.InfectedTotal;
-                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal;
+                    var y = dataPoint.InfectedTotal - previousInfected;
 
                     previousInfected = dataPoint.InfectedTotal;
 
@@ -156,7 +156,7 @@ namespace Backend.Service
             }
 
             var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total", "F0");
-            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P2");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth", "F0");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
@@ -178,7 +178,7 @@ namespace Backend.Service
 
                 foreach (var dataPoint in dataPoints) {
                     var x = (double)dataPoint.InfectedTotal / inhabitants;
-                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal;
+                    var y = (dataPoint.InfectedTotal - previousInfected) / inhabitants;
 
                     previousInfected = dataPoint.InfectedTotal;
 
@@ -193,8 +193,8 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total [%]", "P5");
-            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P2");
+            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Total [%]", "P5");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Growth [%]", "P2");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
