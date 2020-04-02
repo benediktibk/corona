@@ -194,7 +194,7 @@ namespace Backend.Service
             }
 
             var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Total [%]", "P5");
-            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Growth [%]", "P2");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Growth [%]", "P5");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
