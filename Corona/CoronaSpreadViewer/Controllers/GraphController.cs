@@ -115,7 +115,6 @@ namespace CoronaSpreadViewer.Controllers
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             response.Content = new StringContent(svg);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/svg+xml");
-            response.Content.Headers.ContentEncoding.Add("utf-8");
             return response;
         }
     }
