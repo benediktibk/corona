@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using System.Collections.Generic;
 
 namespace Backend.Repository
 {
@@ -20,6 +21,10 @@ namespace Backend.Repository
                     @IcuBeds,
                     @MoratilityRatePerOneMillionPerDay
                 )", country);
+        }
+
+        public List<CountryDetailedDao> GetAllAvailable(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            return unitOfWork.QueryDatabase<CountryDetailedDao>(@"SELECT * FROM CountryDetailed WHERE CountryId IN @countries", new { countries });
         }
     }
 }
