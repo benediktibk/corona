@@ -27,7 +27,7 @@ namespace Backend.Service
             _dateAxis = new LinearAxisDateTime(_numericOperationsDates, "Date");
             _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
-            _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P");
+            _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P5");
         }
 
         public string CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -156,7 +156,7 @@ namespace Backend.Service
             }
 
             var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total", "F0");
-            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P2");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
@@ -193,8 +193,8 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total [%]", "P");
-            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P");
+            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total [%]", "P5");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P2");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
