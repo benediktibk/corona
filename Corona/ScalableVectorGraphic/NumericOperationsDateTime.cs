@@ -11,12 +11,7 @@ namespace ScalableVectorGraphic
         }
 
         public DateTime Reference { get; }
-
-        public string CreateLabel(double value) {
-            var convertedValue = Reference.Add(TimeSpan.FromDays(value));
-            return convertedValue.ToString(_labelFormat);
-        }
-
+        
         public double ConvertToDoubleEquivalent(DateTime value) {
             return value.Subtract(Reference).TotalDays;
         }

@@ -36,7 +36,7 @@ namespace ScalableVectorGraphic
             for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i <= axisTransformation.AxisEndValue * 1.01; i = axisTransformation.CalculateNextTick(i)) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("horizontal axis tick mark", new Point(position, (-0.5) * _tickMarkLength), new Point(position, 0.5 * _tickMarkLength), Color.Black, _tickMarkWidth));
-                var label = NumericOperations.CreateLabel(i);
+                var label = CreateLabel(i);
                 result.Add(new Text("horizontal axis tick label", new Point(position, (-1) * _labelOffsetFromHorizontalAxis), label, Color.Black, 0, _labelFont, _fontSize, "hanging", "middle"));
                 result.Add(new Line("vertical grid", new Point(position, 0), new Point(position, 1), Color.Black, _gridWidth));
             }

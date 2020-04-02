@@ -110,6 +110,19 @@ namespace CoronaSpreadViewer.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/graph/infected-growth-per-total-infected-per-population")]
+        public HttpResponseMessage GetInfectedGrowthPerTotalInfectedPerPopulation([FromUri] string[] country) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                if (!TryParseCountries(country, out var countriesParsed)) {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
+                var result = _graphService.CreateInfectedGrowthPerTotalInfectedPerPopulation(unitOfWork, countriesParsed);
+                return CreateResponse(result);
+            }
+        }
+
         private bool TryParseCountries(string[] country, out List<CountryType> result) {
             result = new List<CountryType>();
 

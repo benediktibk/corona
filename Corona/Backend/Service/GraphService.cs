@@ -161,5 +161,43 @@ namespace Backend.Service
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
         }
+
+        public string CreateInfectedGrowthPerTotalInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<double, double>>();
+            var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
+            var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
+            
+            for (var i = 0; i < countries.Count(); ++i) {
+                if (!availableCountriesSet.TryGetValue(countries[i], out var inhabitants)) {
+                    continue;
+                }
+
+                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
+                var dataPointsConverted = new List<DataPoint<double, double>>();
+                var previousInfected = 0.0;
+
+                foreach (var dataPoint in dataPoints) {
+                    var x = (double)dataPoint.InfectedTotal / inhabitants * 100;
+                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal * 100;
+
+                    previousInfected = dataPoint.InfectedTotal;
+
+                    if (y <= 0) {
+                        continue;
+                    }
+
+                    dataPointsConverted.Add(new DataPoint<double, double>(x, y));
+                }
+
+                var dataSeries = new DataSeries<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false);
+                allDataSeries.Add(dataSeries);
+            }
+
+            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total [%]");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]");
+
+            var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
+            return graph.ToSvg();
+        }
     }
 }
