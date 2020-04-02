@@ -46,41 +46,43 @@
     <div class="header">
     </div>
     <div class="content">
-        <div class="countrySelection">
+        <div id="countrySelection">
             <div class="contentHeading">
                 <h1>Country Selection</h1>
             </div>
-            <form>
-                <div class="countrySelectionInForm">
-                    @{
-                        var values = Enum.GetValues(typeof(Backend.CountryType));
-                        var valuesReduced = new List<Backend.CountryType>();
+            <div id="countrySelectionForm">
+                <form>
+                    <div class="countrySelectionInForm">
+                        @{
+                            var values = Enum.GetValues(typeof(Backend.CountryType));
+                            var valuesReduced = new List<Backend.CountryType>();
 
-                        foreach (var value in values) {
-                            var valueCasted = (Backend.CountryType)value;
-                            if (valueCasted == Backend.CountryType.Invalid) {
-                                continue;
+                            foreach (var value in values) {
+                                var valueCasted = (Backend.CountryType)value;
+                                if (valueCasted == Backend.CountryType.Invalid) {
+                                    continue;
+                                }
+
+                                valuesReduced.Add(valueCasted);
                             }
 
-                            valuesReduced.Add(valueCasted);
+                            for (var i = 0; i < valuesReduced.Count(); ++i) {
+                                var value = valuesReduced[i];
+                                <div class="countrySelectionBox">
+                                    @if (selectedCountries.Contains(value)) {
+                                        <input type="checkbox" value="@value" name="selectedCountries" checked />
+                                    }
+                                    else {
+                                        <input type="checkbox" value="@value" name="selectedCountries" />
+                                    }
+                                    <label for="@value">@value.ToString()</label>
+                                </div>
+                            }
                         }
-
-                        for (var i = 0; i < valuesReduced.Count(); ++i) {
-                            var value = valuesReduced[i];
-                            <div class="countrySelectionBox">
-                                @if (selectedCountries.Contains(value)) {
-                                    <input type="checkbox" value="@value" name="selectedCountries" checked />
-                                }
-                                else {
-                                    <input type="checkbox" value="@value" name="selectedCountries" />
-                                }
-                                <label for="@value">@value.ToString()</label>
-                            </div>
-                        }
-                    }
-                </div>
-                <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply Selection" />
-            </form>
+                    </div>
+                    <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply Selection" />
+                </form>
+            </div>
         </div>
         <div class="legend">
             <img src="api/graph/legend?@graphUriParameter" />

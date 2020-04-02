@@ -14,8 +14,12 @@ div.content {
 div.dataUpdate {
 }
 
-div.countrySelection {
-    width: 100%;
+#countrySelectionForm {
+    display: none;
+}
+
+#countrySelection:hover #countrySelectionForm {
+    display: initial;
 }
 
 div.countrySelectionInForm {
