@@ -26,6 +26,8 @@ namespace ScalableVectorGraphic
 
         public abstract IAxisTransformation CreateAxisTransformation(double minimumValue, double maximumValue);
 
+        public abstract string CreateLabel(double value);
+
         public List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue) {
             var result = new List<IGraphicElement>();
             result.Add(new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
@@ -53,7 +55,7 @@ namespace ScalableVectorGraphic
             for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i < axisTransformation.AxisEndValue * 1.01; i = axisTransformation.CalculateNextTick(i)) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("vertical axis tick mark", new Point((-0.5) * _tickMarkLength, position), new Point(0.5 * _tickMarkLength, position), Color.Black, _tickMarkWidth));
-                var label = NumericOperations.CreateLabel(i);
+                var label = CreateLabel(i);
                 result.Add(new Text("vertical axis tick label", new Point((-1) * _labelOffsetFromVerticalAxis, position), label, Color.Black, 0, _labelFont, _fontSize, "middle", "end"));
                 result.Add(new Line("horizontal grid", new Point(0, position), new Point(1, position), Color.Black, _gridWidth));
                 tickPositions.Add(position);
