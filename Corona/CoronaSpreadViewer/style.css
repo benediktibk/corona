@@ -14,6 +14,10 @@ div.content {
 div.dataUpdate {
 }
 
+#countrySelection {
+    padding-bottom: 20px;
+}
+
 #countrySelectionForm {
     display: none;
 }
@@ -70,4 +74,8 @@ img.graph {
 
 h1 {
     text-align: center;
+}
+
+div.countrySelectionApply {
+    margin-top: 10px;
 }
