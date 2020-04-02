@@ -40,7 +40,7 @@ namespace CoronaSpreadViewer.Controllers
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
                 }
 
-                var result = _graphService.CreateGraphInfectedAbsoluteLinear(unitOfWork, countriesParsed);
+                var result = _graphService.CreateInfectedAbsoluteLinear(unitOfWork, countriesParsed);
                 return CreateResponse(result);
             }
         }
@@ -53,7 +53,7 @@ namespace CoronaSpreadViewer.Controllers
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
                 }
 
-                var result = _graphService.CreateGraphInfectedAbsoluteLogarithmic(unitOfWork, countriesParsed);
+                var result = _graphService.CreateInfectedAbsoluteLogarithmic(unitOfWork, countriesParsed);
                 return CreateResponse(result);
             }
         }
@@ -66,7 +66,7 @@ namespace CoronaSpreadViewer.Controllers
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
                 }
 
-                var result = _graphService.CreateGraphInfectedPerPopulationLogarithmic(unitOfWork, countriesParsed);
+                var result = _graphService.CreateInfectedPerPopulationLogarithmic(unitOfWork, countriesParsed);
                 return CreateResponse(result);
             }
         }
@@ -79,7 +79,7 @@ namespace CoronaSpreadViewer.Controllers
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
                 }
 
-                var result = _graphService.CreateGraphStillInfectedPerPopulationLogarithmic(unitOfWork, countriesParsed);
+                var result = _graphService.CreateStillInfectedPerPopulationLogarithmic(unitOfWork, countriesParsed);
                 return CreateResponse(result);
             }
         }
@@ -92,7 +92,7 @@ namespace CoronaSpreadViewer.Controllers
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
                 }
 
-                var result = _graphService.CreateGraphDeathsPerPopulationLogarithmic(unitOfWork, countriesParsed);
+                var result = _graphService.CreateDeathsPerPopulationLogarithmic(unitOfWork, countriesParsed);
                 return CreateResponse(result);
             }
         }

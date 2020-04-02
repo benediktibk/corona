@@ -22,7 +22,7 @@ namespace Backend.Service
             _numericOperationsDouble = new NumericOperationsDouble();
         }
 
-        public string CreateGraphDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+        public string CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
@@ -58,7 +58,7 @@ namespace Backend.Service
             return graph.ToSvg();
         }
 
-        public string CreateGraphInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+        public string CreateInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
@@ -76,7 +76,7 @@ namespace Backend.Service
             return graph.ToSvg();
         }
 
-        public string CreateGraphInfectedAbsoluteLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+        public string CreateInfectedAbsoluteLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
@@ -94,7 +94,7 @@ namespace Backend.Service
             return graph.ToSvg();
         }
 
-        public string CreateGraphInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+        public string CreateInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
@@ -118,7 +118,7 @@ namespace Backend.Service
             return graph.ToSvg();
         }
 
-        public string CreateGraphStillInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+        public string CreateStillInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
