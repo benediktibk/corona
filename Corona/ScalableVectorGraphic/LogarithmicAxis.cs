@@ -2,8 +2,11 @@
 {
     public class LogarithmicAxis<T> : AxisBase<T>
     {
-        public LogarithmicAxis(IGenericNumericOperations<T> numericOperations, string label) :
+        private readonly string _labelFormat;
+
+        public LogarithmicAxis(IGenericNumericOperations<T> numericOperations, string label, string labelFormat) :
             base(numericOperations, label) {
+            _labelFormat = labelFormat;
         }
         
         public override IAxisTransformation CreateAxisTransformation(double minimumValue, double maximumValue) {
@@ -11,7 +14,7 @@
         }
 
         public override string CreateLabel(double value) {
-            return value.ToString("E0");
+            return value.ToString(_labelFormat);
         }
     }
 }

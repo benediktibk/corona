@@ -24,10 +24,10 @@ namespace Backend.Service
             _countryDetailedRepository = countryDetailedRepository;
             _numericOperationsDates = new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1));
             _numericOperationsDouble = new NumericOperationsDouble();
-            _dateAxis = new LinearAxis<DateTime>(_numericOperationsDates, "Date");
-            _linearPersonAxis = new LinearAxis<double>(_numericOperationsDouble, "Persons");
-            _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons");
-            _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]");
+            _dateAxis = new LinearAxisDateTime(_numericOperationsDates, "Date");
+            _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
+            _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
+            _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P");
         }
 
         public string CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -45,7 +45,7 @@ namespace Backend.Service
                 var previousValue = 0;
 
                 foreach (var dataPoint in dataPoints) {
-                    var dataPointConverted = new DataPoint<DateTime, double>(dataPoint.Date, (double)(dataPoint.DeathsTotal - previousValue) / inhabitants * 100);
+                    var dataPointConverted = new DataPoint<DateTime, double>(dataPoint.Date, (double)(dataPoint.DeathsTotal - previousValue) / inhabitants);
                     previousValue = dataPoint.DeathsTotal;
 
                     if (dataPointConverted.YValue > 0) {
@@ -101,7 +101,7 @@ namespace Backend.Service
                 }
 
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
-                var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, (double)dataPoint.InfectedTotal / inhabitants * 100)).ToList();
+                var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, (double)dataPoint.InfectedTotal / inhabitants)).ToList();
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
                 allDataSeries.Add(dataSeries);
             }
@@ -140,7 +140,7 @@ namespace Backend.Service
 
                 foreach (var dataPoint in dataPoints) {
                     var x = dataPoint.InfectedTotal;
-                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal * 100;
+                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal;
 
                     previousInfected = dataPoint.InfectedTotal;
 
@@ -155,8 +155,8 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total");
-            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]");
+            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total", "F0");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
@@ -177,8 +177,8 @@ namespace Backend.Service
                 var previousInfected = 0.0;
 
                 foreach (var dataPoint in dataPoints) {
-                    var x = (double)dataPoint.InfectedTotal / inhabitants * 100;
-                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal * 100;
+                    var x = (double)dataPoint.InfectedTotal / inhabitants;
+                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal;
 
                     previousInfected = dataPoint.InfectedTotal;
 
@@ -193,8 +193,8 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total [%]");
-            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]");
+            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total [%]", "P");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]", "P");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
