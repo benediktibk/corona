@@ -53,7 +53,7 @@ namespace Backend.Service
                     }
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
 
                 allDataSeries.Add(dataSeries);
             }
@@ -68,7 +68,7 @@ namespace Backend.Service
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, dataPoint.InfectedTotal)).ToList();
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
                 allDataSeries.Add(dataSeries);
             }
 
@@ -82,7 +82,7 @@ namespace Backend.Service
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, dataPoint.InfectedTotal)).ToList();
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
                 allDataSeries.Add(dataSeries);
             }
 
@@ -102,7 +102,7 @@ namespace Backend.Service
 
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, (double)dataPoint.InfectedTotal / inhabitants * 100)).ToList();
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
                 allDataSeries.Add(dataSeries);
             }
 
@@ -122,11 +122,43 @@ namespace Backend.Service
 
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, (double)(dataPoint.InfectedTotal - dataPoint.DeathsTotal - dataPoint.RecoveredTotal) / inhabitants * 100)).ToList();
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i));
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
                 allDataSeries.Add(dataSeries);
             }
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries);
+            return graph.ToSvg();
+        }
+
+        public string CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<double, double>>();
+
+            for (var i = 0; i < countries.Count(); ++i) {
+                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
+                var dataPointsConverted = new List<DataPoint<double, double>>();
+                var previousInfected = 0.0;
+
+                foreach (var dataPoint in dataPoints) {
+                    var x = dataPoint.InfectedTotal;
+                    var y = (dataPoint.InfectedTotal - previousInfected) / dataPoint.InfectedTotal * 100;
+
+                    previousInfected = dataPoint.InfectedTotal;
+
+                    if (y <= 0) {
+                        continue;
+                    }
+
+                    dataPointsConverted.Add(new DataPoint<double, double>(x, y));
+                }
+
+                var dataSeries = new DataSeries<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false);
+                allDataSeries.Add(dataSeries);
+            }
+
+            var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total");
+            var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth [%]");
+
+            var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
             return graph.ToSvg();
         }
     }

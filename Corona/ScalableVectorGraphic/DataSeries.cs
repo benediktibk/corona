@@ -5,14 +5,16 @@ namespace ScalableVectorGraphic
 {
     public class DataSeries<X, Y>
     {
-        private readonly List<DataPoint<X, Y>> _dataPoints;
-        private readonly Color _color;
         private const double _radius = 0.005;
         private const double _lineWidth = 0.002;
+        private readonly List<DataPoint<X, Y>> _dataPoints;
+        private readonly Color _color;
+        private readonly bool _connectDots;
 
-        public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color) {
+        public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color, bool connectDots) {
             _dataPoints = dataPoints.ToList();
             _color = color;
+            _connectDots = connectDots;
         }
 
         public void FindRangeOfXValuesAsDouble(IGenericNumericOperations<X> numericOperations, out double minimum, out double maximum) {
@@ -36,6 +38,10 @@ namespace ScalableVectorGraphic
 
             for (var i = 0; i < dataPointsConvertedAndOrderd.Count(); ++i) {
                 result.Add(new Circle($"data point ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", _radius, _color, dataPointsConvertedAndOrderd[i]));
+            }
+
+            if (!_connectDots) {
+                return result;
             }
 
             for (var i = 1; i < dataPointsConvertedAndOrderd.Count(); ++i) {
