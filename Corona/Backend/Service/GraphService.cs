@@ -14,12 +14,20 @@ namespace Backend.Service
         private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryDetailedRepository _countryDetailedRepository;
+        private readonly IAxis<DateTime> _dateAxis;
+        private readonly IAxis<double> _linearPersonAxis;
+        private readonly IAxis<double> _logarithmicPersonAxis;
+        private readonly IAxis<double> _logarithmicPersonPerPopulationAxis;
 
         public GraphService(IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, ICountryDetailedRepository countryDetailedRepository) {
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
             _countryDetailedRepository = countryDetailedRepository;
             _numericOperationsDates = new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1));
             _numericOperationsDouble = new NumericOperationsDouble();
+            _dateAxis = new LinearAxis<DateTime>(_numericOperationsDates, "Date");
+            _linearPersonAxis = new LinearAxis<double>(_numericOperationsDouble, "Persons");
+            _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons");
+            _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]");
         }
 
         public string CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -50,11 +58,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(
-                _graphWidth, _graphHeight,
-                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
-                new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]"),
-                allDataSeries);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries);
             return graph.ToSvg();
         }
 
@@ -68,11 +72,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(
-                _graphWidth, _graphHeight,
-                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
-                new LinearAxis<double>(_numericOperationsDouble, "Persons"),
-                allDataSeries);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries);
             return graph.ToSvg();
         }
 
@@ -86,11 +86,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(
-                _graphWidth, _graphHeight,
-                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
-                new LogarithmicAxis<double>(_numericOperationsDouble, "Persons"),
-                allDataSeries);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonAxis, allDataSeries);
             return graph.ToSvg();
         }
 
@@ -110,11 +106,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(
-                _graphWidth, _graphHeight,
-                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
-                new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]"),
-                allDataSeries);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries);
             return graph.ToSvg();
         }
 
@@ -134,11 +126,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(
-                _graphWidth, _graphHeight,
-                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
-                new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]"),
-                allDataSeries);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries);
             return graph.ToSvg();
         }
     }
