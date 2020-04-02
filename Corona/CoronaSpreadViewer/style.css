@@ -42,14 +42,15 @@ div.credentialValues {
 }
 
 div.content {
-    max-width: 1000px;
-    margin: 0 auto;
+    margin-left: 200px;
+    margin-right: 10px;
+    width: calc(100% - 210px);
 }
 
 div.legend {
     position: fixed;
     top: 10px;
-    left: calc(((100% - 1000px)/2 - 200px)/2);
+    left: 10px;
     display: inline;
     width: 200px;
 }
