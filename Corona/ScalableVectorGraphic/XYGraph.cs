@@ -9,6 +9,7 @@ namespace ScalableVectorGraphic
         private readonly Image _image;
         private const double _ratioXAxisLengthToImageSize = 0.80;
         private const double _ratioYAxisLengthToImageSize = 0.95;
+        private const double _yAxisOffsetForLabels = 0.05;
 
         public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries) {
             var elements = new List<IGraphicElement>();
@@ -28,7 +29,7 @@ namespace ScalableVectorGraphic
 
             var dataSeriesRange = new DataSeriesRange(allMinimumXValues.Min(), allMaximumXValues.Max(), allMinimumYValues.Min(), allMaximumYValues.Max());
 
-            var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, (1 - _ratioYAxisLengthToImageSize) / 2 * height);
+            var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, ((1 - _ratioYAxisLengthToImageSize) / 2 + _yAxisOffsetForLabels) * height);
 
             elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX));
             elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY));

@@ -55,6 +55,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AxisBaseTest.cs" />
     <Compile Include="VectorTest.cs" />
     <Compile Include="MatrixTest.cs" />
     <Compile Include="TransformationTest.cs" />

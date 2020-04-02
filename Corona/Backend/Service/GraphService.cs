@@ -8,10 +8,14 @@ namespace Backend.Service
 {
     public class GraphService : IGraphService
     {
+        private readonly NumericOperationsDateTimeForDatesOnly _numericOperationsDates;
+        private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
 
         public GraphService(IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository) {
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
+            _numericOperationsDates = new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1));
+            _numericOperationsDouble = new NumericOperationsDouble();
         }
 
         public string CreateGraphDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -25,8 +29,8 @@ namespace Backend.Service
 
             var graph = new XYGraph<DateTime, double>(
                 1000, 800,
-                new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
-                new LinearAxis<double>(new NumericOperationsDouble()),
+                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
+                new LinearAxis<double>(_numericOperationsDouble, "Persons"),
                 allDataSeries);
             return graph.ToSvg();
         }
@@ -43,8 +47,8 @@ namespace Backend.Service
 
             var graph = new XYGraph<DateTime, double>(
                 1000, 800,
-                new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
-                new LinearAxis<double>(new NumericOperationsDouble()),
+                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
+                new LinearAxis<double>(_numericOperationsDouble, "Persons"),
                 allDataSeries);
             return graph.ToSvg();
         }
@@ -61,8 +65,8 @@ namespace Backend.Service
 
             var graph = new XYGraph<DateTime, double>(
                 1000, 800,
-                new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
-                new LogarithmicAxis<double>(new NumericOperationsDouble()),
+                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
+                new LogarithmicAxis<double>(_numericOperationsDouble, "Persons"),
                 allDataSeries);
             return graph.ToSvg();
         }
@@ -78,8 +82,8 @@ namespace Backend.Service
 
             var graph = new XYGraph<DateTime, double>(
                 1000, 800,
-                new LinearAxis<DateTime>(new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1))),
-                new LogarithmicAxis<double>(new NumericOperationsDouble()),
+                new LinearAxis<DateTime>(_numericOperationsDates, "Date"),
+                new LogarithmicAxis<double>(_numericOperationsDouble, "Persons"),
                 allDataSeries);
             return graph.ToSvg();
         }

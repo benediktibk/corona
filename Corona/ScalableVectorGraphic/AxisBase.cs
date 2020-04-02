@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ScalableVectorGraphic
 {
@@ -12,9 +13,13 @@ namespace ScalableVectorGraphic
         private const double _fontSize = 0.02;
         private const double _labelOffsetFromHorizontalAxis = 0.01;
         private const double _labelOffsetFromVerticalAxis = 0.01;
+        private const double _axisLabelOffsetFromHorizontalAxis = _labelOffsetFromHorizontalAxis + _fontSize + 0.01;
+        private const double _axisLabelOffsetFromVerticalAxis = _labelOffsetFromVerticalAxis;
+        private readonly string _axisLabel;
 
-        public AxisBase(IGenericNumericOperations<T> numericOperations) {
+        public AxisBase(IGenericNumericOperations<T> numericOperations, string label) {
             NumericOperations = numericOperations;
+            _axisLabel = label;
         }
 
         public IGenericNumericOperations<T> NumericOperations { get; }
@@ -34,6 +39,8 @@ namespace ScalableVectorGraphic
                 result.Add(new Line("vertical grid", new Point(position, 0), new Point(position, 1), Color.Black, _gridWidth));
             }
 
+            result.Add(new Text("horizontal axis label", new Point(0.5, (-1) * _axisLabelOffsetFromHorizontalAxis), _axisLabel, Color.Black, 0, _labelFont, _fontSize, "hanging", "middle"));
+
             return result;
         }
 
@@ -41,6 +48,7 @@ namespace ScalableVectorGraphic
             var result = new List<IGraphicElement>();
             result.Add(new Line("vertical axis", new Point(0, 0), new Point(0, 1), Color.Black, _axisWidth));
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
+            var tickPositions = new List<double>();
 
             for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i < axisTransformation.AxisEndValue * 1.01; i = axisTransformation.CalculateNextTick(i)) {
                 double position = axisTransformation.Apply(i);
@@ -48,9 +56,35 @@ namespace ScalableVectorGraphic
                 var label = NumericOperations.CreateLabel(i);
                 result.Add(new Text("vertical axis tick label", new Point((-1) * _labelOffsetFromVerticalAxis, position), label, Color.Black, 0, _labelFont, _fontSize, "middle", "end"));
                 result.Add(new Line("horizontal grid", new Point(0, position), new Point(1, position), Color.Black, _gridWidth));
+                tickPositions.Add(position);
             }
 
+            var labelPosition = CalculateVerticalLabelPosition(tickPositions);
+            result.Add(new Text("horizontal axis label", new Point((-1) * _axisLabelOffsetFromVerticalAxis, labelPosition), _axisLabel, Color.Black, 270, _labelFont, _fontSize, "middle", "middle"));
+
             return result;
+        }
+
+        public static double CalculateVerticalLabelPosition(IReadOnlyList<double> tickPositions) {
+            var labelPosition = 0.5;
+
+            if (tickPositions.Count < 2) {
+                return labelPosition;
+            }
+
+            var closestTick = tickPositions[0];
+            var nextTick = tickPositions[1];
+
+            for (var i = 1; i < tickPositions.Count - 1; ++i) {
+                if (Math.Abs(labelPosition - tickPositions[i]) < Math.Abs(labelPosition - closestTick)*0.99) {
+                    closestTick = tickPositions[i];
+                    nextTick = tickPositions[i + 1];
+                }
+            }
+
+            labelPosition = (nextTick + closestTick) / 2;
+
+            return labelPosition;
         }
     }
 }
