@@ -7,7 +7,7 @@ namespace ScalableVectorGraphic
     public class XYGraph<X, Y>
     {
         private readonly Image _image;
-        private const double _ratioXAxisLengthToImageSize = 0.90;
+        private const double _ratioXAxisLengthToImageSize = 0.80;
         private const double _ratioYAxisLengthToImageSize = 0.95;
 
         public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries) {

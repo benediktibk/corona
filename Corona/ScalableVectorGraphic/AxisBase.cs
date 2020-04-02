@@ -26,7 +26,7 @@ namespace ScalableVectorGraphic
             result.Add(new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
-            for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i < axisTransformation.AxisEndValue; i = axisTransformation.CalculateNextTick(i)) {
+            for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i <= axisTransformation.AxisEndValue * 1.01; i = axisTransformation.CalculateNextTick(i)) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("horizontal axis tick mark", new Point(position, (-0.5) * _tickMarkLength), new Point(position, 0.5 * _tickMarkLength), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
@@ -42,7 +42,7 @@ namespace ScalableVectorGraphic
             result.Add(new Line("vertical axis", new Point(0, 0), new Point(0, 1), Color.Black, _axisWidth));
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
-            for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i < axisTransformation.AxisEndValue; i = axisTransformation.CalculateNextTick(i)) {
+            for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i < axisTransformation.AxisEndValue * 1.01; i = axisTransformation.CalculateNextTick(i)) {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("vertical axis tick mark", new Point((-0.5) * _tickMarkLength, position), new Point(0.5 * _tickMarkLength, position), Color.Black, _tickMarkWidth));
                 var label = NumericOperations.CreateLabel(i);
