@@ -818,6 +818,18 @@ namespace Backend.Repository
                     Inhabitants = 66440000,
                     IcuBeds = 4385,
                     MoratilityRatePerOneMillionPerDay = 2.57
+                },
+                new CountryDetailedDao {
+                    CountryId = CountryType.Usa,
+                    Inhabitants = 328953020,
+                    IcuBeds = 114146,
+                    MoratilityRatePerOneMillionPerDay = 1
+                },
+                new CountryDetailedDao {
+                    CountryId = CountryType.China,
+                    Inhabitants = 1437964854,
+                    IcuBeds = 51766,
+                    MoratilityRatePerOneMillionPerDay = 1
                 }
             };
 
