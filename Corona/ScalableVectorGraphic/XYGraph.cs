@@ -61,8 +61,8 @@ namespace ScalableVectorGraphic
             _image = new Image(width, height, elements);
         }
 
-        public string ToSvg() {
-            return _image.CreateXml();
+        public string ToSvg(bool compressed) {
+            return _image.CreateXml(compressed);
         }
     }
 }

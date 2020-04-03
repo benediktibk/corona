@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace ScalableVectorGraphic
 {
@@ -19,8 +17,8 @@ namespace ScalableVectorGraphic
         public int Height { get; }
         public IReadOnlyList<IGraphicElement> Elements => _elements;
 
-        public string CreateXml() {
-            var svgXmlWriter = new SvgXmlWriter(Height, Width);
+        public string CreateXml(bool compressed) {
+            var svgXmlWriter = new SvgXmlWriterDetailed(Height, Width);
 
             foreach (var element in _elements) {
                 svgXmlWriter.Add(element);

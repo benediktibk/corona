@@ -4,7 +4,7 @@
     {
         string Description { get; }
 
-        void AddTo(SvgXmlWriter svgXmlWriter);
+        void AddTo(SvgXmlWriterBase svgXmlWriter);
         IGraphicElement ApplyTransformation(Transformation transformation);
     }
 }

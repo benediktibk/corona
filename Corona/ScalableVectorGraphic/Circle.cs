@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Text;
-
-namespace ScalableVectorGraphic
+﻿namespace ScalableVectorGraphic
 {
     public class Circle : IGraphicElement
     {
@@ -17,7 +14,7 @@ namespace ScalableVectorGraphic
         public Color Color { get; }
         public Point Position { get; }
 
-        public void AddTo(SvgXmlWriter svgXmlWriter) {
+        public void AddTo(SvgXmlWriterBase svgXmlWriter) {
             svgXmlWriter.AddSingleTag("circle", $"cx=\"{Position.X.ToString(svgXmlWriter.Culture)}\" cy=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" r=\"{Radius.ToString(svgXmlWriter.Culture)}\" fill=\"{Color.ToSvg()}\"");
         }
 

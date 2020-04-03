@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Globalization;
-using System.Text;
 
 namespace ScalableVectorGraphic
 {
@@ -29,7 +27,7 @@ namespace ScalableVectorGraphic
         public string DominantBaseLine { get; }
         public string TextAnchor { get; }
 
-        public void AddTo(SvgXmlWriter svgXmlWriter) {
+        public void AddTo(SvgXmlWriterBase svgXmlWriter) {
             svgXmlWriter.AddTagWithContent("text", $"x=\"{Position.X.ToString(svgXmlWriter.Culture)}\" y=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees.ToString(svgXmlWriter.Culture)} {Position.X.ToString(svgXmlWriter.Culture)},{Position.Y.ToString(svgXmlWriter.Culture)})\" font-size=\"{(int)FontSize}\" dominant-baseline=\"{DominantBaseLine}\" text-anchor=\"{TextAnchor}\"", Content);
         }
 
