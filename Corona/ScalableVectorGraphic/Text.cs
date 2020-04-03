@@ -29,11 +29,8 @@ namespace ScalableVectorGraphic
         public string DominantBaseLine { get; }
         public string TextAnchor { get; }
 
-        public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
-            stringBuilder.Append($"<!-- {Description} -->{System.Environment.NewLine}");
-            stringBuilder.Append($"<text x=\"{Position.X.ToString(culture)}\" y=\"{Position.Y.ToString(culture)}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees.ToString(culture)} {Position.X.ToString(culture)},{Position.Y.ToString(culture)})\" font-size=\"{(int)FontSize}\" dominant-baseline=\"{DominantBaseLine}\" text-anchor=\"{TextAnchor}\">");
-            stringBuilder.Append(Content);
-            stringBuilder.Append($"</text>{System.Environment.NewLine}");
+        public void AddTo(SvgXmlWriter svgXmlWriter) {
+            svgXmlWriter.AddTagWithContent("text", $"x=\"{Position.X.ToString(svgXmlWriter.Culture)}\" y=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees.ToString(svgXmlWriter.Culture)} {Position.X.ToString(svgXmlWriter.Culture)},{Position.Y.ToString(svgXmlWriter.Culture)})\" font-size=\"{(int)FontSize}\" dominant-baseline=\"{DominantBaseLine}\" text-anchor=\"{TextAnchor}\"", Content);
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

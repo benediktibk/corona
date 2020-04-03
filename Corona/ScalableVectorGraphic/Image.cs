@@ -20,20 +20,13 @@ namespace ScalableVectorGraphic
         public IReadOnlyList<IGraphicElement> Elements => _elements;
 
         public string CreateXml() {
-            var stringBuilder = new StringBuilder();
-            var culture = CultureInfo.CreateSpecificCulture("en-US");
-
-            stringBuilder.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
-            stringBuilder.Append(System.Environment.NewLine);
-            stringBuilder.Append($"<svg height=\"{Height}\" width=\"{Width}\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">");
-            stringBuilder.Append(System.Environment.NewLine);
+            var svgXmlWriter = new SvgXmlWriter(Height, Width);
 
             foreach (var element in _elements) {
-                element.AppendXmlTo(stringBuilder, culture);
+                svgXmlWriter.Add(element);
             }
 
-            stringBuilder.Append($"</svg>");
-            return stringBuilder.ToString();
+            return svgXmlWriter.GetXmlString();
         }
        
     }

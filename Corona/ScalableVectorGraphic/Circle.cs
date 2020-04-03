@@ -17,9 +17,8 @@ namespace ScalableVectorGraphic
         public Color Color { get; }
         public Point Position { get; }
 
-        public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
-            stringBuilder.Append($"<!-- {Description} -->{System.Environment.NewLine}");
-            stringBuilder.Append($"<circle cx=\"{Position.X.ToString(culture)}\" cy=\"{Position.Y.ToString(culture)}\" r=\"{Radius.ToString(culture)}\" fill=\"{Color.ToSvg()}\" />{System.Environment.NewLine}");
+        public void AddTo(SvgXmlWriter svgXmlWriter) {
+            svgXmlWriter.AddSingleTag("circle", $"cx=\"{Position.X.ToString(svgXmlWriter.Culture)}\" cy=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" r=\"{Radius.ToString(svgXmlWriter.Culture)}\" fill=\"{Color.ToSvg()}\"");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

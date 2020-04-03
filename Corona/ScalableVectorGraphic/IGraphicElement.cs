@@ -1,13 +1,10 @@
-﻿using System.Globalization;
-using System.Text;
-
-namespace ScalableVectorGraphic
+﻿namespace ScalableVectorGraphic
 {
     public interface IGraphicElement
     {
         string Description { get; }
 
-        void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture);
+        void AddTo(SvgXmlWriter svgXmlWriter);
         IGraphicElement ApplyTransformation(Transformation transformation);
     }
 }

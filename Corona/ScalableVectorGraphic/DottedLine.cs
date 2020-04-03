@@ -26,9 +26,8 @@ namespace ScalableVectorGraphic
 
         public string Description { get; }
 
-        public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
-            stringBuilder.Append($"<!-- {Description} -->{System.Environment.NewLine}");
-            stringBuilder.Append($"<line x1=\"{Start.X.ToString(culture)}\" y1=\"{Start.Y.ToString(culture)}\" x2=\"{End.X.ToString(culture)}\" y2=\"{End.Y.ToString(culture)}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width.ToString(culture)}\" stroke-dasharray=\"{StrokeLength.ToString(culture)},{EmptyLength.ToString(culture)}\" />{System.Environment.NewLine}");
+        public void AddTo(SvgXmlWriter svgXmlWriter) {
+            svgXmlWriter.AddSingleTag("line", $"x1=\"{Start.X.ToString(svgXmlWriter.Culture)}\" y1=\"{Start.Y.ToString(svgXmlWriter.Culture)}\" x2=\"{End.X.ToString(svgXmlWriter.Culture)}\" y2=\"{End.Y.ToString(svgXmlWriter.Culture)}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width.ToString(svgXmlWriter.Culture)}\" stroke-dasharray=\"{StrokeLength.ToString(svgXmlWriter.Culture)},{EmptyLength.ToString(svgXmlWriter.Culture)}\"");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
