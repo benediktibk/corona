@@ -60,6 +60,7 @@
     <Compile Include="MatrixTest.cs" />
     <Compile Include="TransformationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XYGraphTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
