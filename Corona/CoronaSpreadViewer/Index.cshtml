@@ -90,50 +90,51 @@
         <div class="graphs">
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Infected Persons Total per Population</h1>
+                    <h1><a id="infected-per-population-logarithmic">Infected Persons Total per Population</a></h1>
                 </div>
                 <img src="api/graph/infected-per-population-logarithmic?@graphUriParameter" class="graph" />
             </div>
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Deaths this Day per Population</h1>
+                    <h1><a id="deaths-per-population-logarithmic">Deaths this Day per Population</a></h1>
                     <p>This graph contains two reference lines. One is the general mortality of 10,3 per 1000 persons per year in the <a href="https://ec.europa.eu/eurostat/statistics-explained/index.php/Mortality_and_life_expectancy_statistics#Slight_increase_in_number_of_deaths_in_2017">EU-28 from the year 2017</a>. The other is the estimated influanza based excess mortality during the rather heavy influenza season 2016/2017. I took this value from <a href="https://www.euromomo.eu/methods/pdf/winter_season_summary_2016_17.pdf">EURO MOMO winter season report summary 2016/2017</a>. Unfortunately I could not find the actual values and had to derive them from the graphs. My results here were a maximum mortality of 21,5 deaths per week per 100000. Compared to a base line mortality of 18 deahts per week per 100000 I ended up with (21,5 - 18)/7/100000 = 5e-6‬ deaths per person per day.</p>
+                    <p>Of course, one also has to take into account that in some countries there is currently no real differentiation between a COVID-19 caused death and another death cause.</p>
                 </div>
                 <img src="api/graph/deaths-per-population-logarithmic?@graphUriParameter" class="graph" />
             </div>
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Deaths this Day</h1>
+                    <h1><a id="deaths">Deaths this Day</a></h1>
                 </div>
                 <img src="api/graph/deaths?@graphUriParameter" class="graph" />
             </div>
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Still Infected Persons (without Deaths and Recovered) per Population</h1>
+                    <h1><a id="still-infected-per-population-logarithmic">Still Infected Persons (without Deaths and Recovered) per Population</a></h1>
                 </div>
                 <img src="api/graph/still-infected-per-population-logarithmic?@graphUriParameter" class="graph" />
             </div>
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Infected Persons Total, Logarithmic</h1>
+                    <h1><a id="infected-absolute-logarithmic">Infected Persons Total, Logarithmic</a></h1>
                 </div>
                 <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" class="graph" />
             </div>
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Infected Persons Total, Linear</h1>
+                    <h1><a id="infected-absolute-linear">Infected Persons Total, Linear</a></h1>
                 </div>
                 <img src="api/graph/infected-absolute-linear?@graphUriParameter" class="graph" />
             </div>
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Growth of Infected in relation to the Total Infected</h1>
+                    <h1><a id="infected-growth-per-total-infected">Growth of Infected in relation to the Total Infected</a></h1>
                 </div>
                 <img src="api/graph/infected-growth-per-total-infected?@graphUriParameter" class="graph" />
             </div>
             <div class="graph">
                 <div class="contentHeading">
-                    <h1>Growth of Infected in relation to the Total Infected per Population</h1>
+                    <h1><a id="infected-growth-per-total-infected-per-population">Growth of Infected in relation to the Total Infected per Population</a></h1>
                 </div>
                 <img src="api/graph/infected-growth-per-total-infected-per-population?@graphUriParameter" class="graph" />
             </div>
