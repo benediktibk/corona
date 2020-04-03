@@ -23,8 +23,8 @@ namespace ScalableVectorGraphic
         public string Description { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
-            stringBuilder.Append($"<!-- {Description} -->\n");
-            stringBuilder.Append($"<line x1=\"{Start.X.ToString(culture)}\" y1=\"{Start.Y.ToString(culture)}\" x2=\"{End.X.ToString(culture)}\" y2=\"{End.Y.ToString(culture)}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width.ToString(culture)}\" />\n");
+            stringBuilder.Append($"<!-- {Description} -->{System.Environment.NewLine}");
+            stringBuilder.Append($"<line x1=\"{Start.X.ToString(culture)}\" y1=\"{Start.Y.ToString(culture)}\" x2=\"{End.X.ToString(culture)}\" y2=\"{End.Y.ToString(culture)}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width.ToString(culture)}\" />{System.Environment.NewLine}");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

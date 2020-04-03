@@ -30,10 +30,10 @@ namespace ScalableVectorGraphic
         public string TextAnchor { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
-            stringBuilder.Append($"<!-- {Description} -->\n");
+            stringBuilder.Append($"<!-- {Description} -->{System.Environment.NewLine}");
             stringBuilder.Append($"<text x=\"{Position.X.ToString(culture)}\" y=\"{Position.Y.ToString(culture)}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees.ToString(culture)} {Position.X.ToString(culture)},{Position.Y.ToString(culture)})\" font-size=\"{(int)FontSize}\" dominant-baseline=\"{DominantBaseLine}\" text-anchor=\"{TextAnchor}\">");
             stringBuilder.Append(Content);
-            stringBuilder.Append("</text>\n");
+            stringBuilder.Append($"</text>{System.Environment.NewLine}");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

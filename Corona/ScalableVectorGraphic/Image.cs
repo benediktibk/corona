@@ -24,9 +24,9 @@ namespace ScalableVectorGraphic
             var culture = CultureInfo.CreateSpecificCulture("en-US");
 
             stringBuilder.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
-            stringBuilder.Append("\n");
+            stringBuilder.Append(System.Environment.NewLine);
             stringBuilder.Append($"<svg height=\"{Height}\" width=\"{Width}\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">");
-            stringBuilder.Append("\n");
+            stringBuilder.Append(System.Environment.NewLine);
 
             foreach (var element in _elements) {
                 element.AppendXmlTo(stringBuilder, culture);

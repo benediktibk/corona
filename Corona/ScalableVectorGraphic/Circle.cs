@@ -18,8 +18,8 @@ namespace ScalableVectorGraphic
         public Point Position { get; }
 
         public void AppendXmlTo(StringBuilder stringBuilder, CultureInfo culture) {
-            stringBuilder.Append($"<!-- {Description} -->\n");
-            stringBuilder.Append($"<circle cx=\"{Position.X.ToString(culture)}\" cy=\"{Position.Y.ToString(culture)}\" r=\"{Radius.ToString(culture)}\" fill=\"{Color.ToSvg()}\" />\n");
+            stringBuilder.Append($"<!-- {Description} -->{System.Environment.NewLine}");
+            stringBuilder.Append($"<circle cx=\"{Position.X.ToString(culture)}\" cy=\"{Position.Y.ToString(culture)}\" r=\"{Radius.ToString(culture)}\" fill=\"{Color.ToSvg()}\" />{System.Environment.NewLine}");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {
