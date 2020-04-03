@@ -59,8 +59,8 @@ namespace Backend.Service
             }
 
             var referenceLines = new List<ReferenceLine<double>>();
-            referenceLines.Add(new ReferenceLine<double>(0.000000571429, "influenza based excess mortality", Color.Black));
-            referenceLines.Add(new ReferenceLine<double>(0.00000571429, "general mortality", Color.Black));
+            referenceLines.Add(new ReferenceLine<double>((21.5 - 18) / 7 / 100000, "influenza based excess mortality season 2016/2017", new Color(102, 0, 51)));
+            referenceLines.Add(new ReferenceLine<double>(10.3/1000/365, "general mortality EU-28", new Color(102, 0, 51)));
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, referenceLines);
             return graph.ToSvg();

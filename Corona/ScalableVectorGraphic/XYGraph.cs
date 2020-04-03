@@ -31,6 +31,11 @@ namespace ScalableVectorGraphic
                 allMaximumYValues.Add(maximumY);
             }
 
+            foreach (var referenceLine in yReferenceLines) {
+                allMinimumYValues.Add(yAxis.NumericOperations.ConvertToDoubleEquivalent(referenceLine.Value));
+                allMaximumYValues.Add(yAxis.NumericOperations.ConvertToDoubleEquivalent(referenceLine.Value));
+            }
+
             var dataSeriesRange = new DataSeriesRange(allMinimumXValues.Min(), allMaximumXValues.Max(), allMinimumYValues.Min(), allMaximumYValues.Max());
 
             var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, ((1 - _ratioYAxisLengthToImageSize) / 2 + _yAxisOffsetForLabels) * height);
