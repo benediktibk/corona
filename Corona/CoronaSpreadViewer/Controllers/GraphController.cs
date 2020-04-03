@@ -98,6 +98,19 @@ namespace CoronaSpreadViewer.Controllers
         }
 
         [HttpGet]
+        [Route("api/graph/deaths")]
+        public HttpResponseMessage GetDeaths([FromUri] string[] country) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                if (!TryParseCountries(country, out var countriesParsed)) {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
+                var result = _graphService.CreateDeaths(unitOfWork, countriesParsed);
+                return CreateResponse(result);
+            }
+        }
+
+        [HttpGet]
         [Route("api/graph/infected-growth-per-total-infected")]
         public HttpResponseMessage GetInfectedGrowthPerTotalInfected([FromUri] string[] country) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {

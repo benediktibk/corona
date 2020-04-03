@@ -62,6 +62,29 @@ namespace Backend.Service
             return graph.ToSvg();
         }
 
+        public string CreateDeaths(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<DateTime, double>>();
+
+            for (var i = 0; i < countries.Count(); ++i) {
+                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]);
+                var dataPointsConverted = new List<DataPoint<DateTime, double>>();
+                var previousValue = 0;
+
+                foreach (var dataPoint in dataPoints) {
+                    var dataPointConverted = new DataPoint<DateTime, double>(dataPoint.Date, (double)(dataPoint.DeathsTotal - previousValue));
+                    previousValue = dataPoint.DeathsTotal;
+                    dataPointsConverted.Add(dataPointConverted);
+                }
+
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
+
+                allDataSeries.Add(dataSeries);
+            }
+
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries);
+            return graph.ToSvg();
+        }
+
         public string CreateInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
 
