@@ -58,7 +58,11 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries);
+            var referenceLines = new List<ReferenceLine<double>>();
+            referenceLines.Add(new ReferenceLine<double>(0.000000571429, "influenza based excess mortality", Color.Black));
+            referenceLines.Add(new ReferenceLine<double>(0.00000571429, "general mortality", Color.Black));
+
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, referenceLines);
             return graph.ToSvg();
         }
 

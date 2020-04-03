@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace ScalableVectorGraphic
@@ -11,7 +10,12 @@ namespace ScalableVectorGraphic
         private const double _ratioYAxisLengthToImageSize = 0.85;
         private const double _yAxisOffsetForLabels = 0.05;
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries) :
+            this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>()) {
+
+        }
+
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines) {
             var elements = new List<IGraphicElement>();
             var allMinimumXValues = new List<double>();
             var allMaximumXValues = new List<double>();
@@ -36,6 +40,10 @@ namespace ScalableVectorGraphic
 
             var xAxisTransformation = xAxis.CreateAxisTransformation(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX);
             var yAxisTransformation = yAxis.CreateAxisTransformation(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY);
+
+            foreach (var referenceLine in yReferenceLines) {
+                elements.AddRange(referenceLine.CreateGraphicElements(yAxisTransformation, yAxis.NumericOperations));
+            }
 
             foreach (var dataSeries in allDataSeries) {
                 elements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations, xAxisTransformation, yAxisTransformation));
