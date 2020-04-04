@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApi.OutputCache.V2;
 
 namespace CoronaSpreadViewer.Controllers
 {
@@ -39,7 +40,7 @@ namespace CoronaSpreadViewer.Controllers
                 unitOfWork.CommitDatabaseTransaction();
             }
 
-            _logger.Info("successfully updated data, redirecting to start page");
+            _logger.Info("successfully updated data, invalidating the server side cache");
 
             var response = Request.CreateResponse(HttpStatusCode.Moved);
             var rootUri = Request.RequestUri.GetLeftPart(UriPartial.Authority);
