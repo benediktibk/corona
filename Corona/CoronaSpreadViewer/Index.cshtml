@@ -27,12 +27,7 @@
         }
     }
 
-    var graphUriParameter = "";
-    foreach (var country in selectedCountries) {
-        graphUriParameter += $"country={country.ToString()}&";
-    }
-
-    graphUriParameter = graphUriParameter.Substring(0, graphUriParameter.Length - 1);
+    var graphUriParameter = "countries=" + string.Join(",", selectedCountries);
 }
 
 <html>
