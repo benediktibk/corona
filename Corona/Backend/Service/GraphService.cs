@@ -18,9 +18,9 @@ namespace Backend.Service
         private readonly IAxis<double> _linearPersonAxis;
         private readonly IAxis<double> _logarithmicPersonAxis;
         private readonly IAxis<double> _logarithmicPersonPerPopulationAxis;
-        private readonly bool _compressed = false;
+        private readonly bool _compressed;
 
-        public GraphService(IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, ICountryDetailedRepository countryDetailedRepository) {
+        public GraphService(ISettings settings, IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, ICountryDetailedRepository countryDetailedRepository) {
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
             _countryDetailedRepository = countryDetailedRepository;
             _numericOperationsDates = new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1));
@@ -29,6 +29,7 @@ namespace Backend.Service
             _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P5");
+            _compressed = settings.SvgCompressed;
         }
 
         public string CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -64,7 +65,7 @@ namespace Backend.Service
             referenceLines.Add(new ReferenceLine<double>(10.3/1000/365, "general mortality EU-28", new Color(102, 0, 51)));
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, referenceLines);
-            return graph.ToSvg(_compressed);
+            return ConvertGraphToSvg(graph);
         }
 
         public string CreateDeaths(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -87,7 +88,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries);
-            return graph.ToSvg(_compressed);
+            return ConvertGraphToSvg(graph);
         }
 
         public string CreateInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -101,7 +102,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries);
-            return graph.ToSvg(_compressed);
+            return ConvertGraphToSvg(graph);
         }
 
         public string CreateInfectedAbsoluteLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -115,7 +116,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonAxis, allDataSeries);
-            return graph.ToSvg(_compressed);
+            return ConvertGraphToSvg(graph);
         }
 
         public string CreateInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -135,7 +136,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries);
-            return graph.ToSvg(_compressed);
+            return ConvertGraphToSvg(graph);
         }
 
         public string CreateStillInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -155,7 +156,7 @@ namespace Backend.Service
             }
 
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries);
-            return graph.ToSvg(_compressed);
+            return ConvertGraphToSvg(graph);
         }
 
         public string CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
@@ -187,14 +188,14 @@ namespace Backend.Service
             var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth", "F0");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
-            return graph.ToSvg(_compressed);
+            return ConvertGraphToSvg(graph);
         }
 
         public string CreateInfectedGrowthPerTotalInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<double, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
-            
+
             for (var i = 0; i < countries.Count(); ++i) {
                 if (!availableCountriesSet.TryGetValue(countries[i], out var inhabitants)) {
                     continue;
@@ -225,6 +226,10 @@ namespace Backend.Service
             var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Growth [%]", "P5");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries);
+            return ConvertGraphToSvg(graph);
+        }
+
+        private string ConvertGraphToSvg(XYGraph<double, double> graph) {
             return graph.ToSvg(_compressed);
         }
     }

@@ -8,5 +8,6 @@ namespace Backend
         string DatabaseConnectionString { get; }
         string GitRepo { get; }
         string LocalPath { get;  }
+        bool SvgCompressed { get; }
     }
 }

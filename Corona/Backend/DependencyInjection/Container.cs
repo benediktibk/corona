@@ -16,8 +16,9 @@ namespace Backend.DependencyInjection
                 var gitRepo = appSettings["GitRepo"];
                 var localPath = appSettings["LocalPath"];
                 var adminUsers = appSettings["AdminUsers"];
+                var svgCompressed = bool.Parse(appSettings["SvgCompressed"]);
 
-                x.For<ISettings>().Use(() => new Settings(connectionString, gitRepo, localPath, adminUsers));
+                x.For<ISettings>().Use(() => new Settings(connectionString, gitRepo, localPath, adminUsers, svgCompressed));
 
                 x.For<IDatabase>().Use<Database>();
                 x.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
