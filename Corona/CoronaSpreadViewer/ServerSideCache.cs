@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using WebApi.OutputCache.Core.Cache;
 
@@ -6,30 +7,38 @@ namespace CoronaSpreadViewer
 {
     public class ServerSideCache : IApiOutputCache
     {
-        public IEnumerable<string> AllKeys => throw new NotImplementedException();
+        private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+
+        public IEnumerable<string> AllKeys => new List<string>();
 
         public void Add(string key, object o, DateTimeOffset expiration, string dependsOnKey = null) {
-            throw new NotImplementedException();
+            _logger.Debug($"adding value for key {key}");
+            return;
         }
 
         public bool Contains(string key) {
-            throw new NotImplementedException();
+            _logger.Debug($"checking if key {key} is available");
+            return false;
         }
 
         public T Get<T>(string key) where T : class {
-            throw new NotImplementedException();
+            _logger.Debug($"fetching value for key {key}");
+            throw new KeyNotFoundException();
         }
 
         public object Get(string key) {
-            throw new NotImplementedException();
+            _logger.Debug($"fetching value for key {key}");
+            throw new KeyNotFoundException();
         }
 
         public void Remove(string key) {
-            throw new NotImplementedException();
+            _logger.Debug($"removing value for key {key}");
+            throw new KeyNotFoundException();
         }
 
         public void RemoveStartsWith(string key) {
-            throw new NotImplementedException();
+            _logger.Debug($"removing values for keys which start with {key}");
+            throw new KeyNotFoundException();
         }
     }
 }
