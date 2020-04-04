@@ -1,23 +1,22 @@
 ﻿using NLog;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebApi.OutputCache.Core.Cache;
 
-namespace CoronaSpreadViewer
+namespace Backend
 {
-    public class ServerSideCache : IApiOutputCache
+    public class ServerSideCache : IServerSideCache
     {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly Dictionary<string, object> _cache;
 
         public ServerSideCache() {
+            _logger.Info("instance of server side cache got created");
             _cache = new Dictionary<string, object>();
         }
 
         public IEnumerable<string> AllKeys => _cache.Select(x => x.Key);
 
-        public void Add(string key, object o, DateTimeOffset expiration, string dependsOnKey = null) {
+        public void Add(string key, object o) {
             _logger.Debug($"adding value for key {key}");
             _cache.Add(key, o);
         }
