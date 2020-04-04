@@ -15,6 +15,10 @@ namespace Backend.Service
         private const string _font = "monospace";
         private readonly bool _compressed = false;
 
+        public GraphLegendService(ISettings settings) {
+            _compressed = settings.SvgCompressed;
+        }
+
         public string CreateLegend(IReadOnlyList<CountryType> countries) {
             var elements = new List<IGraphicElement>();
 
@@ -28,7 +32,13 @@ namespace Backend.Service
             }
 
             var legend = new Image(200, 2 * _borderTopAndBottom + _heightPerCountry * countries.Count(), elements);
-            return legend.CreateXml(_compressed);
+
+            if (_compressed) {
+                return legend.CreateXmlCompressed();
+            }
+            else {
+                return legend.CreateXml();
+            }
         }
     }
 }

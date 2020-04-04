@@ -3,7 +3,7 @@ using System.Text;
 
 namespace ScalableVectorGraphic
 {
-    public abstract class SvgXmlWriterBase
+    public abstract class SvgXmlWriterBase : ISvgXmlWriter
     {
         private readonly StringBuilder _content;
         private readonly StringBuilder _contentWithClosingTag;

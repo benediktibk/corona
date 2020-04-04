@@ -24,7 +24,7 @@ namespace ScalableVectorGraphic
 
         public string Description { get; }
 
-        public void AddTo(SvgXmlWriterBase svgXmlWriter) {
+        public void AddTo(ISvgXmlWriter svgXmlWriter) {
             svgXmlWriter.AddSingleTag("line", $"x1=\"{Start.X.ToString(svgXmlWriter.Culture)}\" y1=\"{Start.Y.ToString(svgXmlWriter.Culture)}\" x2=\"{End.X.ToString(svgXmlWriter.Culture)}\" y2=\"{End.Y.ToString(svgXmlWriter.Culture)}\" style=\"stroke:{Color.ToSvg()};stroke-width:{Width.ToString(svgXmlWriter.Culture)}\" stroke-dasharray=\"{StrokeLength.ToString(svgXmlWriter.Culture)},{EmptyLength.ToString(svgXmlWriter.Culture)}\"");
         }
 

@@ -17,7 +17,7 @@ namespace ScalableVectorGraphic
         public int Height { get; }
         public IReadOnlyList<IGraphicElement> Elements => _elements;
 
-        public string CreateXml(bool compressed) {
+        public string CreateXml() {
             var svgXmlWriter = new SvgXmlWriterDetailed(Height, Width);
 
             foreach (var element in _elements) {
@@ -26,6 +26,15 @@ namespace ScalableVectorGraphic
 
             return svgXmlWriter.GetXmlString();
         }
-       
+
+        public string CreateXmlCompressed() {
+            var svgXmlWriter = new SvgXmlWriterCompressed(Height, Width);
+
+            foreach (var element in _elements) {
+                svgXmlWriter.Add(element);
+            }
+
+            return svgXmlWriter.GetXmlString();
+        }
     }
 }
