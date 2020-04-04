@@ -5,9 +5,9 @@ namespace Backend.Repository
     public class Database : IDatabase 
     {
         private readonly ICountryRepository _countryRepository;
-        private readonly ICountryDetailedRepository _countryDetailedRepository;
+        private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
-        public Database(ICountryRepository countryRepository, ICountryDetailedRepository countryDetailedRepository) {
+        public Database(ICountryRepository countryRepository, ICountryInhabitantsRepository countryDetailedRepository) {
             _countryRepository = countryRepository;
             _countryDetailedRepository = countryDetailedRepository;
         }
@@ -794,42 +794,30 @@ namespace Backend.Repository
                 }
             };
 
-            var countriesDetailed = new List<CountryDetailedDao> {
-                new CountryDetailedDao {
+            var countriesDetailed = new List<CountryInhabitantsDao> {
+                new CountryInhabitantsDao {
                     CountryId = CountryType.Austria,
                     Inhabitants = 8822000,
-                    IcuBeds = 1923,
-                    MoratilityRatePerOneMillionPerDay = 2.71
                 },
-                new CountryDetailedDao {
+                new CountryInhabitantsDao {
                     CountryId = CountryType.Italy,
                     Inhabitants = 60480000,
-                    IcuBeds = 7560,
-                    MoratilityRatePerOneMillionPerDay = 2.93
                 },
-                new CountryDetailedDao {
+                new CountryInhabitantsDao {
                     CountryId = CountryType.Germany,
                     Inhabitants = 82790000,
-                    IcuBeds = 24175,
-                    MoratilityRatePerOneMillionPerDay = 3.09
                 },
-                new CountryDetailedDao {
+                new CountryInhabitantsDao {
                     CountryId = CountryType.UnitedKingdom,
                     Inhabitants = 66440000,
-                    IcuBeds = 4385,
-                    MoratilityRatePerOneMillionPerDay = 2.57
                 },
-                new CountryDetailedDao {
+                new CountryInhabitantsDao {
                     CountryId = CountryType.Usa,
                     Inhabitants = 328953020,
-                    IcuBeds = 114146,
-                    MoratilityRatePerOneMillionPerDay = 1
                 },
-                new CountryDetailedDao {
+                new CountryInhabitantsDao {
                     CountryId = CountryType.China,
                     Inhabitants = 1437964854,
-                    IcuBeds = 51766,
-                    MoratilityRatePerOneMillionPerDay = 1
                 }
             };
 
@@ -855,15 +843,13 @@ namespace Backend.Repository
                 )
 ");
             unitOfWork.ExecuteDatabaseCommand(@"
-                CREATE TABLE CountryDetailed 
+                CREATE TABLE CountryInhabitants 
                 (
                     Id INT PRIMARY KEY IDENTITY(1, 1),
                     CountryId INT NOT NULL
-                        CONSTRAINT FK_CountryDetailed_Country_Id
+                        CONSTRAINT FK_CountryInhabitants_Country_Id
                         REFERENCES Country(Id),
-                    Inhabitants INT NOT NULL,
-                    IcuBeds INT NOT NULL,
-                    MoratilityRatePerOneMillionPerDay FLOAT NOT NULL
+                    Inhabitants INT NOT NULL
                 )
 ");
             unitOfWork.ExecuteDatabaseCommand(@"

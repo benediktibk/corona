@@ -2,9 +2,9 @@
 
 namespace Backend.Repository
 {
-    public interface ICountryDetailedRepository
+    public interface ICountryInhabitantsRepository
     {
-        void Insert(IUnitOfWork unitOfWork, CountryDetailedDao country);
-        List<CountryDetailedDao> GetAllAvailable(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
+        void Insert(IUnitOfWork unitOfWork, CountryInhabitantsDao country);
+        List<CountryInhabitantsDao> GetAllAvailable(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
     }
 }

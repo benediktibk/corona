@@ -195,6 +195,10 @@
         Reunion,
         Greenland,
         Curacao,
-        Guernsey
+        Guernsey,
+        Burundi,
+        Botswana,
+        SierraLeone,
+        Malawi
     }
 }

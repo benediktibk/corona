@@ -13,14 +13,14 @@ namespace Backend.Service
         private readonly NumericOperationsDateTimeForDatesOnly _numericOperationsDates;
         private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
-        private readonly ICountryDetailedRepository _countryDetailedRepository;
+        private readonly ICountryInhabitantsRepository _countryDetailedRepository;
         private readonly IAxis<DateTime> _dateAxis;
         private readonly IAxis<double> _linearPersonAxis;
         private readonly IAxis<double> _logarithmicPersonAxis;
         private readonly IAxis<double> _logarithmicPersonPerPopulationAxis;
         private readonly bool _compressed;
 
-        public GraphService(ISettings settings, IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, ICountryDetailedRepository countryDetailedRepository) {
+        public GraphService(ISettings settings, IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository, ICountryInhabitantsRepository countryDetailedRepository) {
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
             _countryDetailedRepository = countryDetailedRepository;
             _numericOperationsDates = new NumericOperationsDateTimeForDatesOnly(new DateTime(2020, 1, 1));

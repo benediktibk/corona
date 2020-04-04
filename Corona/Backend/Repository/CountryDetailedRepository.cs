@@ -3,28 +3,24 @@ using System.Collections.Generic;
 
 namespace Backend.Repository
 {
-    public class CountryDetailedRepository : ICountryDetailedRepository
+    public class CountryInhabitantsRepository : ICountryInhabitantsRepository
     {
-        public void Insert(IUnitOfWork unitOfWork, CountryDetailedDao country) {
+        public void Insert(IUnitOfWork unitOfWork, CountryInhabitantsDao country) {
             unitOfWork.ExecuteDatabaseCommand(@"
-                INSERT CountryDetailed
+                INSERT CountryInhabitants
                 (
                     CountryId,
-                    Inhabitants,
-                    IcuBeds,
-                    MoratilityRatePerOneMillionPerDay
+                    Inhabitants
                 )
                 VALUES
                 (
                     @CountryId,
-                    @Inhabitants,
-                    @IcuBeds,
-                    @MoratilityRatePerOneMillionPerDay
+                    @Inhabitants
                 )", country);
         }
 
-        public List<CountryDetailedDao> GetAllAvailable(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            return unitOfWork.QueryDatabase<CountryDetailedDao>(@"SELECT * FROM CountryDetailed WHERE CountryId IN @countries", new { countries });
+        public List<CountryInhabitantsDao> GetAllAvailable(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            return unitOfWork.QueryDatabase<CountryInhabitantsDao>(@"SELECT * FROM CountryInhabitants WHERE CountryId IN @countries", new { countries });
         }
     }
 }
