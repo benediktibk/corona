@@ -19,7 +19,7 @@ namespace CoronaSpreadViewer.Controllers
         private const int CachingTimeInSecondsClient = 0;
         private const int CachingTimeInSecondsServer = 600;
 #else
-        private const int CachingTimeInSecondsClient = 600;
+        private const int CachingTimeInSecondsClient = 0;
         private const int CachingTimeInSecondsServer = 86400;
 #endif
 
