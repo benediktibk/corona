@@ -15,7 +15,7 @@ namespace CoronaSpreadViewer.Controllers
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IGraphService _graphService;
         private readonly IGraphLegendService _graphLegendService;
-        private const int CachingTimeInSecondsClient = 600;
+        private const int CachingTimeInSecondsClient = 0;
         private const int CachingTimeInSecondsServer = 86400;
 
         public GraphController(IUnitOfWorkFactory unitOfWorkFactory, IGraphService graphService, IGraphLegendService graphLegendService) {
