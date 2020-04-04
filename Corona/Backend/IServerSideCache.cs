@@ -12,5 +12,6 @@ namespace Backend
         object Get(string key);
         void Remove(string key);
         void RemoveStartsWith(string key);
+        void Invalidate();
     }
 }

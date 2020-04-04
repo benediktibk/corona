@@ -36,6 +36,10 @@ namespace Backend
             return _cache[key];
         }
 
+        public void Invalidate() {
+            _cache.Clear();
+        }
+
         public void Remove(string key) {
             _logger.Debug($"removing value for key {key}");
             _cache.Remove(key);
