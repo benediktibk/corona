@@ -98,7 +98,7 @@
             </div>
         </div>
         <div class="legend">
-            <img src="api/graph/legend?@graphUriParameter" />
+            <img src="api/graph/legend?@graphUriParameter" alt="graph legend"/>
         </div>
         <div class="graphs">
             <div class="graph">
@@ -119,25 +119,25 @@
                 <div class="contentHeading">
                     <h1><a id="deaths">Deaths this Day</a></h1>
                 </div>
-                <img src="api/graph/deaths?@graphUriParameter" class="graph" />
+                <img src="api/graph/deaths?@graphUriParameter" class="graph" alt="deaths this day"/>
             </div>
             <div class="graph">
                 <div class="contentHeading">
                     <h1><a id="still-infected-per-population-logarithmic">Still Infected Persons (without Deaths and Recovered) per Population</a></h1>
                 </div>
-                <img src="api/graph/still-infected-per-population-logarithmic?@graphUriParameter" class="graph"  alt="still infected population"/>
+                <img src="api/graph/still-infected-per-population-logarithmic?@graphUriParameter" class="graph" alt="still infected population"/>
             </div>
             <div class="graph">
                 <div class="contentHeading">
                     <h1><a id="infected-absolute-logarithmic">Infected Persons Total, Logarithmic</a></h1>
                 </div>
-                <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" class="graph"  alt="total infected persons, logarithmic"/>
+                <img src="api/graph/infected-absolute-logarithmic?@graphUriParameter" class="graph" alt="total infected persons, logarithmic"/>
             </div>
             <div class="graph">
                 <div class="contentHeading">
                     <h1><a id="infected-absolute-linear">Infected Persons Total, Linear</a></h1>
                 </div>
-                <img src="api/graph/infected-absolute-linear?@graphUriParameter" class="graph"  alt="total infected persons, linear"/>
+                <img src="api/graph/infected-absolute-linear?@graphUriParameter" class="graph" alt="total infected persons, linear"/>
             </div>
             <div class="graph">
                 <div class="contentHeading">
@@ -164,9 +164,9 @@
                         <label for="password">Password</label>
                     </div>
                     <div class="credentialValues">
-                        <input name="username" maxlength="100" type="text" required autocomplete="on" />
+                        <input name="username" id="username" maxlength="100" type="text" required autocomplete="on" />
                         <br />
-                        <input name="password" maxlength="100" type="password" required autocomplete="off" />
+                        <input name="password" id="password" maxlength="100" type="password" required autocomplete="off" />
                     </div>
                 </div>
                 <input name="reimport" type="submit" formaction="api/data/reimport" formmethod="post" value="Update" />
