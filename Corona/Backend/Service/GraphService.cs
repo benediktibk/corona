@@ -150,7 +150,17 @@ namespace Backend.Service
                 }
 
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
-                var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, (double)(dataPoint.InfectedTotal - dataPoint.DeathsTotal - dataPoint.RecoveredTotal) / inhabitants)).ToList();
+                var dataPointsConverted = new List<DataPoint<DateTime, double>>();
+
+                foreach (var dataPoint in dataPoints) {
+                    var value = (double)(dataPoint.InfectedTotal - dataPoint.DeathsTotal - dataPoint.RecoveredTotal) / inhabitants;
+
+                    if (value <= 0) {
+                        continue;
+                    }
+
+                    dataPointsConverted.Add(new DataPoint<DateTime, double>(dataPoint.Date, value));
+                }
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true);
                 allDataSeries.Add(dataSeries);
             }
