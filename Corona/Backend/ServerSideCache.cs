@@ -18,7 +18,12 @@ namespace Backend
 
         public void Add(string key, object o) {
             _logger.Debug($"adding value for key {key}");
-            _cache.Add(key, o);
+            if (_cache.ContainsKey(key)) {
+                _cache[key] = o;
+            }
+            else {
+                _cache.Add(key, o);
+            }
         }
 
         public bool Contains(string key) {
