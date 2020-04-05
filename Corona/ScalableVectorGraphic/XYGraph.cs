@@ -15,7 +15,7 @@ namespace ScalableVectorGraphic
         private const double _legendFontSize = 0.02;
         private const double _legendHeightPerCountry = 0.03;
         private const double _legendLineLength = 0.03;
-        private const double _legendLetterWidth = _legendFontSize * 0.75;
+        private const double _legendLetterWidth = _legendFontSize * 0.5;
         private const double _legendMarginRight = 0.01;
         private const double _legendDotOffsetLeft = 0.02;
         private const double _legendBorderWidth = 0.002;
@@ -59,12 +59,15 @@ namespace ScalableVectorGraphic
                 elements.AddRange(referenceLine.CreateGraphicElements(yAxisTransformation, yAxis.NumericOperations));
             }
 
+            var allDataPoints = new List<Point>();
+
             foreach (var dataSeries in allDataSeries) {
-                elements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations, xAxisTransformation, yAxisTransformation));
+                elements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations, xAxisTransformation, yAxisTransformation, out var dataPoints));
+                allDataPoints.AddRange(dataPoints);
             }
 
             if (legend) {
-                elements.AddRange(CreateLegend(allDataSeries));
+                elements.AddRange(CreateLegend(allDataSeries, allDataPoints));
             }
 
             return elements;
@@ -102,7 +105,7 @@ namespace ScalableVectorGraphic
             return _image.CreateXmlCompressed();
         }
 
-        private List<IGraphicElement> CreateLegend(IReadOnlyList<DataSeries<X, Y>> dataSeries) {
+        private List<IGraphicElement> CreateLegend(IReadOnlyList<DataSeries<X, Y>> dataSeries, IReadOnlyList<Point> dataPoints) {
             var elements = new List<IGraphicElement>();
             var maxLength = 0;
 
@@ -118,9 +121,12 @@ namespace ScalableVectorGraphic
 
             var overallWidth = _legendDotOffsetLeft * 2 + maxLength * _legendLetterWidth + _legendMarginRight;
             var overallHeight = dataSeries.Count * _legendHeightPerCountry;
-            elements.Insert(0, new Rectangle("legend background", new Point(0, overallHeight), new Point(overallWidth, 0), _legendBackgroundColor, Color.Black, _legendBorderWidth));
+            var background = new Rectangle("legend background", new Point(0, overallHeight), new Point(overallWidth, 0), _legendBackgroundColor, Color.Black, _legendBorderWidth);
+            elements.Insert(0, background);
 
-            var transformation = new Transformation(new Matrix(1, 1), new Vector(0.4, 0.8));
+            var legendPosition = OverlapMinimizer.PlaceRectangleOverPoints(background, dataPoints, new Point(0, 0), new Point(1, 1));
+
+            var transformation = new Transformation(new Matrix(1, 1), legendPosition.ToVector());
             elements = transformation.Apply(elements);
 
             return elements;

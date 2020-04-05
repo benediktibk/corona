@@ -32,7 +32,7 @@ namespace ScalableVectorGraphic
             maximum = allValues.Max();
         }
 
-        public List<IGraphicElement> CreateGraphicElements(IGenericNumericOperations<X> numericOperationsX, IGenericNumericOperations<Y> numericOperationsY, IAxisTransformation xAxisTransformation, IAxisTransformation yAxisTransformation) {
+        public List<IGraphicElement> CreateGraphicElements(IGenericNumericOperations<X> numericOperationsX, IGenericNumericOperations<Y> numericOperationsY, IAxisTransformation xAxisTransformation, IAxisTransformation yAxisTransformation, out List<Point> dataPoints) {
             var result = new List<IGraphicElement>();
 
             var dataPointsConverted = _dataPoints.Select(dataPoint => new Point(numericOperationsX.ConvertToDoubleEquivalent(dataPoint.XValue), numericOperationsY.ConvertToDoubleEquivalent(dataPoint.YValue)));
@@ -42,6 +42,8 @@ namespace ScalableVectorGraphic
             for (var i = 0; i < dataPointsConvertedAndOrderd.Count(); ++i) {
                 result.Add(new Circle($"data point ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", _radius, Color, dataPointsConvertedAndOrderd[i]));
             }
+
+            dataPoints = dataPointsConvertedAndOrderd;
 
             if (!_connectDots) {
                 return result;

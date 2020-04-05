@@ -50,6 +50,7 @@
     <Compile Include="IAxisTransformation.cs" />
     <Compile Include="DottedLine.cs" />
     <Compile Include="ISvgXmlWriter.cs" />
+    <Compile Include="OverlapMinimizer.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Rectangle.cs" />
     <Compile Include="LinearAxisDateTime.cs" />
