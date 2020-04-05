@@ -11,24 +11,25 @@
             _position = position;
             _exponentialBase = exponentialBase;
             _maximumValue = maximumValue;
-            _offset = (-1) * System.Math.Log(_maximumValue) / System.Math.Log(_exponentialBase);
+            _offset = System.Math.Log(_maximumValue) / System.Math.Log(_exponentialBase);
         }
 
         public Vector CalculateGradient(Vector position) {
-            var distance = CalculateDistanceWithOffset(position);
+            var distance = CalculateDistance(position);
             var logBase = System.Math.Log(_exponentialBase);
-            var value = System.Math.Pow(_exponentialBase, distance);
+            var value = System.Math.Pow(_exponentialBase, _offset - distance);
             var completeFactor = value * logBase / distance;
             return completeFactor * (position - _position);
         }
 
         public double CalculateValue(Vector position) {
-            var distance = CalculateDistanceWithOffset(position);
-            return System.Math.Pow(_exponentialBase, distance);
+            var distance = CalculateDistance(position);
+            return System.Math.Pow(_exponentialBase, _offset - distance);
         }
 
-        private double CalculateDistanceWithOffset(Vector position) {
-            return System.Math.Sqrt((position - _position).Norm) - _offset;
+        private double CalculateDistance(Vector position) {
+            var distanceVector = position - _position;
+            return distanceVector.Norm;
         }
 
         public double CalculateValueSumInRectangle(Vector position, double width, double height) {
