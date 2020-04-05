@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScalableVectorGraphic;
+using Math;
 
-namespace ScalableVectorGraphicTest
+namespace MathTest
 {
     [TestClass]
     public class MatrixTest

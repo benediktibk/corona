@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ScalableVectorGraphic
 {
@@ -78,7 +77,7 @@ namespace ScalableVectorGraphic
             var nextTick = tickPositions[1];
 
             for (var i = 1; i < tickPositions.Count - 1; ++i) {
-                if (Math.Abs(labelPosition - tickPositions[i]) < Math.Abs(labelPosition - closestTick)*0.99) {
+                if (System.Math.Abs(labelPosition - tickPositions[i]) < System.Math.Abs(labelPosition - closestTick)*0.99) {
                     closestTick = tickPositions[i];
                     nextTick = tickPositions[i + 1];
                 }

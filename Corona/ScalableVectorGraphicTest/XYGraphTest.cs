@@ -35,9 +35,9 @@ namespace ScalableVectorGraphicTest
             var linearAxisTwo = new LinearAxisDouble(doubleOperations, "y", "E0");
             var logarithmicAxis = new LogarithmicAxis<double>(doubleOperations, "y", "E0");
             var dateTimeTaxis = new LinearAxisDateTime(dateTimeOperations, "dd.MM.yyyy");
-            _linearGraph = new XYGraph<double, double>(500, 300, linearAxisOne, linearAxisTwo, new List<DataSeries<double, double>> { dataSeriesOne, dataSeriesTwo }, false);
-            _logarithmicGraph = new XYGraph<double, double>(530, 400, linearAxisOne, logarithmicAxis, new List<DataSeries<double, double>> { dataSeriesOne }, false);
-            _dateTimeGraph = new XYGraph<DateTime, double>(530, 400, dateTimeTaxis, logarithmicAxis, new List<DataSeries<DateTime, double>> { dataSeriesThree }, false);
+            _linearGraph = new XYGraph<double, double>(500, 300, linearAxisOne, linearAxisTwo, new List<DataSeries<double, double>> { dataSeriesOne, dataSeriesTwo }, false, false);
+            _logarithmicGraph = new XYGraph<double, double>(530, 400, linearAxisOne, logarithmicAxis, new List<DataSeries<double, double>> { dataSeriesOne }, false, false);
+            _dateTimeGraph = new XYGraph<DateTime, double>(530, 400, dateTimeTaxis, logarithmicAxis, new List<DataSeries<DateTime, double>> { dataSeriesThree }, false, false);
         }
 
         [TestMethod]

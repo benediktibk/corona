@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Math;
+using ScalableVectorGraphic;
 using System.Collections.Generic;
 
 namespace ScalableVectorGraphic
@@ -12,7 +13,7 @@ namespace ScalableVectorGraphic
         public Transformation(Matrix matrix, Vector offset) {
             _matrix = matrix;
             _offset = offset;
-            _widthScaling = Math.Sqrt(Math.Abs(_matrix.Determinant));
+            _widthScaling = System.Math.Sqrt(System.Math.Abs(_matrix.Determinant));
         }
 
         public List<IGraphicElement> Apply(List<IGraphicElement> elements) {
@@ -26,7 +27,7 @@ namespace ScalableVectorGraphic
         }
 
         public Point ApplyToPoint(Point point) {
-            return new Point(_matrix * new Vector(point) + _offset);
+            return new Point(_matrix * point.ToVector() + _offset);
         }
 
         public double ApplyToWidth(double value) {

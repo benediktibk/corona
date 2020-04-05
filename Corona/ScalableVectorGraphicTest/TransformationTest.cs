@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ScalableVectorGraphic;
 

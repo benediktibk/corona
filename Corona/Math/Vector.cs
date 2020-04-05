@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace ScalableVectorGraphic
+namespace Math
 {
     [DebuggerDisplay("Vector ({X}, {Y})")]
     public class Vector
@@ -8,10 +8,6 @@ namespace ScalableVectorGraphic
         public Vector(double x, double y) {
             X = x;
             Y = y;
-        }
-
-        public Vector(Point point) :
-            this(point.X, point.Y) {
         }
 
         public double X { get; }

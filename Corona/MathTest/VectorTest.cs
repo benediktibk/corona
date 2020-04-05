@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
+using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScalableVectorGraphic;
 
-namespace ScalableVectorGraphicTest
+namespace MathTest
 {
     [TestClass]
     public class VectorTest

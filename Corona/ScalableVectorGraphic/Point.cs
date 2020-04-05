@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Math;
+using System.Diagnostics;
 
 namespace ScalableVectorGraphic
 {
@@ -22,6 +23,10 @@ namespace ScalableVectorGraphic
                 xAxisTransformation.Apply(X),
                 yAxisTransformation.Apply(Y)
                 );
+        }
+
+        public Vector ToVector() {
+            return new Vector(X, Y);
         }
     }
 }

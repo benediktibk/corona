@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalableVectorGraphic", "Sc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalableVectorGraphicTest", "ScalableVectorGraphicTest\ScalableVectorGraphicTest.csproj", "{712DD91B-3DFC-4425-B132-22B9E6A50A4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Math", "Math\Math.csproj", "{97B25C89-4B52-42D5-95D3-7CA182755740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTest", "MathTest\MathTest.csproj", "{6B7D0D64-F000-415F-9F81-445742C5529D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +56,14 @@ Global
 		{712DD91B-3DFC-4425-B132-22B9E6A50A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{712DD91B-3DFC-4425-B132-22B9E6A50A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{712DD91B-3DFC-4425-B132-22B9E6A50A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97B25C89-4B52-42D5-95D3-7CA182755740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97B25C89-4B52-42D5-95D3-7CA182755740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97B25C89-4B52-42D5-95D3-7CA182755740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97B25C89-4B52-42D5-95D3-7CA182755740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B7D0D64-F000-415F-9F81-445742C5529D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B7D0D64-F000-415F-9F81-445742C5529D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B7D0D64-F000-415F-9F81-445742C5529D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B7D0D64-F000-415F-9F81-445742C5529D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

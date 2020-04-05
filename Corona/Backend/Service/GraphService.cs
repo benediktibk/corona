@@ -64,7 +64,7 @@ namespace Backend.Service
             referenceLines.Add(new ReferenceLine<double>((21.5 - 18) / 7 / 100000, "influenza based excess mortality season 2016/2017", new Color(102, 0, 51)));
             referenceLines.Add(new ReferenceLine<double>(10.3/1000/365, "general mortality EU-28", new Color(102, 0, 51)));
 
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, referenceLines, true);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, referenceLines, true, true);
             return ConvertGraphToSvg(graph);
         }
 
@@ -87,7 +87,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true, true);
             return ConvertGraphToSvg(graph);
         }
 
@@ -101,7 +101,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true, true);
             return ConvertGraphToSvg(graph);
         }
 
@@ -115,7 +115,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonAxis, allDataSeries, true);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonAxis, allDataSeries, true, true);
             return ConvertGraphToSvg(graph);
         }
 
@@ -135,7 +135,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, true);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, true, true);
             return ConvertGraphToSvg(graph);
         }
 
@@ -165,7 +165,7 @@ namespace Backend.Service
                 allDataSeries.Add(dataSeries);
             }
 
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, true);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, true, true);
             return ConvertGraphToSvg(graph);
         }
 
@@ -197,7 +197,7 @@ namespace Backend.Service
             var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total", "F0");
             var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Growth", "F0");
 
-            var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries, true);
+            var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries, true, true);
             return ConvertGraphToSvg(graph);
         }
 
@@ -235,7 +235,7 @@ namespace Backend.Service
             var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Total [%]", "P5");
             var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Growth [%]", "P5");
 
-            var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries, true);
+            var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries, true, true);
             return ConvertGraphToSvg(graph);
         }
 

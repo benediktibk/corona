@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Math;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,15 +22,19 @@ namespace ScalableVectorGraphic
         private const string _legendFont = "monospace";
         private static readonly Color _legendBackgroundColor = new Color(230, 230, 230);
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend) :
-            this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend, bool background) :
+            this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend, background) {
         }
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, bool background) {
             var dataSeriesRange = FindDataSeriesRange(xAxis, yAxis, allDataSeries, yReferenceLines);
             var elements = CreateGraphicElements(xAxis, yAxis, allDataSeries, yReferenceLines, legend, dataSeriesRange);
             elements = TransformElements(width, height, elements);
-            elements.Insert(0, new Rectangle("background", new Point(0, 0), new Point(width, height), Color.White, Color.Black, _legendBorderWidth * Math.Sqrt(width * height)));
+
+            if (background) {
+                elements.Insert(0, new Rectangle("background", new Point(0, 0), new Point(width, height), Color.White, Color.Black, _legendBorderWidth * System.Math.Sqrt(width * height)));
+            }
+
             _image = new Image(width, height, elements);
         }
 
@@ -109,7 +113,7 @@ namespace ScalableVectorGraphic
                 elements.Add(new Text($"label {current.Label}", new Point(_legendDotOffsetLeft * 2, y), current.Label, Color.Black, 0, _legendFont, _legendFontSize, "middle", "start"));
                 elements.Add(new Circle($"dot for {current.Label}", _legendDotRadius, current.Color, new Point(_legendDotOffsetLeft, y)));
                 elements.Add(new Line($"line for {current.Label}", new Point(_legendDotOffsetLeft - _legendLineLength / 2, y), new Point(_legendDotOffsetLeft + _legendLineLength / 2, y), current.Color, _legendLineWidth));
-                maxLength = Math.Max(maxLength, current.Label.Length);
+                maxLength = System.Math.Max(maxLength, current.Label.Length);
             }
 
             var overallWidth = _legendDotOffsetLeft * 2 + maxLength * _legendLetterWidth + _legendMarginRight;
