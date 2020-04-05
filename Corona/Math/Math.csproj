@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPenaltyFunction.cs" />
+    <Compile Include="IPenaltyFunctionIntegrable.cs" />
+    <Compile Include="LineLogDistancePenaltyFunction.cs" />
     <Compile Include="Matrix.cs" />
+    <Compile Include="GradientMethodMinimization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PointLogDistancePenaltyFunction.cs" />
+    <Compile Include="RectanglePenaltySum.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
