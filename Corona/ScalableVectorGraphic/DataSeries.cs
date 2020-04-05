@@ -10,11 +10,13 @@ namespace ScalableVectorGraphic
         private readonly List<DataPoint<X, Y>> _dataPoints;
         private readonly Color _color;
         private readonly bool _connectDots;
+        private string _label;
 
-        public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color, bool connectDots) {
+        public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color, bool connectDots, string label) {
             _dataPoints = dataPoints.ToList();
             _color = color;
             _connectDots = connectDots;
+            _label = label;
         }
 
         public void FindRangeOfXValuesAsDouble(IGenericNumericOperations<X> numericOperations, out double minimum, out double maximum) {
