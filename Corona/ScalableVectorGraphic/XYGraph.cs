@@ -10,12 +10,11 @@ namespace ScalableVectorGraphic
         private const double _ratioYAxisLengthToImageSize = 0.85;
         private const double _yAxisOffsetForLabels = 0.05;
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries) :
-            this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>()) {
-
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend) :
+            this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend) {
         }
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend) {
             var elements = new List<IGraphicElement>();
             var allMinimumXValues = new List<double>();
             var allMaximumXValues = new List<double>();
