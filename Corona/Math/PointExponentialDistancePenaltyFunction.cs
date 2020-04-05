@@ -15,12 +15,20 @@
         }
 
         public Vector CalculateGradient(Vector position) {
-            throw new System.NotImplementedException();
+            var distance = CalculateDistanceWithOffset(position);
+            var logBase = System.Math.Log(_exponentialBase);
+            var value = System.Math.Pow(_exponentialBase, distance);
+            var completeFactor = value * logBase / distance;
+            return completeFactor * (position - _position);
         }
 
         public double CalculateValue(Vector position) {
-            var distance = (position - _position).Norm;
+            var distance = CalculateDistanceWithOffset(position);
             return System.Math.Pow(_exponentialBase, distance);
+        }
+
+        private double CalculateDistanceWithOffset(Vector position) {
+            return System.Math.Sqrt((position - _position).Norm) - _offset;
         }
 
         public double CalculateValueSumInRectangle(Vector position, double width, double height) {
