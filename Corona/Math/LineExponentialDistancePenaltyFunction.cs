@@ -1,8 +1,8 @@
 ﻿namespace Math
 {
-    public class LineLogDistancePenaltyFunction : IPenaltyFunctionIntegrable
+    public class LineExponentialDistancePenaltyFunction : IPenaltyFunctionIntegrable
     {
-        public LineLogDistancePenaltyFunction(Vector offset, Vector direction) {
+        public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction) {
             Offset = offset;
             Direction = direction;
         }
