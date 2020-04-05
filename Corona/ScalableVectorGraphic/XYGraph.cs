@@ -20,7 +20,7 @@ namespace ScalableVectorGraphic
         private const double _legendDotOffsetLeft = 0.02;
         private const double _legendBorderWidth = 0.002;
         private const string _legendFont = "monospace";
-        private static readonly Color _legendBackgroundColor = new Color(230, 230, 230);
+        private static readonly Color _legendBackgroundColor = new Color(245, 245, 245);
 
         public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend, bool background) :
             this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend, background) {
@@ -119,6 +119,9 @@ namespace ScalableVectorGraphic
             var overallWidth = _legendDotOffsetLeft * 2 + maxLength * _legendLetterWidth + _legendMarginRight;
             var overallHeight = dataSeries.Count * _legendHeightPerCountry;
             elements.Insert(0, new Rectangle("legend background", new Point(0, overallHeight), new Point(overallWidth, 0), _legendBackgroundColor, Color.Black, _legendBorderWidth));
+
+            var transformation = new Transformation(new Matrix(1, 1), new Vector(0.4, 0.8));
+            elements = transformation.Apply(elements);
 
             return elements;
         }
