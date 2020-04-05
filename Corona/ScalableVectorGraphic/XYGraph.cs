@@ -19,6 +19,7 @@ namespace ScalableVectorGraphic
         private const double _legendMarginRight = 0.01;
         private const double _legendDotOffsetLeft = 0.02;
         private const double _legendBorderWidth = 0.002;
+        private const double _borderWidth = 0.002;
         private const string _legendFont = "monospace";
         private static readonly Color _legendBackgroundColor = new Color(230, 230, 230);
 
@@ -27,7 +28,45 @@ namespace ScalableVectorGraphic
         }
 
         public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend) {
+            var dataSeriesRange = FindDataSeriesRange(xAxis, yAxis, allDataSeries, yReferenceLines);
+            var elements = CreateGraphicElements(xAxis, yAxis, allDataSeries, yReferenceLines, legend, dataSeriesRange);
+            elements = TransformElements(width, height, elements);
+            _image = new Image(width, height, elements);
+        }
+
+        private static List<IGraphicElement> TransformElements(int width, int height, List<IGraphicElement> elements) {
+            var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, ((1 - _ratioYAxisLengthToImageSize) / 2 + _yAxisOffsetForLabels) * height);
+            var transformGraphToImageSize = new Transformation(new Matrix(_ratioXAxisLengthToImageSize * width, _ratioYAxisLengthToImageSize * height), originOffset);
+            elements = transformGraphToImageSize.Apply(elements);
+            var transformImageToSvgCoordinates = new Transformation(new Matrix(1, -1), new Vector(0, height));
+            elements = transformImageToSvgCoordinates.Apply(elements);
+            return elements;
+        }
+
+        private List<IGraphicElement> CreateGraphicElements(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, DataSeriesRange dataSeriesRange) {
             var elements = new List<IGraphicElement>();
+            elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX));
+            elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY));
+
+            var xAxisTransformation = xAxis.CreateAxisTransformation(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX);
+            var yAxisTransformation = yAxis.CreateAxisTransformation(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY);
+
+            foreach (var referenceLine in yReferenceLines) {
+                elements.AddRange(referenceLine.CreateGraphicElements(yAxisTransformation, yAxis.NumericOperations));
+            }
+
+            foreach (var dataSeries in allDataSeries) {
+                elements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations, xAxisTransformation, yAxisTransformation));
+            }
+
+            if (legend) {
+                elements.AddRange(CreateLegend(allDataSeries));
+            }
+
+            return elements;
+        }
+
+        private static DataSeriesRange FindDataSeriesRange(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines) {
             var allMinimumXValues = new List<double>();
             var allMaximumXValues = new List<double>();
             var allMinimumYValues = new List<double>();
@@ -48,30 +87,7 @@ namespace ScalableVectorGraphic
             }
 
             var dataSeriesRange = new DataSeriesRange(allMinimumXValues.Min(), allMaximumXValues.Max(), allMinimumYValues.Min(), allMaximumYValues.Max());
-
-            var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, ((1 - _ratioYAxisLengthToImageSize) / 2 + _yAxisOffsetForLabels) * height);
-
-            elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX));
-            elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY));
-
-            var xAxisTransformation = xAxis.CreateAxisTransformation(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX);
-            var yAxisTransformation = yAxis.CreateAxisTransformation(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY);
-
-            foreach (var referenceLine in yReferenceLines) {
-                elements.AddRange(referenceLine.CreateGraphicElements(yAxisTransformation, yAxis.NumericOperations));
-            }
-
-            foreach (var dataSeries in allDataSeries) {
-                elements.AddRange(dataSeries.CreateGraphicElements(xAxis.NumericOperations, yAxis.NumericOperations, xAxisTransformation, yAxisTransformation));
-            }
-
-            elements.AddRange(CreateLegend(allDataSeries));
-
-            var transformGraphToImageSize = new Transformation(new Matrix(_ratioXAxisLengthToImageSize * width, _ratioYAxisLengthToImageSize * height), originOffset);
-            elements = transformGraphToImageSize.Apply(elements);
-            var transformImageToSvgCoordinates = new Transformation(new Matrix(1, -1), new Vector(0, height));
-            elements = transformImageToSvgCoordinates.Apply(elements);
-            _image = new Image(width, height, elements);
+            return dataSeriesRange;
         }
 
         public string ToSvg() {
