@@ -51,17 +51,8 @@ div.credentialValues {
 }
 
 div.content {
-    margin-left: 200px;
-    margin-right: 10px;
-    width: calc(100% - 210px);
-}
-
-div.legend {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    display: inline;
-    width: 200px;
+    margin: 0 auto;
+    width: 95%;
 }
 
 div.graphs {

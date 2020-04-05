@@ -14,31 +14,17 @@ namespace CoronaSpreadViewer.Controllers
     {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IGraphService _graphService;
-        private readonly IGraphLegendService _graphLegendService;
 #if DEBUG
         private const int CachingTimeInSecondsClient = 0;
-        private const int CachingTimeInSecondsServer = 600;
+        private const int CachingTimeInSecondsServer = 0;
 #else
         private const int CachingTimeInSecondsClient = 0;
         private const int CachingTimeInSecondsServer = 86400;
 #endif
 
-        public GraphController(IUnitOfWorkFactory unitOfWorkFactory, IGraphService graphService, IGraphLegendService graphLegendService) {
+        public GraphController(IUnitOfWorkFactory unitOfWorkFactory, IGraphService graphService) {
             _unitOfWorkFactory = unitOfWorkFactory;
             _graphService = graphService;
-            _graphLegendService = graphLegendService;
-        }
-
-        [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
-        [Route("api/graph/legend")]
-        public HttpResponseMessage GetLegend([FromUri] string countries) {
-            if (!TryParseCountries(countries, out var countriesParsed)) {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
-            }
-
-            var result = _graphLegendService.CreateLegend(countriesParsed);
-            return CreateResponse(result);
         }
 
         [HttpGet]
