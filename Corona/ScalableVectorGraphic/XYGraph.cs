@@ -7,7 +7,7 @@ namespace ScalableVectorGraphic
     public class XYGraph<X, Y>
     {
         private readonly Image _image;
-        private const double _ratioXAxisLengthToImageSize = 0.80;
+        private const double _ratioXAxisLengthToImageSize = 0.85;
         private const double _ratioYAxisLengthToImageSize = 0.85;
         private const double _yAxisOffsetForLabels = 0.05;
         private const double _legendLineWidth = 0.002;
@@ -19,7 +19,6 @@ namespace ScalableVectorGraphic
         private const double _legendMarginRight = 0.01;
         private const double _legendDotOffsetLeft = 0.02;
         private const double _legendBorderWidth = 0.002;
-        private const double _borderWidth = 0.002;
         private const string _legendFont = "monospace";
         private static readonly Color _legendBackgroundColor = new Color(230, 230, 230);
 
@@ -31,11 +30,12 @@ namespace ScalableVectorGraphic
             var dataSeriesRange = FindDataSeriesRange(xAxis, yAxis, allDataSeries, yReferenceLines);
             var elements = CreateGraphicElements(xAxis, yAxis, allDataSeries, yReferenceLines, legend, dataSeriesRange);
             elements = TransformElements(width, height, elements);
+            elements.Insert(0, new Rectangle("background", new Point(0, 0), new Point(width, height), Color.White, Color.Black, _legendBorderWidth * Math.Sqrt(width * height)));
             _image = new Image(width, height, elements);
         }
 
         private static List<IGraphicElement> TransformElements(int width, int height, List<IGraphicElement> elements) {
-            var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.75 * width, ((1 - _ratioYAxisLengthToImageSize) / 2 + _yAxisOffsetForLabels) * height);
+            var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.7 * width, ((1 - _ratioYAxisLengthToImageSize) / 2 + _yAxisOffsetForLabels) * height * 0.7);
             var transformGraphToImageSize = new Transformation(new Matrix(_ratioXAxisLengthToImageSize * width, _ratioYAxisLengthToImageSize * height), originOffset);
             elements = transformGraphToImageSize.Apply(elements);
             var transformImageToSvgCoordinates = new Transformation(new Matrix(1, -1), new Vector(0, height));
