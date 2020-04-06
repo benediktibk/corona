@@ -177,5 +177,30 @@ namespace MathTest
             result.X.Should().BeApproximately(5, 1e-5);
             result.Y.Should().BeApproximately(0, 1e-5);
         }
+
+        [TestMethod]
+        public void Minimize_CompleteLinearPenaltyBox_CenterOfBox() {
+            const double width = 10;
+            const double height = 5;
+            const double maximumValue = 10;
+            const double horziontalGradient = maximumValue / width;
+            const double verticalGradient = maximumValue / height;
+            var bottom = new LineLinearDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), verticalGradient, maximumValue, false, true);
+            var top = new LineLinearDistancePenaltyFunction(new Vector(0, height), new Vector(1, 0), verticalGradient, maximumValue, true, false);
+            var left = new LineLinearDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), horziontalGradient, maximumValue, true, false);
+            var right = new LineLinearDistancePenaltyFunction(new Vector(width, 0), new Vector(0, 1), horziontalGradient, maximumValue, false, true);
+            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+                bottom,
+                top,
+                left,
+                right
+            });
+            var start = new Vector(0.01, 0.01);
+
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-10);
+
+            result.X.Should().BeApproximately(width / 2, 1e-5);
+            result.Y.Should().BeApproximately(height / 2, 1e-5);
+        }
     }
 }

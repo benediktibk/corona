@@ -80,6 +80,24 @@ namespace MathTest
         }
 
         [TestMethod]
+        public void CalculateGradient_AtLineAndLeftMaximum_0() {
+            var penaltyFunction = new LineLinearDistancePenaltyFunction(new Vector(5, 3), new Vector(0, 1), 4, 10, true, false);
+
+            var result = penaltyFunction.CalculateGradient(new Vector(5, 3));
+
+            result.Norm.Should().BeApproximately(0, 1e-5);
+        }
+
+        [TestMethod]
+        public void CalculateGradient_AtLineAndRightMaximum_0() {
+            var penaltyFunction = new LineLinearDistancePenaltyFunction(new Vector(5, 3), new Vector(0, 1), 4, 10, false, true);
+
+            var result = penaltyFunction.CalculateGradient(new Vector(5, 3));
+
+            result.Norm.Should().BeApproximately(0, 1e-5);
+        }
+
+        [TestMethod]
         public void CalculateGradient_LeftOfLine_CorrectValue() {
             var penaltyFunction = new LineLinearDistancePenaltyFunction(new Vector(5, 3), new Vector(0, 1), 4, 10, false, false);
 

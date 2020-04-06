@@ -20,6 +20,11 @@
 
         public Vector CalculateGradient(Vector position) {
             var distanceVector = CalculateDistance(position);
+            var distance = distanceVector.Norm;
+
+            if (distance == 0) {
+                return new Vector(0, 0);
+            }
 
             if (_rightSideMaximumValue || _leftSideMaximumValue) {
                 var isLeft = Vector.IsLeftOfLine(_offset, _direction, position);
@@ -31,12 +36,6 @@
                 if (!isLeft && _rightSideMaximumValue) {
                     return distanceVector;
                 }
-            }
-
-            var distance = distanceVector.Norm;
-
-            if (distance == 0) {
-                return new Vector(0, 0);
             }
 
             var completeFactor = (-1) * _gradient / distance;
