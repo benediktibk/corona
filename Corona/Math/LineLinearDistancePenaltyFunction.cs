@@ -38,6 +38,10 @@
                 }
             }
 
+            if (distance > _maximumValue) {
+                return new Vector(0, 0);
+            }
+
             var completeFactor = (-1) * _gradient / distance;
             return completeFactor * distanceVector;
         }

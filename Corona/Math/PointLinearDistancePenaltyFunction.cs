@@ -15,7 +15,7 @@
         public Vector CalculateGradient(Vector position) {
             var distance = CalculateDistance(position);
 
-            if (distance == 0) {
+            if (distance == 0 || distance > _maximumValue) {
                 return new Vector(0, 0);
             }
 

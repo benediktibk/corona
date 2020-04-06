@@ -118,23 +118,21 @@ namespace MathTest
         }
 
         [TestMethod]
-        public void CalculateGradient_LeftFarAwayOfLine_CorrectValue() {
+        public void CalculateGradient_LeftFarAwayOfLine_0() {
             var penaltyFunction = new LineLinearDistancePenaltyFunction(new Vector(5, 3), new Vector(0, 1), 4, 10, false, false);
 
             var result = penaltyFunction.CalculateGradient(new Vector(-999, 3));
 
-            result.X.Should().BeApproximately(4, 1e-5);
-            result.Y.Should().BeApproximately(0, 1e-5);
+            result.Norm.Should().BeApproximately(0, 1e-5);
         }
 
         [TestMethod]
-        public void CalculatGradient_RightFarAwayOfLine_CorrectValue() {
+        public void CalculatGradient_RightFarAwayOfLine_0() {
             var penaltyFunction = new LineLinearDistancePenaltyFunction(new Vector(5, 3), new Vector(0, 1), 4, 10, false, false);
 
             var result = penaltyFunction.CalculateGradient(new Vector(699, 3));
 
-            result.X.Should().BeApproximately(-4, 1e-5);
-            result.Y.Should().BeApproximately(0, 1e-5);
+            result.Norm.Should().BeApproximately(0, 1e-5);
         }
 
         [TestMethod]

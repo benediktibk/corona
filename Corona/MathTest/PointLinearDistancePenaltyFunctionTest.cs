@@ -64,13 +64,12 @@ namespace MathTest
         }
 
         [TestMethod]
-        public void CalculateGradient_Farway_CorrectDirection() {
+        public void CalculateGradient_Farway_0() {
             var penaltyFunction = new PointLinearDistancePenaltyFunction(new Vector(3, 6), 4, 10);
 
             var result = penaltyFunction.CalculateGradient(new Vector(3, 700));
 
-            result.X.Should().BeApproximately(0, 1e-5);
-            result.Y.Should().BeApproximately(-4, 1e-5);
+            result.Norm.Should().BeApproximately(0, 1e-5);
         }
     }
 }

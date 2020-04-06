@@ -189,7 +189,7 @@ namespace MathTest
             var top = new LineLinearDistancePenaltyFunction(new Vector(0, height), new Vector(1, 0), verticalGradient, maximumValue, true, false);
             var left = new LineLinearDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), horziontalGradient, maximumValue, true, false);
             var right = new LineLinearDistancePenaltyFunction(new Vector(width, 0), new Vector(0, 1), horziontalGradient, maximumValue, false, true);
-            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
                 left,
