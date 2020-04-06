@@ -70,7 +70,7 @@ namespace MathTest
             });
             var start = new Vector(0.01, 0.1);
 
-            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-5);
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10000, 1e-15);
 
             result.X.Should().BeApproximately(5, 1e-5);
             result.Y.Should().BeApproximately(2.5, 1e-5);
@@ -92,7 +92,7 @@ namespace MathTest
             });
             var start = new Vector(2, 3);
 
-            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-5);
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10000, 1e-15);
 
             result.X.Should().BeApproximately(5, 1e-5);
             result.Y.Should().BeApproximately(2.5, 1e-5);
@@ -114,7 +114,7 @@ namespace MathTest
             });
             var start = new Vector(2, 3);
 
-            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-5);
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10000, 1e-15);
 
             result.X.Should().BeApproximately(5, 1e-5);
             result.Y.Should().BeApproximately(2.5, 1e-5);

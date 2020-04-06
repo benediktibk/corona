@@ -17,14 +17,17 @@ namespace Math
             var values = new List<double>();
 
             foreach (var penaltyFunction in _penaltyFunctions) {
-                gradients.Add(penaltyFunction.CalculateGradient(position));
+                var gradient = penaltyFunction.CalculateGradient(position);
+                gradients.Add(1 / gradient.Norm * gradient);
                 values.Add(penaltyFunction.CalculateValue(position));
             }
 
             var maxPenalty = values.Max();
 
             for (var i = 0; i < _penaltyFunctions.Count; ++i) {
-                result = result + values[i] / maxPenalty / gradients[i].Norm * gradients[i];
+                var scaling = values[i] / maxPenalty;
+                var gradientScaled = scaling * gradients[i];
+                result = result + gradientScaled;
             }
 
             return result;
