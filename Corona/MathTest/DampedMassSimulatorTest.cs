@@ -63,5 +63,23 @@ namespace MathTest
             var distance = (rectangleOne.PositionOfCenter - rectangleTwo.PositionOfCenter).Norm;
             distance.Should().BeApproximately(20, 1e-5);
         }
+
+        [TestMethod]
+        public void RunSimulation_TwoObjectsCompressedConnectedOnEdges_BothObjectsHaveCorrectPosition() {
+            var rectangleOne = new PhysicalRectangle(10, 2, 2, new Vector(3, 3), 2);
+            var rectangleTwo = new PhysicalRectangle(10, 2, 2, new Vector(3, 15), 2);
+            var spring = new Spring(20, 2, rectangleOne, rectangleTwo);
+            rectangleOne.AddSpringTop(spring);
+            rectangleTwo.AddSpringBottom(spring);
+            var physicalObjects = new List<IPhysicalObject> {
+                rectangleOne,
+                rectangleTwo
+            };
+
+            DampedMassSimulator.RunSimulation(100, 1e-10, 1e-2, physicalObjects);
+
+            var distance = (rectangleOne.PositionOfCenter - rectangleTwo.PositionOfCenter).Norm;
+            distance.Should().BeApproximately(22, 1e-5);
+        }
     }
 }
