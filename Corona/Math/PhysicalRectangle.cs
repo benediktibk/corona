@@ -2,7 +2,7 @@
 
 namespace Math
 {
-    public class PhysicalRectangle : ISpringConnection
+    public class PhysicalRectangle : ISpringConnection, IPhysicalObject
     {
         private readonly HashSet<ISpring> _springsConnectedLeft;
         private readonly HashSet<ISpring> _springsConnectedRight;

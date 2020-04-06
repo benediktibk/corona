@@ -46,15 +46,11 @@ namespace ScalableVectorGraphic
                 rectangleWithSprings.AddSpringCenter(spring);
             }
 
-            for (var t = 0.0; t < runTime; t += timeStep) {
-                var oldPosition = rectangleWithSprings.PositionOfCenter;
-                rectangleWithSprings.ApplyForces(timeStep);
-                var newPosition = rectangleWithSprings.PositionOfCenter;
+            var physicalObjects = new List<Math.IPhysicalObject> {
+                rectangleWithSprings
+            };
 
-                if ((oldPosition - newPosition).Norm < positionEpsilon) {
-                    break;
-                }
-            }
+            Math.DampedMassSimulator.RunSimulation(runTime, positionEpsilon, timeStep, physicalObjects);
 
             var result = rectangleWithSprings.PositionOfCenter - new Math.Vector(rectangle.Width / 2, rectangle.Height / 2);
             return new Point(result);

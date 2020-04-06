@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DampedMassSimulator.cs" />
     <Compile Include="FixedPoint.cs" />
     <Compile Include="IPenaltyFunction.cs" />
+    <Compile Include="IPhysicalObject.cs" />
     <Compile Include="ISpring.cs" />
     <Compile Include="ISpringConnection.cs" />
     <Compile Include="LineLinearDistancePenaltyFunction.cs" />
