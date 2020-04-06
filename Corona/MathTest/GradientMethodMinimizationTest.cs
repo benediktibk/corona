@@ -202,5 +202,32 @@ namespace MathTest
             result.X.Should().BeApproximately(width / 2, 1e-5);
             result.Y.Should().BeApproximately(height / 2, 1e-5);
         }
+
+        [TestMethod]
+        public void Minimize_CompleteLinearPenaltyBoxForRectangle_CenterOfBox() {
+            const double width = 10;
+            const double height = 5;
+            const double maximumValue = 10;
+            const double horziontalGradient = maximumValue / width * 2;
+            const double verticalGradient = maximumValue / height * 2;
+            const double boxWidth = 2;
+            const double boxHeight = 1;
+            var bottom = new LineLinearDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), verticalGradient, maximumValue, false, true);
+            var top = new LineLinearDistancePenaltyFunction(new Vector(0, height), new Vector(1, 0), verticalGradient, maximumValue, true, false);
+            var left = new LineLinearDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), horziontalGradient, maximumValue, true, false);
+            var right = new LineLinearDistancePenaltyFunction(new Vector(width, 0), new Vector(0, 1), horziontalGradient, maximumValue, false, true);
+            var penaltyFunction = new RectanglePenaltySum(new List<IPenaltyFunction> {
+                bottom,
+                top,
+                left,
+                right
+            }, boxWidth, boxHeight, 0.01);
+            var start = new Vector(0.01, 0.01);
+
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 200, 1e-10);
+
+            result.X.Should().BeApproximately(width / 2 - boxWidth / 2, 1e-2);
+            result.Y.Should().BeApproximately(height / 2 - boxHeight / 2, 1e-2);
+        }
     }
 }
