@@ -21,10 +21,10 @@
             var distanceNormed = 1 / distanceNorm * distance;
 
             if (connection == _connectionOne) {
-                return force * distanceNormed;
+                return (-1) * force * distanceNormed;
             }
             else if (connection == _connectionTwo) {
-                return (-1) * force * distanceNormed;
+                return force * distanceNormed;
             }
 
             throw new System.ArgumentException("connection is invalid");
