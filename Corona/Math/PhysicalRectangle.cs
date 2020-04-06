@@ -18,11 +18,11 @@ namespace Math
 
         public Vector PositionOfCenter => _positionOfCenter;
 
-        public PhysicalRectangle(double weight, double width, double height) {
+        public PhysicalRectangle(double weight, double width, double height, Vector positionOfCenter) {
             _weight = weight;
             _width = width;
             _height = height;
-            _positionOfCenter = new Vector(0.5, 0.5);
+            _positionOfCenter = positionOfCenter;
             _speed = new Vector(0, 0);
             _springsConnectedBottom = new HashSet<ISpring>();
             _springsConnectedLeft = new HashSet<ISpring>();
