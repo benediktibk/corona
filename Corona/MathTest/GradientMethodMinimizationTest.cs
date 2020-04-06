@@ -97,5 +97,27 @@ namespace MathTest
             result.X.Should().BeApproximately(2.5, 1e-5);
             result.Y.Should().BeApproximately(exponentialBase, 1e-5);
         }
+
+        [TestMethod]
+        public void Minimize_CompleteBoxWithStartCloseToCenter_CenterOfBox() {
+            const double exponentialBase = 10;
+            const double maximumValue = 1e5;
+            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), exponentialBase, maximumValue, false, true);
+            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, exponentialBase), new Vector(1, 0), exponentialBase, maximumValue, true, false);
+            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, true, false);
+            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, true);
+            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+                bottom,
+                top,
+                left,
+                right
+            });
+            var start = new Vector(2, 3);
+
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-5);
+
+            result.X.Should().BeApproximately(2.5, 1e-5);
+            result.Y.Should().BeApproximately(exponentialBase, 1e-5);
+        }
     }
 }

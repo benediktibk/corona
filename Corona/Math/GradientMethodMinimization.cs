@@ -7,7 +7,7 @@
             var penalty = penaltyFunction.CalculateValue(current);
 
             for (var i = 0; i < maximumIterations; ++i) {
-                var gradient = penaltyFunction.CalculateGradient(current);
+                var gradient = (-1) * penaltyFunction.CalculateGradient(current);
                 var stepSize = CalculateStepSize(penaltyFunction, current, gradient, maximumIterations, penalty, out var nextPenalty);
                 current = current + stepSize * gradient;
 
