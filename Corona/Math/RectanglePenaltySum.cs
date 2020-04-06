@@ -5,16 +5,18 @@ namespace Math
 {
     public class RectanglePenaltySum : IPenaltyFunction
     {
-        public readonly List<IPenaltyFunction> _penaltyFunctions;
-        public readonly double _width;
-        public readonly double _height;
-        public readonly double _stepSize;
+        private readonly List<IPenaltyFunction> _penaltyFunctions;
+        private readonly double _width;
+        private readonly double _height;
+        private readonly double _stepSize;
+        private readonly double _scale;
 
-        public RectanglePenaltySum(IReadOnlyList<IPenaltyFunction> penaltyFunctions, double width, double height, double stepSize) {
+        public RectanglePenaltySum(IReadOnlyList<IPenaltyFunction> penaltyFunctions, double width, double height, double stepSize, double scale) {
             _penaltyFunctions = penaltyFunctions.ToList();
             _width = width;
             _height = height;
             _stepSize = stepSize;
+            _scale = scale;
         }
 
         public Vector CalculateGradient(Vector position) {
@@ -28,7 +30,7 @@ namespace Math
                 }
             }
 
-            return gradient;
+            return _scale * gradient;
         }
 
         public double CalculateValue(Vector position) {
@@ -42,7 +44,7 @@ namespace Math
                 }
             }
 
-            return result;
+            return _scale * result;
         }
     }
 }

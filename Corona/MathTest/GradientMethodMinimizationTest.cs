@@ -221,7 +221,7 @@ namespace MathTest
                 top,
                 left,
                 right
-            }, boxWidth, boxHeight, 0.01);
+            }, boxWidth, boxHeight, 0.01, 1);
             var start = new Vector(0.01, 0.01);
 
             var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 200, 1e-10);
