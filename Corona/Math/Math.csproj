@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IPenaltyFunction.cs" />
     <Compile Include="IPenaltyFunctionIntegrable.cs" />
+    <Compile Include="LineLinearDistancePenaltyFunction.cs" />
     <Compile Include="LineExponentialDistancePenaltyFunction.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="GradientMethodMinimization.cs" />

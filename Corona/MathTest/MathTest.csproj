@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="GradientMethodMinimizationTest.cs" />
     <Compile Include="LineExponentialDistancePenaltyFunctionTest.cs" />
+    <Compile Include="LineLinearDistancePenaltyFunctionTest.cs" />
     <Compile Include="MatrixTest.cs" />
     <Compile Include="PointExponentialDistancePenaltyFunctionTest.cs" />
     <Compile Include="PointLinearDistancePenaltyFunctionTest.cs" />
