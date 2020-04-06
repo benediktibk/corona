@@ -55,22 +55,47 @@ namespace MathTest
         }
 
         [TestMethod]
-        public void Minimize_Box_CenterOfBox() {
-            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), 5, 1e10);
-            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, 5), new Vector(1, 0), 5, 1e10);
-            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), 5, 1e10);
-            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), 5, 1e10);
+        public void Minimize_BoxWithStartCloseToCorner_CenterOfBox() {
+            const int exponentialBase = 2;
+            const double maximumValue = 1e5;
+            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), exponentialBase, maximumValue);
+            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, exponentialBase), new Vector(1, 0), exponentialBase, maximumValue);
+            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue);
+            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue);
             var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
                 left,
                 right
             });
+            var start = new Vector(0.01, 0.1);
 
-            var result = GradientMethodMinimization.Minimize(new Vector(0.01, 0.1), penaltyFunction, 10, 1e-5);
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-5);
 
-            result.X.Should().NotBeApproximately(2.5, 1e-5);
-            result.Y.Should().NotBeApproximately(5, 1e-5);
+            result.X.Should().BeApproximately(2.5, 1e-5);
+            result.Y.Should().BeApproximately(exponentialBase, 1e-5);
+        }
+
+        [TestMethod]
+        public void Minimize_BoxWithStartCloseToCenter_CenterOfBox() {
+            const int exponentialBase = 2;
+            const double maximumValue = 1e5;
+            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), exponentialBase, maximumValue);
+            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, exponentialBase), new Vector(1, 0), exponentialBase, maximumValue);
+            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue);
+            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue);
+            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+                bottom,
+                top,
+                left,
+                right
+            });
+            var start = new Vector(2, 3);
+
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-5);
+
+            result.X.Should().BeApproximately(2.5, 1e-5);
+            result.Y.Should().BeApproximately(exponentialBase, 1e-5);
         }
     }
 }
