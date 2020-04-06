@@ -136,5 +136,29 @@ namespace MathTest
             result.X.Should().BeApproximately(resultShouldBe.X, 1e-5);
             result.Y.Should().BeApproximately(resultShouldBe.Y, 1e-5);
         }
+
+        [TestMethod]
+        public void CalculateValue_TwoParallelLinesWithSameDistance_SameValues() {
+            var lineOne = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), 3, 10, true, false);
+            var lineTwo = new LineExponentialDistancePenaltyFunction(new Vector(1, 0), new Vector(0, 1), 3, 10, false, true);
+
+            var resultOne = lineOne.CalculateValue(new Vector(0.5, 0));
+            var resultTwo = lineTwo.CalculateValue(new Vector(0.5, 0));
+
+            resultTwo.Should().BeApproximately(resultOne, 1e-5);
+        }
+
+        [TestMethod]
+        public void CalculateGradient_TwoParallelLinesWithSameDistance_OpposingResults() {
+            var lineOne = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), 3, 10, true, false);
+            var lineTwo = new LineExponentialDistancePenaltyFunction(new Vector(1, 0), new Vector(0, 1), 3, 10, false, true);
+
+            var resultOne = lineOne.CalculateGradient(new Vector(0.5, 0));
+            var resultTwo = lineTwo.CalculateGradient(new Vector(0.5, 0));
+
+            resultTwo.X.Should().BeApproximately((-1) * resultOne.X, 1e-5);
+            resultOne.Y.Should().BeApproximately(0, 1e-5);
+            resultTwo.Y.Should().BeApproximately(0, 1e-5);
+        }
     }
 }
