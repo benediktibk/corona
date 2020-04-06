@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Math
 {
-    public class PenaltyFunctionSum : IPenaltyFunction
+    public class PenaltyFunctionWeightedSum : IPenaltyFunction
     {
         private readonly List<IPenaltyFunction> _penaltyFunctions;
 
-        public PenaltyFunctionSum(IReadOnlyList<IPenaltyFunction> penaltyFunctions) {
+        public PenaltyFunctionWeightedSum(IReadOnlyList<IPenaltyFunction> penaltyFunctions) {
             _penaltyFunctions = penaltyFunctions.ToList();
         }
 

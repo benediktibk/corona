@@ -62,7 +62,7 @@ namespace MathTest
             var top = new LineExponentialDistancePenaltyFunction(new Vector(0, 5), new Vector(1, 0), exponentialBase, maximumValue, false, false);
             var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
             var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
-            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
                 left,
@@ -84,7 +84,7 @@ namespace MathTest
             var top = new LineExponentialDistancePenaltyFunction(new Vector(0, 5), new Vector(1, 0), exponentialBase, maximumValue, false, false);
             var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
             var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
-            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
                 left,
@@ -106,7 +106,7 @@ namespace MathTest
             var top = new LineExponentialDistancePenaltyFunction(new Vector(0, 5), new Vector(1, 0), exponentialBase, maximumValue, true, false);
             var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, true, false);
             var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, true);
-            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
                 left,
@@ -128,7 +128,7 @@ namespace MathTest
             var top = new LineExponentialDistancePenaltyFunction(new Vector(0, 5), new Vector(1, 0), exponentialBase, maximumValue, true, false);
             var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, true, false);
             var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, true);
-            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
                 left,
@@ -148,7 +148,7 @@ namespace MathTest
             const double maximumValue = 1e5;
             var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, true, false);
             var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, true);
-            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
                 left,
                 right
             });
@@ -166,7 +166,7 @@ namespace MathTest
             const double maximumValue = 1e5;
             var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, true, false);
             var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, true);
-            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
                 left,
                 right
             });
@@ -189,7 +189,7 @@ namespace MathTest
             var top = new LineLinearDistancePenaltyFunction(new Vector(0, height), new Vector(1, 0), verticalGradient, maximumValue, true, false);
             var left = new LineLinearDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), horziontalGradient, maximumValue, true, false);
             var right = new LineLinearDistancePenaltyFunction(new Vector(width, 0), new Vector(0, 1), horziontalGradient, maximumValue, false, true);
-            var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
+            var penaltyFunction = new PenaltyFunctionWeightedSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
                 left,
