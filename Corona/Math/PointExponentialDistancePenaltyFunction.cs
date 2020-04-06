@@ -18,7 +18,7 @@
             var distance = CalculateDistance(position);
             var logBase = System.Math.Log(_exponentialBase);
             var value = System.Math.Pow(_exponentialBase, _offset - distance);
-            var completeFactor = value * logBase / distance;
+            var completeFactor = value * logBase / distance * (-1);
             return completeFactor * (position - _position);
         }
 

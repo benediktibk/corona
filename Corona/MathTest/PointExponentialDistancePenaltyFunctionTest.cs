@@ -34,5 +34,13 @@ namespace MathTest
 
             result.Should().BeApproximately(0.857283452480479652081247523203359410366624541725080390132, 1e-5);
         }
+
+        [TestMethod]
+        public void CalculateGradient_Nearby_CorrectValue() {
+            var result = _penaltyFunction.CalculateGradient(new Vector(5, 7));
+
+            result.X.Should().BeApproximately(-0.42119566365775522928882632958020862382656631894011144028, 1e-5);
+            result.Y.Should().BeApproximately(-0.84239132731551045857765265916041724765313263788022288057, 1e-5);
+        }
     }
 }
