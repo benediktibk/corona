@@ -197,7 +197,7 @@ namespace MathTest
             });
             var start = new Vector(0.01, 0.01);
 
-            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 20, 1e-10);
+            var result = GradientMethodMinimization.Minimize(start, penaltyFunction, 200, 1e-10);
 
             result.X.Should().BeApproximately(width / 2, 1e-5);
             result.Y.Should().BeApproximately(height / 2, 1e-5);

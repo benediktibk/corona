@@ -38,7 +38,7 @@
                 }
             }
 
-            if (distance > _maximumValue) {
+            if (_maximumValue < _gradient * distance) {
                 return new Vector(0, 0);
             }
 
