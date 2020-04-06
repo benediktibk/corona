@@ -21,7 +21,7 @@ namespace ScalableVectorGraphic
         public Color LineColor { get; }
         public double LineWidth { get; }
         public double Width => RightLowerCorner.X - LeftUpperCorner.X;
-        public double Height => RightLowerCorner.Y - LeftUpperCorner.Y;
+        public double Height => LeftUpperCorner.Y - RightLowerCorner.Y;
 
         public string Description { get; }
 
