@@ -29,5 +29,9 @@ namespace Math
         public static double operator *(Vector a, Vector b) {
             return a.X * b.X + a.Y * b.Y;
         }
+
+        public static bool IsLeftOfLine(Vector offset, Vector direction, Vector point) {
+            return (point.X - offset.X) * direction.Y - (point.Y - offset.Y) * direction.X < 0;
+        }
     }
 }

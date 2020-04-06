@@ -7,13 +7,17 @@
         private readonly double _exponentialBase;
         private readonly double _maximumValue;
         private readonly double _distanceOffset;
+        private readonly bool _rightSideMaximumValue;
+        private readonly bool _leftSideMaximumValue;
 
-        public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction, double exponentialBase, double maximumValue) {
+        public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction, double exponentialBase, double maximumValue, bool rightSideMaximumValue, bool leftSideMaximumValue) {
             _offset = offset;
             _direction = 1/ direction.Norm * direction;
             _exponentialBase = exponentialBase;
             _maximumValue = maximumValue;
             _distanceOffset = System.Math.Log(_maximumValue) / System.Math.Log(_exponentialBase);
+            _leftSideMaximumValue = leftSideMaximumValue;
+            _rightSideMaximumValue = rightSideMaximumValue;
         }
 
         public Vector CalculateGradient(Vector position) {

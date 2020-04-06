@@ -58,10 +58,10 @@ namespace MathTest
         public void Minimize_BoxWithStartCloseToCorner_CenterOfBox() {
             const int exponentialBase = 2;
             const double maximumValue = 1e5;
-            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), exponentialBase, maximumValue);
-            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, exponentialBase), new Vector(1, 0), exponentialBase, maximumValue);
-            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue);
-            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue);
+            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), exponentialBase, maximumValue, false, false);
+            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, exponentialBase), new Vector(1, 0), exponentialBase, maximumValue, false, false);
+            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
+            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
             var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
                 bottom,
                 top,
@@ -80,10 +80,10 @@ namespace MathTest
         public void Minimize_BoxWithStartCloseToCenter_CenterOfBox() {
             const int exponentialBase = 2;
             const double maximumValue = 1e5;
-            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), exponentialBase, maximumValue);
-            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, exponentialBase), new Vector(1, 0), exponentialBase, maximumValue);
-            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue);
-            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue);
+            var bottom = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(1, 0), exponentialBase, maximumValue, false, false);
+            var top = new LineExponentialDistancePenaltyFunction(new Vector(0, exponentialBase), new Vector(1, 0), exponentialBase, maximumValue, false, false);
+            var left = new LineExponentialDistancePenaltyFunction(new Vector(0, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
+            var right = new LineExponentialDistancePenaltyFunction(new Vector(10, 0), new Vector(0, 1), exponentialBase, maximumValue, false, false);
             var penaltyFunction = new PenaltyFunctionSum(new List<IPenaltyFunction> {
                 bottom,
                 top,

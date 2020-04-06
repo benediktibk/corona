@@ -10,7 +10,7 @@ namespace MathTest
         [TestMethod]
         public void CalculateValue_HorizontalLineThroughPointComparison_SameValueAsPoint() {
             var point = new PointExponentialDistancePenaltyFunction(new Vector(4, 5), 3, 10);
-            var line = new LineExponentialDistancePenaltyFunction(new Vector(3, 5), new Vector(10, 0), 3, 10);
+            var line = new LineExponentialDistancePenaltyFunction(new Vector(3, 5), new Vector(10, 0), 3, 10, false, false);
 
             var result = line.CalculateValue(new Vector(4, 2));
 
@@ -21,7 +21,7 @@ namespace MathTest
         [TestMethod]
         public void CalculateValue_VerticalLineThroughPointComparison_SameValueAsPoint() {
             var point = new PointExponentialDistancePenaltyFunction(new Vector(4, 5), 3, 10);
-            var line = new LineExponentialDistancePenaltyFunction(new Vector(4, -5), new Vector(0, 2), 3, 10);
+            var line = new LineExponentialDistancePenaltyFunction(new Vector(4, -5), new Vector(0, 2), 3, 10, false, false);
 
             var result = line.CalculateValue(new Vector(2, 5));
 
@@ -32,7 +32,7 @@ namespace MathTest
         [TestMethod]
         public void CalculateGradient_HorizontalLineThroughPointComparison_SameValueAsPoint() {
             var point = new PointExponentialDistancePenaltyFunction(new Vector(4, 5), 3, 10);
-            var line = new LineExponentialDistancePenaltyFunction(new Vector(3, 5), new Vector(10, 0), 3, 10);
+            var line = new LineExponentialDistancePenaltyFunction(new Vector(3, 5), new Vector(10, 0), 3, 10, false, false);
 
             var result = line.CalculateGradient(new Vector(4, 2));
 
@@ -44,7 +44,7 @@ namespace MathTest
         [TestMethod]
         public void CalculateGradient_VerticalLineThroughPointComparison_SameValueAsPoint() {
             var point = new PointExponentialDistancePenaltyFunction(new Vector(4, 5), 3, 10);
-            var line = new LineExponentialDistancePenaltyFunction(new Vector(4, -5), new Vector(0, 2), 3, 10);
+            var line = new LineExponentialDistancePenaltyFunction(new Vector(4, -5), new Vector(0, 2), 3, 10, false, false);
 
             var result = line.CalculateGradient(new Vector(2, 5));
 
