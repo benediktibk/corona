@@ -2,13 +2,17 @@
 {
     public class LineExponentialDistancePenaltyFunction : IPenaltyFunctionIntegrable
     {
-        public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction) {
-            Offset = offset;
-            Direction = direction;
-        }
+        private readonly Vector _offset;
+        private readonly Vector _direction;
+        private readonly double _exponentialBase;
+        private readonly double _maximumValue;
 
-        public Vector Offset { get; }
-        public Vector Direction { get; }
+        public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction, double exponentialBase, double maximumValue) {
+            _offset = offset;
+            _direction = 1/ direction.Norm * direction;
+            _exponentialBase = exponentialBase;
+            _maximumValue = maximumValue;
+        }
 
         public Vector CalculateGradient(Vector position) {
             throw new System.NotImplementedException();

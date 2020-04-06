@@ -25,5 +25,9 @@ namespace Math
         public static Vector operator *(double a, Vector b) {
             return new Vector(a * b.X, a * b.Y);
         }
+
+        public static double operator *(Vector a, Vector b) {
+            return a.X * b.X + a.Y * b.Y;
+        }
     }
 }
