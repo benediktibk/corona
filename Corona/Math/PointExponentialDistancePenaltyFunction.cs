@@ -1,6 +1,6 @@
 ﻿namespace Math
 {
-    public class PointExponentialDistancePenaltyFunction : IPenaltyFunctionIntegrable
+    public class PointExponentialDistancePenaltyFunction : IPenaltyFunction
     {
         private readonly double _offset;
         private readonly double _exponentialBase;
@@ -30,10 +30,6 @@
         private double CalculateDistance(Vector position) {
             var distanceVector = position - _position;
             return distanceVector.Norm;
-        }
-
-        public double CalculateValueSumInRectangle(Vector position, double width, double height) {
-            throw new System.NotImplementedException();
         }
     }
 }

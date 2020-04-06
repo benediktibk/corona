@@ -5,12 +5,12 @@ namespace Math
 {
     public class RectanglePenaltySum : IPenaltyFunction
     {
-        public readonly List<IPenaltyFunctionIntegrable> _penaltyFunctions;
+        public readonly List<IPenaltyFunction> _penaltyFunctions;
         public readonly Vector _position;
         public readonly double _width;
         public readonly double _height;
 
-        public RectanglePenaltySum(IReadOnlyList<IPenaltyFunctionIntegrable> penaltyFunctions, Vector position, double width, double height) {
+        public RectanglePenaltySum(IReadOnlyList<IPenaltyFunction> penaltyFunctions, Vector position, double width, double height) {
             _penaltyFunctions = penaltyFunctions.ToList();
             _position = position;
             _width = width;
@@ -28,13 +28,7 @@ namespace Math
         }
 
         public double CalculateValue(Vector position) {
-            var result = 0.0;
-
-            foreach (var penaltyFunction in _penaltyFunctions) {
-                result += penaltyFunction.CalculateValueSumInRectangle(_position + position, _width, _height);
-            }
-
-            return result;
+            throw new System.NotImplementedException();
         }
     }
 }

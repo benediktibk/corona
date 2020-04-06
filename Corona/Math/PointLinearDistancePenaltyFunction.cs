@@ -1,6 +1,6 @@
 ﻿namespace Math
 {
-    public class PointLinearDistancePenaltyFunction : IPenaltyFunctionIntegrable
+    public class PointLinearDistancePenaltyFunction : IPenaltyFunction
     {
         private readonly double _gradient;
         private readonly double _maximumValue;
@@ -31,10 +31,6 @@
         private double CalculateDistance(Vector position) {
             var distanceVector = position - _position;
             return distanceVector.Norm;
-        }
-
-        public double CalculateValueSumInRectangle(Vector position, double width, double height) {
-            throw new System.NotImplementedException();
         }
     }
 }
