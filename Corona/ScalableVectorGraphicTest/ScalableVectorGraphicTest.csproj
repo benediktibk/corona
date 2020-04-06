@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AxisBaseTest.cs" />
+    <Compile Include="OverlapMinimizerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransformationTest.cs" />
     <Compile Include="XYGraphTest.cs" />

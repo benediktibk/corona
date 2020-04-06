@@ -124,7 +124,7 @@ namespace ScalableVectorGraphic
             var background = new Rectangle("legend background", new Point(0, overallHeight), new Point(overallWidth, 0), _legendBackgroundColor, Color.Black, _legendBorderWidth);
             elements.Insert(0, background);
 
-            var legendPosition = OverlapMinimizer.PlaceRectangleOverPoints(background, dataPoints, new Point(0, 0), new Point(1, 1));
+            var legendPosition = OverlapMinimizer.PlaceRectangleOverPoints(background, dataPoints);
 
             var transformation = new Transformation(new Matrix(1, 1), legendPosition.ToVector());
             elements = transformation.Apply(elements);
