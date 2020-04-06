@@ -13,15 +13,17 @@ namespace Math
         private readonly double _weight;
         private readonly double _width;
         private readonly double _height;
+        private readonly double _damping;
         private Vector _positionOfCenter;
         private Vector _speed;
 
         public Vector PositionOfCenter => _positionOfCenter;
 
-        public PhysicalRectangle(double weight, double width, double height, Vector positionOfCenter) {
+        public PhysicalRectangle(double weight, double width, double height, Vector positionOfCenter, double damping) {
             _weight = weight;
             _width = width;
             _height = height;
+            _damping = damping;
             _positionOfCenter = positionOfCenter;
             _speed = new Vector(0, 0);
             _springsConnectedBottom = new HashSet<ISpring>();
@@ -64,8 +66,8 @@ namespace Math
                 allForces = allForces + spring.CalculateForce(this);
             }
 
-            var acceleration = _weight * allForces;
-            _speed = _speed + timeStep * acceleration;
+            var acceleration = 1 / _weight * allForces;
+            _speed = (1 - _damping * timeStep) * (_speed + timeStep * acceleration);
             _positionOfCenter = _positionOfCenter + timeStep * _speed;
         }
 

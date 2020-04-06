@@ -14,7 +14,7 @@ namespace ScalableVectorGraphic
             const double positionEpsilon = 1e-5;
             const double timeStep = 1e-2;
 
-            var rectangleWithSprings = new Math.PhysicalRectangle(weight, rectangle.Width, rectangle.Height, new Math.Vector(0.5, 0.5));
+            var rectangleWithSprings = new Math.PhysicalRectangle(weight, rectangle.Width, rectangle.Height, new Math.Vector(0.5, 0.5), 0);
 
             for (var x = springDistanceBorder; x < 1; x += springDistanceBorder) {
                 var connectionPoint = new Math.FixedPoint(new Math.Vector(x, 0));
