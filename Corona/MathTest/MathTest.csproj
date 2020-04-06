@@ -59,6 +59,7 @@
     <Compile Include="LineExponentialDistancePenaltyFunctionTest.cs" />
     <Compile Include="MatrixTest.cs" />
     <Compile Include="PointExponentialDistancePenaltyFunctionTest.cs" />
+    <Compile Include="PointLinearDistancePenaltyFunctionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VectorTest.cs" />
   </ItemGroup>
