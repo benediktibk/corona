@@ -7,7 +7,7 @@ namespace ScalableVectorGraphic
         public static Point PlaceRectangleOverPoints(Rectangle rectangle, IReadOnlyList<Point> points, Point mostLefLowerPoint, Point mostRightUpperPoint) {
             const double gradient = 2;
             const double maximumValueBorders = 1;
-            double maximumValuePoint = maximumValueBorders;
+            double maximumValuePoint = maximumValueBorders / points.Count;
 
             var penaltyFunctions = new List<Math.IPenaltyFunction>();
             var bottom = new Math.LineLinearDistancePenaltyFunction(new Math.Vector(0, 0), new Math.Vector(1, 0), gradient, maximumValueBorders, false, true);
@@ -25,8 +25,8 @@ namespace ScalableVectorGraphic
             }
 
             var start = new Math.Vector(0.5, 0.5);
-            var penaltyFunction = new Math.RectanglePenaltySum(penaltyFunctions, rectangle.Width, rectangle.Height, 0.01, 1);
-            var result = Math.GradientMethodMinimization.Minimize(start, penaltyFunction, 100, 1e-5);
+            var penaltyFunction = new Math.RectanglePenaltySum(penaltyFunctions, rectangle.Width, rectangle.Height, 0.001, 1e-2);
+            var result = Math.GradientMethodMinimization.Minimize(start, penaltyFunction, 10, 1e-5);
             if (result.X > 0 && result.X < 1 && result.Y > 0 && result.Y < 1) {
                 return new Point(result);
             }
