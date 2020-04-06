@@ -55,6 +55,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GradientMethodMinimizationTest.cs" />
     <Compile Include="MatrixTest.cs" />
     <Compile Include="PointExponentialDistancePenaltyFunctionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
