@@ -4,7 +4,6 @@
     {
         public static Vector Minimize(Vector start, IPenaltyFunction penaltyFunction, int maximumIterations, double penaltyChangeTermination) {
             const double beta = 0.5;
-
             var current = start;
             var penalty = penaltyFunction.CalculateValue(current);
 

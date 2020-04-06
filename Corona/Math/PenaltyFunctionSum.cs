@@ -13,9 +13,18 @@ namespace Math
 
         public Vector CalculateGradient(Vector position) {
             var result = new Vector(0, 0);
+            var gradients = new List<Vector>();
+            var values = new List<double>();
 
             foreach (var penaltyFunction in _penaltyFunctions) {
-                result = result + penaltyFunction.CalculateGradient(position);
+                gradients.Add(penaltyFunction.CalculateGradient(position));
+                values.Add(penaltyFunction.CalculateValue(position));
+            }
+
+            var maxPenalty = values.Max();
+
+            for (var i = 0; i < _penaltyFunctions.Count; ++i) {
+                result = result + values[i] / maxPenalty / gradients[i].Norm * gradients[i];
             }
 
             return result;
