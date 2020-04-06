@@ -10,7 +10,7 @@
         private readonly bool _rightSideMaximumValue;
         private readonly bool _leftSideMaximumValue;
 
-        public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction, double exponentialBase, double maximumValue, bool rightSideMaximumValue, bool leftSideMaximumValue) {
+        public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction, double exponentialBase, double maximumValue, bool leftSideMaximumValue, bool rightSideMaximumValue) {
             _offset = offset;
             _direction = 1/ direction.Norm * direction;
             _exponentialBase = exponentialBase;
@@ -22,6 +22,19 @@
 
         public Vector CalculateGradient(Vector position) {
             var distanceVector = CalculateDistance(position);
+
+            if (_rightSideMaximumValue || _leftSideMaximumValue) {
+                var isLeft = Vector.IsLeftOfLine(_offset, _direction, position);
+
+                if (isLeft && _leftSideMaximumValue) {
+                    return distanceVector;
+                }
+
+                if (!isLeft && _rightSideMaximumValue) {
+                    return distanceVector;
+                }
+            }
+
             var distance = distanceVector.Norm;
             var logBase = System.Math.Log(_exponentialBase);
             var value = System.Math.Pow(_exponentialBase, _distanceOffset - distanceVector.Norm);
@@ -30,6 +43,18 @@
         }
 
         public double CalculateValue(Vector position) {
+            if (_rightSideMaximumValue || _leftSideMaximumValue) {
+                var isLeft = Vector.IsLeftOfLine(_offset, _direction, position);
+
+                if (isLeft && _leftSideMaximumValue) {
+                    return _maximumValue;
+                }
+
+                if (!isLeft && _rightSideMaximumValue) {
+                    return _maximumValue;
+                }
+            }
+
             var distance = CalculateDistance(position);
             return System.Math.Pow(_exponentialBase, _distanceOffset - distance.Norm);
         }
