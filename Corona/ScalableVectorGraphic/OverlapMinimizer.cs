@@ -13,12 +13,12 @@ namespace ScalableVectorGraphic
         private readonly double _positionEpsilon = 1e-5;
         private readonly double _timeStep = 1e-2;
 
-        public OverlapMinimizer(double springDistanceBorder) {
-            _springDistanceBorder = springDistanceBorder;
+        public OverlapMinimizer(double springsPerBorder) {
+            _springDistanceBorder = 1.0 / (springsPerBorder + 1);
         }
 
         public OverlapMinimizer() :
-            this(0.1) {
+            this(10) {
         }
 
         public Point PlaceRectangleOverPoints(Rectangle rectangle, IReadOnlyList<Point> points) {
