@@ -21,6 +21,7 @@ namespace ScalableVectorGraphic
         private const double _legendBorderWidth = 0.002;
         private const string _legendFont = "monospace";
         private static readonly Color _legendBackgroundColor = new Color(245, 245, 245);
+        private readonly OverlapMinimizer _overlapMinizmer = new OverlapMinimizer();
 
         public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend, bool background) :
             this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend, background) {
@@ -124,7 +125,7 @@ namespace ScalableVectorGraphic
             var background = new Rectangle("legend background", new Point(0, overallHeight), new Point(overallWidth, 0), _legendBackgroundColor, Color.Black, _legendBorderWidth);
             elements.Insert(0, background);
 
-            var legendPosition = OverlapMinimizer.PlaceRectangleOverPoints(background, dataPoints);
+            var legendPosition = _overlapMinizmer.PlaceRectangleOverPoints(background, dataPoints);
 
             var transformation = new Transformation(new Matrix(1, 1), legendPosition.ToVector());
             elements = transformation.Apply(elements);
