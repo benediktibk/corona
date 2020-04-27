@@ -60,6 +60,7 @@
     <Compile Include="LineExponentialDistancePenaltyFunctionTest.cs" />
     <Compile Include="LineLinearDistancePenaltyFunctionTest.cs" />
     <Compile Include="MatrixTest.cs" />
+    <Compile Include="NormalDistributionTest.cs" />
     <Compile Include="PointExponentialDistancePenaltyFunctionTest.cs" />
     <Compile Include="PointLinearDistancePenaltyFunctionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -59,6 +59,7 @@
     <Compile Include="LineExponentialDistancePenaltyFunction.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="GradientMethodMinimization.cs" />
+    <Compile Include="NormalDistribution.cs" />
     <Compile Include="PenaltyFunctionSum.cs" />
     <Compile Include="PenaltyFunctionWeightedSum.cs" />
     <Compile Include="PhysicalRectangle.cs" />

@@ -1,0 +1,47 @@
+﻿
+using FluentAssertions;
+using Math;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace MathTest
+{
+    [TestClass]
+    public class NormalDistributionTest
+    {
+        [TestMethod]
+        public void CalculateSumTo_Expectation0StandardDeviation1AndX0_05() {
+            var normalDistribution = new NormalDistribution(0, 1);
+
+            var result = normalDistribution.CalculateSumTo(0);
+
+            result.Should().BeApproximately(0.5, 1e-5);
+        }
+
+        [TestMethod]
+        public void CalculateSumTo_Expectation0StandardDeviation1AndX196_0975() {
+            var normalDistribution = new NormalDistribution(0, 1);
+
+            var result = normalDistribution.CalculateSumTo(1.96);
+
+            result.Should().BeApproximately(0.975, 1e-5);
+        }
+
+        [TestMethod]
+        public void CalculateSumTo_Expectation0StandardDeviation1AndXNegative196_0025() {
+            var normalDistribution = new NormalDistribution(0, 1);
+
+            var result = normalDistribution.CalculateSumTo(-1.96);
+
+            result.Should().BeApproximately(0.025, 1e-5);
+        }
+
+        [TestMethod]
+        public void CalculateSumBetween_Expectation0StandardDeviation1AndNegative196AndPositive196_095() {
+            var normalDistribution = new NormalDistribution(0, 1);
+
+            var result = normalDistribution.CalculateSumBetween(-1.96, 1.96);
+
+            result.Should().BeApproximately(0.95, 1e-5);
+        }
+    }
+}
