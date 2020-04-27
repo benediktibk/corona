@@ -1,5 +1,4 @@
-﻿using Math;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace ScalableVectorGraphic
 {
@@ -20,8 +19,8 @@ namespace ScalableVectorGraphic
         public Color BackgroundColor { get; }
         public Color LineColor { get; }
         public double LineWidth { get; }
-        public double Width => RightLowerCorner.X - LeftUpperCorner.X;
-        public double Height => LeftUpperCorner.Y - RightLowerCorner.Y;
+        public double Width => System.Math.Abs(RightLowerCorner.X - LeftUpperCorner.X);
+        public double Height => System.Math.Abs(LeftUpperCorner.Y - RightLowerCorner.Y);
 
         public string Description { get; }
 

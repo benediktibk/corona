@@ -68,7 +68,18 @@ namespace ScalableVectorGraphicTest
             var result = _overlapMinimzer.PlaceRectangleOverPoints(_rectangle, _points);
 
             var distance = (result.ToVector() - new Math.Vector(_boxMiddlePositionLeftLowerX, _boxMiddlePositionLeftLowerY)).Norm;
-            distance.Should().BeGreaterThan(0.1);
+            distance.Should().BeGreaterThan(0.01);
+        }
+
+        [TestMethod]
+        public void PlaceRectangleOverPoints_OnePointInTheMiddleAndOnlyOneSpringPerBorder_NotTheMiddle() {
+            _overlapMinimzer = new OverlapMinimizer(1);
+            _points.Add(new Point(0.51, 0.5));
+
+            var result = _overlapMinimzer.PlaceRectangleOverPoints(_rectangle, _points);
+
+            var distance = (result.ToVector() - new Math.Vector(_boxMiddlePositionLeftLowerX, _boxMiddlePositionLeftLowerY)).Norm;
+            distance.Should().BeGreaterThan(0.01);
         }
     }
 }

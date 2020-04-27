@@ -8,9 +8,9 @@ namespace ScalableVectorGraphic
         private readonly double _springDistanceBorder;
         private readonly double _springStiffness = 1;
         private readonly double _springLengthBorder = 1;
-        private readonly double _springLengthPoints = 0.1;
+        private readonly double _springLengthPoints = 1;
         private readonly double _runTime = 10;
-        private readonly double _positionEpsilon = 1e-5;
+        private readonly double _positionEpsilon = 1e-10;
         private readonly double _timeStep = 1e-2;
 
         public OverlapMinimizer(double springsPerBorder) {
