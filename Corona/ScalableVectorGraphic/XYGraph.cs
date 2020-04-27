@@ -21,15 +21,14 @@ namespace ScalableVectorGraphic
         private const double _legendBorderWidth = 0.002;
         private const string _legendFont = "monospace";
         private static readonly Color _legendBackgroundColor = new Color(245, 245, 245);
-        private readonly OverlapMinimizer _overlapMinizmer = new OverlapMinimizer();
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend, bool background) :
-            this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend, background) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend, bool background, Point legendPosition) :
+            this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend, background, legendPosition) {
         }
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, bool background) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, bool background, Point legendPosition) {
             var dataSeriesRange = FindDataSeriesRange(xAxis, yAxis, allDataSeries, yReferenceLines);
-            var elements = CreateGraphicElements(xAxis, yAxis, allDataSeries, yReferenceLines, legend, dataSeriesRange);
+            var elements = CreateGraphicElements(xAxis, yAxis, allDataSeries, yReferenceLines, legend, dataSeriesRange, legendPosition);
             elements = TransformElements(width, height, elements);
 
             if (background) {
@@ -48,7 +47,7 @@ namespace ScalableVectorGraphic
             return elements;
         }
 
-        private List<IGraphicElement> CreateGraphicElements(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, DataSeriesRange dataSeriesRange) {
+        private List<IGraphicElement> CreateGraphicElements(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, DataSeriesRange dataSeriesRange, Point legendPosition) {
             var elements = new List<IGraphicElement>();
             elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX));
             elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY));
@@ -68,7 +67,7 @@ namespace ScalableVectorGraphic
             }
 
             if (legend) {
-                elements.AddRange(CreateLegend(allDataSeries, allDataPoints));
+                elements.AddRange(CreateLegend(allDataSeries, allDataPoints, legendPosition));
             }
 
             return elements;
@@ -106,7 +105,7 @@ namespace ScalableVectorGraphic
             return _image.CreateXmlCompressed();
         }
 
-        private List<IGraphicElement> CreateLegend(IReadOnlyList<DataSeries<X, Y>> dataSeries, IReadOnlyList<Point> dataPoints) {
+        private List<IGraphicElement> CreateLegend(IReadOnlyList<DataSeries<X, Y>> dataSeries, IReadOnlyList<Point> dataPoints, Point legendPosition) {
             var elements = new List<IGraphicElement>();
             var maxLength = 0;
 
@@ -124,12 +123,7 @@ namespace ScalableVectorGraphic
             var overallHeight = dataSeries.Count * _legendHeightPerCountry;
             var background = new Rectangle("legend background", new Point(0, overallHeight), new Point(overallWidth, 0), _legendBackgroundColor, Color.Black, _legendBorderWidth);
             elements.Insert(0, background);
-
-            var legendPosition = _overlapMinizmer.PlaceRectangleOverPoints(background, dataPoints);
-
-            legendPosition = new Point(System.Math.Max(0, legendPosition.X), System.Math.Max(0, legendPosition.Y));
-            legendPosition = new Point(System.Math.Min(1, legendPosition.X - overallWidth), System.Math.Min(1, legendPosition.Y - overallHeight));
-
+            
             var transformation = new Transformation(new Matrix(1, 1), legendPosition.ToVector());
             elements = transformation.Apply(elements);
 
