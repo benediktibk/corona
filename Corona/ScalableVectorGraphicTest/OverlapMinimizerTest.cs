@@ -40,8 +40,18 @@ namespace ScalableVectorGraphicTest
         }
 
         [TestMethod]
-        public void PlaceRectangleOverPoints_NoPointsOnlyBordersAndOnlySpringPerBorder_Middle() {
+        public void PlaceRectangleOverPoints_NoPointsOnlyBordersAndOnlyTwoSpringsPerBorder_Middle() {
             _overlapMinimzer = new OverlapMinimizer(2);
+
+            var result = _overlapMinimzer.PlaceRectangleOverPoints(_rectangle, _points);
+
+            result.X.Should().BeApproximately(0.5 - _boxWidth / 2, 1e-5);
+            result.Y.Should().BeApproximately(0.5 - _boxHeight / 2, 1e-5);
+        }
+
+        [TestMethod]
+        public void PlaceRectangleOverPoints_NoPointsOnlyBordersAndOnlyFourSpringsPerBorder_Middle() {
+            _overlapMinimzer = new OverlapMinimizer(4);
 
             var result = _overlapMinimzer.PlaceRectangleOverPoints(_rectangle, _points);
 
