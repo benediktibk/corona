@@ -120,6 +120,13 @@
             </div>
             <div class="graph">
                 <div class="contentHeading">
+                    <h1><a id="estimated-actual-infected-per-population">Estimated actual new Infections</a></h1>
+                    <p>This graph tries to estimate the actually new infected, based upon the assumption that the time distribution from contraction to testing positive is N(10,3). Basically I stole the idea from <a href="https://www.youtube.com/watch?v=LnQcbAKWkPE&t=1422s">Abacaba</a>. This of course once again leaves out the asymptomatic infected persons which never got tested.</p>
+                </div>
+                <img src="api/graph/estimated-actual-infected-per-population?@graphUriParameter" class="graph" alt="estimated actual new infections" />
+            </div>
+            <div class="graph">
+                <div class="contentHeading">
                     <h1><a id="deaths">Deaths this Day</a></h1>
                 </div>
                 <img src="api/graph/deaths?@graphUriParameter" class="graph" alt="deaths this day" />

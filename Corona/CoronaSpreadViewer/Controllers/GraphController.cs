@@ -57,6 +57,20 @@ namespace CoronaSpreadViewer.Controllers
 
         [HttpGet]
         [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
+        [Route("api/graph/estimated-actual-infected-per-population")]
+        public HttpResponseMessage GetEstimatedActualInfectedPerPopulation([FromUri] string countries) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                if (!TryParseCountries(countries, out var countriesParsed)) {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
+                var result = _graphService.CreateEstimatedActualInfectedPerPopulation(unitOfWork, countriesParsed);
+                return CreateResponse(result);
+            }
+        }
+
+        [HttpGet]
+        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/infected-per-population-logarithmic")]
         public HttpResponseMessage GetInfectedPerPopulationLogarithmic([FromUri] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {

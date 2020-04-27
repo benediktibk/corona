@@ -1,4 +1,5 @@
 ﻿using Backend.Repository;
+using Math;
 using ScalableVectorGraphic;
 using System;
 using System.Collections.Generic;
@@ -236,6 +237,77 @@ namespace Backend.Service
             var yAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Population Growth [%]", "P5");
 
             var graph = new XYGraph<double, double>(_graphWidth, _graphHeight, xAxis, yAxis, allDataSeries, true, true, new Point(0.2, 0.6));
+            return ConvertGraphToSvg(graph);
+        }
+
+        public string CreateEstimatedActualInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<DateTime, double>>();
+            var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
+            var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
+
+            for (var i = 0; i < countries.Count(); ++i) {
+                if (!availableCountriesSet.TryGetValue(countries[i], out var inhabitants)) {
+                    continue;
+                }
+
+                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]);
+                var timeRangeStart = dataPoints.Select(x => x.Date).Min().Date;
+                var timeRangeEnd = dataPoints.Select(x => x.Date).Max().Date;
+                var dataPointsPerDay = new Dictionary<DateTime, int>();
+
+                foreach (var dataPoint in dataPoints.OrderBy(x => x.Date)) {
+                    if (!dataPointsPerDay.ContainsKey(dataPoint.Date.Date)) {
+                        dataPointsPerDay.Add(dataPoint.Date.Date, dataPoint.InfectedTotal);
+                    }
+                    else {
+                        dataPointsPerDay[dataPoint.Date.Date] = dataPoint.InfectedTotal;
+                    }
+                }
+
+                var additionalInfected = new List<DataPoint<DateTime, double>>();
+                var previousInfected = 0;
+
+                for (var t = timeRangeStart; t <= timeRangeEnd; t = t.AddDays(1)) {
+                    if (!dataPointsPerDay.TryGetValue(t, out int value)) {
+                        additionalInfected.Add(new DataPoint<DateTime, double>(t, 0));
+                        continue;
+                    }
+
+                    var nextValue = System.Math.Max(0, value - previousInfected);
+
+                    additionalInfected.Add(new DataPoint<DateTime, double>(t, nextValue));
+                    previousInfected = value;
+                }
+
+                var graphTimeRangeStart = timeRangeStart.AddDays(-21);
+                var graphTimeRangeEnd = timeRangeEnd;
+                var graphTimeLengthInDays = (int)(graphTimeRangeEnd - graphTimeRangeStart).TotalDays + 1;
+                var values = new double[graphTimeLengthInDays];
+                var distribution = new NormalDistribution(-10, 3);
+
+                foreach (var additionalInfectedItem in additionalInfected) {
+                    for (var t = additionalInfectedItem.XValue.AddDays(-21); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
+                        var tAsIndex = (int)(t - graphTimeRangeStart).TotalDays;
+                        var partialValue = distribution.CalculateSumBetween(tAsIndex - 1, tAsIndex) * additionalInfectedItem.YValue;
+                        values[tAsIndex] += partialValue;
+                    }
+                }
+
+                var estimatedNewInfections = new List<DataPoint<DateTime, double>>();
+
+                for (var t = 0; t < graphTimeLengthInDays; ++t) {
+                    var value = values[t] / inhabitants;
+
+                    if (value > 0) {
+                        estimatedNewInfections.Add(new DataPoint<DateTime, double>(graphTimeRangeStart.AddDays(t), value));
+                    }
+                }
+
+                var dataSeries = new DataSeries<DateTime, double>(estimatedNewInfections, PredefinedColors.GetFor(i), true, countries[i].ToString());
+                allDataSeries.Add(dataSeries);
+            }
+
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, true, true, new Point(0.2, 0.8));
             return ConvertGraphToSvg(graph);
         }
 
