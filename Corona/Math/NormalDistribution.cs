@@ -32,7 +32,7 @@
             double t = 1.0 / (1.0 + p * x);
             double y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * System.Math.Exp(-x * x);
 
-            return 0.5 * (1.0 + sign * y) / _standardDeviation;
+            return 0.5 * (1.0 + sign * y);
         }
 
         public double CalculateSumBetween(double start, double end) {

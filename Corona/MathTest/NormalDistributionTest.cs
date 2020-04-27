@@ -55,11 +55,20 @@ namespace MathTest
 
         [TestMethod]
         public void CalculateSumTo_Expectation02StandardDeviation2AndX0_04602() {
-            var normalDistribution = new NormalDistribution(0.2, 1);
+            var normalDistribution = new NormalDistribution(0.2, 2);
 
             var result = normalDistribution.CalculateSumTo(0);
 
             result.Should().BeApproximately(0.4602, 1e-4);
+        }
+
+        [TestMethod]
+        public void CalculateSumTo_Expectation0StandardDeviation2AndXNegative196_01635() {
+            var normalDistribution = new NormalDistribution(0, 2);
+
+            var result = normalDistribution.CalculateSumTo(-1.96);
+
+            result.Should().BeApproximately(0.1635, 1e-4);
         }
     }
 }
