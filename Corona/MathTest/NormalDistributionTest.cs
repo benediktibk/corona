@@ -43,5 +43,23 @@ namespace MathTest
 
             result.Should().BeApproximately(0.95, 1e-5);
         }
+
+        [TestMethod]
+        public void CalculateSumTo_Expectation02StandardDeviation1AndX0_04207() {
+            var normalDistribution = new NormalDistribution(0.2, 1);
+
+            var result = normalDistribution.CalculateSumTo(0);
+
+            result.Should().BeApproximately(0.4207, 1e-4);
+        }
+
+        [TestMethod]
+        public void CalculateSumTo_Expectation02StandardDeviation2AndX0_04602() {
+            var normalDistribution = new NormalDistribution(0.2, 1);
+
+            var result = normalDistribution.CalculateSumTo(0);
+
+            result.Should().BeApproximately(0.4602, 1e-4);
+        }
     }
 }
