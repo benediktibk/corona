@@ -52,5 +52,17 @@ namespace MathTest
             result.X.Should().BeApproximately(0, 1e-5);
             result.Y.Should().BeApproximately(-4.5, 1e-5);
         }
+
+        [TestMethod]
+        public void CalculateForce_TwoPointsWithTheSamePosition_NoForceAtAll() {
+            var pointOne = new FixedPoint(new Vector(3, 5));
+            var pointTwo = new FixedPoint(new Vector(3, 5));
+            var spring = new Spring(0.1, 5, pointOne, pointTwo);
+
+            var result = spring.CalculateForce(pointTwo);
+
+            result.X.Should().BeApproximately(0, 1e-5);
+            result.Y.Should().BeApproximately(0, 1e-5);
+        }
     }
 }

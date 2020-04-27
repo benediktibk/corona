@@ -17,6 +17,11 @@
         public Vector CalculateForce(ISpringConnection connection) {
             var distance = _connectionOne.GetPosition(this) - _connectionTwo.GetPosition(this);
             var distanceNorm = distance.Norm;
+
+            if (distanceNorm == 0) {
+                return new Vector(0, 0);
+            }
+
             var force = (distanceNorm - _length) * _stiffness;
             var distanceNormed = 1 / distanceNorm * distance;
 
