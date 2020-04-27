@@ -61,6 +61,8 @@ namespace ScalableVectorGraphicTest
 
         [TestMethod]
         public void PlaceRectangleOverPoints_OnePointInTheMiddle_NotTheMiddle() {
+            _points.Add(new Point(0.5, 0.5));
+
             var result = _overlapMinimzer.PlaceRectangleOverPoints(_rectangle, _points);
 
             var distance = (result.ToVector() - new Math.Vector(0.5, 0.5)).Norm;
