@@ -35,9 +35,9 @@ namespace ScalableVectorGraphicTest
             var linearAxisTwo = new LinearAxisDouble(doubleOperations, "y", "E0");
             var logarithmicAxis = new LogarithmicAxis<double>(doubleOperations, "y", "E0");
             var dateTimeTaxis = new LinearAxisDateTime(dateTimeOperations, "dd.MM.yyyy");
-            _linearGraph = new XYGraph<double, double>(500, 300, linearAxisOne, linearAxisTwo, new List<DataSeries<double, double>> { dataSeriesOne, dataSeriesTwo }, false, false);
-            _logarithmicGraph = new XYGraph<double, double>(530, 400, linearAxisOne, logarithmicAxis, new List<DataSeries<double, double>> { dataSeriesOne }, false, false);
-            _dateTimeGraph = new XYGraph<DateTime, double>(530, 400, dateTimeTaxis, logarithmicAxis, new List<DataSeries<DateTime, double>> { dataSeriesThree }, false, false);
+            _linearGraph = new XYGraph<double, double>(500, 300, linearAxisOne, linearAxisTwo, new List<DataSeries<double, double>> { dataSeriesOne, dataSeriesTwo }, false, false, new Point(0, 0));
+            _logarithmicGraph = new XYGraph<double, double>(530, 400, linearAxisOne, logarithmicAxis, new List<DataSeries<double, double>> { dataSeriesOne }, false, false, new Point(0, 0));
+            _dateTimeGraph = new XYGraph<DateTime, double>(530, 400, dateTimeTaxis, logarithmicAxis, new List<DataSeries<DateTime, double>> { dataSeriesThree }, false, false, new Point(0, 0));
         }
 
         [TestMethod]
@@ -47,113 +47,113 @@ namespace ScalableVectorGraphicTest
             result.Should().Be(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
 <svg height=""300"" width=""500"" xmlns=""http://www.w3.org/2000/svg"" version=""1.1"">
 <!-- horizontal axis -->
-<line x1=""75"" y1=""262.5"" x2=""475"" y2=""262.5"" style=""stroke:rgb(0,0,0);stroke-width:0.638748776906853"" />
+<line x1=""52.5"" y1=""273.75"" x2=""477.5"" y2=""273.75"" style=""stroke:rgb(0,0,0);stroke-width:0.658407168855261"" />
 <!-- horizontal axis tick mark -->
-<line x1=""132.142857142857"" y1=""263.775"" x2=""132.142857142857"" y2=""261.225"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""113.214285714286"" y1=""275.025"" x2=""113.214285714286"" y2=""272.475"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- horizontal axis tick label -->
-<text x=""132.142857142857"" y=""265.05"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 132.142857142857,265.05)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-7,71</text>
+<text x=""113.214285714286"" y=""276.3"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 113.214285714286,276.3)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-7,71</text>
 <!-- vertical grid -->
-<line x1=""132.142857142857"" y1=""262.5"" x2=""132.142857142857"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""113.214285714286"" y1=""273.75"" x2=""113.214285714286"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis tick mark -->
-<line x1=""189.285714285714"" y1=""263.775"" x2=""189.285714285714"" y2=""261.225"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""173.928571428571"" y1=""275.025"" x2=""173.928571428571"" y2=""272.475"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- horizontal axis tick label -->
-<text x=""189.285714285714"" y=""265.05"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 189.285714285714,265.05)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-5,43</text>
+<text x=""173.928571428571"" y=""276.3"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 173.928571428571,276.3)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-5,43</text>
 <!-- vertical grid -->
-<line x1=""189.285714285714"" y1=""262.5"" x2=""189.285714285714"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""173.928571428571"" y1=""273.75"" x2=""173.928571428571"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis tick mark -->
-<line x1=""246.428571428571"" y1=""263.775"" x2=""246.428571428571"" y2=""261.225"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""234.642857142857"" y1=""275.025"" x2=""234.642857142857"" y2=""272.475"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- horizontal axis tick label -->
-<text x=""246.428571428571"" y=""265.05"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 246.428571428571,265.05)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-3,14</text>
+<text x=""234.642857142857"" y=""276.3"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 234.642857142857,276.3)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-3,14</text>
 <!-- vertical grid -->
-<line x1=""246.428571428571"" y1=""262.5"" x2=""246.428571428571"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""234.642857142857"" y1=""273.75"" x2=""234.642857142857"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis tick mark -->
-<line x1=""303.571428571429"" y1=""263.775"" x2=""303.571428571429"" y2=""261.225"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""295.357142857143"" y1=""275.025"" x2=""295.357142857143"" y2=""272.475"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- horizontal axis tick label -->
-<text x=""303.571428571429"" y=""265.05"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 303.571428571429,265.05)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-0,86</text>
+<text x=""295.357142857143"" y=""276.3"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 295.357142857143,276.3)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">-0,86</text>
 <!-- vertical grid -->
-<line x1=""303.571428571429"" y1=""262.5"" x2=""303.571428571429"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""295.357142857143"" y1=""273.75"" x2=""295.357142857143"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis tick mark -->
-<line x1=""360.714285714286"" y1=""263.775"" x2=""360.714285714286"" y2=""261.225"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""356.071428571429"" y1=""275.025"" x2=""356.071428571429"" y2=""272.475"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- horizontal axis tick label -->
-<text x=""360.714285714286"" y=""265.05"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 360.714285714286,265.05)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">1,43</text>
+<text x=""356.071428571429"" y=""276.3"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 356.071428571429,276.3)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">1,43</text>
 <!-- vertical grid -->
-<line x1=""360.714285714286"" y1=""262.5"" x2=""360.714285714286"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""356.071428571429"" y1=""273.75"" x2=""356.071428571429"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis tick mark -->
-<line x1=""417.857142857143"" y1=""263.775"" x2=""417.857142857143"" y2=""261.225"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""416.785714285714"" y1=""275.025"" x2=""416.785714285714"" y2=""272.475"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- horizontal axis tick label -->
-<text x=""417.857142857143"" y=""265.05"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 417.857142857143,265.05)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">3,71</text>
+<text x=""416.785714285714"" y=""276.3"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 416.785714285714,276.3)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">3,71</text>
 <!-- vertical grid -->
-<line x1=""417.857142857143"" y1=""262.5"" x2=""417.857142857143"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""416.785714285714"" y1=""273.75"" x2=""416.785714285714"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis tick mark -->
-<line x1=""475"" y1=""263.775"" x2=""475"" y2=""261.225"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""477.5"" y1=""275.025"" x2=""477.5"" y2=""272.475"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- horizontal axis tick label -->
-<text x=""475"" y=""265.05"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 475,265.05)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">6,00</text>
+<text x=""477.5"" y=""276.3"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 477.5,276.3)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">6,00</text>
 <!-- vertical grid -->
-<line x1=""475"" y1=""262.5"" x2=""475"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""477.5"" y1=""273.75"" x2=""477.5"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis label -->
-<text x=""275"" y=""272.7"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 275,272.7)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">x</text>
+<text x=""265"" y=""283.95"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 265,283.95)"" font-size=""6"" dominant-baseline=""hanging"" text-anchor=""middle"">x</text>
 <!-- vertical axis -->
-<line x1=""75"" y1=""262.5"" x2=""75"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.638748776906853"" />
+<line x1=""52.5"" y1=""273.75"" x2=""52.5"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.658407168855261"" />
 <!-- vertical axis tick mark -->
-<line x1=""73"" y1=""226.071428571429"" x2=""77"" y2=""226.071428571429"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""50.375"" y1=""237.321428571429"" x2=""54.625"" y2=""237.321428571429"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- vertical axis tick label -->
-<text x=""71"" y=""226.071428571429"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 71,226.071428571429)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text>
+<text x=""48.25"" y=""237.321428571429"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 48.25,237.321428571429)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text>
 <!-- horizontal grid -->
-<line x1=""75"" y1=""226.071428571429"" x2=""475"" y2=""226.071428571429"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""52.5"" y1=""237.321428571429"" x2=""477.5"" y2=""237.321428571429"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- vertical axis tick mark -->
-<line x1=""73"" y1=""189.642857142857"" x2=""77"" y2=""189.642857142857"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""50.375"" y1=""200.892857142857"" x2=""54.625"" y2=""200.892857142857"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- vertical axis tick label -->
-<text x=""71"" y=""189.642857142857"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 71,189.642857142857)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">3E+003</text>
+<text x=""48.25"" y=""200.892857142857"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 48.25,200.892857142857)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">3E+003</text>
 <!-- horizontal grid -->
-<line x1=""75"" y1=""189.642857142857"" x2=""475"" y2=""189.642857142857"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""52.5"" y1=""200.892857142857"" x2=""477.5"" y2=""200.892857142857"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- vertical axis tick mark -->
-<line x1=""73"" y1=""153.214285714286"" x2=""77"" y2=""153.214285714286"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""50.375"" y1=""164.464285714286"" x2=""54.625"" y2=""164.464285714286"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- vertical axis tick label -->
-<text x=""71"" y=""153.214285714286"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 71,153.214285714286)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">4E+003</text>
+<text x=""48.25"" y=""164.464285714286"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 48.25,164.464285714286)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">4E+003</text>
 <!-- horizontal grid -->
-<line x1=""75"" y1=""153.214285714286"" x2=""475"" y2=""153.214285714286"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""52.5"" y1=""164.464285714286"" x2=""477.5"" y2=""164.464285714286"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- vertical axis tick mark -->
-<line x1=""73"" y1=""116.785714285714"" x2=""77"" y2=""116.785714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""50.375"" y1=""128.035714285714"" x2=""54.625"" y2=""128.035714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- vertical axis tick label -->
-<text x=""71"" y=""116.785714285714"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 71,116.785714285714)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">6E+003</text>
+<text x=""48.25"" y=""128.035714285714"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 48.25,128.035714285714)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">6E+003</text>
 <!-- horizontal grid -->
-<line x1=""75"" y1=""116.785714285714"" x2=""475"" y2=""116.785714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""52.5"" y1=""128.035714285714"" x2=""477.5"" y2=""128.035714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- vertical axis tick mark -->
-<line x1=""73"" y1=""80.3571428571428"" x2=""77"" y2=""80.3571428571428"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""50.375"" y1=""91.6071428571428"" x2=""54.625"" y2=""91.6071428571428"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- vertical axis tick label -->
-<text x=""71"" y=""80.3571428571428"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 71,80.3571428571428)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">7E+003</text>
+<text x=""48.25"" y=""91.6071428571428"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 48.25,91.6071428571428)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">7E+003</text>
 <!-- horizontal grid -->
-<line x1=""75"" y1=""80.3571428571428"" x2=""475"" y2=""80.3571428571428"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""52.5"" y1=""91.6071428571428"" x2=""477.5"" y2=""91.6071428571428"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- vertical axis tick mark -->
-<line x1=""73"" y1=""43.9285714285714"" x2=""77"" y2=""43.9285714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""50.375"" y1=""55.1785714285714"" x2=""54.625"" y2=""55.1785714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- vertical axis tick label -->
-<text x=""71"" y=""43.9285714285714"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 71,43.9285714285714)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">9E+003</text>
+<text x=""48.25"" y=""55.1785714285714"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 48.25,55.1785714285714)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">9E+003</text>
 <!-- horizontal grid -->
-<line x1=""75"" y1=""43.9285714285714"" x2=""475"" y2=""43.9285714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""52.5"" y1=""55.1785714285714"" x2=""477.5"" y2=""55.1785714285714"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- vertical axis tick mark -->
-<line x1=""73"" y1=""7.5"" x2=""77"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.319374388453426"" />
+<line x1=""50.375"" y1=""18.75"" x2=""54.625"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.32920358442763"" />
 <!-- vertical axis tick label -->
-<text x=""71"" y=""7.5"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 71,7.5)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">1E+004</text>
+<text x=""48.25"" y=""18.75"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 48.25,18.75)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""end"">1E+004</text>
 <!-- horizontal grid -->
-<line x1=""75"" y1=""7.5"" x2=""475"" y2=""7.5"" style=""stroke:rgb(0,0,0);stroke-width:0.159687194226713"" />
+<line x1=""52.5"" y1=""18.75"" x2=""477.5"" y2=""18.75"" style=""stroke:rgb(0,0,0);stroke-width:0.164601792213815"" />
 <!-- horizontal axis label -->
-<text x=""71"" y=""135"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 71,135)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""middle"">y</text>
+<text x=""48.25"" y=""146.25"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 48.25,146.25)"" font-size=""6"" dominant-baseline=""middle"" text-anchor=""middle"">y</text>
 <!-- data point (5,2) -->
-<circle cx=""75"" cy=""7.5"" r=""1.59687194226713"" fill=""rgb(255,0,0)"" />
+<circle cx=""52.5"" cy=""18.75"" r=""1.64601792213815"" fill=""rgb(255,0,0)"" />
 <!-- data point (-10,10000) -->
-<circle cx=""450"" cy=""259.924752475248"" r=""1.59687194226713"" fill=""rgb(255,0,0)"" />
+<circle cx=""450.9375"" cy=""271.174752475248"" r=""1.64601792213815"" fill=""rgb(255,0,0)"" />
 <!-- data point connection from (5,2) to (-10,10000) -->
-<line x1=""75"" y1=""7.5"" x2=""450"" y2=""259.924752475248"" style=""stroke:rgb(255,0,0);stroke-width:0.638748776906853"" />
+<line x1=""52.5"" y1=""18.75"" x2=""450.9375"" y2=""271.174752475248"" style=""stroke:rgb(255,0,0);stroke-width:0.658407168855261"" />
 <!-- data point (-4,123) -->
-<circle cx=""225"" cy=""256.869801980198"" r=""1.59687194226713"" fill=""rgb(0,0,255)"" />
+<circle cx=""211.875"" cy=""268.119801980198"" r=""1.64601792213815"" fill=""rgb(0,0,255)"" />
 <!-- data point (6,-100) -->
-<circle cx=""475"" cy=""262.5"" r=""1.59687194226713"" fill=""rgb(0,0,255)"" />
+<circle cx=""477.5"" cy=""273.75"" r=""1.64601792213815"" fill=""rgb(0,0,255)"" />
 <!-- data point (6,9) -->
-<circle cx=""475"" cy=""259.74801980198"" r=""1.59687194226713"" fill=""rgb(0,0,255)"" />
+<circle cx=""477.5"" cy=""270.99801980198"" r=""1.64601792213815"" fill=""rgb(0,0,255)"" />
 <!-- data point connection from (-4,123) to (6,-100) -->
-<line x1=""225"" y1=""256.869801980198"" x2=""475"" y2=""262.5"" style=""stroke:rgb(0,0,255);stroke-width:0.638748776906853"" />
+<line x1=""211.875"" y1=""268.119801980198"" x2=""477.5"" y2=""273.75"" style=""stroke:rgb(0,0,255);stroke-width:0.658407168855261"" />
 <!-- data point connection from (6,-100) to (6,9) -->
-<line x1=""475"" y1=""262.5"" x2=""475"" y2=""259.74801980198"" style=""stroke:rgb(0,0,255);stroke-width:0.638748776906853"" />
+<line x1=""477.5"" y1=""273.75"" x2=""477.5"" y2=""270.99801980198"" style=""stroke:rgb(0,0,255);stroke-width:0.658407168855261"" />
 </svg>");
         }
 
@@ -164,85 +164,85 @@ namespace ScalableVectorGraphicTest
             result.Should().Be(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
 <svg height=""400"" width=""530"" xmlns=""http://www.w3.org/2000/svg"" version=""1.1"">
 <!-- horizontal axis -->
-<line x1=""79.5"" y1=""350"" x2=""503.5"" y2=""350"" style=""stroke:rgb(0,0,0);stroke-width:0.759368158405394"" />
+<line x1=""55.65"" y1=""365"" x2=""506.15"" y2=""365"" style=""stroke:rgb(0,0,0);stroke-width:0.782738781459051"" />
 <!-- horizontal axis tick mark -->
-<line x1=""140.071428571429"" y1=""351.7"" x2=""140.071428571429"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""120.007142857143"" y1=""366.7"" x2=""120.007142857143"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""140.071428571429"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 140.071428571429,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-7,86</text>
+<text x=""120.007142857143"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 120.007142857143,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-7,86</text>
 <!-- vertical grid -->
-<line x1=""140.071428571429"" y1=""350"" x2=""140.071428571429"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""120.007142857143"" y1=""365"" x2=""120.007142857143"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""200.642857142857"" y1=""351.7"" x2=""200.642857142857"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""184.364285714286"" y1=""366.7"" x2=""184.364285714286"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""200.642857142857"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 200.642857142857,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-5,71</text>
+<text x=""184.364285714286"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 184.364285714286,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-5,71</text>
 <!-- vertical grid -->
-<line x1=""200.642857142857"" y1=""350"" x2=""200.642857142857"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""184.364285714286"" y1=""365"" x2=""184.364285714286"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""261.214285714286"" y1=""351.7"" x2=""261.214285714286"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""248.721428571429"" y1=""366.7"" x2=""248.721428571429"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""261.214285714286"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 261.214285714286,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-3,57</text>
+<text x=""248.721428571429"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 248.721428571429,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-3,57</text>
 <!-- vertical grid -->
-<line x1=""261.214285714286"" y1=""350"" x2=""261.214285714286"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""248.721428571429"" y1=""365"" x2=""248.721428571429"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""321.785714285714"" y1=""351.7"" x2=""321.785714285714"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""313.078571428571"" y1=""366.7"" x2=""313.078571428571"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""321.785714285714"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 321.785714285714,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-1,43</text>
+<text x=""313.078571428571"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 313.078571428571,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">-1,43</text>
 <!-- vertical grid -->
-<line x1=""321.785714285714"" y1=""350"" x2=""321.785714285714"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""313.078571428571"" y1=""365"" x2=""313.078571428571"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""382.357142857143"" y1=""351.7"" x2=""382.357142857143"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""377.435714285714"" y1=""366.7"" x2=""377.435714285714"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""382.357142857143"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 382.357142857143,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">0,71</text>
+<text x=""377.435714285714"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 377.435714285714,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">0,71</text>
 <!-- vertical grid -->
-<line x1=""382.357142857143"" y1=""350"" x2=""382.357142857143"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""377.435714285714"" y1=""365"" x2=""377.435714285714"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""442.928571428571"" y1=""351.7"" x2=""442.928571428571"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""441.792857142857"" y1=""366.7"" x2=""441.792857142857"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""442.928571428571"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 442.928571428571,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">2,86</text>
+<text x=""441.792857142857"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 441.792857142857,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">2,86</text>
 <!-- vertical grid -->
-<line x1=""442.928571428571"" y1=""350"" x2=""442.928571428571"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""441.792857142857"" y1=""365"" x2=""441.792857142857"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""503.5"" y1=""351.7"" x2=""503.5"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""506.15"" y1=""366.7"" x2=""506.15"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""503.5"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 503.5,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">5,00</text>
+<text x=""506.15"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 506.15,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">5,00</text>
 <!-- vertical grid -->
-<line x1=""503.5"" y1=""350"" x2=""503.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""506.15"" y1=""365"" x2=""506.15"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis label -->
-<text x=""291.5"" y=""363.6"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 291.5,363.6)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">x</text>
+<text x=""280.9"" y=""378.6"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 280.9,378.6)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">x</text>
 <!-- vertical axis -->
-<line x1=""79.5"" y1=""350"" x2=""79.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.759368158405394"" />
+<line x1=""55.65"" y1=""365"" x2=""55.65"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.782738781459051"" />
 <!-- vertical axis tick mark -->
-<line x1=""77.38"" y1=""265"" x2=""81.62"" y2=""265"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""53.3975"" y1=""280"" x2=""57.9025"" y2=""280"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- vertical axis tick label -->
-<text x=""75.26"" y=""265"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,265)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+001</text>
+<text x=""51.145"" y=""280"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,280)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+001</text>
 <!-- horizontal grid -->
-<line x1=""79.5"" y1=""265"" x2=""503.5"" y2=""265"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""55.65"" y1=""280"" x2=""506.15"" y2=""280"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- vertical axis tick mark -->
-<line x1=""77.38"" y1=""180"" x2=""81.62"" y2=""180"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""53.3975"" y1=""195"" x2=""57.9025"" y2=""195"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- vertical axis tick label -->
-<text x=""75.26"" y=""180"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,180)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+002</text>
+<text x=""51.145"" y=""195"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,195)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+002</text>
 <!-- horizontal grid -->
-<line x1=""79.5"" y1=""180"" x2=""503.5"" y2=""180"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""55.65"" y1=""195"" x2=""506.15"" y2=""195"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- vertical axis tick mark -->
-<line x1=""77.38"" y1=""95"" x2=""81.62"" y2=""95"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""53.3975"" y1=""110"" x2=""57.9025"" y2=""110"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- vertical axis tick label -->
-<text x=""75.26"" y=""95"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,95)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text>
+<text x=""51.145"" y=""110"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,110)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text>
 <!-- horizontal grid -->
-<line x1=""79.5"" y1=""95"" x2=""503.5"" y2=""95"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""55.65"" y1=""110"" x2=""506.15"" y2=""110"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- vertical axis tick mark -->
-<line x1=""77.38"" y1=""10"" x2=""81.62"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""53.3975"" y1=""25"" x2=""57.9025"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- vertical axis tick label -->
-<text x=""75.26"" y=""10"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,10)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+004</text>
+<text x=""51.145"" y=""25"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,25)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+004</text>
 <!-- horizontal grid -->
-<line x1=""79.5"" y1=""10"" x2=""503.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""55.65"" y1=""25"" x2=""506.15"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis label -->
-<text x=""75.26"" y=""137.5"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 75.26,137.5)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""middle"">y</text>
+<text x=""51.145"" y=""152.5"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 51.145,152.5)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""middle"">y</text>
 <!-- data point (5,2) -->
-<circle cx=""79.5"" cy=""10"" r=""1.89842039601349"" fill=""rgb(255,0,0)"" />
+<circle cx=""55.65"" cy=""25"" r=""1.95684695364763"" fill=""rgb(255,0,0)"" />
 <!-- data point (-10,10000) -->
-<circle cx=""503.5"" cy=""324.412450368562"" r=""1.89842039601349"" fill=""rgb(255,0,0)"" />
+<circle cx=""506.15"" cy=""339.412450368562"" r=""1.95684695364763"" fill=""rgb(255,0,0)"" />
 <!-- data point connection from (5,2) to (-10,10000) -->
-<line x1=""79.5"" y1=""10"" x2=""503.5"" y2=""324.412450368562"" style=""stroke:rgb(255,0,0);stroke-width:0.759368158405394"" />
+<line x1=""55.65"" y1=""25"" x2=""506.15"" y2=""339.412450368562"" style=""stroke:rgb(255,0,0);stroke-width:0.782738781459051"" />
 </svg>");
         }
 
@@ -253,83 +253,83 @@ namespace ScalableVectorGraphicTest
             result.Should().Be(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
 <svg height=""400"" width=""530"" xmlns=""http://www.w3.org/2000/svg"" version=""1.1"">
 <!-- horizontal axis -->
-<line x1=""79.5"" y1=""350"" x2=""503.5"" y2=""350"" style=""stroke:rgb(0,0,0);stroke-width:0.759368158405394"" />
+<line x1=""55.65"" y1=""365"" x2=""506.15"" y2=""365"" style=""stroke:rgb(0,0,0);stroke-width:0.782738781459051"" />
 <!-- horizontal axis tick mark -->
-<line x1=""140.071428571429"" y1=""351.7"" x2=""140.071428571429"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""120.007142857143"" y1=""366.7"" x2=""120.007142857143"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""140.071428571429"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 140.071428571429,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2000</text>
+<text x=""120.007142857143"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 120.007142857143,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2000</text>
 <!-- vertical grid -->
-<line x1=""140.071428571429"" y1=""350"" x2=""140.071428571429"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""120.007142857143"" y1=""365"" x2=""120.007142857143"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""200.642857142857"" y1=""351.7"" x2=""200.642857142857"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""184.364285714286"" y1=""366.7"" x2=""184.364285714286"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""200.642857142857"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 200.642857142857,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.06.2000</text>
+<text x=""184.364285714286"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 184.364285714286,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.06.2000</text>
 <!-- vertical grid -->
-<line x1=""200.642857142857"" y1=""350"" x2=""200.642857142857"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""184.364285714286"" y1=""365"" x2=""184.364285714286"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""261.214285714286"" y1=""351.7"" x2=""261.214285714286"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""248.721428571429"" y1=""366.7"" x2=""248.721428571429"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""261.214285714286"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 261.214285714286,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.08.2000</text>
+<text x=""248.721428571429"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 248.721428571429,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.08.2000</text>
 <!-- vertical grid -->
-<line x1=""261.214285714286"" y1=""350"" x2=""261.214285714286"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""248.721428571429"" y1=""365"" x2=""248.721428571429"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""321.785714285714"" y1=""351.7"" x2=""321.785714285714"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""313.078571428571"" y1=""366.7"" x2=""313.078571428571"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""321.785714285714"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 321.785714285714,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.10.2000</text>
+<text x=""313.078571428571"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 313.078571428571,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.10.2000</text>
 <!-- vertical grid -->
-<line x1=""321.785714285714"" y1=""350"" x2=""321.785714285714"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""313.078571428571"" y1=""365"" x2=""313.078571428571"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""382.357142857143"" y1=""351.7"" x2=""382.357142857143"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""377.435714285714"" y1=""366.7"" x2=""377.435714285714"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""382.357142857143"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 382.357142857143,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.12.2000</text>
+<text x=""377.435714285714"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 377.435714285714,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.12.2000</text>
 <!-- vertical grid -->
-<line x1=""382.357142857143"" y1=""350"" x2=""382.357142857143"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""377.435714285714"" y1=""365"" x2=""377.435714285714"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""442.928571428571"" y1=""351.7"" x2=""442.928571428571"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""441.792857142857"" y1=""366.7"" x2=""441.792857142857"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""442.928571428571"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 442.928571428571,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">04.02.2001</text>
+<text x=""441.792857142857"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 441.792857142857,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">04.02.2001</text>
 <!-- vertical grid -->
-<line x1=""442.928571428571"" y1=""350"" x2=""442.928571428571"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""441.792857142857"" y1=""365"" x2=""441.792857142857"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis tick mark -->
-<line x1=""503.5"" y1=""351.7"" x2=""503.5"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""506.15"" y1=""366.7"" x2=""506.15"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- horizontal axis tick label -->
-<text x=""503.5"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 503.5,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2001</text>
+<text x=""506.15"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 506.15,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2001</text>
 <!-- vertical grid -->
-<line x1=""503.5"" y1=""350"" x2=""503.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""506.15"" y1=""365"" x2=""506.15"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis label -->
-<text x=""291.5"" y=""363.6"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 291.5,363.6)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">dd.MM.yyyy</text>
+<text x=""280.9"" y=""378.6"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 280.9,378.6)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">dd.MM.yyyy</text>
 <!-- vertical axis -->
-<line x1=""79.5"" y1=""350"" x2=""79.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.759368158405394"" />
+<line x1=""55.65"" y1=""365"" x2=""55.65"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.782738781459051"" />
 <!-- vertical axis tick mark -->
-<line x1=""77.38"" y1=""236.666666666667"" x2=""81.62"" y2=""236.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""53.3975"" y1=""251.666666666667"" x2=""57.9025"" y2=""251.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- vertical axis tick label -->
-<text x=""75.26"" y=""236.666666666667"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,236.666666666667)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+001</text>
+<text x=""51.145"" y=""251.666666666667"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,251.666666666667)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+001</text>
 <!-- horizontal grid -->
-<line x1=""79.5"" y1=""236.666666666667"" x2=""503.5"" y2=""236.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""55.65"" y1=""251.666666666667"" x2=""506.15"" y2=""251.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- vertical axis tick mark -->
-<line x1=""77.38"" y1=""123.333333333333"" x2=""81.62"" y2=""123.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""53.3975"" y1=""138.333333333333"" x2=""57.9025"" y2=""138.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- vertical axis tick label -->
-<text x=""75.26"" y=""123.333333333333"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,123.333333333333)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+002</text>
+<text x=""51.145"" y=""138.333333333333"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,138.333333333333)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+002</text>
 <!-- horizontal grid -->
-<line x1=""79.5"" y1=""123.333333333333"" x2=""503.5"" y2=""123.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""55.65"" y1=""138.333333333333"" x2=""506.15"" y2=""138.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- vertical axis tick mark -->
-<line x1=""77.38"" y1=""10"" x2=""81.62"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" />
+<line x1=""53.3975"" y1=""25"" x2=""57.9025"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" />
 <!-- vertical axis tick label -->
-<text x=""75.26"" y=""10"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,10)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text>
+<text x=""51.145"" y=""25"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,25)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text>
 <!-- horizontal grid -->
-<line x1=""79.5"" y1=""10"" x2=""503.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" />
+<line x1=""55.65"" y1=""25"" x2=""506.15"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" />
 <!-- horizontal axis label -->
-<text x=""75.26"" y=""180"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 75.26,180)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""middle"">y</text>
+<text x=""51.145"" y=""195"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 51.145,195)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""middle"">y</text>
 <!-- data point (06.02.2000 00:00:00,123) -->
-<circle cx=""79.5"" cy=""113.144087370202"" r=""1.89842039601349"" fill=""rgb(0,0,255)"" />
+<circle cx=""55.65"" cy=""128.144087370202"" r=""1.95684695364763"" fill=""rgb(0,0,255)"" />
 <!-- data point (06.04.2001 00:00:00,100) -->
-<circle cx=""230.144705882353"" cy=""241.852515596877"" r=""1.89842039601349"" fill=""rgb(0,0,255)"" />
+<circle cx=""215.71"" cy=""256.852515596877"" r=""1.95684695364763"" fill=""rgb(0,0,255)"" />
 <!-- data point (06.07.2000 00:00:00,9) -->
-<circle cx=""503.5"" cy=""123.333333333333"" r=""1.89842039601349"" fill=""rgb(0,0,255)"" />
+<circle cx=""506.15"" cy=""138.333333333333"" r=""1.95684695364763"" fill=""rgb(0,0,255)"" />
 <!-- data point connection from (06.02.2000 00:00:00,123) to (06.04.2001 00:00:00,100) -->
-<line x1=""79.5"" y1=""113.144087370202"" x2=""230.144705882353"" y2=""241.852515596877"" style=""stroke:rgb(0,0,255);stroke-width:0.759368158405394"" />
+<line x1=""55.65"" y1=""128.144087370202"" x2=""215.71"" y2=""256.852515596877"" style=""stroke:rgb(0,0,255);stroke-width:0.782738781459051"" />
 <!-- data point connection from (06.04.2001 00:00:00,100) to (06.07.2000 00:00:00,9) -->
-<line x1=""230.144705882353"" y1=""241.852515596877"" x2=""503.5"" y2=""123.333333333333"" style=""stroke:rgb(0,0,255);stroke-width:0.759368158405394"" />
+<line x1=""215.71"" y1=""256.852515596877"" x2=""506.15"" y2=""138.333333333333"" style=""stroke:rgb(0,0,255);stroke-width:0.782738781459051"" />
 </svg>");
         }
 
@@ -337,7 +337,7 @@ namespace ScalableVectorGraphicTest
         public void ToSvgCompressed_DateTimeGraph_CorrectXml() {
             var result = _dateTimeGraph.ToSvgCompressed();
 
-            result.Should().Be(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?><svg height=""400"" width=""530"" xmlns=""http://www.w3.org/2000/svg"" version=""1.1""><line x1=""79.5"" y1=""350"" x2=""503.5"" y2=""350"" style=""stroke:rgb(0,0,0);stroke-width:0.759368158405394"" /><line x1=""140.071428571429"" y1=""351.7"" x2=""140.071428571429"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""140.071428571429"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 140.071428571429,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2000</text><line x1=""140.071428571429"" y1=""350"" x2=""140.071428571429"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""200.642857142857"" y1=""351.7"" x2=""200.642857142857"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""200.642857142857"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 200.642857142857,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.06.2000</text><line x1=""200.642857142857"" y1=""350"" x2=""200.642857142857"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""261.214285714286"" y1=""351.7"" x2=""261.214285714286"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""261.214285714286"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 261.214285714286,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.08.2000</text><line x1=""261.214285714286"" y1=""350"" x2=""261.214285714286"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""321.785714285714"" y1=""351.7"" x2=""321.785714285714"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""321.785714285714"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 321.785714285714,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.10.2000</text><line x1=""321.785714285714"" y1=""350"" x2=""321.785714285714"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""382.357142857143"" y1=""351.7"" x2=""382.357142857143"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""382.357142857143"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 382.357142857143,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.12.2000</text><line x1=""382.357142857143"" y1=""350"" x2=""382.357142857143"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""442.928571428571"" y1=""351.7"" x2=""442.928571428571"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""442.928571428571"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 442.928571428571,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">04.02.2001</text><line x1=""442.928571428571"" y1=""350"" x2=""442.928571428571"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""503.5"" y1=""351.7"" x2=""503.5"" y2=""348.3"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""503.5"" y=""353.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 503.5,353.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2001</text><line x1=""503.5"" y1=""350"" x2=""503.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><text x=""291.5"" y=""363.6"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 291.5,363.6)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">dd.MM.yyyy</text><line x1=""79.5"" y1=""350"" x2=""79.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.759368158405394"" /><line x1=""77.38"" y1=""236.666666666667"" x2=""81.62"" y2=""236.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""75.26"" y=""236.666666666667"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,236.666666666667)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+001</text><line x1=""79.5"" y1=""236.666666666667"" x2=""503.5"" y2=""236.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""77.38"" y1=""123.333333333333"" x2=""81.62"" y2=""123.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""75.26"" y=""123.333333333333"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,123.333333333333)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+002</text><line x1=""79.5"" y1=""123.333333333333"" x2=""503.5"" y2=""123.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><line x1=""77.38"" y1=""10"" x2=""81.62"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.379684079202697"" /><text x=""75.26"" y=""10"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 75.26,10)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text><line x1=""79.5"" y1=""10"" x2=""503.5"" y2=""10"" style=""stroke:rgb(0,0,0);stroke-width:0.189842039601349"" /><text x=""75.26"" y=""180"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 75.26,180)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""middle"">y</text><circle cx=""79.5"" cy=""113.144087370202"" r=""1.89842039601349"" fill=""rgb(0,0,255)"" /><circle cx=""230.144705882353"" cy=""241.852515596877"" r=""1.89842039601349"" fill=""rgb(0,0,255)"" /><circle cx=""503.5"" cy=""123.333333333333"" r=""1.89842039601349"" fill=""rgb(0,0,255)"" /><line x1=""79.5"" y1=""113.144087370202"" x2=""230.144705882353"" y2=""241.852515596877"" style=""stroke:rgb(0,0,255);stroke-width:0.759368158405394"" /><line x1=""230.144705882353"" y1=""241.852515596877"" x2=""503.5"" y2=""123.333333333333"" style=""stroke:rgb(0,0,255);stroke-width:0.759368158405394"" /></svg>");
+            result.Should().Be(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?><svg height=""400"" width=""530"" xmlns=""http://www.w3.org/2000/svg"" version=""1.1""><line x1=""55.65"" y1=""365"" x2=""506.15"" y2=""365"" style=""stroke:rgb(0,0,0);stroke-width:0.782738781459051"" /><line x1=""120.007142857143"" y1=""366.7"" x2=""120.007142857143"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""120.007142857143"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 120.007142857143,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2000</text><line x1=""120.007142857143"" y1=""365"" x2=""120.007142857143"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""184.364285714286"" y1=""366.7"" x2=""184.364285714286"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""184.364285714286"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 184.364285714286,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.06.2000</text><line x1=""184.364285714286"" y1=""365"" x2=""184.364285714286"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""248.721428571429"" y1=""366.7"" x2=""248.721428571429"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""248.721428571429"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 248.721428571429,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.08.2000</text><line x1=""248.721428571429"" y1=""365"" x2=""248.721428571429"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""313.078571428571"" y1=""366.7"" x2=""313.078571428571"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""313.078571428571"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 313.078571428571,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.10.2000</text><line x1=""313.078571428571"" y1=""365"" x2=""313.078571428571"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""377.435714285714"" y1=""366.7"" x2=""377.435714285714"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""377.435714285714"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 377.435714285714,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">05.12.2000</text><line x1=""377.435714285714"" y1=""365"" x2=""377.435714285714"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""441.792857142857"" y1=""366.7"" x2=""441.792857142857"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""441.792857142857"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 441.792857142857,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">04.02.2001</text><line x1=""441.792857142857"" y1=""365"" x2=""441.792857142857"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""506.15"" y1=""366.7"" x2=""506.15"" y2=""363.3"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""506.15"" y=""368.4"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 506.15,368.4)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">06.04.2001</text><line x1=""506.15"" y1=""365"" x2=""506.15"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><text x=""280.9"" y=""378.6"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 280.9,378.6)"" font-size=""7"" dominant-baseline=""hanging"" text-anchor=""middle"">dd.MM.yyyy</text><line x1=""55.65"" y1=""365"" x2=""55.65"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.782738781459051"" /><line x1=""53.3975"" y1=""251.666666666667"" x2=""57.9025"" y2=""251.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""51.145"" y=""251.666666666667"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,251.666666666667)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+001</text><line x1=""55.65"" y1=""251.666666666667"" x2=""506.15"" y2=""251.666666666667"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""53.3975"" y1=""138.333333333333"" x2=""57.9025"" y2=""138.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""51.145"" y=""138.333333333333"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,138.333333333333)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+002</text><line x1=""55.65"" y1=""138.333333333333"" x2=""506.15"" y2=""138.333333333333"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><line x1=""53.3975"" y1=""25"" x2=""57.9025"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.391369390729525"" /><text x=""51.145"" y=""25"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(0 51.145,25)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""end"">1E+003</text><line x1=""55.65"" y1=""25"" x2=""506.15"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.195684695364763"" /><text x=""51.145"" y=""195"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 51.145,195)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""middle"">y</text><circle cx=""55.65"" cy=""128.144087370202"" r=""1.95684695364763"" fill=""rgb(0,0,255)"" /><circle cx=""215.71"" cy=""256.852515596877"" r=""1.95684695364763"" fill=""rgb(0,0,255)"" /><circle cx=""506.15"" cy=""138.333333333333"" r=""1.95684695364763"" fill=""rgb(0,0,255)"" /><line x1=""55.65"" y1=""128.144087370202"" x2=""215.71"" y2=""256.852515596877"" style=""stroke:rgb(0,0,255);stroke-width:0.782738781459051"" /><line x1=""215.71"" y1=""256.852515596877"" x2=""506.15"" y2=""138.333333333333"" style=""stroke:rgb(0,0,255);stroke-width:0.782738781459051"" /></svg>");
         }
     }
 }
