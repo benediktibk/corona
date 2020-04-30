@@ -18,17 +18,17 @@ namespace ScalableVectorGraphicTest {
             var dataSeriesOne = new DataSeries<double, double>(new List<DataPoint<double, double>> {
                 new DataPoint<double, double>(5, 2),
                 new DataPoint<double, double>(-10, 10000)
-            }, Color.Red, true, "blub");
+            }, Color.Red, true, true, "blub");
             var dataSeriesTwo = new DataSeries<double, double>(new List<DataPoint<double, double>> {
                 new DataPoint<double, double>(-4, 123),
                 new DataPoint<double, double>(6, -100),
                 new DataPoint<double, double>(6, 9)
-            }, Color.Blue, true, "blub2");
+            }, Color.Blue, true, true, "blub2");
             var dataSeriesThree = new DataSeries<DateTime, double>(new List<DataPoint<DateTime, double>> {
                 new DataPoint<DateTime, double>(new DateTime(2000, 2, 6), 123),
                 new DataPoint<DateTime, double>(new DateTime(2001, 4, 6), 100),
                 new DataPoint<DateTime, double>(new DateTime(2000, 7, 6), 9)
-            }, Color.Blue, true, "blub3");
+            }, Color.Blue, true, true, "blub3");
             var linearAxisOne = new LinearAxisDouble(doubleOperations, "x", "F2");
             var linearAxisTwo = new LinearAxisDouble(doubleOperations, "y", "E0");
             var logarithmicAxis = new LogarithmicAxis<double>(doubleOperations, "y", "E0");
