@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Backend.Service {
     public class DataSeriesService : IDataSeriesService {
+        private const int _estimationPastMaxInDays = -21;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
@@ -246,27 +247,35 @@ namespace Backend.Service {
                     previousInfected = value;
                 }
 
-                var graphTimeRangeStart = timeRangeStart.AddDays(-21);
+                var graphTimeRangeStart = timeRangeStart.AddDays(_estimationPastMaxInDays);
                 var graphTimeRangeEnd = timeRangeEnd;
                 var graphTimeLengthInDays = (int)(graphTimeRangeEnd - graphTimeRangeStart).TotalDays + 1;
                 var values = new double[graphTimeLengthInDays];
                 var distribution = new NormalDistribution(-10, 3);
 
                 foreach (var additionalInfectedItem in additionalInfected) {
-                    for (var t = additionalInfectedItem.XValue.AddDays(-21); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
+                    var previousDaysInPast = -1e10;
+                    var peak = additionalInfectedItem.YValue / inhabitants;
+                    for (var t = additionalInfectedItem.XValue.AddDays(_estimationPastMaxInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
+                        var daysInPast = (t - additionalInfectedItem.XValue).TotalDays;
+
+                        if (daysInPast == 0) {
+                            daysInPast = 1e10;
+                        }
+
+                        var partialValue = distribution.CalculateSumBetween(previousDaysInPast, daysInPast) * peak;
+
                         var tAsIndex = (int)(t - graphTimeRangeStart).TotalDays;
-                        var partialValue = distribution.CalculateSumBetween(tAsIndex - 1, tAsIndex) * additionalInfectedItem.YValue;
                         values[tAsIndex] += partialValue;
+                        previousDaysInPast = daysInPast;
                     }
                 }
 
                 var estimatedNewInfections = new List<DataPoint<DateTime, double>>();
 
                 for (var t = 0; t < graphTimeLengthInDays; ++t) {
-                    var value = values[t] / inhabitants;
-
-                    if (value > 0) {
-                        estimatedNewInfections.Add(new DataPoint<DateTime, double>(graphTimeRangeStart.AddDays(t), value));
+                    if (values[t] > 0) {
+                        estimatedNewInfections.Add(new DataPoint<DateTime, double>(graphTimeRangeStart.AddDays(t), values[t]));
                     }
                 }
 
