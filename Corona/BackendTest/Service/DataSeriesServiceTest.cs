@@ -35,8 +35,8 @@ namespace BackendTest.Service {
             var dataSeries = _dataSeriesService.CreateEstimatedActualInfectedPerPopulation(_unitOfWork.Object, new List<CountryType> { CountryType.Albania });
 
             var peak = 23.0 / 1000;
-            dataSeries.Count.Should().Be(1);
-            dataSeries[0].DataPoints.Count.Should().Be(21);
+            dataSeries.Count.Should().Be(2);
+            dataSeries[0].DataPoints.Count.Should().Be(8);
             dataSeries[0].DataPoints[0].XValue.Should().Be(new DateTime(2020, 1, 11));
             dataSeries[0].DataPoints[0].YValue.Should().BeApproximately(peak * 0.0001, 1e-6);
             dataSeries[0].DataPoints[1].XValue.Should().Be(new DateTime(2020, 1, 12));
@@ -53,32 +53,9 @@ namespace BackendTest.Service {
             dataSeries[0].DataPoints[6].YValue.Should().BeApproximately(peak * 0.025, 1e-6);
             dataSeries[0].DataPoints[7].XValue.Should().Be(new DateTime(2020, 1, 18));
             dataSeries[0].DataPoints[7].YValue.Should().BeApproximately(peak * 0.0434, 1e-6);
-            dataSeries[0].DataPoints[8].XValue.Should().Be(new DateTime(2020, 1, 19));
-            dataSeries[0].DataPoints[8].YValue.Should().BeApproximately(peak * 0.0674, 1e-5);
-            dataSeries[0].DataPoints[9].XValue.Should().Be(new DateTime(2020, 1, 20));
-            dataSeries[0].DataPoints[9].YValue.Should().BeApproximately(peak * 0.0938, 1e-5);
-            dataSeries[0].DataPoints[10].XValue.Should().Be(new DateTime(2020, 1, 21));
-            dataSeries[0].DataPoints[10].YValue.Should().BeApproximately(peak * 0.1169, 1e-5);
-            dataSeries[0].DataPoints[11].XValue.Should().Be(new DateTime(2020, 1, 22));
-            dataSeries[0].DataPoints[11].YValue.Should().BeApproximately(peak * 0.1306, 1e-5);
-            dataSeries[0].DataPoints[12].XValue.Should().Be(new DateTime(2020, 1, 23));
-            dataSeries[0].DataPoints[12].YValue.Should().BeApproximately(peak * 0.1306, 1e-5);
-            dataSeries[0].DataPoints[13].XValue.Should().Be(new DateTime(2020, 1, 24));
-            dataSeries[0].DataPoints[13].YValue.Should().BeApproximately(peak * 0.1169, 1e-5);
-            dataSeries[0].DataPoints[14].XValue.Should().Be(new DateTime(2020, 1, 25));
-            dataSeries[0].DataPoints[14].YValue.Should().BeApproximately(peak * 0.0938, 1e-5);
-            dataSeries[0].DataPoints[15].XValue.Should().Be(new DateTime(2020, 1, 26));
-            dataSeries[0].DataPoints[15].YValue.Should().BeApproximately(peak * 0.0674, 1e-5);
-            dataSeries[0].DataPoints[16].XValue.Should().Be(new DateTime(2020, 1, 27));
-            dataSeries[0].DataPoints[16].YValue.Should().BeApproximately(peak * 0.0434, 1e-6);
-            dataSeries[0].DataPoints[17].XValue.Should().Be(new DateTime(2020, 1, 28));
-            dataSeries[0].DataPoints[17].YValue.Should().BeApproximately(peak * 0.025, 1e-6);
-            dataSeries[0].DataPoints[18].XValue.Should().Be(new DateTime(2020, 1, 29));
-            dataSeries[0].DataPoints[18].YValue.Should().BeApproximately(peak * 0.0129, 1e-6);
-            dataSeries[0].DataPoints[19].XValue.Should().Be(new DateTime(2020, 1, 30));
-            dataSeries[0].DataPoints[19].YValue.Should().BeApproximately(peak * 0.006, 1e-6);
-            dataSeries[0].DataPoints[20].XValue.Should().Be(new DateTime(2020, 1, 31));
-            dataSeries[0].DataPoints[20].YValue.Should().BeApproximately(peak * 0.0038, 1e-6);
+            dataSeries[1].DataPoints.Count.Should().Be(1);
+            dataSeries[1].DataPoints[0].XValue.Should().Be(new DateTime(2020, 2, 1));
+            dataSeries[1].DataPoints[0].YValue.Should().BeApproximately(peak, 1e-6);
         }
     }
 }
