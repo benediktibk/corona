@@ -68,5 +68,32 @@ namespace MathTest {
 
             result.Should().BeApproximately(0.1635, 1e-4);
         }
+
+        [TestMethod]
+        public void CalculateSumBetween_Expectation10StandardDeviation3And21to99999_00001() {
+            var normalDistribution = new NormalDistribution(10, 3);
+
+            var result = normalDistribution.CalculateSumBetween(21, 99999);
+
+            result.Should().BeApproximately(0.0001, 1e-4);
+        }
+
+        [TestMethod]
+        public void CalculateSumBetween_Expectation10StandardDeviation3And10to11_01306() {
+            var normalDistribution = new NormalDistribution(10, 3);
+
+            var result = normalDistribution.CalculateSumBetween(10, 11);
+
+            result.Should().BeApproximately(0.1306, 1e-4);
+        }
+
+        [TestMethod]
+        public void CalculateSumBetween_ExpectationMinus10StandardDeviation3AndMinus12toMinus11_01169() {
+            var normalDistribution = new NormalDistribution(-10, 3);
+
+            var result = normalDistribution.CalculateSumBetween(-12, -11);
+
+            result.Should().BeApproximately(0.1169, 1e-4);
+        }
     }
 }
