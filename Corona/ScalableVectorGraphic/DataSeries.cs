@@ -17,6 +17,7 @@ namespace ScalableVectorGraphic {
 
         public Color Color { get; }
         public string Label { get; }
+        public IReadOnlyList<DataPoint<X, Y>> DataPoints => _dataPoints;
 
         public void FindRangeOfXValuesAsDouble(IGenericNumericOperations<X> numericOperations, out double minimum, out double maximum) {
             var allValues = _dataPoints.Select(dataPoint => numericOperations.ConvertToDoubleEquivalent(dataPoint.XValue)).ToList();
