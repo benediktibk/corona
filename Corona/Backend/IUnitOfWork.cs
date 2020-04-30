@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Backend
-{
-    public interface IUnitOfWork : IDisposable
-    {
+namespace Backend {
+    public interface IUnitOfWork : IDisposable {
         void BeginDatabaseTransaction();
         void CommitDatabaseTransaction();
         void RollbackDatabaseTransaction();

@@ -3,10 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Backend.Repository
-{
-    public class CsvFileRepository : ICsvFileRepository
-    {
+namespace Backend.Repository {
+    public class CsvFileRepository : ICsvFileRepository {
         public List<Dictionary<string, string>> ReadFile(string path) {
             var result = new List<Dictionary<string, string>>();
 

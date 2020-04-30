@@ -3,11 +3,9 @@ using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class DampedMassSimulatorTest
-    {
+    public class DampedMassSimulatorTest {
         [TestMethod]
         public void RunSimulation_TwoObjectsWithNoStretchInBetween_BothObjectsTillHaveInitialPosition() {
             var rectangleOne = new PhysicalRectangle(1, 2, 2, new Vector(3, 4), 2);

@@ -2,11 +2,9 @@
 using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class PointExponentialDistancePenaltyFunctionTest
-    {
+    public class PointExponentialDistancePenaltyFunctionTest {
         private PointExponentialDistancePenaltyFunction _penaltyFunction;
 
         [TestInitialize]

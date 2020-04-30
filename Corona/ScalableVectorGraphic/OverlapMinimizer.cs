@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace ScalableVectorGraphic
-{
-    public class OverlapMinimizer    {
+namespace ScalableVectorGraphic {
+    public class OverlapMinimizer {
 
         private readonly double _weight = 1;
         private readonly double _springDistanceBorder;

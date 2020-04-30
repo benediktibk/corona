@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Backend
-{
-    public interface IServerSideCache
-    {
+namespace Backend {
+    public interface IServerSideCache {
         IEnumerable<string> AllKeys { get; }
 
         void Add(string key, object o);

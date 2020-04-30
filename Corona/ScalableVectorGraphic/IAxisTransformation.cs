@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public interface IAxisTransformation
-    {
+﻿namespace ScalableVectorGraphic {
+    public interface IAxisTransformation {
         double ScalingFactor { get; }
         double AxisStartValue { get; }
         double AxisEndValue { get; }

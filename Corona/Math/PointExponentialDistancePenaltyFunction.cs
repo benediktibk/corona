@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public class PointExponentialDistancePenaltyFunction : IPenaltyFunction
-    {
+﻿namespace Math {
+    public class PointExponentialDistancePenaltyFunction : IPenaltyFunction {
         private readonly double _offset;
         private readonly double _exponentialBase;
         private readonly double _maximumValue;

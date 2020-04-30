@@ -1,7 +1,5 @@
-﻿namespace Backend
-{
-    public enum CountryType
-    {
+﻿namespace Backend {
+    public enum CountryType {
         Invalid,
         Others,
         Afghanistan,

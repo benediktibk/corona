@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace ScalableVectorGraphic
-{
-    public class LinearAxisDateTime : LinearAxis<DateTime>
-    {
+namespace ScalableVectorGraphic {
+    public class LinearAxisDateTime : LinearAxis<DateTime> {
         public LinearAxisDateTime(IGenericNumericOperations<DateTime> numericOperations, string label) :
             base(numericOperations, label) {
         }

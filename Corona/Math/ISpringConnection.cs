@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public interface ISpringConnection
-    {
+﻿namespace Math {
+    public interface ISpringConnection {
         Vector GetPosition(ISpring spring);
     }
 }

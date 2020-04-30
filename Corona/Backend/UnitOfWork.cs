@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Backend
-{
-    public class UnitOfWork : IUnitOfWork
-    {
+namespace Backend {
+    public class UnitOfWork : IUnitOfWork {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly SqlConnection _databaseConnection;
         private SqlTransaction _transaction;

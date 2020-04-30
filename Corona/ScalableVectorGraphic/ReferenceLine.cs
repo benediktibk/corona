@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace ScalableVectorGraphic
-{
-    public class ReferenceLine<T>
-    {
+namespace ScalableVectorGraphic {
+    public class ReferenceLine<T> {
         private const double _lineWidth = 0.002;
         private const double _axisOffset = 0.01;
         private const double _lineOffset = 0.01;

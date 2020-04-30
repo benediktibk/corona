@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public static class GradientMethodMinimization
-    {
+﻿namespace Math {
+    public static class GradientMethodMinimization {
         public static Vector Minimize(Vector start, IPenaltyFunction penaltyFunction, int maximumIterations, double penaltyChangeTermination) {
             const double beta = 0.5;
             var current = start;
@@ -38,7 +36,7 @@
                 penalty = nextPenalty;
             }
 
-            return current;            
+            return current;
         }
     }
 }

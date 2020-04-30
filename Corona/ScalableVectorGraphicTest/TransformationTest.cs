@@ -3,11 +3,9 @@ using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ScalableVectorGraphic;
 
-namespace ScalableVectorGraphicTest
-{
+namespace ScalableVectorGraphicTest {
     [TestClass]
-    public class TransformationTest
-    {
+    public class TransformationTest {
         [TestMethod]
         public void Apply_ValidValues_CorrectResult() {
             var x = new Point(5, 3);

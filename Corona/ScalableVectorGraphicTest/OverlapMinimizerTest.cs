@@ -3,11 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ScalableVectorGraphic;
 using System.Collections.Generic;
 
-namespace ScalableVectorGraphicTest
-{
+namespace ScalableVectorGraphicTest {
     [TestClass]
-    public class OverlapMinimizerTest
-    {
+    public class OverlapMinimizerTest {
         private const double _boxHeight = 0.05;
         private const double _boxWidth = 0.07;
         private const double _boxMiddlePositionLeftLowerX = 0.5 - _boxWidth / 2;

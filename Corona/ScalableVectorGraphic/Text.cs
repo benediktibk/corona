@@ -1,11 +1,8 @@
-﻿using Math;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace ScalableVectorGraphic
-{
+namespace ScalableVectorGraphic {
     [DebuggerDisplay("Text {Description} {Content}")]
-    public class Text : IGraphicElement
-    {
+    public class Text : IGraphicElement {
         public Text(string description, Point position, string content, Color color, double rotationInDegrees, string font, double fontSize, string dominantBaseLine, string textAnchor) {
             Description = description;
             Position = position;

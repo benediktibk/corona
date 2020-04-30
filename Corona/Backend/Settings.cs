@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Backend
-{
-    public class Settings : ISettings
-    {
+namespace Backend {
+    public class Settings : ISettings {
         public Settings(string databaseConnectionString, string gitRepo, string localPath, string adminUsers, bool svgCompressed) {
             DatabaseConnectionString = databaseConnectionString;
             GitRepo = gitRepo;

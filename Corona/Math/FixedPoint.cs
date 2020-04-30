@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public class FixedPoint : ISpringConnection
-    {
+﻿namespace Math {
+    public class FixedPoint : ISpringConnection {
         private readonly Vector _position;
 
         public FixedPoint(Vector position) {

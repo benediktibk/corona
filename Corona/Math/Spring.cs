@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public class Spring : ISpring
-    {
+﻿namespace Math {
+    public class Spring : ISpring {
         private readonly double _length;
         private readonly double _stiffness;
         private readonly ISpringConnection _connectionOne;

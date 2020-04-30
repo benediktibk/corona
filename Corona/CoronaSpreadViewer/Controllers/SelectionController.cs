@@ -4,10 +4,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace CoronaSpreadViewer.Controllers
-{
-    public class SelectionController : ApiController
-    {
+namespace CoronaSpreadViewer.Controllers {
+    public class SelectionController : ApiController {
         [HttpPost]
         [Route("api/selection/apply")]
         public HttpResponseMessage Apply(CountrySelection countrySelection) {

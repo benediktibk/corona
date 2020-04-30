@@ -6,11 +6,9 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackendTest.Service
-{
+namespace BackendTest.Service {
     [TestClass]
-    public class DataReimportServiceTest
-    {
+    public class DataReimportServiceTest {
         private DataReimportService _dataReimportService;
         private Mock<ICsvFileRepository> _csvFileRepository;
         private Mock<IInfectionSpreadDataPointRepository> _infectionSpreadDataPointRepository;
@@ -53,12 +51,12 @@ namespace BackendTest.Service
 
             _infectionSpreadDataPointRepository.Verify(
                 x => x.Insert(
-                    _unitOfWork.Object, 
-                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z => 
-                        z.CountryId == CountryType.SouthKorea && 
-                        z.InfectedTotal == 1 && 
-                        z.DeathsTotal == 0 && 
-                        z.RecoveredTotal == 0))), 
+                    _unitOfWork.Object,
+                    It.Is<IReadOnlyList<InfectionSpreadDataPointDao>>(y => y.Any(z =>
+                        z.CountryId == CountryType.SouthKorea &&
+                        z.InfectedTotal == 1 &&
+                        z.DeathsTotal == 0 &&
+                        z.RecoveredTotal == 0))),
                 Times.Once);
         }
 

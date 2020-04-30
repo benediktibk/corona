@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Math
-{
-    public class PenaltyFunctionSum : IPenaltyFunction
-    {
+namespace Math {
+    public class PenaltyFunctionSum : IPenaltyFunction {
         private readonly List<IPenaltyFunction> _penaltyFunctions;
 
         public PenaltyFunctionSum(IReadOnlyList<IPenaltyFunction> penaltyFunctions) {

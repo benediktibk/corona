@@ -1,10 +1,8 @@
 ﻿using System.Diagnostics;
 
-namespace Math
-{
+namespace Math {
     [DebuggerDisplay("Vector ({X}, {Y})")]
-    public class Vector
-    {
+    public class Vector {
         public Vector(double x, double y) {
             X = x;
             Y = y;

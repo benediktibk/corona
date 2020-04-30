@@ -3,11 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ScalableVectorGraphic;
 using System.Collections.Generic;
 
-namespace ScalableVectorGraphicTest
-{
+namespace ScalableVectorGraphicTest {
     [TestClass]
-    public class AxisBaseTest
-    {
+    public class AxisBaseTest {
         [TestMethod]
         public void CalculateVerticalLabelPosition_1Tick_05() {
             var tickPositions = new List<double> {

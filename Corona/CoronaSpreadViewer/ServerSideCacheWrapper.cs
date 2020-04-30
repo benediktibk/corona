@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using WebApi.OutputCache.Core.Cache;
 
-namespace CoronaSpreadViewer
-{
-    public class ServerSideCacheWrapper : IApiOutputCache
-    {
+namespace CoronaSpreadViewer {
+    public class ServerSideCacheWrapper : IApiOutputCache {
         private readonly IServerSideCache _serverSideCache;
 
         public ServerSideCacheWrapper(IServerSideCache serverSideCache) {

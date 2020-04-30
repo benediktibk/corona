@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public class DataSeriesRange
-    {
+﻿namespace ScalableVectorGraphic {
+    public class DataSeriesRange {
         public DataSeriesRange(double minimumX, double maximumX, double minimumY, double maximumY) {
             MinimumX = minimumX;
             MaximumX = maximumX;

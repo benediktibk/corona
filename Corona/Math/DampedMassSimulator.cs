@@ -1,10 +1,8 @@
 ﻿using NLog;
 using System.Collections.Generic;
 
-namespace Math
-{
-    public static class DampedMassSimulator
-    {
+namespace Math {
+    public static class DampedMassSimulator {
         public static void RunSimulation(double runTime, double positionEpsilon, double timeStep, IReadOnlyList<IPhysicalObject> physicalObjects) {
             var logger = LogManager.GetCurrentClassLogger();
             double t;

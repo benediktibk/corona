@@ -3,11 +3,9 @@ using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class GradientMethodMinimizationTest
-    {
+    public class GradientMethodMinimizationTest {
         [TestMethod]
         public void Minimize_PointPenaltyFunctionAndStartNearbyPoint_ResultIsFarAwayFromPoint() {
             var penaltyPoint = new Vector(3, 5);

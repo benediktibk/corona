@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public interface ISpring
-    {
+﻿namespace Math {
+    public interface ISpring {
         Vector CalculateForce(ISpringConnection connection);
     }
 }

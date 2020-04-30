@@ -1,10 +1,8 @@
 ﻿using NLog;
 using System.Collections.Generic;
 
-namespace Backend.Repository
-{
-    public class InfectionSpreadDataPointRepository : IInfectionSpreadDataPointRepository
-    {
+namespace Backend.Repository {
+    public class InfectionSpreadDataPointRepository : IInfectionSpreadDataPointRepository {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public void DeleteAll(IUnitOfWork unitOfWork) {

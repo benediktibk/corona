@@ -2,11 +2,9 @@
 using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class LineExponentialDistancePenaltyFunctionTest
-    {
+    public class LineExponentialDistancePenaltyFunctionTest {
         [TestMethod]
         public void CalculateValue_HorizontalLineThroughPointComparison_SameValueAsPoint() {
             var point = new PointExponentialDistancePenaltyFunction(new Vector(4, 5), 3, 10);

@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public class SvgXmlWriterCompressed : SvgXmlWriterBase
-    {
+﻿namespace ScalableVectorGraphic {
+    public class SvgXmlWriterCompressed : SvgXmlWriterBase {
         public SvgXmlWriterCompressed(int height, int width) :
             base(height, width) {
         }

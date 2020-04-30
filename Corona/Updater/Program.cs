@@ -6,14 +6,11 @@ using NConfig;
 using NLog;
 using System;
 
-namespace Updater
-{
-    class Program
-    {
+namespace Updater {
+    class Program {
         private static ILogger _logger = LogManager.GetCurrentClassLogger();
 
-        static void Main() 
-        {
+        static void Main() {
             NConfigurator.UsingFiles("Config\\Corona.config").SetAsSystemDefault();
 
             try {

@@ -4,11 +4,9 @@ using ScalableVectorGraphic;
 using System;
 using System.Collections.Generic;
 
-namespace ScalableVectorGraphicTest
-{
+namespace ScalableVectorGraphicTest {
     [TestClass]
-    public class XYGraphTest
-    {
+    public class XYGraphTest {
         private XYGraph<double, double> _linearGraph;
         private XYGraph<double, double> _logarithmicGraph;
         private XYGraph<DateTime, double> _dateTimeGraph;

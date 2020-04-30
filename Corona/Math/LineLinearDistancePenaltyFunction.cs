@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public class LineLinearDistancePenaltyFunction : IPenaltyFunction
-    {
+﻿namespace Math {
+    public class LineLinearDistancePenaltyFunction : IPenaltyFunction {
         private readonly Vector _offset;
         private readonly Vector _direction;
         private readonly double _gradient;

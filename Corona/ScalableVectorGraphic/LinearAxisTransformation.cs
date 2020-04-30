@@ -1,9 +1,5 @@
-﻿using System;
-
-namespace ScalableVectorGraphic
-{
-    public class LinearAxisTransformation : IAxisTransformation
-    {
+﻿namespace ScalableVectorGraphic {
+    public class LinearAxisTransformation : IAxisTransformation {
         private readonly double _offset;
 
         public LinearAxisTransformation(double minimum, double maximum) {

@@ -2,11 +2,9 @@
 using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class PointLinearDistancePenaltyFunctionTest
-    {
+    public class PointLinearDistancePenaltyFunctionTest {
         [TestMethod]
         public void CalculateValue_AtOwnPosition_MaximumValue() {
             var penaltyFunction = new PointLinearDistancePenaltyFunction(new Vector(3, 6), 4, 10);

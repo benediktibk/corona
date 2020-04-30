@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public class Color
-    {
+﻿namespace ScalableVectorGraphic {
+    public class Color {
         public Color(int red, int green, int blue) {
             RedComponent = red;
             GreenComponent = green;

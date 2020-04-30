@@ -2,10 +2,8 @@
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
 
-namespace Backend.Service
-{
-    public class AuthorizationService : IAuthorizationService
-    {
+namespace Backend.Service {
+    public class AuthorizationService : IAuthorizationService {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly ISettings _settings;
 

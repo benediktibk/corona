@@ -6,10 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace CoronaSpreadViewer.Controllers
-{
-    public class DataController : ApiController
-    {
+namespace CoronaSpreadViewer.Controllers {
+    public class DataController : ApiController {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDataReimportService _dataReimportService;
         private readonly IAuthorizationService _authorizationService;

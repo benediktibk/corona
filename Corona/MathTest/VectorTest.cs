@@ -2,11 +2,9 @@
 using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class VectorTest
-    {
+    public class VectorTest {
         [TestMethod]
         public void Add_ValidValues_CorrectResult() {
             var a = new Vector(5, 3);

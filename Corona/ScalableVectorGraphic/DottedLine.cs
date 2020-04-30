@@ -1,10 +1,8 @@
 ﻿using System.Diagnostics;
 
-namespace ScalableVectorGraphic
-{
+namespace ScalableVectorGraphic {
     [DebuggerDisplay("DottedLine {Description} ({Start.X.ToString(\"F2\")}, {Start.Y.ToString(\"F2\")}) - ({End.X.ToString(\"F2\")}, {End.Y.ToString(\"F2\")})")]
-    public class DottedLine : IGraphicElement
-    {
+    public class DottedLine : IGraphicElement {
         public DottedLine(string description, Point start, Point end, Color color, double width, double strokeLength, double emptyLength) {
             Description = description;
             Start = start;

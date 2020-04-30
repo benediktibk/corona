@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public abstract class LinearAxis<T> : AxisBase<T>
-    {
+﻿namespace ScalableVectorGraphic {
+    public abstract class LinearAxis<T> : AxisBase<T> {
         public LinearAxis(IGenericNumericOperations<T> numericOperations, string label) :
             base(numericOperations, label) {
         }

@@ -1,10 +1,8 @@
 ﻿using System.Diagnostics;
 
-namespace ScalableVectorGraphic
-{
+namespace ScalableVectorGraphic {
     [DebuggerDisplay("Rectangle {Description} ({LeftUpperCorner.X.ToString(\"F2\")}, {LeftUpperCorner.Y.ToString(\"F2\")}) - ({RightLowerCorner.X.ToString(\"F2\")}, {RightLowerCorner.Y.ToString(\"F2\")})")]
-    public class Rectangle : IGraphicElement
-    {
+    public class Rectangle : IGraphicElement {
         public Rectangle(string description, Point leftUpperCorner, Point rightLowerCorner, Color backroundColor, Color lineColor, double lineWidth) {
             Description = description;
             LeftUpperCorner = leftUpperCorner;

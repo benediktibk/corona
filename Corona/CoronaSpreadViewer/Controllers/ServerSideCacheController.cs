@@ -4,10 +4,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Http;
 
-namespace CoronaSpreadViewer.Controllers
-{
-    public class ServerSideCacheController : ApiController
-    {
+namespace CoronaSpreadViewer.Controllers {
+    public class ServerSideCacheController : ApiController {
         private readonly IServerSideCache _serverSideCache;
 
         public ServerSideCacheController(IServerSideCache serverSideCache) {
@@ -16,7 +14,8 @@ namespace CoronaSpreadViewer.Controllers
 
         [HttpGet]
         [Route("api/serversidecache")]
-        public HttpResponseMessage Get() {;
+        public HttpResponseMessage Get() {
+            ;
             var stringBuilder = new StringBuilder();
             stringBuilder.Append("<html>");
             stringBuilder.Append(System.Environment.NewLine);

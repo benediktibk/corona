@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace ScalableVectorGraphic
-{
-    public class NumericOperationsDateTimeForDatesOnly : IGenericNumericOperations<DateTime>
-    {
+namespace ScalableVectorGraphic {
+    public class NumericOperationsDateTimeForDatesOnly : IGenericNumericOperations<DateTime> {
         public NumericOperationsDateTimeForDatesOnly(DateTime reference) {
             Reference = reference;
         }

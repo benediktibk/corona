@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public class PointLinearDistancePenaltyFunction : IPenaltyFunction
-    {
+﻿namespace Math {
+    public class PointLinearDistancePenaltyFunction : IPenaltyFunction {
         private readonly double _gradient;
         private readonly double _maximumValue;
         private readonly Vector _position;
@@ -19,7 +17,7 @@
                 return new Vector(0, 0);
             }
 
-            var completeFactor =  (-1) * _gradient / distance;
+            var completeFactor = (-1) * _gradient / distance;
             return completeFactor * (position - _position);
         }
 

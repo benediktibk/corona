@@ -1,11 +1,9 @@
 ﻿using Math;
 using System.Diagnostics;
 
-namespace ScalableVectorGraphic
-{
+namespace ScalableVectorGraphic {
     [DebuggerDisplay("Point ({X}, {Y})")]
-    public class Point
-    {
+    public class Point {
         public Point(double x, double y) {
             X = x;
             Y = y;

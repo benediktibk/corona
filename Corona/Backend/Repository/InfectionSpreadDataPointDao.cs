@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace Backend.Repository
-{
-    public class InfectionSpreadDataPointDao
-    {
+namespace Backend.Repository {
+    public class InfectionSpreadDataPointDao {
         public int Id { get; set; }
         public CountryType CountryId { get; set; }
         public DateTime Date { get; set; }

@@ -5,10 +5,8 @@ using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using WebApi.OutputCache.V2;
 
-namespace CoronaSpreadViewer
-{
-    public static class WebApiConfig
-    {
+namespace CoronaSpreadViewer {
+    public static class WebApiConfig {
         public static void Register(HttpConfiguration config) {
             var serviceActivator = new App_Start.ServiceActivator();
             config.Services.Replace(typeof(IHttpControllerActivator), serviceActivator);

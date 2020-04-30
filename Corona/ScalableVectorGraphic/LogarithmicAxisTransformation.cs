@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public class LogarithmicAxisTransformation : IAxisTransformation
-    {
+﻿namespace ScalableVectorGraphic {
+    public class LogarithmicAxisTransformation : IAxisTransformation {
         private readonly double _offset;
 
         public LogarithmicAxisTransformation(double minimum, double maximum) {

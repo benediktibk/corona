@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public interface IGraphicElement
-    {
+﻿namespace ScalableVectorGraphic {
+    public interface IGraphicElement {
         string Description { get; }
 
         void AddTo(ISvgXmlWriter svgXmlWriter);

@@ -1,7 +1,5 @@
-﻿namespace CoronaSpreadViewer
-{
-    public class CountrySelection
-    {
+﻿namespace CoronaSpreadViewer {
+    public class CountrySelection {
         public string[] SelectedCountries { get; set; }
     }
 }

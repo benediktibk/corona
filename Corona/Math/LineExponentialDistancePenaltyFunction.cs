@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public class LineExponentialDistancePenaltyFunction : IPenaltyFunction
-    {
+﻿namespace Math {
+    public class LineExponentialDistancePenaltyFunction : IPenaltyFunction {
         private readonly Vector _offset;
         private readonly Vector _direction;
         private readonly double _exponentialBase;
@@ -12,7 +10,7 @@
 
         public LineExponentialDistancePenaltyFunction(Vector offset, Vector direction, double exponentialBase, double maximumValue, bool leftSideMaximumValue, bool rightSideMaximumValue) {
             _offset = offset;
-            _direction = 1/ direction.Norm * direction;
+            _direction = 1 / direction.Norm * direction;
             _exponentialBase = exponentialBase;
             _maximumValue = maximumValue;
             _distanceOffset = System.Math.Log(_maximumValue) / System.Math.Log(_exponentialBase);

@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ScalableVectorGraphic
-{
-    public class XYGraph<X, Y>
-    {
+namespace ScalableVectorGraphic {
+    public class XYGraph<X, Y> {
         private readonly Image _image;
         private const double _ratioXAxisLengthToImageSize = 0.85;
         private const double _ratioYAxisLengthToImageSize = 0.85;
@@ -123,7 +121,7 @@ namespace ScalableVectorGraphic
             var overallHeight = dataSeries.Count * _legendHeightPerCountry;
             var background = new Rectangle("legend background", new Point(0, overallHeight), new Point(overallWidth, 0), _legendBackgroundColor, Color.Black, _legendBorderWidth);
             elements.Insert(0, background);
-            
+
             var transformation = new Transformation(new Matrix(1, 1), legendPosition.ToVector());
             elements = transformation.Apply(elements);
 

@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ScalableVectorGraphic
-{
-    public class Image
-    {
+namespace ScalableVectorGraphic {
+    public class Image {
         private readonly List<IGraphicElement> _elements;
 
         public Image(int width, int height, IReadOnlyList<IGraphicElement> elements) {

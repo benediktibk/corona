@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Math
-{
-    public class Matrix
-    {
+namespace Math {
+    public class Matrix {
         private readonly double[,] _values;
 
         public Matrix(double m11, double m22) :

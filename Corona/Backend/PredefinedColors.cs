@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Backend
-{
-    public static class PredefinedColors
-    {
+namespace Backend {
+    public static class PredefinedColors {
         private static List<Color> _colors;
 
         static PredefinedColors() {

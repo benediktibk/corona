@@ -3,11 +3,9 @@ using FluentAssertions;
 using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class NormalDistributionTest
-    {
+    public class NormalDistributionTest {
         [TestMethod]
         public void CalculateSumTo_Expectation0StandardDeviation1AndX0_05() {
             var normalDistribution = new NormalDistribution(0, 1);

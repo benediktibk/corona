@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Backend.Repository;
+using NLog;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Backend.Repository;
-using NLog;
 
-namespace Backend.Service
-{
-    public class DataReimportService : IDataReimportService
-    {
+namespace Backend.Service {
+    public class DataReimportService : IDataReimportService {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly ICsvFileRepository _csvFileRepository;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace ScalableVectorGraphic
-{
-    public abstract class AxisBase<T> : IAxis<T>
-    {
+namespace ScalableVectorGraphic {
+    public abstract class AxisBase<T> : IAxis<T> {
         private const double _axisWidth = 0.002;
         private const double _tickMarkLength = 0.01;
         private const double _tickMarkWidth = 0.001;
@@ -77,7 +75,7 @@ namespace ScalableVectorGraphic
             var nextTick = tickPositions[1];
 
             for (var i = 1; i < tickPositions.Count - 1; ++i) {
-                if (System.Math.Abs(labelPosition - tickPositions[i]) < System.Math.Abs(labelPosition - closestTick)*0.99) {
+                if (System.Math.Abs(labelPosition - tickPositions[i]) < System.Math.Abs(labelPosition - closestTick) * 0.99) {
                     closestTick = tickPositions[i];
                     nextTick = tickPositions[i + 1];
                 }

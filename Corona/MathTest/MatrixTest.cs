@@ -1,12 +1,10 @@
 ﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Math;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class MatrixTest
-    {
+    public class MatrixTest {
         [TestMethod]
         public void Multiply_ValidValues_CorrectResult() {
             var x = new Vector(5, 3);

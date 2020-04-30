@@ -1,7 +1,5 @@
-﻿namespace Backend
-{
-    public interface IUnitOfWorkFactory
-    {
+﻿namespace Backend {
+    public interface IUnitOfWorkFactory {
         IUnitOfWork Create();
     }
 }

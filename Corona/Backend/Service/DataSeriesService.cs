@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Backend.Service
-{
-    public class DataSeriesService : IDataSeriesService
-    {
+namespace Backend.Service {
+    public class DataSeriesService : IDataSeriesService {
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 

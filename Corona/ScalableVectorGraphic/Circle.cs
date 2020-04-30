@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public class Circle : IGraphicElement
-    {
+﻿namespace ScalableVectorGraphic {
+    public class Circle : IGraphicElement {
         public Circle(string description, double radius, Color color, Point position) {
             Description = description;
             Radius = radius;

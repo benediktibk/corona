@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Math
-{
-    public class PhysicalRectangle : ISpringConnection, IPhysicalObject
-    {
+namespace Math {
+    public class PhysicalRectangle : ISpringConnection, IPhysicalObject {
         private readonly HashSet<ISpring> _springsConnectedLeft;
         private readonly HashSet<ISpring> _springsConnectedRight;
         private readonly HashSet<ISpring> _springsConnectedTop;

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Backend.Repository
-{
-    public class Database : IDatabase 
-    {
+namespace Backend.Repository {
+    public class Database : IDatabase {
         private readonly ICountryRepository _countryRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
@@ -187,7 +185,7 @@ namespace Backend.Repository
                 new CountryDao {
                     Id = CountryType.Cuba,
                     Name = "Cuba"
-                },                
+                },
                 new CountryDao {
                     Id = CountryType.Cyprus,
                     Name = "Cyprus"
@@ -251,7 +249,7 @@ namespace Backend.Repository
                 new CountryDao {
                     Id = CountryType.Fiji,
                     Name = "Fiji"
-                },                
+                },
                 new CountryDao {
                     Id = CountryType.Finland,
                     Name = "Finland"
@@ -374,355 +372,355 @@ namespace Backend.Repository
                 },
                 new CountryDao {
                     Id = CountryType.SouthKorea,
-	                Name = "South Korea"
+                    Name = "South Korea"
                 },
                 new CountryDao {
-	                Id = CountryType.Kosovo,
-	                Name = "Kosovo"
+                    Id = CountryType.Kosovo,
+                    Name = "Kosovo"
                 },
                 new CountryDao {
-	                Id = CountryType.Kuwait,
-	                Name = "Kuwait"
+                    Id = CountryType.Kuwait,
+                    Name = "Kuwait"
                 },
                 new CountryDao {
-	                Id = CountryType.Kyrgyzstan,
-	                Name = "Kyrgyzstan"
+                    Id = CountryType.Kyrgyzstan,
+                    Name = "Kyrgyzstan"
                 },
                 new CountryDao {
                     Id = CountryType.Laos,
                     Name = "Laos"
-                },                
-                new CountryDao {
-	                Id = CountryType.Latvia,
-	                Name = "Latvia"
                 },
                 new CountryDao {
-	                Id = CountryType.Lebanon,
-	                Name = "Lebanon"
+                    Id = CountryType.Latvia,
+                    Name = "Latvia"
                 },
                 new CountryDao {
-	                Id = CountryType.Liberia,
-	                Name = "Liberia"
+                    Id = CountryType.Lebanon,
+                    Name = "Lebanon"
                 },
                 new CountryDao {
-	                Id = CountryType.Libya,
-	                Name = "Libya"
+                    Id = CountryType.Liberia,
+                    Name = "Liberia"
                 },
                 new CountryDao {
-	                Id = CountryType.Liechtenstein,
-	                Name = "Liechtenstein"
+                    Id = CountryType.Libya,
+                    Name = "Libya"
                 },
                 new CountryDao {
-	                Id = CountryType.Lithuania,
-	                Name = "Lithuania"
+                    Id = CountryType.Liechtenstein,
+                    Name = "Liechtenstein"
                 },
                 new CountryDao {
-	                Id = CountryType.Luxembourg,
-	                Name = "Luxembourg"
+                    Id = CountryType.Lithuania,
+                    Name = "Lithuania"
                 },
                 new CountryDao {
-	                Id = CountryType.Madagascar,
-	                Name = "Madagascar"
+                    Id = CountryType.Luxembourg,
+                    Name = "Luxembourg"
                 },
                 new CountryDao {
-	                Id = CountryType.Malaysia,
-	                Name = "Malaysia"
+                    Id = CountryType.Madagascar,
+                    Name = "Madagascar"
                 },
                 new CountryDao {
-	                Id = CountryType.Maldives,
-	                Name = "Maldives"
+                    Id = CountryType.Malaysia,
+                    Name = "Malaysia"
+                },
+                new CountryDao {
+                    Id = CountryType.Maldives,
+                    Name = "Maldives"
                 },
                 new CountryDao {
                     Id = CountryType.Mali,
                     Name = "Mali"
-                },                
-                new CountryDao {
-	                Id = CountryType.Malta,
-	                Name = "Malta"
                 },
                 new CountryDao {
-	                Id = CountryType.Mauritania,
-	                Name = "Mauritania"
+                    Id = CountryType.Malta,
+                    Name = "Malta"
                 },
                 new CountryDao {
-	                Id = CountryType.Mauritius,
-	                Name = "Mauritius"
+                    Id = CountryType.Mauritania,
+                    Name = "Mauritania"
                 },
                 new CountryDao {
-	                Id = CountryType.Mexico,
-	                Name = "Mexico"
+                    Id = CountryType.Mauritius,
+                    Name = "Mauritius"
                 },
                 new CountryDao {
-	                Id = CountryType.Moldova,
-	                Name = "Moldova"
+                    Id = CountryType.Mexico,
+                    Name = "Mexico"
                 },
                 new CountryDao {
-	                Id = CountryType.Monaco,
-	                Name = "Monaco"
+                    Id = CountryType.Moldova,
+                    Name = "Moldova"
                 },
                 new CountryDao {
-	                Id = CountryType.Mongolia,
-	                Name = "Mongolia"
+                    Id = CountryType.Monaco,
+                    Name = "Monaco"
                 },
                 new CountryDao {
-	                Id = CountryType.Montenegro,
-	                Name = "Montenegro"
+                    Id = CountryType.Mongolia,
+                    Name = "Mongolia"
                 },
                 new CountryDao {
-	                Id = CountryType.Morocco,
-	                Name = "Morocco"
+                    Id = CountryType.Montenegro,
+                    Name = "Montenegro"
                 },
                 new CountryDao {
-	                Id = CountryType.Mozambique,
-	                Name = "Mozambique"
+                    Id = CountryType.Morocco,
+                    Name = "Morocco"
                 },
                 new CountryDao {
-	                Id = CountryType.Namibia,
-	                Name = "Namibia"
+                    Id = CountryType.Mozambique,
+                    Name = "Mozambique"
                 },
                 new CountryDao {
-	                Id = CountryType.Nepal,
-	                Name = "Nepal"
+                    Id = CountryType.Namibia,
+                    Name = "Namibia"
                 },
                 new CountryDao {
-	                Id = CountryType.Netherlands,
-	                Name = "Netherlands"
+                    Id = CountryType.Nepal,
+                    Name = "Nepal"
                 },
                 new CountryDao {
-	                Id = CountryType.NewZealand,
+                    Id = CountryType.Netherlands,
+                    Name = "Netherlands"
+                },
+                new CountryDao {
+                    Id = CountryType.NewZealand,
                     Name = "New Zealand"
                 },
                 new CountryDao {
-	                Id = CountryType.Nicaragua,
-	                Name = "Nicaragua"
+                    Id = CountryType.Nicaragua,
+                    Name = "Nicaragua"
                 },
                 new CountryDao {
-	                Id = CountryType.Niger,
-	                Name = "Niger"
+                    Id = CountryType.Niger,
+                    Name = "Niger"
                 },
                 new CountryDao {
-	                Id = CountryType.Nigeria,
-	                Name = "Nigeria"
+                    Id = CountryType.Nigeria,
+                    Name = "Nigeria"
                 },
                 new CountryDao {
-	                Id = CountryType.NorthMacedonia,
+                    Id = CountryType.NorthMacedonia,
                     Name = "North Macedonia"
                 },
                 new CountryDao {
-	                Id = CountryType.Norway,
-	                Name = "Norway"
+                    Id = CountryType.Norway,
+                    Name = "Norway"
                 },
                 new CountryDao {
                     Id = CountryType.Oman,
                     Name = "Oman"
                 },
                 new CountryDao {
-	                Id = CountryType.Pakistan,
-	                Name = "Pakistan"
+                    Id = CountryType.Pakistan,
+                    Name = "Pakistan"
                 },
                 new CountryDao {
-	                Id = CountryType.Panama,
-	                Name = "Panama"
+                    Id = CountryType.Panama,
+                    Name = "Panama"
                 },
                 new CountryDao {
-	                Id = CountryType.PapuaNewGuinea,
-	                Name = "Papua New Guinea"
+                    Id = CountryType.PapuaNewGuinea,
+                    Name = "Papua New Guinea"
                 },
                 new CountryDao {
-	                Id = CountryType.Paraguay,
-	                Name = "Paraguay"
+                    Id = CountryType.Paraguay,
+                    Name = "Paraguay"
                 },
                 new CountryDao {
                     Id = CountryType.Peru,
                     Name = "Peru"
-                },                
-                new CountryDao {
-	                Id = CountryType.Philippines,
-	                Name = "Philippines"
                 },
                 new CountryDao {
-	                Id = CountryType.Poland,
-	                Name = "Poland"
+                    Id = CountryType.Philippines,
+                    Name = "Philippines"
                 },
                 new CountryDao {
-	                Id = CountryType.Portugal,
-	                Name = "Portugal"
+                    Id = CountryType.Poland,
+                    Name = "Poland"
                 },
                 new CountryDao {
-	                Id = CountryType.Qatar,
-	                Name = "Qatar"
+                    Id = CountryType.Portugal,
+                    Name = "Portugal"
                 },
                 new CountryDao {
-	                Id = CountryType.Romania,
-	                Name = "Romania"
+                    Id = CountryType.Qatar,
+                    Name = "Qatar"
                 },
                 new CountryDao {
-	                Id = CountryType.Russia,
-	                Name = "Russia"
+                    Id = CountryType.Romania,
+                    Name = "Romania"
                 },
                 new CountryDao {
-	                Id = CountryType.Rwanda,
-	                Name = "Rwanda"
+                    Id = CountryType.Russia,
+                    Name = "Russia"
                 },
                 new CountryDao {
-	                Id = CountryType.SaintKittsAndNevis,
+                    Id = CountryType.Rwanda,
+                    Name = "Rwanda"
+                },
+                new CountryDao {
+                    Id = CountryType.SaintKittsAndNevis,
                     Name = "Saint Kitts and Nevis"
                 },
                 new CountryDao {
-	                Id = CountryType.SaintLucia,
+                    Id = CountryType.SaintLucia,
                     Name = "Saitn Lucia"
                 },
                 new CountryDao {
-	                Id = CountryType.SaintVincentAndTheGrenadines,
-	                Name = "Saint Vincent and the Grenadines"
+                    Id = CountryType.SaintVincentAndTheGrenadines,
+                    Name = "Saint Vincent and the Grenadines"
                 },
                 new CountryDao {
-	                Id = CountryType.SanMarino,
+                    Id = CountryType.SanMarino,
                     Name = "San Marino"
                 },
                 new CountryDao {
-	                Id = CountryType.SaudiArabia,
+                    Id = CountryType.SaudiArabia,
                     Name = "Saudi Arabia"
                 },
                 new CountryDao {
-	                Id = CountryType.Senegal,
-	                Name = "Senegal"
+                    Id = CountryType.Senegal,
+                    Name = "Senegal"
                 },
                 new CountryDao {
-	                Id = CountryType.Serbia,
-	                Name = "Serbia"
+                    Id = CountryType.Serbia,
+                    Name = "Serbia"
                 },
                 new CountryDao {
-	                Id = CountryType.Seychelles,
-	                Name = "Seychelles"
+                    Id = CountryType.Seychelles,
+                    Name = "Seychelles"
                 },
                 new CountryDao {
-	                Id = CountryType.Singapore,
-	                Name = "Singapore"
+                    Id = CountryType.Singapore,
+                    Name = "Singapore"
                 },
                 new CountryDao {
-	                Id = CountryType.Slovakia,
-	                Name = "Slovakia"
+                    Id = CountryType.Slovakia,
+                    Name = "Slovakia"
                 },
                 new CountryDao {
-	                Id = CountryType.Slovenia,
-	                Name = "Slovenia"
+                    Id = CountryType.Slovenia,
+                    Name = "Slovenia"
                 },
                 new CountryDao {
-	                Id = CountryType.Somalia,
-	                Name = "Somalia"
+                    Id = CountryType.Somalia,
+                    Name = "Somalia"
                 },
                 new CountryDao {
-	                Id = CountryType.SouthAfrica,
+                    Id = CountryType.SouthAfrica,
                     Name = "South Africa"
                 },
                 new CountryDao {
-	                Id = CountryType.Spain,
-	                Name = "Spain"
+                    Id = CountryType.Spain,
+                    Name = "Spain"
                 },
                 new CountryDao {
-	                Id = CountryType.SriLanka,
+                    Id = CountryType.SriLanka,
                     Name = "Sri Lanka"
                 },
                 new CountryDao {
-	                Id = CountryType.Sudan,
-	                Name = "Sudan"
+                    Id = CountryType.Sudan,
+                    Name = "Sudan"
                 },
                 new CountryDao {
-	                Id = CountryType.Suriname,
-	                Name = "Suriname"
+                    Id = CountryType.Suriname,
+                    Name = "Suriname"
                 },
                 new CountryDao {
-	                Id = CountryType.Sweden,
-	                Name = "Sweden"
+                    Id = CountryType.Sweden,
+                    Name = "Sweden"
                 },
                 new CountryDao {
-	                Id = CountryType.Switzerland,
-	                Name = "Switzerland"
+                    Id = CountryType.Switzerland,
+                    Name = "Switzerland"
                 },
                 new CountryDao {
-	                Id = CountryType.Syria,
-	                Name = "Syria"
+                    Id = CountryType.Syria,
+                    Name = "Syria"
                 },
                 new CountryDao {
-	                Id = CountryType.Taiwan,
-	                Name = "Taiwan"
+                    Id = CountryType.Taiwan,
+                    Name = "Taiwan"
                 },
                 new CountryDao {
-	                Id = CountryType.Tanzania,
-	                Name = "Tanzania"
+                    Id = CountryType.Tanzania,
+                    Name = "Tanzania"
                 },
                 new CountryDao {
-	                Id = CountryType.Thailand,
-	                Name = "Thailand"
+                    Id = CountryType.Thailand,
+                    Name = "Thailand"
                 },
                 new CountryDao {
-	                Id = CountryType.TimorLeste,
-	                Name = "Timor-Leste"
+                    Id = CountryType.TimorLeste,
+                    Name = "Timor-Leste"
                 },
                 new CountryDao {
                     Id = CountryType.Togo,
                     Name = "Togo"
-                },                
-                new CountryDao {
-	                Id = CountryType.TrinidadAndTobago,
-	                Name = "Trinidad and Tobago"
                 },
                 new CountryDao {
-	                Id = CountryType.Tunisia,
-	                Name = "Tunisia"
+                    Id = CountryType.TrinidadAndTobago,
+                    Name = "Trinidad and Tobago"
                 },
                 new CountryDao {
-	                Id = CountryType.Turkey,
-	                Name = "Turkey"
+                    Id = CountryType.Tunisia,
+                    Name = "Tunisia"
+                },
+                new CountryDao {
+                    Id = CountryType.Turkey,
+                    Name = "Turkey"
                 },
                 new CountryDao {
                     Id = CountryType.Usa,
                     Name = "USA"
                 },
                 new CountryDao {
-	                Id = CountryType.Uganda,
-	                Name = "Uganda"
+                    Id = CountryType.Uganda,
+                    Name = "Uganda"
                 },
                 new CountryDao {
-	                Id = CountryType.Ukraine,
-	                Name = "Ukraine"
+                    Id = CountryType.Ukraine,
+                    Name = "Ukraine"
                 },
                 new CountryDao {
-	                Id = CountryType.UnitedArabEmirates,
-	                Name = "United Arab Emirates"
+                    Id = CountryType.UnitedArabEmirates,
+                    Name = "United Arab Emirates"
                 },
                 new CountryDao {
-	                Id = CountryType.UnitedKingdom,
+                    Id = CountryType.UnitedKingdom,
                     Name = "United Kingdom"
                 },
                 new CountryDao {
-	                Id = CountryType.Uruguay,
-	                Name = "Uruguay"
+                    Id = CountryType.Uruguay,
+                    Name = "Uruguay"
                 },
                 new CountryDao {
-	                Id = CountryType.Uzbekistan,
-	                Name = "Uzbekistan"
+                    Id = CountryType.Uzbekistan,
+                    Name = "Uzbekistan"
                 },
                 new CountryDao {
-	                Id = CountryType.Venezuela,
-	                Name = "Venezuela"
+                    Id = CountryType.Venezuela,
+                    Name = "Venezuela"
                 },
                 new CountryDao {
-	                Id = CountryType.Vietnam,
-	                Name = "Vietnam"
+                    Id = CountryType.Vietnam,
+                    Name = "Vietnam"
                 },
                 new CountryDao {
-	                Id = CountryType.WestBankAndGaza,
+                    Id = CountryType.WestBankAndGaza,
                     Name = "West Bank and Gaza"
                 },
                 new CountryDao {
-	                Id = CountryType.Zambia,
-	                Name = "Zambia"
+                    Id = CountryType.Zambia,
+                    Name = "Zambia"
                 },
                 new CountryDao {
-	                Id = CountryType.Zimbabwe,
-	                Name = "Zimbabwe"
+                    Id = CountryType.Zimbabwe,
+                    Name = "Zimbabwe"
                 },
                 new CountryDao {
                     Id = CountryType.Gibraltar,

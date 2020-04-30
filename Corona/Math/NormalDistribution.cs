@@ -1,7 +1,5 @@
-﻿namespace Math
-{
-    public class NormalDistribution
-    {
+﻿namespace Math {
+    public class NormalDistribution {
         private readonly double _expectation;
         private readonly double _standardDeviation;
 

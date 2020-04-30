@@ -4,10 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Backend.Repository
-{
-    public class GitRepository : IGitRepository
-    {
+namespace Backend.Repository {
+    public class GitRepository : IGitRepository {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public bool FetchLatestCommit(string repoUrl, string destinationPath) {

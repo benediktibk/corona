@@ -1,11 +1,9 @@
-﻿using System;
+﻿using ScalableVectorGraphic;
+using System;
 using System.Collections.Generic;
-using ScalableVectorGraphic;
 
-namespace Backend.Service
-{
-    public interface IDataSeriesService
-    {
+namespace Backend.Service {
+    public interface IDataSeriesService {
         List<DataSeries<DateTime, double>> CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, out List<ReferenceLine<double>> referenceLines);
         List<DataSeries<DateTime, double>> CreateDeaths(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         List<DataSeries<DateTime, double>> CreateInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);

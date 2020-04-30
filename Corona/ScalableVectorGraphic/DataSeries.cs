@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ScalableVectorGraphic
-{
-    public class DataSeries<X, Y>
-    {
+namespace ScalableVectorGraphic {
+    public class DataSeries<X, Y> {
         private const double _radius = 0.005;
         private const double _lineWidth = 0.002;
         private readonly List<DataPoint<X, Y>> _dataPoints;

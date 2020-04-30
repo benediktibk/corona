@@ -1,11 +1,8 @@
 ﻿using Math;
-using ScalableVectorGraphic;
 using System.Collections.Generic;
 
-namespace ScalableVectorGraphic
-{
-    public class Transformation
-    {
+namespace ScalableVectorGraphic {
+    public class Transformation {
         private readonly Matrix _matrix;
         private readonly Vector _offset;
         private readonly double _widthScaling;

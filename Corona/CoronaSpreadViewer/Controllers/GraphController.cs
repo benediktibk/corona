@@ -8,10 +8,8 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using WebApi.OutputCache.V2;
 
-namespace CoronaSpreadViewer.Controllers
-{
-    public class GraphController : ApiController
-    {
+namespace CoronaSpreadViewer.Controllers {
+    public class GraphController : ApiController {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IGraphService _graphService;
 #if DEBUG

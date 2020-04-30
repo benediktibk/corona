@@ -2,11 +2,9 @@
 using Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MathTest
-{
+namespace MathTest {
     [TestClass]
-    public class SpringTest
-    {
+    public class SpringTest {
         [TestMethod]
         public void CalculateForce_InitialPositionCalculateOnFirst_0() {
             var pointOne = new FixedPoint(new Vector(3, 5));

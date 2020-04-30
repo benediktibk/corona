@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Backend
-{
-    public class ServerSideCache : IServerSideCache
-    {
+namespace Backend {
+    public class ServerSideCache : IServerSideCache {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly Dictionary<string, object> _cache;
 

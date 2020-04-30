@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public class NumericOperationsDouble : IGenericNumericOperations<double>
-    {
+﻿namespace ScalableVectorGraphic {
+    public class NumericOperationsDouble : IGenericNumericOperations<double> {
         public double ConvertFromDoubleEquivalent(double value) {
             return value;
         }

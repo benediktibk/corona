@@ -1,14 +1,9 @@
-﻿using Backend.Repository;
-using Math;
-using ScalableVectorGraphic;
+﻿using ScalableVectorGraphic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Backend.Service
-{
-    public class GraphService : IGraphService
-    {
+namespace Backend.Service {
+    public class GraphService : IGraphService {
         private const int _graphWidth = 1000;
         private const int _graphHeight = 500;
         private readonly NumericOperationsDateTimeForDatesOnly _numericOperationsDates;

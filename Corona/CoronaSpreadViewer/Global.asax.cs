@@ -1,10 +1,8 @@
 using NConfig;
 using System.Web.Http;
 
-namespace CoronaSpreadViewer
-{
-    public class WebApiApplication : System.Web.HttpApplication
-    {
+namespace CoronaSpreadViewer {
+    public class WebApiApplication : System.Web.HttpApplication {
         static WebApiApplication() {
             NConfigurator.UsingFiles("Config\\Corona.config").SetAsSystemDefault();
         }

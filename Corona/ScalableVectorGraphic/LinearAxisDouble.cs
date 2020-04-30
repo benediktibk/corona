@@ -1,7 +1,5 @@
-﻿namespace ScalableVectorGraphic
-{
-    public class LinearAxisDouble : LinearAxis<double>
-    {
+﻿namespace ScalableVectorGraphic {
+    public class LinearAxisDouble : LinearAxis<double> {
         private readonly string _labelFormat;
 
         public LinearAxisDouble(IGenericNumericOperations<double> numericOperations, string label, string labelFormat) :

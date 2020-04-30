@@ -2,10 +2,8 @@
 using Backend.Service;
 using System;
 
-namespace Backend.DependencyInjection
-{
-    public class Container
-    {
+namespace Backend.DependencyInjection {
+    public class Container {
         private readonly StructureMap.Container _container;
 
         public Container() {

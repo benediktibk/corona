@@ -1,7 +1,5 @@
-﻿namespace Backend.Service
-{
-    public interface IDataReimportService
-    {
+﻿namespace Backend.Service {
+    public interface IDataReimportService {
         bool ReimportAll(IUnitOfWork unitOfWork);
     }
 }

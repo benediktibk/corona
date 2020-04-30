@@ -1,7 +1,5 @@
-﻿namespace Backend
-{
-    public class UnitOfWorkFactory : IUnitOfWorkFactory
-    {
+﻿namespace Backend {
+    public class UnitOfWorkFactory : IUnitOfWorkFactory {
         private readonly ISettings _settings;
 
         public UnitOfWorkFactory(ISettings settings) {
