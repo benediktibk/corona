@@ -6,20 +6,20 @@ namespace ScalableVectorGraphic {
         private const double _radius = 0.005;
         private const double _lineWidth = 0.002;
         private readonly List<DataPoint<X, Y>> _dataPoints;
-        private readonly bool _connectDots;
-        private readonly bool _drawDots;
 
         public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color, bool connectDots, bool drawDots, string label) {
             _dataPoints = dataPoints.ToList();
             Color = color;
-            _connectDots = connectDots;
-            _drawDots = drawDots;
+            ConnectDots = connectDots;
+            DrawDots = drawDots;
             Label = label;
         }
 
         public Color Color { get; }
         public string Label { get; }
         public IReadOnlyList<DataPoint<X, Y>> DataPoints => _dataPoints;
+        public bool ConnectDots { get; }
+        public bool DrawDots { get; }
 
         public void FindRangeOfXValuesAsDouble(IGenericNumericOperations<X> numericOperations, out double minimum, out double maximum) {
             var allValues = _dataPoints.Select(dataPoint => numericOperations.ConvertToDoubleEquivalent(dataPoint.XValue)).ToList();
@@ -40,7 +40,7 @@ namespace ScalableVectorGraphic {
             var dataPointsScaled = dataPointsConverted.Select(dataPoint => dataPoint.Apply(xAxisTransformation, yAxisTransformation));
             var dataPointsConvertedAndOrderd = dataPointsScaled.OrderBy(dataPoint => dataPoint.X).ToList();
 
-            if (_drawDots) {
+            if (DrawDots) {
                 for (var i = 0; i < dataPointsConvertedAndOrderd.Count(); ++i) {
                     result.Add(new Circle($"data point ({_dataPoints[i].XValue},{_dataPoints[i].YValue})", _radius, Color, dataPointsConvertedAndOrderd[i]));
                 }
@@ -48,7 +48,7 @@ namespace ScalableVectorGraphic {
 
             dataPoints = dataPointsConvertedAndOrderd;
 
-            if (!_connectDots) {
+            if (!ConnectDots) {
                 return result;
             }
 

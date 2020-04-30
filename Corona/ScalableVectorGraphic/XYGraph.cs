@@ -112,8 +112,15 @@ namespace ScalableVectorGraphic {
                 var y = i * _legendHeightPerCountry + _legendFontSize / 2;
 
                 elements.Add(new Text($"label {current.Label}", new Point(_legendDotOffsetLeft * 2, y), current.Label, Color.Black, 0, _legendFont, _legendFontSize, "middle", "start"));
-                elements.Add(new Circle($"dot for {current.Label}", _legendDotRadius, current.Color, new Point(_legendDotOffsetLeft, y)));
-                elements.Add(new Line($"line for {current.Label}", new Point(_legendDotOffsetLeft - _legendLineLength / 2, y), new Point(_legendDotOffsetLeft + _legendLineLength / 2, y), current.Color, _legendLineWidth));
+
+                if (current.DrawDots) {
+                    elements.Add(new Circle($"dot for {current.Label}", _legendDotRadius, current.Color, new Point(_legendDotOffsetLeft, y)));
+                }
+
+                if (current.ConnectDots) {
+                    elements.Add(new Line($"line for {current.Label}", new Point(_legendDotOffsetLeft - _legendLineLength / 2, y), new Point(_legendDotOffsetLeft + _legendLineLength / 2, y), current.Color, _legendLineWidth));
+                }
+
                 maxLength = System.Math.Max(maxLength, current.Label.Length);
             }
 
