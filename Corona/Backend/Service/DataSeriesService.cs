@@ -274,7 +274,7 @@ namespace Backend.Service {
 
                 var estimatedNewInfections = new List<DataPoint<DateTime, double>>();
 
-                for (var t = 0; t < graphTimeLengthInDays; ++t) {
+                for (var t = 0; t < graphTimeLengthInDays - 14; ++t) {
                     if (values[t] > 0) {
                         estimatedNewInfections.Add(new DataPoint<DateTime, double>(graphTimeRangeStart.AddDays(t), values[t]));
                     }
