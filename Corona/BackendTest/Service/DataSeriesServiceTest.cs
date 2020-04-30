@@ -32,7 +32,7 @@ namespace BackendTest.Service {
                 new CountryInhabitantsDao { CountryId = CountryType.Albania, Inhabitants = 1000 }
             });
 
-            var dataSeries = _dataSeriesService.CreateEstimatedActualInfectedPerPopulation(_unitOfWork.Object, new List<CountryType> { CountryType.Albania });
+            var dataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(_unitOfWork.Object, new List<CountryType> { CountryType.Albania });
 
             var peak = 23.0 / 1000;
             dataSeries.Count.Should().Be(2);

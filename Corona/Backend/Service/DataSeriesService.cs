@@ -208,16 +208,10 @@ namespace Backend.Service {
             return allDataSeries;
         }
 
-        public List<DataSeries<DateTime, double>> CreateEstimatedActualInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+        public List<DataSeries<DateTime, double>> CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<DateTime, double>>();
-            var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
-            var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
 
             for (var i = 0; i < countries.Count(); ++i) {
-                if (!availableCountriesSet.TryGetValue(countries[i], out var inhabitants)) {
-                    continue;
-                }
-
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]);
                 var timeRangeStart = dataPoints.Select(x => x.Date).Min().Date;
                 var timeRangeEnd = dataPoints.Select(x => x.Date).Max().Date;
@@ -255,7 +249,7 @@ namespace Backend.Service {
 
                 foreach (var additionalInfectedItem in additionalInfected) {
                     var previousDaysInPast = -1e10;
-                    var peak = additionalInfectedItem.YValue / inhabitants;
+                    var peak = additionalInfectedItem.YValue;
                     for (var t = additionalInfectedItem.XValue.AddDays(_estimationPastMaxInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
                         var daysInPast = (t - additionalInfectedItem.XValue).TotalDays;
 
@@ -279,21 +273,11 @@ namespace Backend.Service {
                         estimatedNewInfections.Add(new DataPoint<DateTime, double>(graphTimeRangeStart.AddDays(t), values[t]));
                     }
                 }
-
-                var additionalInfectedPerPopulation = new List<DataPoint<DateTime, double>>();
-
-                foreach (var additionalInfectedItem in additionalInfected) {
-                    var value = additionalInfectedItem.YValue / inhabitants;
-
-                    if (value > 0) {
-                        additionalInfectedPerPopulation.Add(new DataPoint<DateTime, double>(additionalInfectedItem.XValue, value));
-                    }
-                }
-
+                
                 var colorEstimated = PredefinedColors.GetFor(i);
                 var colorActual = colorEstimated.ChangeAlpha(0.5);
                 var dataSeriesEstimated = new DataSeries<DateTime, double>(estimatedNewInfections, colorEstimated, true, false, $"{countries[i]} - estimated");
-                var dataSeriesActual = new DataSeries<DateTime, double>(additionalInfectedPerPopulation, colorActual, false, true, $"{countries[i]} - reported");
+                var dataSeriesActual = new DataSeries<DateTime, double>(additionalInfected, colorActual, false, true, $"{countries[i]} - reported");
                 allDataSeries.Add(dataSeriesEstimated);
                 allDataSeries.Add(dataSeriesActual);
             }

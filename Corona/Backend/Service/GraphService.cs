@@ -78,9 +78,9 @@ namespace Backend.Service {
             return ConvertGraphToSvg(graph);
         }
 
-        public string CreateEstimatedActualInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = _dataSeriesService.CreateEstimatedActualInfectedPerPopulation(unitOfWork, countries);
-            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _logarithmicPersonPerPopulationAxis, allDataSeries, true, true, new Point(0.2, 0.8));
+        public string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countries);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true, true, new Point(0.2, 0.8));
             return ConvertGraphToSvg(graph);
         }
 

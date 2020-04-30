@@ -55,14 +55,14 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
-        [Route("api/graph/estimated-actual-infected-per-population")]
-        public HttpResponseMessage GetEstimatedActualInfectedPerPopulation([FromUri] string countries) {
+        [Route("api/graph/estimated-actual-new-infected-persons")]
+        public HttpResponseMessage GetEstimatedActualNewInfectedPersons([FromUri] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
                 }
 
-                var result = _graphService.CreateEstimatedActualInfectedPerPopulation(unitOfWork, countriesParsed);
+                var result = _graphService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countriesParsed);
                 return CreateResponse(result);
             }
         }
