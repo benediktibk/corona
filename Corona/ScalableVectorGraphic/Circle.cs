@@ -13,7 +13,7 @@
         public Point Position { get; }
 
         public void AddTo(ISvgXmlWriter svgXmlWriter) {
-            svgXmlWriter.AddSingleTag("circle", $"cx=\"{Position.X.ToString(svgXmlWriter.Culture)}\" cy=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" r=\"{Radius.ToString(svgXmlWriter.Culture)}\" fill=\"{Color.ToSvg()}\"");
+            svgXmlWriter.AddSingleTag("circle", $"cx=\"{Position.X.ToString(svgXmlWriter.Culture)}\" cy=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" r=\"{Radius.ToString(svgXmlWriter.Culture)}\" fill=\"{Color.ToSvg(svgXmlWriter)}\"");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

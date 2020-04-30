@@ -26,7 +26,7 @@ namespace ScalableVectorGraphic {
         public string TextAnchor { get; }
 
         public void AddTo(ISvgXmlWriter svgXmlWriter) {
-            svgXmlWriter.AddTagWithContent("text", $"x=\"{Position.X.ToString(svgXmlWriter.Culture)}\" y=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" font-family=\"{Font}\" fill=\"{Color.ToSvg()}\" transform=\"rotate({RotationInDegrees.ToString(svgXmlWriter.Culture)} {Position.X.ToString(svgXmlWriter.Culture)},{Position.Y.ToString(svgXmlWriter.Culture)})\" font-size=\"{(int)FontSize}\" dominant-baseline=\"{DominantBaseLine}\" text-anchor=\"{TextAnchor}\"", Content);
+            svgXmlWriter.AddTagWithContent("text", $"x=\"{Position.X.ToString(svgXmlWriter.Culture)}\" y=\"{Position.Y.ToString(svgXmlWriter.Culture)}\" font-family=\"{Font}\" fill=\"{Color.ToSvg(svgXmlWriter)}\" transform=\"rotate({RotationInDegrees.ToString(svgXmlWriter.Culture)} {Position.X.ToString(svgXmlWriter.Culture)},{Position.Y.ToString(svgXmlWriter.Culture)})\" font-size=\"{(int)FontSize}\" dominant-baseline=\"{DominantBaseLine}\" text-anchor=\"{TextAnchor}\"", Content);
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

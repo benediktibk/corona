@@ -23,7 +23,7 @@ namespace ScalableVectorGraphic {
         public string Description { get; }
 
         public void AddTo(ISvgXmlWriter svgXmlWriter) {
-            svgXmlWriter.AddSingleTag("rect", $"x=\"{LeftUpperCorner.X.ToString(svgXmlWriter.Culture)}\" y=\"{LeftUpperCorner.Y.ToString(svgXmlWriter.Culture)}\" width=\"{Width.ToString(svgXmlWriter.Culture)}\" height=\"{Height.ToString(svgXmlWriter.Culture)}\" style=\"fill:{BackgroundColor.ToSvg()};stroke:{LineColor.ToSvg()};stroke-width:{LineWidth.ToString(svgXmlWriter.Culture)}\"");
+            svgXmlWriter.AddSingleTag("rect", $"x=\"{LeftUpperCorner.X.ToString(svgXmlWriter.Culture)}\" y=\"{LeftUpperCorner.Y.ToString(svgXmlWriter.Culture)}\" width=\"{Width.ToString(svgXmlWriter.Culture)}\" height=\"{Height.ToString(svgXmlWriter.Culture)}\" style=\"fill:{BackgroundColor.ToSvg(svgXmlWriter)};stroke:{LineColor.ToSvg(svgXmlWriter)};stroke-width:{LineWidth.ToString(svgXmlWriter.Culture)}\"");
         }
 
         public IGraphicElement ApplyTransformation(Transformation transformation) {

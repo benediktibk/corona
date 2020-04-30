@@ -1,25 +1,32 @@
 ﻿namespace ScalableVectorGraphic {
     public class Color {
-        public Color(int red, int green, int blue) {
+        public Color(int red, int green, int blue) :
+            this(red, green, blue, 1) {
+        }
+
+        public Color(int red, int green, int blue, double alpha) {
             RedComponent = red;
             GreenComponent = green;
             BlueComponent = blue;
+            AlphaComponent = alpha;
         }
 
         public int RedComponent { get; }
         public int GreenComponent { get; }
         public int BlueComponent { get; }
+        public double AlphaComponent { get; }
 
-        public string ToSvg() {
-            return $"rgb({RedComponent},{GreenComponent},{BlueComponent})";
+        public Color ChangeAlpha(double alpha) {
+            return new Color(RedComponent, GreenComponent, BlueComponent, alpha);
         }
 
-        public Color ReduceBy(uint reduction) {
-            return new Color(System.Math.Max(0, (int)(RedComponent - reduction)), System.Math.Max(0, (int)(GreenComponent - reduction)), System.Math.Max(0, (int)(BlueComponent - reduction)));
-        }
-
-        public Color IncreaseBy(uint increase) {
-            return new Color(System.Math.Min(255, (int)(RedComponent + increase)), System.Math.Min(255, (int)(GreenComponent + increase)), System.Math.Min(255, (int)(BlueComponent + increase)));
+        public string ToSvg(ISvgXmlWriter svgXmlWriter) {
+            if (AlphaComponent < 1) {
+                return $"rgb({RedComponent},{GreenComponent},{BlueComponent})";
+            }
+            else {
+                return $"rgba({RedComponent},{GreenComponent},{BlueComponent},{AlphaComponent.ToString(svgXmlWriter.Culture)})";
+            }
         }
 
         public static Color White => new Color(255, 255, 255);
