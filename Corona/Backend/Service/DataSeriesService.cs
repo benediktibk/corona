@@ -292,8 +292,8 @@ namespace Backend.Service {
 
                 var colorEstimated = PredefinedColors.GetFor(i);
                 var colorActual = colorEstimated.IncreaseBy(50);
-                var dataSeriesEstimated = new DataSeries<DateTime, double>(estimatedNewInfections, colorEstimated, true, true, $"{countries[i]} - estimated");
-                var dataSeriesActual = new DataSeries<DateTime, double>(additionalInfectedPerPopulation, colorActual, true, true, $"{countries[i]} - reported");
+                var dataSeriesEstimated = new DataSeries<DateTime, double>(estimatedNewInfections, colorEstimated, true, false, $"{countries[i]} - estimated");
+                var dataSeriesActual = new DataSeries<DateTime, double>(additionalInfectedPerPopulation, colorActual, true, false, $"{countries[i]} - reported");
                 allDataSeries.Add(dataSeriesEstimated);
                 allDataSeries.Add(dataSeriesActual);
             }
