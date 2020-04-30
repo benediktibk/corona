@@ -259,11 +259,12 @@ namespace Backend.Service {
                     for (var t = additionalInfectedItem.XValue.AddDays(_estimationPastMaxInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
                         var daysInPast = (t - additionalInfectedItem.XValue).TotalDays;
 
-                        if (daysInPast == 0) {
+                        if (daysInPast == -1) {
                             daysInPast = 1e10;
                         }
 
-                        var partialValue = distribution.CalculateSumBetween(previousDaysInPast, daysInPast) * peak;
+                        var distributionFactor = distribution.CalculateSumBetween(previousDaysInPast, daysInPast);
+                        var partialValue = distributionFactor * peak;
 
                         var tAsIndex = (int)(t - graphTimeRangeStart).TotalDays;
                         values[tAsIndex] += partialValue;
