@@ -251,9 +251,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">
       <Project>{73FB3627-DFF5-448F-A39A-6B71B80A867E}</Project>
