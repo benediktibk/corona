@@ -97,6 +97,20 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
+        [Route("api/graph/still-infected")]
+        public HttpResponseMessage GetStillInfected([FromUri] string countries) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                if (!TryParseCountries(countries, out var countriesParsed)) {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
+                var result = _graphService.CreateStillInfected(unitOfWork, countriesParsed);
+                return CreateResponse(result);
+            }
+        }
+
+        [HttpGet]
+        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/deaths-per-population-logarithmic")]
         public HttpResponseMessage GetDeathsPerPopulationLogarithmic([FromUri] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {

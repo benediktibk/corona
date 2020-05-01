@@ -62,6 +62,12 @@ namespace Backend.Service {
             return ConvertGraphToSvg(graph);
         }
 
+        public string CreateStillInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = _dataSeriesService.CreateStillInfected(unitOfWork, countries);
+            var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true, true, new Point(0.2, 0.8));
+            return ConvertGraphToSvg(graph);
+        }
+
         public string CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = _dataSeriesService.CreateInfectedGrowthPerTotalInfected(unitOfWork, countries);
             var xAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Infected Persons Total", "F0");

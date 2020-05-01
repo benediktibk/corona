@@ -8,6 +8,7 @@ namespace Backend.Service {
         string CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         string CreateDeaths(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         string CreateStillInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
+        string CreateStillInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         string CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         string CreateInfectedGrowthPerTotalInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);

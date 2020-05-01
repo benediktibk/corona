@@ -146,6 +146,24 @@ namespace Backend.Service {
             return allDataSeries;
         }
 
+        public List<DataSeries<DateTime, double>> CreateStillInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeries<DateTime, double>>();
+
+            for (var i = 0; i < countries.Count(); ++i) {
+                var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountry(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
+                var dataPointsConverted = new List<DataPoint<DateTime, double>>();
+
+                foreach (var dataPoint in dataPoints) {
+                    var value = dataPoint.InfectedTotal - dataPoint.DeathsTotal - dataPoint.RecoveredTotal;
+                    dataPointsConverted.Add(new DataPoint<DateTime, double>(dataPoint.Date, value));
+                }
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                allDataSeries.Add(dataSeries);
+            }
+
+            return allDataSeries;
+        }
+
         public List<DataSeries<double, double>> CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             var allDataSeries = new List<DataSeries<double, double>>();
 
