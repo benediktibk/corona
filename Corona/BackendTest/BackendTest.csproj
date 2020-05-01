@@ -97,6 +97,10 @@
       <Project>{73FB3627-DFF5-448F-A39A-6B71B80A867E}</Project>
       <Name>Backend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Math\Math.csproj">
+      <Project>{97B25C89-4B52-42D5-95D3-7CA182755740}</Project>
+      <Name>Math</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScalableVectorGraphic\ScalableVectorGraphic.csproj">
       <Project>{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}</Project>
       <Name>ScalableVectorGraphic</Name>
