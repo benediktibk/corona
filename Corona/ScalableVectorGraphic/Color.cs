@@ -22,10 +22,10 @@
 
         public string ToSvg(ISvgXmlWriter svgXmlWriter) {
             if (AlphaComponent < 1) {
-                return $"rgb({RedComponent},{GreenComponent},{BlueComponent})";
+                return $"rgba({RedComponent},{GreenComponent},{BlueComponent},{AlphaComponent.ToString(svgXmlWriter.Culture)})";
             }
             else {
-                return $"rgba({RedComponent},{GreenComponent},{BlueComponent},{AlphaComponent.ToString(svgXmlWriter.Culture)})";
+                return $"rgb({RedComponent},{GreenComponent},{BlueComponent})";
             }
         }
 
