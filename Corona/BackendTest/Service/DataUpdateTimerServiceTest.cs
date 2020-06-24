@@ -23,7 +23,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
-        public void CalculateIntervalInMilliseconds_After6_6OfNextDayDay() {
+        public void CalculateIntervalInMilliseconds_After6_6OfNextDay() {
             var now = new DateTime(2020, 6, 24, 6, 5, 0);
 
             var result = _dataUpdateTimerService.CalculateIntervalInMilliseconds(now);
