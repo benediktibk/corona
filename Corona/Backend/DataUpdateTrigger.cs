@@ -8,12 +8,14 @@ namespace Backend {
     public class DataUpdateTrigger : IDataUpdateTrigger {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDataReimportService _dataReimportService;
+        private readonly IDataUpdateTimerService _dataUpdateTimerService;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IServerSideCache _serverSideCache;
         private readonly Timer _timer;
 
-        public DataUpdateTrigger(IDataReimportService dataReimportService, IUnitOfWorkFactory unitOfWorkFactory, IServerSideCache serverSideCache) {
+        public DataUpdateTrigger(IDataReimportService dataReimportService, IDataUpdateTimerService dataUpdateTimerService, IUnitOfWorkFactory unitOfWorkFactory, IServerSideCache serverSideCache) {
             _dataReimportService = dataReimportService;
+            _dataUpdateTimerService = dataUpdateTimerService;
             _unitOfWorkFactory = unitOfWorkFactory;
             _serverSideCache = serverSideCache;
             _timer = new Timer();
@@ -22,14 +24,7 @@ namespace Backend {
         }
 
         public void Start() {
-            var target = DateTime.Now;
-
-            if (target.Hour > 6) {
-                target = target.AddDays(1);
-            }
-
-            target = new DateTime(target.Year, target.Month, target.Day, 6, 0, 0);
-            _timer.Interval = (target - DateTime.Now).TotalMilliseconds;
+            _timer.Interval = _dataUpdateTimerService.CalculateIntervalInMilliseconds(DateTime.Now);
             _timer.Start();
         }
 

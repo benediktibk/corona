@@ -33,6 +33,7 @@ namespace Backend.DependencyInjection {
                 x.For<IGraphService>().Use<GraphService>();
                 x.For<IAuthorizationService>().Use<AuthorizationService>();
                 x.For<IDataSeriesService>().Use<DataSeriesService>();
+                x.For<IDataUpdateTimerService>().Use<DataUpdateTimerService>();
             });
         }
 
