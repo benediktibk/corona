@@ -9,7 +9,7 @@ namespace Backend.Service {
             var target = now;
             _logger.Info($"starting data update trigger at {target}");
 
-            if (target.Hour > 6) {
+            if (target.Hour >= 6) {
                 _logger.Info("it is already past 6, adding one day");
                 target = target.AddDays(1);
             }
