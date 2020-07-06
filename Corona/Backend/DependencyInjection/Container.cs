@@ -18,7 +18,6 @@ namespace Backend.DependencyInjection {
 
                 x.For<ISettings>().Use(() => new Settings(connectionString, gitRepo, localPath, adminUsers, svgCompressed));
                 x.For<IServerSideCache>().Use<ServerSideCache>().Singleton();
-                x.For<IDataUpdateTrigger>().Use<DataUpdateTrigger>();
 
                 x.For<IDatabase>().Use<Database>();
                 x.For<IUnitOfWorkFactory>().Use<UnitOfWorkFactory>();
@@ -33,7 +32,6 @@ namespace Backend.DependencyInjection {
                 x.For<IGraphService>().Use<GraphService>();
                 x.For<IAuthorizationService>().Use<AuthorizationService>();
                 x.For<IDataSeriesService>().Use<DataSeriesService>();
-                x.For<IDataUpdateTimerService>().Use<DataUpdateTimerService>();
             });
         }
 
