@@ -47,6 +47,7 @@
     <Compile Include="DataPoint.cs" />
     <Compile Include="DataSeries.cs" />
     <Compile Include="DataSeriesRange.cs" />
+    <Compile Include="HorizontalBarGraph.cs" />
     <Compile Include="IAxisTransformation.cs" />
     <Compile Include="DottedLine.cs" />
     <Compile Include="ISvgXmlWriter.cs" />
