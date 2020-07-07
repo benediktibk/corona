@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ScalableVectorGraphic {
-    public class HorizontalBarGraph {
+    /*public class HorizontalBarGraph {
         private readonly Image _image;
         private const double _ratioXAxisLengthToImageSize = 0.85;
         private const double _yAxisOffsetForLabels = 0.05;
@@ -37,5 +37,5 @@ namespace ScalableVectorGraphic {
         private double FindDataSeriesMaximum(List<DataPoint<string, double>> values) {
             return values.Select(x => x.YValue).Max();
         }
-    }
+    }*/
 }

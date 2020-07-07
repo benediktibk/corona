@@ -32,11 +32,17 @@ namespace CoronaSpreadViewer.Controllers {
             }
 
             _logger.Info("triggering update of data");
+            bool importSuccess;
 
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 unitOfWork.BeginDatabaseTransaction();
-                _dataReimportService.ReimportAll(unitOfWork);
+                importSuccess = _dataReimportService.ReimportAll(unitOfWork);
                 unitOfWork.CommitDatabaseTransaction();
+            }
+
+            if (!importSuccess) {
+                _logger.Error("failed to update data");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "unable to update data");
             }
 
             _logger.Info("successfully updated data, invalidating the server side cache");
