@@ -31,14 +31,21 @@ namespace Backend.Repository {
             _logger.Info($"executing command {command}");
             var result = process.Start();
 
-            _logger.Info($"waiting for command to finish");
-            result = result && process.WaitForExit(100 * 1000);
-
             if (result) {
                 _logger.Info("successfully finished fetch of latest commit");
             }
             else {
                 _logger.Error("was not able to fetch the latest commit");
+            }
+
+            _logger.Info($"waiting for command to finish");
+            var processEnded = process.WaitForExit(1000 * 1000);
+
+            if (processEnded) {
+                _logger.Info("fetch did succeed in time");
+            }
+            else {
+                _logger.Error("fetch did not finish in time");
             }
 
             return result;
