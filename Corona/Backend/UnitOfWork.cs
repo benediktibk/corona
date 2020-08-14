@@ -50,6 +50,16 @@ namespace Backend {
             _databaseConnection.Execute(sql: command, transaction: _transaction);
         }
 
+        public void ExecuteDatabaseCommand(SqlCommand command) {
+            if (_transaction == null) {
+                throw new InvalidOperationException("no transaction is open");
+            }
+
+            command.Connection = _databaseConnection;
+            command.Transaction = _transaction;
+            command.ExecuteNonQuery();
+        }
+
         public void ExecuteDatabaseCommand(string command, object param) {
             if (_transaction == null) {
                 throw new InvalidOperationException("no transaction is open");
