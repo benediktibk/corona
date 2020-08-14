@@ -5,6 +5,7 @@ using Backend.Service;
 using NConfig;
 using NLog;
 using System;
+using System.Diagnostics;
 
 namespace Updater {
     class Program {
@@ -19,6 +20,7 @@ namespace Updater {
                 var database = container.GetInstance<IDatabase>();
                 var dataReimportService = container.GetInstance<IDataReimportService>();
                 var unitOfWorkFactory = container.GetInstance<IUnitOfWorkFactory>();
+                var stopWatch = new Stopwatch();
 
                 using (var unitOfWork = unitOfWorkFactory.Create()) {
                     unitOfWork.BeginDatabaseTransaction();
@@ -27,7 +29,10 @@ namespace Updater {
                     database.Initialize(unitOfWork);
 
                     _logger.Info("importing current data");
+                    stopWatch.Start();
                     var result = dataReimportService.ReimportAll(unitOfWork);
+                    stopWatch.Stop();
+                    _logger.Info($"import took {stopWatch.Elapsed.TotalSeconds} seconds");
 
                     if (!result) {
                         return;
