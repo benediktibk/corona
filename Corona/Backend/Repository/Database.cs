@@ -829,6 +829,10 @@ namespace Backend.Repository {
                 new CountryDao {
                     Id = CountryType.Lesotho,
                     Name = "Lesotho"
+                },
+                new CountryDao {
+                    Id = CountryType.Tajikistan,
+                    Name = "Tajikistan"
                 }
             };
 
