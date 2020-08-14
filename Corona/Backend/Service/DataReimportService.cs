@@ -1,9 +1,11 @@
 ﻿using Backend.Repository;
 using NLog;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Backend.Service {
     public class DataReimportService : IDataReimportService {
@@ -38,15 +40,19 @@ namespace Backend.Service {
             var files = _csvFileRepository.ListAllCsvFilesIn($"{_sourceFilePath}/csse_covid_19_data/csse_covid_19_daily_reports");
 
             _logger.Info($"found {files.Count} daily reports, starting to import them");
-            var dataPoints = new List<InfectionSpreadDataPointDao>();
-            foreach (var file in files) {
+            var dataPoints = new ConcurrentBag<List<InfectionSpreadDataPointDao>>();
+            Parallel.ForEach(files, file => {
                 _logger.Info($"importing {file}");
-                dataPoints.AddRange(ParseFileContent(unitOfWork, file));
-            }
+                dataPoints.Add(ParseFileContent(unitOfWork, file));
+            });
+            var dataPointsAggregated = dataPoints.Aggregate(seed: new List<InfectionSpreadDataPointDao>(), func: (aggregationResult, item) => {
+                aggregationResult.AddRange(item);
+                return aggregationResult;
+            });
 
             _logger.Info("reimporting data points");
             _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
-            _infectionSpreadDataPointRepository.Insert(unitOfWork, dataPoints);
+            _infectionSpreadDataPointRepository.Insert(unitOfWork, dataPointsAggregated);
 
             _logger.Info("successfully executed the reimport");
             return true;
