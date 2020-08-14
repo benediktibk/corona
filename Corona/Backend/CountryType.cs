@@ -201,6 +201,9 @@
         SaoTomeAndPrincipe,
         SouthSudan,
         WesternSahara,
-        Yemen
+        Yemen,
+        Tajikistan,
+        Comoros,
+        Lesotho
     }
 }
