@@ -22,6 +22,7 @@ namespace Backend.Repository {
         }
 
         public void Insert(IUnitOfWork unitOfWork, InfectionSpreadDataPointDao dataPoint) {
+            _logger.Debug($"adding data point for country {dataPoint.CountryId}");
             unitOfWork.ExecuteDatabaseCommand(@"
                 INSERT InfectionSpreadDataPoint
                 (
