@@ -850,6 +850,18 @@ namespace Backend.Service {
                 case "Malawi":
                     country = CountryType.Malawi;
                     break;
+                case "Sao Tome and Principe":
+                    country = CountryType.SaoTomeAndPrincipe;
+                    break;
+                case "South Sudan":
+                    country = CountryType.SouthSudan;
+                    break;
+                case "Western Sahara":
+                    country = CountryType.WesternSahara;
+                    break;
+                case "Yemen":
+                    country = CountryType.Yemen;
+                    break;
                 default:
                     _logger.Warn($"unable to parse the country {countryString}");
                     country = CountryType.Invalid;

@@ -805,6 +805,22 @@ namespace Backend.Repository {
                 new CountryDao {
                     Id = CountryType.Malawi,
                     Name = "Malawi"
+                },
+                new CountryDao {
+                    Id = CountryType.SaoTomeAndPrincipe,
+                    Name = "Sao Tome and Principe"
+                },
+                new CountryDao {
+                    Id = CountryType.SouthSudan,
+                    Name = "South Sudan"
+                },
+                new CountryDao {
+                    Id = CountryType.WesternSahara,
+                    Name = "Western Sahara"
+                },
+                new CountryDao {
+                    Id = CountryType.Yemen,
+                    Name = "Yemen"
                 }
             };
 

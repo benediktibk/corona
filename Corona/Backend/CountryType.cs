@@ -197,6 +197,10 @@
         Burundi,
         Botswana,
         SierraLeone,
-        Malawi
+        Malawi,
+        SaoTomeAndPrincipe,
+        SouthSudan,
+        WesternSahara,
+        Yemen
     }
 }
