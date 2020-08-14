@@ -3,6 +3,7 @@ using NLog;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,9 +64,9 @@ namespace Backend.Service {
             var result = new Dictionary<CountryType, InfectionSpreadDataPointDao>();
 
             _logger.Info($"parsing content of file {file}");
-            foreach (var line in content) {
+            foreach (var line in content.Lines) {
                 InfectionSpreadDataPointDao dataPoint;
-                if (!TryParseDataPointFromLine(line, out dataPoint)) {
+                if (!TryParseDataPointFromLine(content, line, out dataPoint)) {
                     _logger.Warn($"unable to parse one line in file {file}, skipping it");
                     continue;
                 }
@@ -87,26 +88,26 @@ namespace Backend.Service {
             return result.Select(x => x.Value).ToList();
         }
 
-        private bool TryParseDataPointFromLine(Dictionary<string, string> line, out InfectionSpreadDataPointDao dataPoint) {
+        private bool TryParseDataPointFromLine(CsvFile file, CsvFileLine line, out InfectionSpreadDataPointDao dataPoint) {
             dataPoint = new InfectionSpreadDataPointDao();
 
-            if (!TryParseCountryFromLine(line, out var country)) {
+            if (!TryParseCountryFromLine(file, line, out var country)) {
                 return false;
             }
 
-            if (!TryParseConfirmedFromLine(line, out var confirmed)) {
+            if (!TryParseConfirmedFromLine(file, line, out var confirmed)) {
                 return false;
             }
 
-            if (!TryParseDeathsFromLine(line, out var deaths)) {
+            if (!TryParseDeathsFromLine(file, line, out var deaths)) {
                 return false;
             }
 
-            if (!TryParseRecoveredFromLine(line, out var recovered)) {
+            if (!TryParseRecoveredFromLine(file, line, out var recovered)) {
                 return false;
             }
 
-            if (!TryParseLastUpdatedFromLine(line, out var lastUpdated)) {
+            if (!TryParseLastUpdatedFromLine(file, line, out var lastUpdated)) {
                 return false;
             }
 
@@ -119,12 +120,14 @@ namespace Backend.Service {
             return true;
         }
 
-        private bool TryParseConfirmedFromLine(Dictionary<string, string> line, out int confirmed) {
-            if (!line.TryGetValue("Confirmed", out var value)) {
-                _logger.Warn($"failed to parse confirmed from line with headers {string.Join(";", line.Select(x => x.Key))}");
+        private bool TryParseConfirmedFromLine(CsvFile file, CsvFileLine line, out int confirmed) {
+            if (!file.TryGetColumnIndexOfHeader("Confirmed", out var headerIndex)) {
+                _logger.Warn("failed to parse confirmed from line");
                 confirmed = 0;
                 return false;
             }
+
+            var value = line.GetValue(headerIndex);
 
             if (string.IsNullOrEmpty(value)) {
                 confirmed = 0;
@@ -139,12 +142,14 @@ namespace Backend.Service {
             return true;
         }
 
-        private bool TryParseDeathsFromLine(Dictionary<string, string> line, out int deaths) {
-            if (!line.TryGetValue("Deaths", out var value)) {
-                _logger.Warn($"failed to parse deaths from line with headers {string.Join(";", line.Select(x => x.Key))}");
+        private bool TryParseDeathsFromLine(CsvFile file, CsvFileLine line, out int deaths) {
+            if (!file.TryGetColumnIndexOfHeader("Deaths", out var headerIndex)) {
+                _logger.Warn("failed to parse deaths from line");
                 deaths = 0;
                 return false;
             }
+
+            var value = line.GetValue(headerIndex);
 
             if (string.IsNullOrEmpty(value)) {
                 deaths = 0;
@@ -159,12 +164,14 @@ namespace Backend.Service {
             return true;
         }
 
-        private bool TryParseRecoveredFromLine(Dictionary<string, string> line, out int recovered) {
-            if (!line.TryGetValue("Recovered", out var value)) {
-                _logger.Warn($"failed to parse recovered from line with headers {string.Join(";", line.Select(x => x.Key))}");
+        private bool TryParseRecoveredFromLine(CsvFile file, CsvFileLine line, out int recovered) {
+            if (!file.TryGetColumnIndexOfHeader("Recovered", out var headerIndex)) {
+                _logger.Warn("failed to parse recovered from line");
                 recovered = 0;
                 return false;
             }
+
+            var value = line.GetValue(headerIndex);
 
             if (string.IsNullOrEmpty(value)) {
                 recovered = 0;
@@ -179,21 +186,20 @@ namespace Backend.Service {
             return true;
         }
 
-        private bool TryParseLastUpdatedFromLine(Dictionary<string, string> line, out DateTime lastUpdated) {
-            var success = false;
-            string valueAsString;
-
-            success = line.TryGetValue("Last Update", out valueAsString);
+        private bool TryParseLastUpdatedFromLine(CsvFile file, CsvFileLine line, out DateTime lastUpdated) {
+            var success = file.TryGetColumnIndexOfHeader("Last Update", out var headerIndex);
 
             if (!success) {
-                success = line.TryGetValue("Last_Update", out valueAsString);
+                success = file.TryGetColumnIndexOfHeader("Last_Update", out headerIndex);
             }
 
             if (!success) {
-                _logger.Warn($"failed to parse last updated from line with headers {string.Join(";", line.Select(x => x.Key))}");
+                _logger.Warn("failed to parse last updated from line");
                 lastUpdated = new DateTime();
                 return false;
             }
+
+            var valueAsString = line.GetValue(headerIndex);
 
             if (!DateTime.TryParse(valueAsString, CultureInfo.CreateSpecificCulture("en-US"), DateTimeStyles.None, out lastUpdated)) {
                 _logger.Warn($"unable to parse {valueAsString} to a DateTime");
@@ -203,20 +209,20 @@ namespace Backend.Service {
             return true;
         }
 
-        private bool TryParseCountryFromLine(Dictionary<string, string> line, out CountryType country) {
-            var success = false;
-            string countryString;
+        private bool TryParseCountryFromLine(CsvFile file, CsvFileLine line, out CountryType country) {
 
-            success = line.TryGetValue("Country/Region", out countryString);
+            var success = file.TryGetColumnIndexOfHeader("Country/Region", out var headerIndex);
             if (!success) {
-                success = line.TryGetValue("Country_Region", out countryString);
+                success = file.TryGetColumnIndexOfHeader("Country_Region", out headerIndex);
             }
 
             if (!success) {
-                _logger.Warn($"failed to parse country from line with headers {string.Join(";", line.Select(x => x.Key))}");
+                _logger.Warn("failed to parse country from line");
                 country = CountryType.Invalid;
                 return false;
             }
+
+            var countryString = line.GetValue(headerIndex);
 
             switch (countryString) {
                 case "Hong Kong":

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Backend.Repository {
     public class CsvFileRepository : ICsvFileRepository {
-        public List<Dictionary<string, string>> ReadFile(string path) {
+        public CsvFile ReadFile(string path) {
             var result = new List<Dictionary<string, string>>();
 
             using (var file = File.OpenText(path)) {
