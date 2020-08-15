@@ -6,11 +6,16 @@ using System.Text.RegularExpressions;
 namespace Backend.Repository {
     public class CsvFileRepository : ICsvFileRepository {
         public CsvFile ReadFile(string path) {
-            var result = new List<Dictionary<string, string>>();
+            var headers = new Dictionary<string, int>();
+            var lines = new List<CsvFileLine>();
 
             using (var file = File.OpenText(path)) {
                 var headerLine = file.ReadLine();
                 var columnNames = headerLine.Split(',');
+
+                for (var i = 0; i < columnNames.Length; ++i) {
+                    headers.Add(columnNames[i], i);
+                }
 
                 while (!file.EndOfStream) {
                     var line = file.ReadLine();
@@ -26,17 +31,11 @@ namespace Backend.Repository {
                     }
 
                     var values = line.Split(',');
-                    var lineResult = new Dictionary<string, string>();
-
-                    for (var i = 0; i < System.Math.Min(values.Length, columnNames.Length); ++i) {
-                        lineResult.Add(columnNames[i], values[i]);
-                    }
-
-                    result.Add(lineResult);
+                    lines.Add(new CsvFileLine(values));
                 }
             }
 
-            return result;
+            return new CsvFile(headers, lines);
         }
 
         public List<string> ListAllCsvFilesIn(string path) {
