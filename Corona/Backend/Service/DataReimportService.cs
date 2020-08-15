@@ -63,39 +63,10 @@ namespace Backend.Service {
             var content = _csvFileRepository.ReadFile(file);
             var result = new Dictionary<CountryType, InfectionSpreadDataPointDao>();
 
-            if (!content.TryGetColumnIndexOfHeader("Confirmed", out var headerIndexConfirmed)) {
-                _logger.Warn("failed to parse confirmed from file, skipping its parsing");
-                return new List<InfectionSpreadDataPointDao>();
-            }
-
-            var countryParsingSuccess = content.TryGetColumnIndexOfHeader("Country/Region", out var headerIndexCountry);
-            if (!countryParsingSuccess) {
-                countryParsingSuccess = content.TryGetColumnIndexOfHeader("Country_Region", out headerIndexCountry);
-            }
-
-            if (!countryParsingSuccess) {
-                _logger.Warn("failed to parse country from file, skipping its parsing");
-                return new List<InfectionSpreadDataPointDao>();
-            }
-
-            if (!content.TryGetColumnIndexOfHeader("Deaths", out var headerIndexDeaths)) {
-                _logger.Warn("failed to parse deaths from file, skipping its parsing");
-                return new List<InfectionSpreadDataPointDao>();
-            }
-
-            if (!content.TryGetColumnIndexOfHeader("Recovered", out var headerIndexRecovered)) {
-                _logger.Warn("failed to parse recovered from file, skipping its parsing");
-                return new List<InfectionSpreadDataPointDao>();
-            }
-
-            var lastUpdatedParsingSuccess = content.TryGetColumnIndexOfHeader("Last Update", out var headerIndexLastUpdated);
-
-            if (!lastUpdatedParsingSuccess) {
-                lastUpdatedParsingSuccess = content.TryGetColumnIndexOfHeader("Last_Update", out headerIndexLastUpdated);
-            }
-
-            if (!lastUpdatedParsingSuccess) {
-                _logger.Warn("failed to parse last updated from file, skipping its parsing");
+            if (!FindHeaderIndices(content, 
+                out var headerIndexConfirmed, out var headerIndexCountry, out var headerIndexDeaths, 
+                out var headerIndexRecovered, out var headerIndexLastUpdated)) {
+                _logger.Warn($"unable to parse the headers in file {file}, skipping the whole file");
                 return new List<InfectionSpreadDataPointDao>();
             }
 
@@ -125,7 +96,7 @@ namespace Backend.Service {
                 } 
 
                 if (!success) {
-                    _logger.Warn($"unable to parse one line in file {file}, skipping it");
+                    _logger.Warn($"unable to parse one line in file {file}, skipping this line");
                     continue;
                 }
 
@@ -150,6 +121,51 @@ namespace Backend.Service {
             }
 
             return result.Select(x => x.Value).ToList();
+        }
+
+        private bool FindHeaderIndices(CsvFile content, out int headerIndexConfirmed, out int headerIndexCountry, out int headerIndexDeaths, out int headerIndexRecovered, out int headerIndexLastUpdated) {
+            headerIndexCountry = 0;
+            headerIndexDeaths = 0;
+            headerIndexRecovered = 0;
+            headerIndexLastUpdated = 0;
+
+            if (!content.TryGetColumnIndexOfHeader("Confirmed", out headerIndexConfirmed)) {
+                _logger.Warn("failed to parse confirmed from file, skipping its parsing");
+                return false;
+            }
+
+            var countryParsingSuccess = content.TryGetColumnIndexOfHeader("Country/Region", out headerIndexCountry);
+            if (!countryParsingSuccess) {
+                countryParsingSuccess = content.TryGetColumnIndexOfHeader("Country_Region", out headerIndexCountry);
+            }
+
+            if (!countryParsingSuccess) {
+                _logger.Warn("failed to parse country from file, skipping its parsing");
+                return false;
+            }
+
+            if (!content.TryGetColumnIndexOfHeader("Deaths", out headerIndexDeaths)) {
+                _logger.Warn("failed to parse deaths from file, skipping its parsing");
+                return false;
+            }
+
+            if (!content.TryGetColumnIndexOfHeader("Recovered", out headerIndexRecovered)) {
+                _logger.Warn("failed to parse recovered from file, skipping its parsing");
+                return false;
+            }
+
+            var lastUpdatedParsingSuccess = content.TryGetColumnIndexOfHeader("Last Update", out headerIndexLastUpdated);
+
+            if (!lastUpdatedParsingSuccess) {
+                lastUpdatedParsingSuccess = content.TryGetColumnIndexOfHeader("Last_Update", out headerIndexLastUpdated);
+            }
+
+            if (!lastUpdatedParsingSuccess) {
+                _logger.Warn("failed to parse last updated from file, skipping its parsing");
+                return false;
+            }
+
+            return true;
         }
 
         private bool TryParseConfirmedFromLine(CsvFileLine line, int headerIndex, out int confirmed) {
