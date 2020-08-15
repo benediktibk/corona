@@ -78,32 +78,20 @@ namespace Backend.Service {
         }
 
         private List<InfectionSpreadDataPointDao> ParseFileContent(string file) {
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
             var content = _csvFileRepository.ReadFile(file);
-            stopWatch.Stop();
-            _logger.Trace($"reading the file from disk took {stopWatch.Elapsed.TotalSeconds}s");
-
             var result = new Dictionary<CountryType, InfectionSpreadDataPointDao>();
 
-            stopWatch.Restart();
             if (!FindHeaderIndices(content, 
                 out var headerIndexConfirmed, out var headerIndexCountry, out var headerIndexDeaths, 
                 out var headerIndexRecovered, out var headerIndexLastUpdated)) {
                 _logger.Warn($"unable to parse the headers in file {file}, skipping the whole file");
                 return new List<InfectionSpreadDataPointDao>();
             }
-            stopWatch.Stop();
-            _logger.Trace($"parsing the headers took {stopWatch.Elapsed.TotalSeconds}s");
 
-            _logger.Info($"parsing content of file {file}");
-            stopWatch.Restart();
             foreach (var line in content.Lines) {
-                var innerStopWatch = new Stopwatch();
                 var success = true;
                 var dataPoint = new InfectionSpreadDataPointDao();
 
-                innerStopWatch.Start();
                 if (!TryParseCountryFromLine(line, headerIndexCountry, out var country)) {
                     success = false;
                 }
@@ -118,14 +106,11 @@ namespace Backend.Service {
 
                 if (!TryParseRecoveredFromLine(line, headerIndexRecovered, out var recovered)) {
                     success = false;
-                } 
+                }
 
                 if (!TryParseLastUpdatedFromLine(line, headerIndexLastUpdated, out var lastUpdated)) {
                     success = false;
                 }
-
-                innerStopWatch.Stop();
-                _logger.Trace($"parsing all values from the line took {innerStopWatch.Elapsed.TotalSeconds}s");
 
                 if (!success) {
                     _logger.Warn($"unable to parse one line in file {file}, skipping this line");
@@ -138,7 +123,6 @@ namespace Backend.Service {
                 dataPoint.RecoveredTotal = recovered;
                 dataPoint.Date = lastUpdated;
 
-                innerStopWatch.Restart();
                 if (result.TryGetValue(dataPoint.CountryId, out var previousDataPoint)) {
                     previousDataPoint.InfectedTotal += dataPoint.InfectedTotal;
                     previousDataPoint.DeathsTotal += dataPoint.DeathsTotal;
@@ -151,11 +135,7 @@ namespace Backend.Service {
                 else {
                     result.Add(dataPoint.CountryId, dataPoint);
                 }
-                innerStopWatch.Stop();
-                _logger.Trace($"combining the datapoint with the already existing data points took {innerStopWatch.Elapsed.TotalSeconds}s");
             }
-            stopWatch.Stop();
-            _logger.Trace($"parsing the content and combining it together took {stopWatch.Elapsed.TotalSeconds}s");
 
             return result.Select(x => x.Value).ToList();
         }
