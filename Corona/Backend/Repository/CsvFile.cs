@@ -5,6 +5,11 @@ namespace Backend.Repository {
         private readonly List<CsvFileLine> _lines;
         private readonly Dictionary<string, int> _headers;
 
+        public CsvFile() {
+            _lines = new List<CsvFileLine>();
+            _headers = new Dictionary<string, int>();
+        }
+
         public CsvFile(Dictionary<string, int> headers, List<CsvFileLine> lines) {
             _lines = lines;
             _headers = headers;
