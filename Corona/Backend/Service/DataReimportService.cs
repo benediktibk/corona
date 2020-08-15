@@ -125,7 +125,7 @@ namespace Backend.Service {
                 }
 
                 innerStopWatch.Stop();
-                _logger.Trace($"parsing the all values from the line took {innerStopWatch.Elapsed.TotalSeconds}s");
+                _logger.Trace($"parsing all values from the line took {innerStopWatch.Elapsed.TotalSeconds}s");
 
                 if (!success) {
                     _logger.Warn($"unable to parse one line in file {file}, skipping this line");
