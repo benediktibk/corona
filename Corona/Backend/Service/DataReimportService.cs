@@ -4,7 +4,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +16,7 @@ namespace Backend.Service {
         private readonly IGitRepository _gitRepository;
         private readonly string _sourceFilePath;
         private readonly string _gitRepoUrl;
+        private readonly CultureInfo _cultureInfo;
 
         public DataReimportService(
             ICsvFileRepository csvFileRepository,
@@ -28,6 +28,7 @@ namespace Backend.Service {
             _gitRepoUrl = settings.GitRepo;
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
             _gitRepository = gitRepository;
+            _cultureInfo = CultureInfo.CreateSpecificCulture("en-US");
         }
 
         public bool ReimportAll(IUnitOfWork unitOfWork) {
@@ -237,7 +238,7 @@ namespace Backend.Service {
         private bool TryParseLastUpdatedFromLine(CsvFileLine line, int headerIndex, out DateTime lastUpdated) {
             var valueAsString = line.GetValue(headerIndex);
 
-            if (!DateTime.TryParse(valueAsString, CultureInfo.CreateSpecificCulture("en-US"), DateTimeStyles.None, out lastUpdated)) {
+            if (!DateTime.TryParse(valueAsString, _cultureInfo, DateTimeStyles.None, out lastUpdated)) {
                 _logger.Warn($"unable to parse {valueAsString} to a DateTime");
                 return false;
             }
