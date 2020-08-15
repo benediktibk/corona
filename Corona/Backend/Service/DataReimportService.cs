@@ -1,8 +1,9 @@
-﻿using Backend.Repository;
+using Backend.Repository;
 using NLog;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Linq;
@@ -30,7 +31,11 @@ namespace Backend.Service {
         }
 
         public bool ReimportAll(IUnitOfWork unitOfWork) {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             var result = _gitRepository.FetchLatestCommit(_gitRepoUrl, _sourceFilePath);
+            stopWatch.Stop();
+            _logger.Trace($"fetching the last commit via git took {stopWatch.Elapsed.TotalSeconds}s");
 
             if (!result) {
                 _logger.Error("skipping the update process, could not fetch the latest data");
@@ -38,46 +43,70 @@ namespace Backend.Service {
             }
 
             _logger.Info("search for daily reports");
+            stopWatch.Restart();
             var files = _csvFileRepository.ListAllCsvFilesIn($"{_sourceFilePath}/csse_covid_19_data/csse_covid_19_daily_reports");
+            stopWatch.Stop();
+            _logger.Trace($"listing all files took {stopWatch.Elapsed.TotalSeconds}s");
 
             _logger.Info($"found {files.Count} daily reports, starting to import them");
+            stopWatch.Restart();
             var dataPoints = new ConcurrentBag<List<InfectionSpreadDataPointDao>>();
             Parallel.ForEach(files, file => {
                 _logger.Info($"importing {file}");
-                dataPoints.Add(ParseFileContent(unitOfWork, file));
+                dataPoints.Add(ParseFileContent(file));
             });
-            var dataPointsAggregated = dataPoints.Aggregate(seed: new List<InfectionSpreadDataPointDao>(), func: (aggregationResult, item) => {
+            stopWatch.Stop();
+            _logger.Trace($"parsing the files in parallel took {stopWatch.Elapsed.TotalSeconds}s");
+
+            stopWatch.Restart();
+            var dataPointsAggregated = dataPoints.Aggregate(new List<InfectionSpreadDataPointDao>(), (aggregationResult, item) => {
                 aggregationResult.AddRange(item);
                 return aggregationResult;
             });
+            stopWatch.Stop();
+            _logger.Trace($"aggregating the parallel result back together took {stopWatch.Elapsed.TotalSeconds}s");
 
             _logger.Info("reimporting data points");
+            stopWatch.Restart();
             _infectionSpreadDataPointRepository.DeleteAll(unitOfWork);
             _infectionSpreadDataPointRepository.Insert(unitOfWork, dataPointsAggregated);
+            stopWatch.Stop();
+            _logger.Trace($"inserting the data points into the database took {stopWatch.Elapsed.TotalSeconds}s");
 
             _logger.Info("successfully executed the reimport");
             return true;
         }
 
-        private List<InfectionSpreadDataPointDao> ParseFileContent(IUnitOfWork unitOfWork, string file) {
+        private List<InfectionSpreadDataPointDao> ParseFileContent(string file) {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             var content = _csvFileRepository.ReadFile(file);
+            stopWatch.Stop();
+            _logger.Trace($"reading the file from disk took {stopWatch.Elapsed.TotalSeconds}s");
+
             var result = new Dictionary<CountryType, InfectionSpreadDataPointDao>();
 
+            stopWatch.Restart();
             if (!FindHeaderIndices(content, 
                 out var headerIndexConfirmed, out var headerIndexCountry, out var headerIndexDeaths, 
                 out var headerIndexRecovered, out var headerIndexLastUpdated)) {
                 _logger.Warn($"unable to parse the headers in file {file}, skipping the whole file");
                 return new List<InfectionSpreadDataPointDao>();
             }
+            stopWatch.Stop();
+            _logger.Trace($"parsing the headers took {stopWatch.Elapsed.TotalSeconds}s");
 
             _logger.Info($"parsing content of file {file}");
+            stopWatch.Restart();
             foreach (var line in content.Lines) {
+                var innerStopWatch = new Stopwatch();
                 var success = true;
                 var dataPoint = new InfectionSpreadDataPointDao();
 
+                innerStopWatch.Start();
                 if (!TryParseCountryFromLine(line, headerIndexCountry, out var country)) {
                     success = false;
-                } 
+                }
 
                 if (!TryParseConfirmedFromLine(line, headerIndexConfirmed, out var confirmed)) {
                     success = false;
@@ -93,7 +122,10 @@ namespace Backend.Service {
 
                 if (!TryParseLastUpdatedFromLine(line, headerIndexLastUpdated, out var lastUpdated)) {
                     success = false;
-                } 
+                }
+
+                innerStopWatch.Stop();
+                _logger.Trace($"parsing the all values from the line took {innerStopWatch.Elapsed.TotalSeconds}s");
 
                 if (!success) {
                     _logger.Warn($"unable to parse one line in file {file}, skipping this line");
@@ -106,6 +138,7 @@ namespace Backend.Service {
                 dataPoint.RecoveredTotal = recovered;
                 dataPoint.Date = lastUpdated;
 
+                innerStopWatch.Restart();
                 if (result.TryGetValue(dataPoint.CountryId, out var previousDataPoint)) {
                     previousDataPoint.InfectedTotal += dataPoint.InfectedTotal;
                     previousDataPoint.DeathsTotal += dataPoint.DeathsTotal;
@@ -118,7 +151,11 @@ namespace Backend.Service {
                 else {
                     result.Add(dataPoint.CountryId, dataPoint);
                 }
+                innerStopWatch.Stop();
+                _logger.Trace($"combining the datapoint with the already existing data points took {innerStopWatch.Elapsed.TotalSeconds}s");
             }
+            stopWatch.Stop();
+            _logger.Trace($"parsing the content and combining it together took {stopWatch.Elapsed.TotalSeconds}s");
 
             return result.Select(x => x.Value).ToList();
         }
