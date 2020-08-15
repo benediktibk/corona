@@ -65,11 +65,39 @@ namespace Backend.Service {
 
             _logger.Info($"parsing content of file {file}");
             foreach (var line in content.Lines) {
-                InfectionSpreadDataPointDao dataPoint;
-                if (!TryParseDataPointFromLine(content, line, out dataPoint)) {
+                var success = true;
+                var dataPoint = new InfectionSpreadDataPointDao();
+
+                if (!TryParseCountryFromLine(content, line, out var country)) {
+                    success = false;
+                } 
+
+                if (!TryParseConfirmedFromLine(content, line, out var confirmed)) {
+                    success = false;
+                }
+
+                if (!TryParseDeathsFromLine(content, line, out var deaths)) {
+                    success = false;
+                }
+
+                if (!TryParseRecoveredFromLine(content, line, out var recovered)) {
+                    success = false;
+                } 
+
+                if (!TryParseLastUpdatedFromLine(content, line, out var lastUpdated)) {
+                    success = false;
+                } 
+
+                if (!success) {
                     _logger.Warn($"unable to parse one line in file {file}, skipping it");
                     continue;
                 }
+
+                dataPoint.CountryId = country;
+                dataPoint.InfectedTotal = confirmed;
+                dataPoint.DeathsTotal = deaths;
+                dataPoint.RecoveredTotal = recovered;
+                dataPoint.Date = lastUpdated;
 
                 if (result.TryGetValue(dataPoint.CountryId, out var previousDataPoint)) {
                     previousDataPoint.InfectedTotal += dataPoint.InfectedTotal;
@@ -86,38 +114,6 @@ namespace Backend.Service {
             }
 
             return result.Select(x => x.Value).ToList();
-        }
-
-        private bool TryParseDataPointFromLine(CsvFile file, CsvFileLine line, out InfectionSpreadDataPointDao dataPoint) {
-            dataPoint = new InfectionSpreadDataPointDao();
-
-            if (!TryParseCountryFromLine(file, line, out var country)) {
-                return false;
-            }
-
-            if (!TryParseConfirmedFromLine(file, line, out var confirmed)) {
-                return false;
-            }
-
-            if (!TryParseDeathsFromLine(file, line, out var deaths)) {
-                return false;
-            }
-
-            if (!TryParseRecoveredFromLine(file, line, out var recovered)) {
-                return false;
-            }
-
-            if (!TryParseLastUpdatedFromLine(file, line, out var lastUpdated)) {
-                return false;
-            }
-
-            dataPoint.CountryId = country;
-            dataPoint.InfectedTotal = confirmed;
-            dataPoint.DeathsTotal = deaths;
-            dataPoint.RecoveredTotal = recovered;
-            dataPoint.Date = lastUpdated;
-
-            return true;
         }
 
         private bool TryParseConfirmedFromLine(CsvFile file, CsvFileLine line, out int confirmed) {
