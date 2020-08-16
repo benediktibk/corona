@@ -63,7 +63,10 @@ namespace Backend.Service {
                 foreach (var dataPoint in dataPoints) {
                     var dataPointConverted = new DataPoint<DateTime, double>(dataPoint.Date, (double)(dataPoint.DeathsTotal - previousValue));
                     previousValue = dataPoint.DeathsTotal;
-                    dataPointsConverted.Add(dataPointConverted);
+
+                    if (dataPointConverted.YValue >= 0) {
+                        dataPointsConverted.Add(dataPointConverted);
+                    }
                 }
 
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
