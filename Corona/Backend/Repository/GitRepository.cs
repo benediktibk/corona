@@ -1,93 +1,49 @@
 ﻿using NLog;
-using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 
 namespace Backend.Repository {
     public class GitRepository : IGitRepository {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
-        public bool FetchLatestCommit(string repoUrl, string destinationPath) {
-            var result = DeletePath(destinationPath);
-
-            if (!result) {
-                _logger.Error("was not able to delete the destination path, skipping the fetch phase");
-                return false;
-            }
-
-            return FetchShallowCopy(repoUrl, destinationPath);
+        public bool Clone(string repoUrl, string destinationPath) {
+            var command = $"git clone {repoUrl} {destinationPath}";
+            return ExecuteGitCommand(command, Directory.GetCurrentDirectory());
         }
 
-        private bool FetchShallowCopy(string repoUrl, string destinationPath) {
-            var process = new Process();
-            var processStartInfo = new ProcessStartInfo();
-            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            processStartInfo.FileName = "cmd.exe";
-            var command = $"git clone --depth 1 {repoUrl} {destinationPath}";
-            processStartInfo.Arguments = $"/C {command}";
-            process.StartInfo = processStartInfo;
+        private bool ExecuteGitCommand(string command, string workingDirectory) {
+            var processStartInfo = new ProcessStartInfo {WindowStyle = ProcessWindowStyle.Hidden, FileName = "cmd.exe", Arguments = $"/C {command}", WorkingDirectory = workingDirectory};
+            var process = new Process {StartInfo = processStartInfo};
 
             _logger.Info($"executing command {command}");
             var result = process.Start();
 
-            if (result) {
-                _logger.Info("successfully finished fetch of latest commit");
-            }
-            else {
-                _logger.Error("was not able to fetch the latest commit");
+            if (!result) {
+                _logger.Error($"was not able to execute the command {command}");
+                return false;
             }
 
-            _logger.Info($"waiting for command to finish");
+            _logger.Info($"waiting for command {command} to finish");
             var processEnded = process.WaitForExit(1000 * 1000);
 
             if (processEnded) {
-                _logger.Info("fetch did succeed in time");
-            }
-            else {
-                _logger.Error("fetch did not finish in time");
-            }
-
-            return result;
-        }
-
-        private bool DeletePath(string destinationPath) {
-            var directory = new DirectoryInfo(destinationPath);
-
-            if (!directory.Exists) {
-                _logger.Debug("destination path does not even exist, nothing to do yet");
-                return true;
-            }
-
-            try {
-                DeleteContentOfPathRecursively(directory);
-            }
-            catch (Exception e) {
-                _logger.Error(e, $"unable to delete directory {destinationPath}");
+                _logger.Info($"command {command} did succeed in time");
+            } else {
+                _logger.Error($"command {command} did not finish in time");
                 return false;
             }
 
             return true;
         }
 
-        private void DeleteContentOfPathRecursively(DirectoryInfo directoryInfo) {
-            _logger.Debug($"deleting directory {directoryInfo.FullName}");
+        public bool CheckIfDirectoryExists(string path) {
+            var directory = new DirectoryInfo(path);
+            return directory.Exists;
+        }
 
-            var files = directoryInfo.GetFiles().ToList();
-            var directories = directoryInfo.GetDirectories().ToList();
-
-            foreach (var file in files) {
-                _logger.Debug($"removing readonly attribute of {file.FullName}");
-                File.SetAttributes(file.FullName, file.Attributes & ~FileAttributes.ReadOnly);
-                _logger.Debug($"deleting {file.FullName}");
-                file.Delete();
-            }
-
-            foreach (var subdirectory in directories) {
-                DeleteContentOfPathRecursively(subdirectory);
-            }
-
-            directoryInfo.Delete();
+        public bool Pull(string path) {
+            var command = $"git pull";
+            return ExecuteGitCommand(command, path);
         }
     }
 }

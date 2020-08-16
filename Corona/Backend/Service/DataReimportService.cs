@@ -34,11 +34,21 @@ namespace Backend.Service {
         public bool ReimportAll(IUnitOfWork unitOfWork) {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            var result = _gitRepository.FetchLatestCommit(_gitRepoUrl, _sourceFilePath);
+
+            _logger.Info("fetching latest data via git");
+            bool checkoutResult;
+            if (_gitRepository.CheckIfDirectoryExists(_sourceFilePath)) {
+                _logger.Info($"directory {_sourceFilePath} already exists, executing a pull");
+                checkoutResult = _gitRepository.Pull(_sourceFilePath);
+            } else {
+                _logger.Info($"directory {_sourceFilePath} does not yet exist, executing a clone");
+                checkoutResult = _gitRepository.Clone(_gitRepoUrl, _sourceFilePath);
+            }
+
             stopWatch.Stop();
             _logger.Trace($"fetching the last commit via git took {stopWatch.Elapsed.TotalSeconds}s");
 
-            if (!result) {
+            if (!checkoutResult) {
                 _logger.Error("skipping the update process, could not fetch the latest data");
                 return false;
             }

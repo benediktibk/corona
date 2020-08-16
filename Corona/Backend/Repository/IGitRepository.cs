@@ -1,5 +1,7 @@
 ﻿namespace Backend.Repository {
     public interface IGitRepository {
-        bool FetchLatestCommit(string repoUrl, string destinationPath);
+        bool Clone(string repoUrl, string destinationPath);
+        bool CheckIfDirectoryExists(string path);
+        bool Pull(string path);
     }
 }
