@@ -8,14 +8,14 @@ using System.Text;
 namespace Backend.Repository {
     public class InfectionSpreadDataPointRepository : IInfectionSpreadDataPointRepository {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
-        private const int BATCH_SIZE = 400;
+        private const int BatchSize = 400;
 
         public void DeleteAll(IUnitOfWork unitOfWork) {
             unitOfWork.ExecuteDatabaseCommand("TRUNCATE TABLE InfectionSpreadDataPoint");
         }
 
         public List<InfectionSpreadDataPointDao> GetAllForCountryOrderedByDate(IUnitOfWork unitOfWork, CountryType country) {
-            _logger.Info($"fetching all infection spread data points for country {country}");
+            _logger.Debug($"fetching all infection spread data points for country {country}");
             return unitOfWork.QueryDatabase<InfectionSpreadDataPointDao>(@"SELECT * FROM InfectionSpreadDataPoint WHERE CountryId = @CountryId ORDER BY [Date]", new { CountryId = country });
         }
 
@@ -29,27 +29,6 @@ namespace Backend.Repository {
                 InsertBatch(unitOfWork, batch);
                 count++;
             }
-        }
-
-        public void Insert(IUnitOfWork unitOfWork, InfectionSpreadDataPointDao dataPoint) {
-            _logger.Trace($"adding data point for country {dataPoint.CountryId}");
-            unitOfWork.ExecuteDatabaseCommand(@"
-                INSERT InfectionSpreadDataPoint
-                (
-                    [Date],
-                    CountryId,
-                    InfectedTotal,
-                    DeathsTotal,
-                    RecoveredTotal
-                )
-                VALUES
-                (
-                    @Date,
-                    @CountryId,
-                    @InfectedTotal,
-                    @DeathsTotal,
-                    @RecoveredTotal
-                )", dataPoint);
         }
 
         private void InsertBatch(IUnitOfWork unitOfWork, IReadOnlyList<InfectionSpreadDataPointDao> dataPoints) {
@@ -82,12 +61,37 @@ namespace Backend.Repository {
             var position = 0;
 
             while (position < entries.Count) {
-                var currentBatchSize = System.Math.Min(BATCH_SIZE, entries.Count - position);
+                var currentBatchSize = System.Math.Min(BatchSize, entries.Count - position);
                 result.Add(entries.Skip(position).Take(currentBatchSize).ToList());
                 position += currentBatchSize;
             }
 
             return result;
+        }
+
+        public List<CountryType> FindCountriesWithHighestNewInfectionsDuringLastDays(IUnitOfWork unitOfWork, int days, int topCount) {
+            return unitOfWork.QueryDatabase<CountryType>($@"
+SELECT TOP {topCount}
+	dp.CountryId, SUM(CONVERT(FLOAT, dp.DeathsTotal) / ch.Inhabitants)
+FROM InfectionSpreadDataPoint dp
+INNER JOIN CountryInhabitants ch on dp.CountryId = ch.CountryId
+WHERE
+	dp.[Date] >= DATEADD(DAY, (-1)*@daysOffsetInPast, CONVERT(DATETIME, CONVERT(VARCHAR(10), GETDATE(), 111)))
+GROUP BY dp.CountryId
+ORDER BY SUM(CONVERT(FLOAT, dp.DeathsTotal) / ch.Inhabitants) DESC", new { daysOffsetInPast = days });
+
+        }
+
+        public List<CountryType> FindCountriesWithHighestNewDeathsDuringLastDays(IUnitOfWork unitOfWork, int days, int topCount) {
+            return unitOfWork.QueryDatabase<CountryType>($@"
+SELECT TOP {topCount}
+	dp.CountryId, SUM(CONVERT(FLOAT, dp.InfectedTotal) / ch.Inhabitants)
+FROM InfectionSpreadDataPoint dp
+INNER JOIN CountryInhabitants ch on dp.CountryId = ch.CountryId
+WHERE
+	dp.[Date] >= DATEADD(DAY, (-1)*@daysOffsetInPast, CONVERT(DATETIME, CONVERT(VARCHAR(10), GETDATE(), 111)))
+GROUP BY dp.CountryId
+ORDER BY SUM(CONVERT(FLOAT, dp.InfectedTotal) / ch.Inhabitants) DESC", new { daysOffsetInPast = days });
         }
     }
 }
