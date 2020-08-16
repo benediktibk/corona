@@ -14,9 +14,9 @@ namespace Backend.Repository {
             unitOfWork.ExecuteDatabaseCommand("TRUNCATE TABLE InfectionSpreadDataPoint");
         }
 
-        public List<InfectionSpreadDataPointDao> GetAllForCountry(IUnitOfWork unitOfWork, CountryType country) {
+        public List<InfectionSpreadDataPointDao> GetAllForCountryOrderedByDate(IUnitOfWork unitOfWork, CountryType country) {
             _logger.Info($"fetching all infection spread data points for country {country}");
-            return unitOfWork.QueryDatabase<InfectionSpreadDataPointDao>(@"SELECT * FROM InfectionSpreadDataPoint WHERE CountryId = @CountryId", new { CountryId = country });
+            return unitOfWork.QueryDatabase<InfectionSpreadDataPointDao>(@"SELECT * FROM InfectionSpreadDataPoint WHERE CountryId = @CountryId ORDER BY [Date]", new { CountryId = country });
         }
 
         public void Insert(IUnitOfWork unitOfWork, IReadOnlyList<InfectionSpreadDataPointDao> dataPoints) {
@@ -76,7 +76,6 @@ namespace Backend.Repository {
             _logger.Trace($"command: {sqlCommand.CommandText}");
             unitOfWork.ExecuteDatabaseCommand(sqlCommand);
         }
-
 
         private List<List<InfectionSpreadDataPointDao>> CreateBatches(IReadOnlyList<InfectionSpreadDataPointDao> entries) {
             var result = new List<List<InfectionSpreadDataPointDao>>();

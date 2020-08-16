@@ -26,7 +26,7 @@ namespace BackendTest.Service {
 
         [TestMethod]
         public void CreateEstimatedActualInfectedPerPopulation_OneDataPoint_NormalDistributionInPast() {
-            _infectionSpreadDataPointRepository.Setup(x => x.GetAllForCountry(It.IsAny<IUnitOfWork>(), It.IsAny<CountryType>())).Returns(new List<InfectionSpreadDataPointDao> {
+            _infectionSpreadDataPointRepository.Setup(x => x.GetAllForCountryOrderedByDate(It.IsAny<IUnitOfWork>(), It.IsAny<CountryType>())).Returns(new List<InfectionSpreadDataPointDao> {
                 new InfectionSpreadDataPointDao { InfectedTotal = 23, Date = new DateTime(2020, 2, 1), CountryId = CountryType.Albania }
             });
             _countryInhabitantsRepository.Setup(x => x.GetAllAvailable(It.IsAny<IUnitOfWork>(), It.IsAny<IReadOnlyList<CountryType>>())).Returns(new List<CountryInhabitantsDao> {
