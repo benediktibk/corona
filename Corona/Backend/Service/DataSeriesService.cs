@@ -39,8 +39,11 @@ namespace Backend.Service {
                     }
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
+                }
 
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
@@ -69,8 +72,11 @@ namespace Backend.Service {
                     }
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
+                }
 
+                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
@@ -83,6 +89,11 @@ namespace Backend.Service {
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, dataPoint.InfectedTotal)).ToList();
+
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
+                }
+                
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
@@ -96,6 +107,11 @@ namespace Backend.Service {
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, dataPoint.InfectedTotal)).ToList();
+
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
+                }
+                
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
@@ -115,6 +131,11 @@ namespace Backend.Service {
 
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
                 var dataPointsConverted = dataPoints.Select(dataPoint => new DataPoint<DateTime, double>(dataPoint.Date, (double)dataPoint.InfectedTotal / inhabitants)).ToList();
+
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
+                }
+
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
@@ -144,6 +165,11 @@ namespace Backend.Service {
 
                     dataPointsConverted.Add(new DataPoint<DateTime, double>(dataPoint.Date, value));
                 }
+
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
+                }
+
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
@@ -162,6 +188,11 @@ namespace Backend.Service {
                     var value = dataPoint.InfectedTotal - dataPoint.DeathsTotal - dataPoint.RecoveredTotal;
                     dataPointsConverted.Add(new DataPoint<DateTime, double>(dataPoint.Date, value));
                 }
+
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
+                }
+
                 var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
@@ -188,6 +219,10 @@ namespace Backend.Service {
                     }
 
                     dataPointsConverted.Add(new DataPoint<double, double>(x, y));
+                }
+
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
                 }
 
                 var dataSeries = new DataSeries<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false, true, countries[i].ToString());
@@ -222,6 +257,10 @@ namespace Backend.Service {
                     }
 
                     dataPointsConverted.Add(new DataPoint<double, double>(x, y));
+                }
+
+                if (dataPointsConverted.Count <= 0) {
+                    continue;
                 }
 
                 var dataSeries = new DataSeries<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false, true, countries[i].ToString());
@@ -301,8 +340,14 @@ namespace Backend.Service {
                 var colorActual = colorEstimated.ChangeAlpha(0.5);
                 var dataSeriesEstimated = new DataSeries<DateTime, double>(estimatedNewInfections, colorEstimated, true, false, $"{countries[i]} - estimated");
                 var dataSeriesActual = new DataSeries<DateTime, double>(additionalInfected, colorActual, false, true, $"{countries[i]} - reported");
-                allDataSeries.Add(dataSeriesEstimated);
-                allDataSeries.Add(dataSeriesActual);
+
+                if (dataSeriesEstimated.DataPoints.Count > 0) {
+                    allDataSeries.Add(dataSeriesEstimated);
+                }
+
+                if (dataSeriesActual.DataPoints.Count > 0) {
+                    allDataSeries.Add(dataSeriesActual);
+                }
             }
 
             return allDataSeries;
