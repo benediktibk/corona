@@ -275,6 +275,11 @@ namespace Backend.Service {
 
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]);
+
+                if (dataPoints.Count <= 0) {
+                    continue;
+                }
+
                 var timeRangeStart = dataPoints.Select(x => x.Date).Min().Date;
                 var timeRangeEnd = dataPoints.Select(x => x.Date).Max().Date;
                 var dataPointsPerDay = new Dictionary<DateTime, int>();
