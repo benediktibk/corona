@@ -219,6 +219,7 @@
     <Compile Include="Controllers\ServerSideCacheController.cs" />
     <Compile Include="CountrySelection.cs" />
     <Compile Include="Credentials.cs" />
+    <Compile Include="ExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

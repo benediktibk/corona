@@ -14,6 +14,7 @@ namespace CoronaSpreadViewer {
             config.MessageHandlers.Insert(0, new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
             var serverSideCache = serviceActivator.Container.GetInstance<IServerSideCache>();
             config.CacheOutputConfiguration().RegisterCacheOutputProvider(() => new ServerSideCacheWrapper(serverSideCache));
+            config.Filters.Add(new ExceptionFilter());
         }
     }
 }
