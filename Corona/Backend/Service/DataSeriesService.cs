@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Backend.Service {
     public class DataSeriesService : IDataSeriesService {
-        private const int _estimationPastMaxInDays = -21;
+        private const int EstimationPastMaxInDays = -21;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
@@ -308,7 +308,7 @@ namespace Backend.Service {
                     previousInfected = value;
                 }
 
-                var graphTimeRangeStart = timeRangeStart.AddDays(_estimationPastMaxInDays);
+                var graphTimeRangeStart = timeRangeStart.AddDays(EstimationPastMaxInDays);
                 var graphTimeRangeEnd = timeRangeEnd;
                 var graphTimeLengthInDays = (int)(graphTimeRangeEnd - graphTimeRangeStart).TotalDays + 1;
                 var values = new double[graphTimeLengthInDays];
@@ -317,7 +317,7 @@ namespace Backend.Service {
                 foreach (var additionalInfectedItem in additionalInfected) {
                     var previousDaysInPast = -1e10;
                     var peak = additionalInfectedItem.YValue;
-                    for (var t = additionalInfectedItem.XValue.AddDays(_estimationPastMaxInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
+                    for (var t = additionalInfectedItem.XValue.AddDays(EstimationPastMaxInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
                         var daysInPast = (t - additionalInfectedItem.XValue).TotalDays;
 
                         if (daysInPast == -1) {
