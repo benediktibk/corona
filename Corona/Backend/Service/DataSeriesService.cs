@@ -9,7 +9,6 @@ namespace Backend.Service {
     public class DataSeriesService : IDataSeriesService {
         private const int EstimationPastMaxInDays = -21;
         private const int HighestAverageRecentlyInDays = 5;
-        private const int HighestAverageCountryCount = 10;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
@@ -121,7 +120,7 @@ namespace Backend.Service {
             return allDataSeries;
         }
 
-        public DataSeries<CountryType, double> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork) {
+        public DataSeries<CountryType, double> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount) {
             var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
             var previousDateTime = DateTime.Now.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
             var countriesWithAverageDeathsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
@@ -144,17 +143,17 @@ namespace Backend.Service {
 
             var dataPoints = new List<DataPoint<CountryType, double>>();
 
-            foreach (var country in countriesSorted.Skip(System.Math.Max(0, countriesSorted.Count() - HighestAverageCountryCount))) {
+            foreach (var country in countriesSorted.Skip(System.Math.Max(0, countriesSorted.Count() - topCountriesCount)).Reverse()) {
                 dataPoints.Add(new DataPoint<CountryType, double>(country.Item1, country.Item2));
             }
 
             return new DataSeries<CountryType, double>(dataPoints, Color.Black, false, false, "");
         }
 
-        public DataSeries<CountryType, double> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork) {
+        public DataSeries<CountryType, double> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount) {
             var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
             var previousDateTime = DateTime.Now.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
-            var countriesWithAverageDeathsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
+            var countriesWithAverageNewInfectionsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
 
             foreach (var country in countriesDetailed) {
                 var mostRecentDataPoint = _infectionSpreadDataPointRepository.GetMostRecentDataPoint(unitOfWork, country.CountryId);
@@ -167,14 +166,14 @@ namespace Backend.Service {
                     continue;
                 }
 
-                countriesWithAverageDeathsPerDayPerInhabitants.Add(new Tuple<CountryType, double>(country.CountryId, result));
+                countriesWithAverageNewInfectionsPerDayPerInhabitants.Add(new Tuple<CountryType, double>(country.CountryId, result));
             }
 
-            var countriesSorted = countriesWithAverageDeathsPerDayPerInhabitants.OrderBy(x => x.Item2);
+            var countriesSorted = countriesWithAverageNewInfectionsPerDayPerInhabitants.OrderBy(x => x.Item2);
 
             var dataPoints = new List<DataPoint<CountryType, double>>();
 
-            foreach (var country in countriesSorted.Skip(System.Math.Max(0, countriesSorted.Count() - HighestAverageCountryCount))) {
+            foreach (var country in countriesSorted.Skip(System.Math.Max(0, countriesSorted.Count() - topCountriesCount)).Reverse()) {
                 dataPoints.Add(new DataPoint<CountryType, double>(country.Item1, country.Item2));
             }
 
