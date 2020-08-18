@@ -51,6 +51,7 @@
     <Compile Include="HorizontalBarGraph.cs" />
     <Compile Include="IAxisTransformation.cs" />
     <Compile Include="DottedLine.cs" />
+    <Compile Include="IGraph.cs" />
     <Compile Include="ILabelGenerator.cs" />
     <Compile Include="ISvgXmlWriter.cs" />
     <Compile Include="LabelGenerator.cs" />

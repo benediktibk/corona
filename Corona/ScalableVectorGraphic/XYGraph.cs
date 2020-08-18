@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ScalableVectorGraphic {
-    public class XYGraph<X, Y> {
+    public class XYGraph<X, Y> : IGraph {
         private readonly Image _image;
         private const double _ratioXAxisLengthToImageSize = 0.85;
         private const double _ratioYAxisLengthToImageSize = 0.85;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace ScalableVectorGraphic {
-    public class HorizontalBarGraph<BarType, ValueType> {
+    public class HorizontalBarGraph<BarType, ValueType> : IGraph {
         private readonly Image _image;
         private const double _barWidth = 0.1;
         private const double _barSpacing = 0.05;
@@ -50,6 +50,14 @@ namespace ScalableVectorGraphic {
             }
 
             return elements;
+        }
+
+        public string ToSvg() {
+            return _image.CreateXml();
+        }
+
+        public string ToSvgCompressed() {
+            return _image.CreateXmlCompressed();
         }
     }
 }

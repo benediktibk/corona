@@ -165,6 +165,26 @@ namespace CoronaSpreadViewer.Controllers {
             }
         }
 
+        [HttpGet]
+        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
+        [Route("api/graph/top-countries-by-new-deaths")]
+        public HttpResponseMessage GetTopCountriesByNewDeaths() {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                var result = _graphService.CreateTopCountriesByNewDeaths(unitOfWork);
+                return CreateResponse(result);
+            }
+        }
+
+        [HttpGet]
+        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
+        [Route("api/graph/top-countries-by-new-infections")]
+        public HttpResponseMessage GetTopCountriesByNewInfections() {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                var result = _graphService.CreateTopCountriesByNewInfections(unitOfWork);
+                return CreateResponse(result);
+            }
+        }
+
         private bool TryParseCountries(string countries, out List<CountryType> result) {
             result = new List<CountryType>();
 

@@ -12,6 +12,7 @@ namespace Backend.Service {
         private readonly IAxis<double> _linearPersonAxis;
         private readonly IAxis<double> _logarithmicPersonAxis;
         private readonly IAxis<double> _logarithmicPersonPerPopulationAxis;
+        private readonly ILabelGenerator<CountryType> _countryLabelGenerator;
         private readonly bool _compressed;
         private readonly IDataSeriesService _dataSeriesService;
 
@@ -23,6 +24,7 @@ namespace Backend.Service {
             _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P5");
+            _countryLabelGenerator = new LabelGenerator<CountryType>();
             _compressed = settings.SvgCompressed;
         }
 
@@ -90,7 +92,19 @@ namespace Backend.Service {
             return ConvertGraphToSvg(graph);
         }
 
-        private string ConvertGraphToSvg<X, Y>(XYGraph<X, Y> graph) {
+        public string CreateTopCountriesByNewDeaths(IUnitOfWork unitOfWork) {
+            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(unitOfWork, 10);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _logarithmicPersonPerPopulationAxis, dataSeries);
+            return ConvertGraphToSvg(graph);
+        }
+
+        public string CreateTopCountriesByNewInfections(IUnitOfWork unitOfWork) {
+            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(unitOfWork, 10);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _logarithmicPersonPerPopulationAxis, dataSeries);
+            return ConvertGraphToSvg(graph);
+        }
+
+        private string ConvertGraphToSvg(IGraph graph) {
             if (_compressed) {
                 return graph.ToSvgCompressed();
             }
