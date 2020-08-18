@@ -69,15 +69,24 @@ namespace Backend.Repository {
             return result;
         }
 
-        public List<InfectionSpreadDataPointDao> GetLastForAllCountriesOrderedByDate(IUnitOfWork unitOfWork, int days) {
+        public InfectionSpreadDataPointDao GetMostRecentDataPoint(IUnitOfWork unitOfWork, CountryType country) {
             return unitOfWork.QueryDatabase<InfectionSpreadDataPointDao>(@"
-SELECT 
-	*
-FROM InfectionSpreadDataPoint dp
-WHERE
-	dp.[Date] >= DATEADD(DAY, (-1)*@dayOffsetInPast, CONVERT(DATETIME, CONVERT(VARCHAR(10), GETDATE(), 111)))
-ORDER BY dp.CountryId, dp.[Date] ASC", new { daysOffsetInPast = days });
-
+SELECT
+	TOP 1 *
+FROM InfectionSpreadDataPoint
+WHERE 
+	CountryId = @country
+ORDER BY [Date] DESC", new { country = country }).Single();
+        }
+        
+        public InfectionSpreadDataPointDao GetLastDataPointBefore(IUnitOfWork unitOfWork, CountryType country, DateTime dateTime) {
+            return unitOfWork.QueryDatabase<InfectionSpreadDataPointDao>(@"
+SELECT
+	TOP 1 *
+FROM InfectionSpreadDataPoint
+WHERE 
+	CountryId = @country and [Date] < @dateTime
+ORDER BY [Date] DESC", new { country = country, dateTime = dateTime }).Single();
         }
     }
 }
