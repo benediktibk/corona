@@ -69,29 +69,15 @@ namespace Backend.Repository {
             return result;
         }
 
-        public List<CountryType> FindCountriesWithHighestNewInfectionsDuringLastDays(IUnitOfWork unitOfWork, int days, int topCount) {
-            return unitOfWork.QueryDatabase<CountryType>($@"
-SELECT TOP {topCount}
-	dp.CountryId, SUM(CONVERT(FLOAT, dp.DeathsTotal) / ch.Inhabitants)
+        public List<InfectionSpreadDataPointDao> GetLastForAllCountriesOrderedByDate(IUnitOfWork unitOfWork, int days) {
+            return unitOfWork.QueryDatabase<InfectionSpreadDataPointDao>(@"
+SELECT 
+	*
 FROM InfectionSpreadDataPoint dp
-INNER JOIN CountryInhabitants ch on dp.CountryId = ch.CountryId
 WHERE
-	dp.[Date] >= DATEADD(DAY, (-1)*@daysOffsetInPast, CONVERT(DATETIME, CONVERT(VARCHAR(10), GETDATE(), 111)))
-GROUP BY dp.CountryId
-ORDER BY SUM(CONVERT(FLOAT, dp.DeathsTotal) / ch.Inhabitants) DESC", new { daysOffsetInPast = days });
+	dp.[Date] >= DATEADD(DAY, (-1)*@dayOffsetInPast, CONVERT(DATETIME, CONVERT(VARCHAR(10), GETDATE(), 111)))
+ORDER BY dp.CountryId, dp.[Date] ASC", new { daysOffsetInPast = days });
 
-        }
-
-        public List<CountryType> FindCountriesWithHighestNewDeathsDuringLastDays(IUnitOfWork unitOfWork, int days, int topCount) {
-            return unitOfWork.QueryDatabase<CountryType>($@"
-SELECT TOP {topCount}
-	dp.CountryId, SUM(CONVERT(FLOAT, dp.InfectedTotal) / ch.Inhabitants)
-FROM InfectionSpreadDataPoint dp
-INNER JOIN CountryInhabitants ch on dp.CountryId = ch.CountryId
-WHERE
-	dp.[Date] >= DATEADD(DAY, (-1)*@daysOffsetInPast, CONVERT(DATETIME, CONVERT(VARCHAR(10), GETDATE(), 111)))
-GROUP BY dp.CountryId
-ORDER BY SUM(CONVERT(FLOAT, dp.InfectedTotal) / ch.Inhabitants) DESC", new { daysOffsetInPast = days });
         }
     }
 }

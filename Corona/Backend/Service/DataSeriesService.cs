@@ -8,6 +8,8 @@ using System.Linq;
 namespace Backend.Service {
     public class DataSeriesService : IDataSeriesService {
         private const int EstimationPastMaxInDays = -21;
+        private const int HighestAverageRecentlyInDays = 5;
+        private const int HighestAverageCountryCount = 10;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
@@ -117,6 +119,33 @@ namespace Backend.Service {
             }
 
             return allDataSeries;
+        }
+
+        public List<DataSeries<CountryType, double>> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork) {
+            var dataPoints = _infectionSpreadDataPointRepository.GetLastForAllCountriesOrderedByDate(unitOfWork, HighestAverageRecentlyInDays);
+            var dataPointsGroupedByCountry = dataPoints.GroupBy(x => x.CountryId).ToDictionary(x => x.Key, y => y.ToList());
+            var inhabitantsPerCountry = _countryDetailedRepository.GetAllAvailable(unitOfWork, dataPointsGroupedByCountry.Keys.ToList()).ToDictionary(x => x.CountryId, y => y.Inhabitants);
+            var result = new List<DataSeries<CountryType, double>>();
+            var resultDataPoints = new List<DataPoint<CountryType, double>>();
+
+            foreach (var dataPointsOfCountry in dataPointsGroupedByCountry) {
+                if (dataPointsOfCountry.Value.Count < HighestAverageRecentlyInDays - 1) {
+                    continue;
+                }
+
+                if (!inhabitantsPerCountry.TryGetValue(dataPointsOfCountry.Key, out var inhabitants)) {
+                    continue;
+                }
+
+                var value = dataPointsOfCountry.Value.Select(x => x.DeathsTotal).Average() / inhabitants;
+                resultDataPoints.Add(new DataPoint<CountryType, double>(dataPointsOfCountry.Key, value));
+            }
+
+            resultDataPoints.OrderBy(x => x.YValue).Reverse();
+        }
+
+        public List<DataSeries<CountryType, double>> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork) {
+            throw new NotImplementedException();
         }
 
         public List<DataSeries<DateTime, double>> CreateInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
