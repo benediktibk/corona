@@ -140,7 +140,7 @@ namespace Backend.Service {
 
                 var deathsInTimeRange = mostRecentDataPoint.DeathsTotal - previousDataPoint.DeathsTotal;
                 var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
-                var result = (double)deathsInTimeRange / country.Inhabitants / timeRangeInDays;
+                var result = (double)deathsInTimeRange / country.Inhabitants / timeRangeInDays * 100;
 
                 if (result < 0) {
                     continue;
@@ -180,7 +180,7 @@ namespace Backend.Service {
 
                 var infectedInTimeRange = mostRecentDataPoint.InfectedTotal - previousDataPoint.InfectedTotal;
                 var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
-                var result = (double)infectedInTimeRange / country.Inhabitants / timeRangeInDays;
+                var result = (double)infectedInTimeRange / country.Inhabitants / timeRangeInDays * 100;
 
                 if (result < 0) {
                     continue;

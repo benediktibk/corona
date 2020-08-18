@@ -10,6 +10,7 @@ namespace Backend.Service {
         private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IAxis<DateTime> _dateAxis;
         private readonly IAxis<double> _linearPersonAxis;
+        private readonly IAxis<double> _linearPersonPerPopulationAxis;
         private readonly IAxis<double> _logarithmicPersonAxis;
         private readonly IAxis<double> _logarithmicPersonPerPopulationAxis;
         private readonly ILabelGenerator<CountryType> _countryLabelGenerator;
@@ -22,6 +23,7 @@ namespace Backend.Service {
             _numericOperationsDouble = new NumericOperationsDouble();
             _dateAxis = new LinearAxisDateTime(_numericOperationsDates, "Date");
             _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
+            _linearPersonPerPopulationAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons [%]", "F0");
             _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P5");
             _countryLabelGenerator = new LabelGenerator<CountryType>();
@@ -94,13 +96,13 @@ namespace Backend.Service {
 
         public string CreateTopCountriesByNewDeaths(IUnitOfWork unitOfWork) {
             var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(unitOfWork, 10);
-            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _logarithmicPersonPerPopulationAxis, dataSeries);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
             return ConvertGraphToSvg(graph);
         }
 
         public string CreateTopCountriesByNewInfections(IUnitOfWork unitOfWork) {
             var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(unitOfWork, 10);
-            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _logarithmicPersonPerPopulationAxis, dataSeries);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
             return ConvertGraphToSvg(graph);
         }
 
