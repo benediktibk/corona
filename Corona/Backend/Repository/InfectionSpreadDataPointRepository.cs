@@ -76,7 +76,7 @@ SELECT
 FROM InfectionSpreadDataPoint
 WHERE 
 	CountryId = @country
-ORDER BY [Date] DESC", new { country = country }).Single();
+ORDER BY [Date] DESC", new { country }).FirstOrDefault();
         }
         
         public InfectionSpreadDataPointDao GetLastDataPointBefore(IUnitOfWork unitOfWork, CountryType country, DateTime dateTime) {
@@ -86,7 +86,15 @@ SELECT
 FROM InfectionSpreadDataPoint
 WHERE 
 	CountryId = @country and [Date] < @dateTime
-ORDER BY [Date] DESC", new { country = country, dateTime = dateTime }).Single();
+ORDER BY [Date] DESC", new { country, dateTime }).FirstOrDefault();
+        }
+
+        public DateTime GetMostRecentDateTime(IUnitOfWork unitOfWork) {
+            return unitOfWork.QueryDatabase<DateTime>(@"
+SELECT
+	TOP 1 [Date]
+FROM InfectionSpreadDataPoint	
+ORDER BY [Date] DESC").Single();
         }
     }
 }

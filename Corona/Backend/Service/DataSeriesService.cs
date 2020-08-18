@@ -122,12 +122,22 @@ namespace Backend.Service {
 
         public DataSeriesBar<CountryType, double> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount) {
             var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
-            var previousDateTime = DateTime.Now.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
+            var mostRecentDateTime = _infectionSpreadDataPointRepository.GetMostRecentDateTime(unitOfWork);
+            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
             var countriesWithAverageDeathsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
 
             foreach (var country in countriesDetailed) {
                 var mostRecentDataPoint = _infectionSpreadDataPointRepository.GetMostRecentDataPoint(unitOfWork, country.CountryId);
                 var previousDataPoint = _infectionSpreadDataPointRepository.GetLastDataPointBefore(unitOfWork, country.CountryId, previousDateTime);
+
+                if (mostRecentDataPoint == null) {
+                    continue;
+                }
+
+                if (previousDataPoint == null) {
+                    continue;
+                }
+
                 var deathsInTimeRange = mostRecentDataPoint.DeathsTotal - previousDataPoint.DeathsTotal;
                 var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
                 var result = (double)deathsInTimeRange / country.Inhabitants / timeRangeInDays;
@@ -152,12 +162,22 @@ namespace Backend.Service {
 
         public DataSeriesBar<CountryType, double> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount) {
             var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
-            var previousDateTime = DateTime.Now.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
+            var mostRecentDateTime = _infectionSpreadDataPointRepository.GetMostRecentDateTime(unitOfWork);
+            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
             var countriesWithAverageNewInfectionsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
 
             foreach (var country in countriesDetailed) {
                 var mostRecentDataPoint = _infectionSpreadDataPointRepository.GetMostRecentDataPoint(unitOfWork, country.CountryId);
                 var previousDataPoint = _infectionSpreadDataPointRepository.GetLastDataPointBefore(unitOfWork, country.CountryId, previousDateTime);
+
+                if (mostRecentDataPoint == null) {
+                    continue;
+                }
+
+                if (previousDataPoint == null) {
+                    continue;
+                }
+
                 var infectedInTimeRange = mostRecentDataPoint.InfectedTotal - previousDataPoint.InfectedTotal;
                 var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
                 var result = (double)infectedInTimeRange / country.Inhabitants / timeRangeInDays;

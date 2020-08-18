@@ -8,5 +8,6 @@ namespace Backend.Repository {
         List<InfectionSpreadDataPointDao> GetAllForCountryOrderedByDate(IUnitOfWork unitOfWork, CountryType country);
         InfectionSpreadDataPointDao GetMostRecentDataPoint(IUnitOfWork unitOfWork, CountryType country);
         InfectionSpreadDataPointDao GetLastDataPointBefore(IUnitOfWork unitOfWork, CountryType country, DateTime dateTime);
+        DateTime GetMostRecentDateTime(IUnitOfWork unitOfWork);
     }
 }
