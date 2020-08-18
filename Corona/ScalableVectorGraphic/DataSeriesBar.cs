@@ -10,5 +10,10 @@ namespace ScalableVectorGraphic {
         }
 
         public IReadOnlyList<DataPoint<X, Y>> DataPoints => _dataPoints;
+
+        public double FindMaximumValueAsDouble(IGenericNumericOperations<Y> numericOperations) {
+            var allValues = _dataPoints.Select(dataPoint => numericOperations.ConvertToDoubleEquivalent(dataPoint.YValue)).ToList();
+            return allValues.Max();
+        }
     }
 }

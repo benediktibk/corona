@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ScalableVectorGraphic {
-    /*public class HorizontalBarGraph {
+    public class HorizontalBarGraph<BarType, ValueType> {
         private readonly Image _image;
         private const double _ratioXAxisLengthToImageSize = 0.85;
         private const double _yAxisOffsetForLabels = 0.05;
 
-        public HorizontalBarGraph(int width, int height, IAxis<double> horizontalAxis, List<DataPoint<string, double>> values, Point legendPosition) {
-            var minimumValue = FindDataSeriesMinimum(values);
-            var maximumValue = FindDataSeriesMaximum(values);
-            var elements = CreateGraphicElements(horizontalAxis, values, legendPosition);
+        public HorizontalBarGraph(int width, int height, IAxis<BarType> verticalAxis, IAxis<ValueType> horizontalAxis, DataSeriesBar<BarType, ValueType> dataSeries, Point legendPosition) {
+            var maximumValue = dataSeries.FindMaximumValueAsDouble(horizontalAxis.NumericOperations);
+            var elements = CreateGraphicElements(horizontalAxis, dataSeries, legendPosition);
             elements = TransformElements(width, height, elements);
             _image = new Image(width, height, elements);
         }
@@ -29,13 +28,5 @@ namespace ScalableVectorGraphic {
         private List<IGraphicElement> CreateGraphicElements(IAxis<double> horizontalAxis, List<DataPoint<string, double>> values, Point legendPosition) {
             throw new NotImplementedException();
         }
-
-        private double FindDataSeriesMinimum(List<DataPoint<string, double>> values) {
-            return values.Select(x => x.YValue).Min();
-        }
-
-        private double FindDataSeriesMaximum(List<DataPoint<string, double>> values) {
-            return values.Select(x => x.YValue).Max();
-        }
-    }*/
+    }
 }
