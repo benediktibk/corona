@@ -2,12 +2,12 @@
 using System.Linq;
 
 namespace ScalableVectorGraphic {
-    public class DataSeries<X, Y> {
+    public class DataSeriesXY<X, Y> {
         private const double _radius = 0.005;
         private const double _lineWidth = 0.002;
         private readonly List<DataPoint<X, Y>> _dataPoints;
 
-        public DataSeries(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color, bool connectDots, bool drawDots, string label) {
+        public DataSeriesXY(IReadOnlyList<DataPoint<X, Y>> dataPoints, Color color, bool connectDots, bool drawDots, string label) {
             _dataPoints = dataPoints.ToList();
             Color = color;
             ConnectDots = connectDots;

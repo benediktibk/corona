@@ -20,11 +20,11 @@ namespace ScalableVectorGraphic {
         private const string _legendFont = "monospace";
         private static readonly Color _legendBackgroundColor = new Color(245, 245, 245);
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, bool legend, bool background, Point legendPosition) :
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeriesXY<X, Y>> allDataSeries, bool legend, bool background, Point legendPosition) :
             this(width, height, xAxis, yAxis, allDataSeries, new List<ReferenceLine<Y>>(), legend, background, legendPosition) {
         }
 
-        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, bool background, Point legendPosition) {
+        public XYGraph(int width, int height, IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeriesXY<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, bool background, Point legendPosition) {
             var dataSeriesRange = FindDataSeriesRange(xAxis, yAxis, allDataSeries, yReferenceLines);
             var elements = CreateGraphicElements(xAxis, yAxis, allDataSeries, yReferenceLines, legend, dataSeriesRange, legendPosition);
             elements = TransformElements(width, height, elements);
@@ -45,7 +45,7 @@ namespace ScalableVectorGraphic {
             return elements;
         }
 
-        private List<IGraphicElement> CreateGraphicElements(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, DataSeriesRange dataSeriesRange, Point legendPosition) {
+        private List<IGraphicElement> CreateGraphicElements(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeriesXY<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines, bool legend, DataSeriesRange dataSeriesRange, Point legendPosition) {
             var elements = new List<IGraphicElement>();
             elements.AddRange(xAxis.CreateGraphicElementsForHorizontalAxis(dataSeriesRange.MinimumX, dataSeriesRange.MaximumX));
             elements.AddRange(yAxis.CreateGraphicElementsForVerticalAxis(dataSeriesRange.MinimumY, dataSeriesRange.MaximumY));
@@ -71,7 +71,7 @@ namespace ScalableVectorGraphic {
             return elements;
         }
 
-        private static DataSeriesRange FindDataSeriesRange(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeries<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines) {
+        private static DataSeriesRange FindDataSeriesRange(IAxis<X> xAxis, IAxis<Y> yAxis, IReadOnlyList<DataSeriesXY<X, Y>> allDataSeries, IReadOnlyList<ReferenceLine<Y>> yReferenceLines) {
             var allMinimumXValues = new List<double>();
             var allMaximumXValues = new List<double>();
             var allMinimumYValues = new List<double>();
@@ -103,7 +103,7 @@ namespace ScalableVectorGraphic {
             return _image.CreateXmlCompressed();
         }
 
-        private List<IGraphicElement> CreateLegend(IReadOnlyList<DataSeries<X, Y>> dataSeries, IReadOnlyList<Point> dataPoints, Point legendPosition) {
+        private List<IGraphicElement> CreateLegend(IReadOnlyList<DataSeriesXY<X, Y>> dataSeries, IReadOnlyList<Point> dataPoints, Point legendPosition) {
             var elements = new List<IGraphicElement>();
             var maxLength = 0;
 

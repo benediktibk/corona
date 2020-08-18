@@ -45,7 +45,8 @@
     <Compile Include="Color.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="DataPoint.cs" />
-    <Compile Include="DataSeries.cs" />
+    <Compile Include="DataSeriesBar.cs" />
+    <Compile Include="DataSeriesXY.cs" />
     <Compile Include="DataSeriesRange.cs" />
     <Compile Include="HorizontalBarGraph.cs" />
     <Compile Include="IAxisTransformation.cs" />
