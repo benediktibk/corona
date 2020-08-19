@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Math;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ScalableVectorGraphic {
     public class HorizontalBarGraph<BarType, ValueType> : IGraph {
@@ -7,20 +9,36 @@ namespace ScalableVectorGraphic {
         private const double _barSpacing = 0.05;
         private const double _axisWidth = 0.002;
         private const double _xOffsetVerticalAxisLabel = 0.002;
+        private const double _yAxisOffsetForLabels = 0.05;
         private const string _legendFont = "monospace";
         private const double _legendFontSize = 0.02;
+        private const double _borderWidth = 0.002;
+        private const double _ratioXAxisLengthToImageSize = 0.85;
+        private const double _ratioYAxisLengthToImageSize = 0.85;
 
         public HorizontalBarGraph(int width, int height, ILabelGenerator<BarType> verticalAxis, IAxis<ValueType> horizontalAxis, DataSeriesBar<BarType, ValueType> dataSeries) {
             var maximumValue = dataSeries.FindMaximumValueAsDouble(horizontalAxis.NumericOperations);
             var elements = CreateGraphicElements(horizontalAxis, verticalAxis, dataSeries.DataPoints, maximumValue);
+            elements = TransformElements(width, height, elements);
+            elements.Insert(0, new Rectangle("background", new Point(0, 0), new Point(width, height), Color.White, Color.Black, _borderWidth * System.Math.Sqrt(width * height)));
             _image = new Image(width, height, elements);
+        }
+
+        private static List<IGraphicElement> TransformElements(int width, int height, List<IGraphicElement> elements) {
+            var originOffset = new Vector((1 - _ratioXAxisLengthToImageSize) * 0.7 * width, ((1 - _ratioYAxisLengthToImageSize) / 2 + _yAxisOffsetForLabels) * height * 0.7);
+            var transformGraphToImageSize = new Transformation(new Matrix(_ratioXAxisLengthToImageSize * width, _ratioYAxisLengthToImageSize * height), originOffset);
+            elements = transformGraphToImageSize.Apply(elements);
+            var transformImageToSvgCoordinates = new Transformation(new Matrix(1, -1), new Vector(0, height));
+            elements = transformImageToSvgCoordinates.Apply(elements);
+            return elements;
         }
 
         private List<IGraphicElement> CreateGraphicElements(IAxis<ValueType> horizontalAxis, ILabelGenerator<BarType> verticalAxis, IReadOnlyList<DataPoint<BarType, ValueType>> values, double maximumValue) {
             var elements = new List<IGraphicElement>();
             elements.AddRange(horizontalAxis.CreateGraphicElementsForHorizontalAxis(0, maximumValue));
             elements.AddRange(CreateGraphicElementsForVerticalAxis(values, verticalAxis));
-            elements.AddRange(CreateGraphicElementsForBars(values, horizontalAxis, maximumValue));
+            elements.AddRange(CreateGraphicElementsForBars(values.Reverse().ToList(), horizontalAxis, maximumValue));
+
             return elements;
         }
 

@@ -23,7 +23,7 @@ namespace Backend.Service {
             _numericOperationsDouble = new NumericOperationsDouble();
             _dateAxis = new LinearAxisDateTime(_numericOperationsDates, "Date");
             _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
-            _linearPersonPerPopulationAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons [%]", "F0");
+            _linearPersonPerPopulationAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons [%]", "P5");
             _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P5");
             _countryLabelGenerator = new LabelGenerator<CountryType>();
