@@ -6,6 +6,7 @@ namespace Backend.Service {
     public class GraphService : IGraphService {
         private const int _graphWidth = 1000;
         private const int _graphHeight = 500;
+        private const int _barGraphHeight = 1000;
         private readonly NumericOperationsDateTimeForDatesOnly _numericOperationsDates;
         private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IAxis<DateTime> _dateAxis;
@@ -96,13 +97,13 @@ namespace Backend.Service {
 
         public string CreateTopCountriesByNewDeaths(IUnitOfWork unitOfWork) {
             var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(unitOfWork, 10);
-            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
             return ConvertGraphToSvg(graph);
         }
 
         public string CreateTopCountriesByNewInfections(IUnitOfWork unitOfWork) {
             var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(unitOfWork, 10);
-            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _graphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
             return ConvertGraphToSvg(graph);
         }
 
