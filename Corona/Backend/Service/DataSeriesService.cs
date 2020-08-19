@@ -7,7 +7,6 @@ using System.Linq;
 
 namespace Backend.Service {
     public class DataSeriesService : IDataSeriesService {
-        private const int _estimationPastMaxInDays = -21;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
@@ -16,8 +15,8 @@ namespace Backend.Service {
             _countryDetailedRepository = countryDetailedRepository;
         }
 
-        public List<DataSeries<DateTime, double>> CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, out List<ReferenceLine<double>> referenceLines) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public List<DataSeriesXY<DateTime, double>> CreateDeathsPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, out List<ReferenceLine<double>> referenceLines) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
 
@@ -43,7 +42,7 @@ namespace Backend.Service {
                     continue;
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
@@ -55,8 +54,8 @@ namespace Backend.Service {
             return allDataSeries;
         }
 
-        public List<DataSeries<DateTime, double>> CreateDeaths(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public List<DataSeriesXY<DateTime, double>> CreateDeaths(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]);
@@ -76,15 +75,15 @@ namespace Backend.Service {
                     continue;
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
 
-        public List<DataSeries<DateTime, double>> CreateInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public List<DataSeriesXY<DateTime, double>> CreateInfectedAbsoluteLinear(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]);
@@ -94,15 +93,15 @@ namespace Backend.Service {
                     continue;
                 }
                 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
         
-        public List<DataSeries<DateTime, double>> CreateInfectedAbsoluteLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public List<DataSeriesXY<DateTime, double>> CreateInfectedAbsoluteLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
@@ -112,15 +111,95 @@ namespace Backend.Service {
                     continue;
                 }
                 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
 
-        public List<DataSeries<DateTime, double>> CreateInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public DataSeriesBar<CountryType, double> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
+            var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
+            var mostRecentDateTime = _infectionSpreadDataPointRepository.GetMostRecentDateTime(unitOfWork);
+            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(daysInPast));
+            var countriesWithAverageDeathsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
+
+            foreach (var country in countriesDetailed) {
+                var mostRecentDataPoint = _infectionSpreadDataPointRepository.GetMostRecentDataPoint(unitOfWork, country.CountryId);
+                var previousDataPoint = _infectionSpreadDataPointRepository.GetLastDataPointBefore(unitOfWork, country.CountryId, previousDateTime);
+
+                if (mostRecentDataPoint == null) {
+                    continue;
+                }
+
+                if (previousDataPoint == null) {
+                    continue;
+                }
+
+                var deathsInTimeRange = mostRecentDataPoint.DeathsTotal - previousDataPoint.DeathsTotal;
+                var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
+                var result = (double)deathsInTimeRange / country.Inhabitants / timeRangeInDays * 100;
+
+                if (result < 0) {
+                    continue;
+                }
+
+                countriesWithAverageDeathsPerDayPerInhabitants.Add(new Tuple<CountryType, double>(country.CountryId, result));
+            }
+
+            var countriesSorted = countriesWithAverageDeathsPerDayPerInhabitants.OrderBy(x => x.Item2);
+
+            var dataPoints = new List<DataPoint<CountryType, double>>();
+
+            foreach (var country in countriesSorted.Skip(System.Math.Max(0, countriesSorted.Count() - topCountriesCount)).Reverse()) {
+                dataPoints.Add(new DataPoint<CountryType, double>(country.Item1, country.Item2));
+            }
+
+            return new DataSeriesBar<CountryType, double>(dataPoints);
+        }
+
+        public DataSeriesBar<CountryType, double> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
+            var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
+            var mostRecentDateTime = _infectionSpreadDataPointRepository.GetMostRecentDateTime(unitOfWork);
+            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(daysInPast));
+            var countriesWithAverageNewInfectionsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
+
+            foreach (var country in countriesDetailed) {
+                var mostRecentDataPoint = _infectionSpreadDataPointRepository.GetMostRecentDataPoint(unitOfWork, country.CountryId);
+                var previousDataPoint = _infectionSpreadDataPointRepository.GetLastDataPointBefore(unitOfWork, country.CountryId, previousDateTime);
+
+                if (mostRecentDataPoint == null) {
+                    continue;
+                }
+
+                if (previousDataPoint == null) {
+                    continue;
+                }
+
+                var infectedInTimeRange = mostRecentDataPoint.InfectedTotal - previousDataPoint.InfectedTotal;
+                var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
+                var result = (double)infectedInTimeRange / country.Inhabitants / timeRangeInDays * 100;
+
+                if (result < 0) {
+                    continue;
+                }
+
+                countriesWithAverageNewInfectionsPerDayPerInhabitants.Add(new Tuple<CountryType, double>(country.CountryId, result));
+            }
+
+            var countriesSorted = countriesWithAverageNewInfectionsPerDayPerInhabitants.OrderBy(x => x.Item2);
+
+            var dataPoints = new List<DataPoint<CountryType, double>>();
+
+            foreach (var country in countriesSorted.Skip(System.Math.Max(0, countriesSorted.Count() - topCountriesCount)).Reverse()) {
+                dataPoints.Add(new DataPoint<CountryType, double>(country.Item1, country.Item2));
+            }
+
+            return new DataSeriesBar<CountryType, double>(dataPoints);
+        }
+
+        public List<DataSeriesXY<DateTime, double>> CreateInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
 
@@ -136,15 +215,15 @@ namespace Backend.Service {
                     continue;
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
 
-        public List<DataSeries<DateTime, double>> CreateStillInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public List<DataSeriesXY<DateTime, double>> CreateStillInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
 
@@ -170,15 +249,15 @@ namespace Backend.Service {
                     continue;
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
 
-        public List<DataSeries<DateTime, double>> CreateStillInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public List<DataSeriesXY<DateTime, double>> CreateStillInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
@@ -193,15 +272,15 @@ namespace Backend.Service {
                     continue;
                 }
 
-                var dataSeries = new DataSeries<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<DateTime, double>(dataPointsConverted, PredefinedColors.GetFor(i), true, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
 
-        public List<DataSeries<double, double>> CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<double, double>>();
+        public List<DataSeriesXY<double, double>> CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<double, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]).Where(x => x.InfectedTotal > 0);
@@ -225,15 +304,15 @@ namespace Backend.Service {
                     continue;
                 }
 
-                var dataSeries = new DataSeries<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
 
-        public List<DataSeries<double, double>> CreateInfectedGrowthPerTotalInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<double, double>>();
+        public List<DataSeriesXY<double, double>> CreateInfectedGrowthPerTotalInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+            var allDataSeries = new List<DataSeriesXY<double, double>>();
             var availableCountries = _countryDetailedRepository.GetAllAvailable(unitOfWork, countries);
             var availableCountriesSet = availableCountries.ToDictionary(x => x.CountryId, x => x.Inhabitants);
 
@@ -263,15 +342,15 @@ namespace Backend.Service {
                     continue;
                 }
 
-                var dataSeries = new DataSeries<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false, true, countries[i].ToString());
+                var dataSeries = new DataSeriesXY<double, double>(dataPointsConverted, PredefinedColors.GetFor(i), false, true, countries[i].ToString());
                 allDataSeries.Add(dataSeries);
             }
 
             return allDataSeries;
         }
 
-        public List<DataSeries<DateTime, double>> CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = new List<DataSeries<DateTime, double>>();
+        public List<DataSeriesXY<DateTime, double>> CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, int estimationPastInDays) {
+            var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
                 var dataPoints = _infectionSpreadDataPointRepository.GetAllForCountryOrderedByDate(unitOfWork, countries[i]);
@@ -308,7 +387,7 @@ namespace Backend.Service {
                     previousInfected = value;
                 }
 
-                var graphTimeRangeStart = timeRangeStart.AddDays(_estimationPastMaxInDays);
+                var graphTimeRangeStart = timeRangeStart.AddDays((-1) * estimationPastInDays);
                 var graphTimeRangeEnd = timeRangeEnd;
                 var graphTimeLengthInDays = (int)(graphTimeRangeEnd - graphTimeRangeStart).TotalDays + 1;
                 var values = new double[graphTimeLengthInDays];
@@ -317,7 +396,7 @@ namespace Backend.Service {
                 foreach (var additionalInfectedItem in additionalInfected) {
                     var previousDaysInPast = -1e10;
                     var peak = additionalInfectedItem.YValue;
-                    for (var t = additionalInfectedItem.XValue.AddDays(_estimationPastMaxInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
+                    for (var t = additionalInfectedItem.XValue.AddDays((-1) * estimationPastInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
                         var daysInPast = (t - additionalInfectedItem.XValue).TotalDays;
 
                         if (daysInPast == -1) {
@@ -343,8 +422,8 @@ namespace Backend.Service {
                 
                 var colorEstimated = PredefinedColors.GetFor(i);
                 var colorActual = colorEstimated.ChangeAlpha(0.5);
-                var dataSeriesEstimated = new DataSeries<DateTime, double>(estimatedNewInfections, colorEstimated, true, false, $"{countries[i]} - estimated");
-                var dataSeriesActual = new DataSeries<DateTime, double>(additionalInfected, colorActual, false, true, $"{countries[i]} - reported");
+                var dataSeriesEstimated = new DataSeriesXY<DateTime, double>(estimatedNewInfections, colorEstimated, true, false, $"{countries[i]} - estimated");
+                var dataSeriesActual = new DataSeriesXY<DateTime, double>(additionalInfected, colorActual, false, true, $"{countries[i]} - reported");
 
                 if (dataSeriesEstimated.DataPoints.Count > 0) {
                     allDataSeries.Add(dataSeriesEstimated);

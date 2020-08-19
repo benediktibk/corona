@@ -45,12 +45,16 @@
     <Compile Include="Color.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="DataPoint.cs" />
-    <Compile Include="DataSeries.cs" />
+    <Compile Include="DataSeriesBar.cs" />
+    <Compile Include="DataSeriesXY.cs" />
     <Compile Include="DataSeriesRange.cs" />
     <Compile Include="HorizontalBarGraph.cs" />
     <Compile Include="IAxisTransformation.cs" />
     <Compile Include="DottedLine.cs" />
+    <Compile Include="IGraph.cs" />
+    <Compile Include="ILabelGenerator.cs" />
     <Compile Include="ISvgXmlWriter.cs" />
+    <Compile Include="LabelGenerator.cs" />
     <Compile Include="OverlapMinimizer.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Rectangle.cs" />

@@ -19,5 +19,9 @@ namespace Backend.Repository {
         public List<CountryInhabitantsDao> GetAllAvailable(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
             return unitOfWork.QueryDatabase<CountryInhabitantsDao>(@"SELECT * FROM CountryInhabitants WHERE CountryId IN @countries", new { countries });
         }
+
+        public List<CountryInhabitantsDao> GetAll(IUnitOfWork unitOfWork) {
+            return unitOfWork.QueryDatabase<CountryInhabitantsDao>(@"SELECT * FROM CountryInhabitants");
+        }
     }
 }

@@ -26,8 +26,9 @@ namespace ScalableVectorGraphic {
         public abstract string CreateLabel(double value);
 
         public List<IGraphicElement> CreateGraphicElementsForHorizontalAxis(double minimumValue, double maximumValue) {
-            var result = new List<IGraphicElement>();
-            result.Add(new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth));
+            var result = new List<IGraphicElement> {
+                new Line("horizontal axis", new Point(0, 0), new Point(1, 0), Color.Black, _axisWidth)
+            };
             var axisTransformation = CreateAxisTransformation(minimumValue, maximumValue);
 
             for (var i = axisTransformation.CalculateNextTick(axisTransformation.AxisStartValue); i <= axisTransformation.AxisEndValue * 1.01; i = axisTransformation.CalculateNextTick(i)) {

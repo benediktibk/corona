@@ -11,6 +11,8 @@ namespace Backend.Service {
         string CreateStillInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         string CreateInfectedGrowthPerTotalInfected(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         string CreateInfectedGrowthPerTotalInfectedPerPopulation(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
-        string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
+        string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, int estimationPastInDays);
+        string CreateTopCountriesByNewDeaths(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast);
+        string CreateTopCountriesByNewInfections(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast);
     }
 }

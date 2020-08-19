@@ -6,12 +6,15 @@ namespace Backend.Service {
     public class GraphService : IGraphService {
         private const int _graphWidth = 1000;
         private const int _graphHeight = 500;
+        private const int _barGraphHeight = 400;
         private readonly NumericOperationsDateTimeForDatesOnly _numericOperationsDates;
         private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IAxis<DateTime> _dateAxis;
         private readonly IAxis<double> _linearPersonAxis;
+        private readonly IAxis<double> _linearPersonPerPopulationAxis;
         private readonly IAxis<double> _logarithmicPersonAxis;
         private readonly IAxis<double> _logarithmicPersonPerPopulationAxis;
+        private readonly ILabelGenerator<CountryType> _countryLabelGenerator;
         private readonly bool _compressed;
         private readonly IDataSeriesService _dataSeriesService;
 
@@ -21,8 +24,10 @@ namespace Backend.Service {
             _numericOperationsDouble = new NumericOperationsDouble();
             _dateAxis = new LinearAxisDateTime(_numericOperationsDates, "Date");
             _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
+            _linearPersonPerPopulationAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons [%]", "P3");
             _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P5");
+            _countryLabelGenerator = new LabelGenerator<CountryType>();
             _compressed = settings.SvgCompressed;
         }
 
@@ -84,13 +89,25 @@ namespace Backend.Service {
             return ConvertGraphToSvg(graph);
         }
 
-        public string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countries);
+        public string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, int estimationPastInDays) {
+            var allDataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countries, estimationPastInDays);
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true, true, new Point(0.2, 0.8));
             return ConvertGraphToSvg(graph);
         }
 
-        private string ConvertGraphToSvg<X, Y>(XYGraph<X, Y> graph) {
+        public string CreateTopCountriesByNewDeaths(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
+            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(unitOfWork, topCountriesCount, daysInPast);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
+            return ConvertGraphToSvg(graph);
+        }
+
+        public string CreateTopCountriesByNewInfections(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
+            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(unitOfWork, topCountriesCount, daysInPast);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
+            return ConvertGraphToSvg(graph);
+        }
+
+        private string ConvertGraphToSvg(IGraph graph) {
             if (_compressed) {
                 return graph.ToSvgCompressed();
             }

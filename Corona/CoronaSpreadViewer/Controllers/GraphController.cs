@@ -56,13 +56,13 @@ namespace CoronaSpreadViewer.Controllers {
         [HttpGet]
         [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/estimated-actual-new-infected-persons")]
-        public HttpResponseMessage GetEstimatedActualNewInfectedPersons([FromUri] string countries) {
+        public HttpResponseMessage GetEstimatedActualNewInfectedPersons([FromUri] string countries, [FromUri] int estimationPastInDays) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
                 }
 
-                var result = _graphService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countriesParsed);
+                var result = _graphService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countriesParsed, estimationPastInDays);
                 return CreateResponse(result);
             }
         }
@@ -161,6 +161,26 @@ namespace CoronaSpreadViewer.Controllers {
                 }
 
                 var result = _graphService.CreateInfectedGrowthPerTotalInfectedPerPopulation(unitOfWork, countriesParsed);
+                return CreateResponse(result);
+            }
+        }
+
+        [HttpGet]
+        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
+        [Route("api/graph/top-countries-by-new-deaths")]
+        public HttpResponseMessage GetTopCountriesByNewDeaths([FromUri] int topCountriesCount, [FromUri] int daysInPast) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                var result = _graphService.CreateTopCountriesByNewDeaths(unitOfWork, topCountriesCount, daysInPast);
+                return CreateResponse(result);
+            }
+        }
+
+        [HttpGet]
+        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
+        [Route("api/graph/top-countries-by-new-infections")]
+        public HttpResponseMessage GetTopCountriesByNewInfections([FromUri] int topCountriesCount, [FromUri] int daysInPast) {
+            using (var unitOfWork = _unitOfWorkFactory.Create()) {
+                var result = _graphService.CreateTopCountriesByNewInfections(unitOfWork, topCountriesCount, daysInPast);
                 return CreateResponse(result);
             }
         }

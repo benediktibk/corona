@@ -15,16 +15,16 @@ namespace ScalableVectorGraphicTest {
         public void Setup() {
             var doubleOperations = new NumericOperationsDouble();
             var dateTimeOperations = new NumericOperationsDateTimeForDatesOnly(new DateTime(2000, 2, 3));
-            var dataSeriesOne = new DataSeries<double, double>(new List<DataPoint<double, double>> {
+            var dataSeriesOne = new DataSeriesXY<double, double>(new List<DataPoint<double, double>> {
                 new DataPoint<double, double>(5, 2),
                 new DataPoint<double, double>(-10, 10000)
             }, Color.Red, true, true, "blub");
-            var dataSeriesTwo = new DataSeries<double, double>(new List<DataPoint<double, double>> {
+            var dataSeriesTwo = new DataSeriesXY<double, double>(new List<DataPoint<double, double>> {
                 new DataPoint<double, double>(-4, 123),
                 new DataPoint<double, double>(6, -100),
                 new DataPoint<double, double>(6, 9)
             }, Color.Blue, true, true, "blub2");
-            var dataSeriesThree = new DataSeries<DateTime, double>(new List<DataPoint<DateTime, double>> {
+            var dataSeriesThree = new DataSeriesXY<DateTime, double>(new List<DataPoint<DateTime, double>> {
                 new DataPoint<DateTime, double>(new DateTime(2000, 2, 6), 123),
                 new DataPoint<DateTime, double>(new DateTime(2001, 4, 6), 100),
                 new DataPoint<DateTime, double>(new DateTime(2000, 7, 6), 9)
@@ -33,9 +33,9 @@ namespace ScalableVectorGraphicTest {
             var linearAxisTwo = new LinearAxisDouble(doubleOperations, "y", "E0");
             var logarithmicAxis = new LogarithmicAxis<double>(doubleOperations, "y", "E0");
             var dateTimeTaxis = new LinearAxisDateTime(dateTimeOperations, "dd.MM.yyyy");
-            _linearGraph = new XYGraph<double, double>(500, 300, linearAxisOne, linearAxisTwo, new List<DataSeries<double, double>> { dataSeriesOne, dataSeriesTwo }, false, false, new Point(0, 0));
-            _logarithmicGraph = new XYGraph<double, double>(530, 400, linearAxisOne, logarithmicAxis, new List<DataSeries<double, double>> { dataSeriesOne }, false, false, new Point(0, 0));
-            _dateTimeGraph = new XYGraph<DateTime, double>(530, 400, dateTimeTaxis, logarithmicAxis, new List<DataSeries<DateTime, double>> { dataSeriesThree }, false, false, new Point(0, 0));
+            _linearGraph = new XYGraph<double, double>(500, 300, linearAxisOne, linearAxisTwo, new List<DataSeriesXY<double, double>> { dataSeriesOne, dataSeriesTwo }, false, false, new Point(0, 0));
+            _logarithmicGraph = new XYGraph<double, double>(530, 400, linearAxisOne, logarithmicAxis, new List<DataSeriesXY<double, double>> { dataSeriesOne }, false, false, new Point(0, 0));
+            _dateTimeGraph = new XYGraph<DateTime, double>(530, 400, dateTimeTaxis, logarithmicAxis, new List<DataSeriesXY<DateTime, double>> { dataSeriesThree }, false, false, new Point(0, 0));
         }
 
         [TestMethod]
