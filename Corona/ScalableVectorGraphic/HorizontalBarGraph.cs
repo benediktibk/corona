@@ -11,8 +11,8 @@ namespace ScalableVectorGraphic {
         private const string _legendFont = "monospace";
         private const double _legendFontSize = 0.02;
         private const double _borderWidth = 0.002;
-        private const double _ratioXAxisLengthToImageSize = 0.85;
-        private const double _ratioYAxisLengthToImageSize = 0.80;
+        private const double _ratioXAxisLengthToImageSize = 0.80;
+        private const double _ratioYAxisLengthToImageSize = 0.85;
 
         public HorizontalBarGraph(int width, int height, ILabelGenerator<BarType> verticalAxis, IAxis<ValueType> horizontalAxis, DataSeriesBar<BarType, ValueType> dataSeries) {
             var maximumValue = dataSeries.FindMaximumValueAsDouble(horizontalAxis.NumericOperations) * 1.05;
@@ -49,7 +49,7 @@ namespace ScalableVectorGraphic {
 
             for (var i = 0; i < values.Count; ++i) {
                 var yPosition = barSpacing + barWidth / 2.0 + barSpacing * i + barWidth * i;
-                elements.Add(new Text("vertical axis label", new Point((-1) * _xOffsetVerticalAxisLabel, yPosition), verticalAxis.CreateLabel(values[i].XValue), Color.Black, 0, _legendFont, _legendFontSize, "hanging", "middle"));
+                elements.Add(new Text("vertical axis label", new Point((-1) * _xOffsetVerticalAxisLabel, yPosition), verticalAxis.CreateLabel(values[i].XValue), Color.Black, 0, _legendFont, _legendFontSize, "hanging", "end"));
             }
 
             return elements;
@@ -64,7 +64,7 @@ namespace ScalableVectorGraphic {
                 var yPosition = barSpacing + barWidth / 2.0 + barSpacing * i + barWidth * i;
                 var valueAsDouble = numericOperations.ConvertToDoubleEquivalent(values[i].YValue);
                 var barLength = transformation.Apply(valueAsDouble);
-                elements.Add(new Rectangle("bar", new Point(0, yPosition + barWidth / 2), new Point(barLength, yPosition - barWidth / 2), Color.Black, Color.Black, 0));
+                elements.Add(new Rectangle("bar", new Point(0, yPosition + barWidth / 2), new Point(barLength, yPosition - barWidth / 2), new Color(189, 113, 38), Color.Black, 0));
             }
 
             return elements;

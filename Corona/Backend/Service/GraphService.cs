@@ -6,7 +6,7 @@ namespace Backend.Service {
     public class GraphService : IGraphService {
         private const int _graphWidth = 1000;
         private const int _graphHeight = 500;
-        private const int _barGraphHeight = 1000;
+        private const int _barGraphHeight = 400;
         private readonly NumericOperationsDateTimeForDatesOnly _numericOperationsDates;
         private readonly NumericOperationsDouble _numericOperationsDouble;
         private readonly IAxis<DateTime> _dateAxis;
@@ -24,7 +24,7 @@ namespace Backend.Service {
             _numericOperationsDouble = new NumericOperationsDouble();
             _dateAxis = new LinearAxisDateTime(_numericOperationsDates, "Date");
             _linearPersonAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons", "F0");
-            _linearPersonPerPopulationAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons [%]", "P5");
+            _linearPersonPerPopulationAxis = new LinearAxisDouble(_numericOperationsDouble, "Persons [%]", "P3");
             _logarithmicPersonAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons", "F0");
             _logarithmicPersonPerPopulationAxis = new LogarithmicAxis<double>(_numericOperationsDouble, "Persons [%]", "P5");
             _countryLabelGenerator = new LabelGenerator<CountryType>();
