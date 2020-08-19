@@ -7,8 +7,6 @@ using System.Linq;
 
 namespace Backend.Service {
     public class DataSeriesService : IDataSeriesService {
-        private const int EstimationPastMaxInDays = -21;
-        private const int HighestAverageRecentlyInDays = 5;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly ICountryInhabitantsRepository _countryDetailedRepository;
 
@@ -120,10 +118,10 @@ namespace Backend.Service {
             return allDataSeries;
         }
 
-        public DataSeriesBar<CountryType, double> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount) {
+        public DataSeriesBar<CountryType, double> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
             var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
             var mostRecentDateTime = _infectionSpreadDataPointRepository.GetMostRecentDateTime(unitOfWork);
-            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
+            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(daysInPast));
             var countriesWithAverageDeathsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
 
             foreach (var country in countriesDetailed) {
@@ -160,10 +158,10 @@ namespace Backend.Service {
             return new DataSeriesBar<CountryType, double>(dataPoints);
         }
 
-        public DataSeriesBar<CountryType, double> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount) {
+        public DataSeriesBar<CountryType, double> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
             var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
             var mostRecentDateTime = _infectionSpreadDataPointRepository.GetMostRecentDateTime(unitOfWork);
-            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(HighestAverageRecentlyInDays));
+            var previousDateTime = mostRecentDateTime.Subtract(TimeSpan.FromDays(daysInPast));
             var countriesWithAverageNewInfectionsPerDayPerInhabitants = new List<Tuple<CountryType, double>>();
 
             foreach (var country in countriesDetailed) {
@@ -351,7 +349,7 @@ namespace Backend.Service {
             return allDataSeries;
         }
 
-        public List<DataSeriesXY<DateTime, double>> CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
+        public List<DataSeriesXY<DateTime, double>> CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, int estimationPastInDays) {
             var allDataSeries = new List<DataSeriesXY<DateTime, double>>();
 
             for (var i = 0; i < countries.Count(); ++i) {
@@ -389,7 +387,7 @@ namespace Backend.Service {
                     previousInfected = value;
                 }
 
-                var graphTimeRangeStart = timeRangeStart.AddDays(EstimationPastMaxInDays);
+                var graphTimeRangeStart = timeRangeStart.AddDays((-1) * estimationPastInDays);
                 var graphTimeRangeEnd = timeRangeEnd;
                 var graphTimeLengthInDays = (int)(graphTimeRangeEnd - graphTimeRangeStart).TotalDays + 1;
                 var values = new double[graphTimeLengthInDays];
@@ -398,7 +396,7 @@ namespace Backend.Service {
                 foreach (var additionalInfectedItem in additionalInfected) {
                     var previousDaysInPast = -1e10;
                     var peak = additionalInfectedItem.YValue;
-                    for (var t = additionalInfectedItem.XValue.AddDays(EstimationPastMaxInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
+                    for (var t = additionalInfectedItem.XValue.AddDays((-1) * estimationPastInDays); t < additionalInfectedItem.XValue; t = t.AddDays(1)) {
                         var daysInPast = (t - additionalInfectedItem.XValue).TotalDays;
 
                         if (daysInPast == -1) {

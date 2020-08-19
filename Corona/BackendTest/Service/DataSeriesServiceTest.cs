@@ -33,7 +33,7 @@ namespace BackendTest.Service {
                 new CountryInhabitantsDao { CountryId = CountryType.Albania, Inhabitants = 1000 }
             });
 
-            var dataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(_unitOfWork.Object, new List<CountryType> { CountryType.Albania });
+            var dataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(_unitOfWork.Object, new List<CountryType> { CountryType.Albania }, 21);
 
             var normalDistribution = new NormalDistribution(10, 3);
             dataSeries.Count.Should().Be(2);
@@ -85,7 +85,7 @@ namespace BackendTest.Service {
                     RecoveredTotal = 3
                 });
 
-            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(_unitOfWork.Object, 10);
+            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(_unitOfWork.Object, 10, 5);
 
             dataSeries.DataPoints.Count.Should().Be(1);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Austria);
@@ -118,7 +118,7 @@ namespace BackendTest.Service {
                     RecoveredTotal = 3
                 });
 
-            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(_unitOfWork.Object, 10);
+            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(_unitOfWork.Object, 10, 5);
 
             dataSeries.DataPoints.Count.Should().Be(1);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Austria);
@@ -151,7 +151,7 @@ namespace BackendTest.Service {
                     RecoveredTotal = 30
                 });
 
-            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(_unitOfWork.Object, 10);
+            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(_unitOfWork.Object, 10, 5);
 
             dataSeries.DataPoints.Count.Should().Be(0);
         }
@@ -182,7 +182,7 @@ namespace BackendTest.Service {
                     RecoveredTotal = 30
                 });
 
-            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(_unitOfWork.Object, 10);
+            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(_unitOfWork.Object, 10, 5);
 
             dataSeries.DataPoints.Count.Should().Be(0);
         }
@@ -253,7 +253,7 @@ namespace BackendTest.Service {
                     RecoveredTotal = 3
                 });
 
-            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(_unitOfWork.Object, 2);
+            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(_unitOfWork.Object, 2, 5);
 
             dataSeries.DataPoints.Count.Should().Be(2);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Afghanistan);
@@ -328,7 +328,7 @@ namespace BackendTest.Service {
                     RecoveredTotal = 3
                 });
 
-            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(_unitOfWork.Object, 2);
+            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(_unitOfWork.Object, 2, 5);
 
             dataSeries.DataPoints.Count.Should().Be(2);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Afghanistan);

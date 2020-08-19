@@ -89,20 +89,20 @@ namespace Backend.Service {
             return ConvertGraphToSvg(graph);
         }
 
-        public string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
-            var allDataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countries);
+        public string CreateEstimatedActualNewInfectedPersons(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries, int estimationPastInDays) {
+            var allDataSeries = _dataSeriesService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countries, estimationPastInDays);
             var graph = new XYGraph<DateTime, double>(_graphWidth, _graphHeight, _dateAxis, _linearPersonAxis, allDataSeries, true, true, new Point(0.2, 0.8));
             return ConvertGraphToSvg(graph);
         }
 
-        public string CreateTopCountriesByNewDeaths(IUnitOfWork unitOfWork) {
-            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(unitOfWork, 10);
+        public string CreateTopCountriesByNewDeaths(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
+            var dataSeries = _dataSeriesService.CreateHighestAverageDeathsPerPopulationRecently(unitOfWork, topCountriesCount, daysInPast);
             var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
             return ConvertGraphToSvg(graph);
         }
 
-        public string CreateTopCountriesByNewInfections(IUnitOfWork unitOfWork) {
-            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(unitOfWork, 10);
+        public string CreateTopCountriesByNewInfections(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast) {
+            var dataSeries = _dataSeriesService.CreateHighestAverageNewInfectionsPerPopulationRecently(unitOfWork, topCountriesCount, daysInPast);
             var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
             return ConvertGraphToSvg(graph);
         }
