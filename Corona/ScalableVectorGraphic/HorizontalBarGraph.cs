@@ -51,7 +51,7 @@ namespace ScalableVectorGraphic {
 
             for (var i = 0; i < values.Count; ++i) {
                 var yPosition = barSpacing + barWidth / 2.0 + barSpacing * i + barWidth * i;
-                elements.Add(new Text("vertical axis label", new Point((-1) * _xOffsetVerticalAxisLabel, yPosition), verticalAxis.CreateLabel(values[i].XValue), Color.Black, 0, _legendFont, _legendFontSize, DominantBaseLine.Hanging, TextAnchor.End));
+                elements.Add(new Text("vertical axis label", new Point((-1) * _xOffsetVerticalAxisLabel, yPosition), verticalAxis.CreateLabel(values[i].XValue), Color.Black, 0, _legendFont, _legendFontSize, DominantBaseLine.Middle, TextAnchor.End));
             }
 
             return elements;
