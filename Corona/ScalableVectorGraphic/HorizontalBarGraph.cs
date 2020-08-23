@@ -51,7 +51,7 @@ namespace ScalableVectorGraphic {
 
             for (var i = 0; i < values.Count; ++i) {
                 var yPosition = barSpacing + barWidth / 2.0 + barSpacing * i + barWidth * i;
-                elements.Add(new Text("vertical axis label", new Point((-1) * _xOffsetVerticalAxisLabel, yPosition), verticalAxis.CreateLabel(values[i].XValue), Color.Black, 0, _legendFont, _legendFontSize, "hanging", "end"));
+                elements.Add(new Text("vertical axis label", new Point((-1) * _xOffsetVerticalAxisLabel, yPosition), verticalAxis.CreateLabel(values[i].XValue), Color.Black, 0, _legendFont, _legendFontSize, DominantBaseLine.Hanging, TextAnchor.End));
             }
 
             return elements;
@@ -68,7 +68,7 @@ namespace ScalableVectorGraphic {
                 var valueAsDouble = numericOperations.ConvertToDoubleEquivalent(originalValue);
                 var barLength = transformation.Apply(valueAsDouble);
                 elements.Add(new Rectangle($"bar for value {originalValue}", new Point(0, yPosition + barWidth / 2), new Point(barLength, yPosition - barWidth / 2), new Color(189, 113, 38), Color.Black, 0));
-                elements.Add(new Text($"value label for {originalValue}", new Point(barLength + _xOffsetBarLabels, yPosition), horizontalAxis.CreateLabel(valueAsDouble), Color.Black, 0, _legendFont, _legendFontSize, "middle", "start"));
+                elements.Add(new Text($"value label for {originalValue}", new Point(barLength + _xOffsetBarLabels, yPosition), horizontalAxis.CreateLabel(valueAsDouble), Color.Black, 0, _legendFont, _legendFontSize, DominantBaseLine.Middle, TextAnchor.Start));
             }
 
             return elements;

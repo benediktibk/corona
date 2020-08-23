@@ -35,11 +35,11 @@ namespace ScalableVectorGraphic {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("horizontal axis tick mark", new Point(position, (-0.5) * _tickMarkLength), new Point(position, 0.5 * _tickMarkLength), Color.Black, _tickMarkWidth));
                 var label = CreateLabel(i);
-                result.Add(new Text("horizontal axis tick label", new Point(position, (-1) * _labelOffsetFromHorizontalAxis), label, Color.Black, 0, _labelFont, _fontSize, "hanging", "middle"));
+                result.Add(new Text("horizontal axis tick label", new Point(position, (-1) * _labelOffsetFromHorizontalAxis), label, Color.Black, 0, _labelFont, _fontSize, DominantBaseLine.Hanging, TextAnchor.Middle));
                 result.Add(new Line("vertical grid", new Point(position, 0), new Point(position, 1), Color.Black, _gridWidth));
             }
 
-            result.Add(new Text("horizontal axis label", new Point(0.5, (-1) * _axisLabelOffsetFromHorizontalAxis), _axisLabel, Color.Black, 0, _labelFont, _fontSize, "hanging", "middle"));
+            result.Add(new Text("horizontal axis label", new Point(0.5, (-1) * _axisLabelOffsetFromHorizontalAxis), _axisLabel, Color.Black, 0, _labelFont, _fontSize, DominantBaseLine.Hanging, TextAnchor.Middle));
 
             return result;
         }
@@ -54,13 +54,13 @@ namespace ScalableVectorGraphic {
                 double position = axisTransformation.Apply(i);
                 result.Add(new Line("vertical axis tick mark", new Point((-0.5) * _tickMarkLength, position), new Point(0.5 * _tickMarkLength, position), Color.Black, _tickMarkWidth));
                 var label = CreateLabel(i);
-                result.Add(new Text("vertical axis tick label", new Point((-1) * _labelOffsetFromVerticalAxis, position), label, Color.Black, 0, _labelFont, _fontSize, "middle", "end"));
+                result.Add(new Text("vertical axis tick label", new Point((-1) * _labelOffsetFromVerticalAxis, position), label, Color.Black, 0, _labelFont, _fontSize, DominantBaseLine.Middle, TextAnchor.End));
                 result.Add(new Line("horizontal grid", new Point(0, position), new Point(1, position), Color.Black, _gridWidth));
                 tickPositions.Add(position);
             }
 
             var labelPosition = CalculateVerticalLabelPosition(tickPositions);
-            result.Add(new Text("horizontal axis label", new Point((-1) * _axisLabelOffsetFromVerticalAxis, labelPosition), _axisLabel, Color.Black, 270, _labelFont, _fontSize, "middle", "middle"));
+            result.Add(new Text("horizontal axis label", new Point((-1) * _axisLabelOffsetFromVerticalAxis, labelPosition), _axisLabel, Color.Black, 270, _labelFont, _fontSize, DominantBaseLine.Middle, TextAnchor.Middle));
 
             return result;
         }

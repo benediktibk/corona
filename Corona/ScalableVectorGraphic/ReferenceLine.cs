@@ -23,7 +23,7 @@ namespace ScalableVectorGraphic {
             var result = new List<IGraphicElement>();
             var position = axisTransformation.Apply(numericOperations.ConvertToDoubleEquivalent(Value));
             result.Add(new DottedLine($"reference line {Label}", new Point(0, position), new Point(1, position), Color, _lineWidth, _strokeLength, _strokeLength));
-            result.Add(new Text($"label for reference line {Label}", new Point(_axisOffset, position + _lineOffset), Label, Color, 0, _labelFont, _fontSize, "baseline", "start"));
+            result.Add(new Text($"label for reference line {Label}", new Point(_axisOffset, position + _lineOffset), Label, Color, 0, _labelFont, _fontSize, DominantBaseLine.BaseLine, TextAnchor.Start));
             return result;
         }
     }

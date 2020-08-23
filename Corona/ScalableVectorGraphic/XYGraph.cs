@@ -111,7 +111,7 @@ namespace ScalableVectorGraphic {
                 var current = dataSeries[i];
                 var y = i * _legendHeightPerCountry + _legendFontSize / 2;
 
-                elements.Add(new Text($"label {current.Label}", new Point(_legendDotOffsetLeft * 2, y), current.Label, Color.Black, 0, _legendFont, _legendFontSize, "middle", "start"));
+                elements.Add(new Text($"label {current.Label}", new Point(_legendDotOffsetLeft * 2, y), current.Label, Color.Black, 0, _legendFont, _legendFontSize, DominantBaseLine.Middle, TextAnchor.Start));
 
                 if (current.DrawDots) {
                     elements.Add(new Circle($"dot for {current.Label}", _legendDotRadius, current.Color, new Point(_legendDotOffsetLeft, y)));
