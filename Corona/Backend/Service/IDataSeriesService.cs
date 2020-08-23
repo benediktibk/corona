@@ -16,5 +16,7 @@ namespace Backend.Service {
         List<DataSeriesXY<DateTime, double>> CreateInfectedAbsoluteLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries);
         DataSeriesBar<CountryType, double> CreateHighestAverageDeathsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast);
         DataSeriesBar<CountryType, double> CreateHighestAverageNewInfectionsPerPopulationRecently(IUnitOfWork unitOfWork, int topCountriesCount, int daysInPast);
+        DataSeriesBar<CountryType, double> CreateHighestDeathsPerPopulation(IUnitOfWork unitOfWork, int topCountriesCount);
+        DataSeriesBar<CountryType, double> CreateHighestInfectionsPerPopulation(IUnitOfWork unitOfWork, int topCountriesCount);
     }
 }

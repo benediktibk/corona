@@ -107,6 +107,18 @@ namespace Backend.Service {
             return ConvertGraphToSvg(graph);
         }
 
+        public string CreateTopCountriesByDeathsPerPopulation(IUnitOfWork unitOfWork, int topCountriesCount) {
+            var dataSeries = _dataSeriesService.CreateHighestDeathsPerPopulation(unitOfWork, topCountriesCount);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
+            return ConvertGraphToSvg(graph);
+        }
+
+        public string CreateTopCountriesByInfectionsPerPopulation(IUnitOfWork unitOfWork, int topCountriesCount) {
+            var dataSeries = _dataSeriesService.CreateHighestInfectionsPerPopulation(unitOfWork, topCountriesCount);
+            var graph = new HorizontalBarGraph<CountryType, double>(_graphWidth, _barGraphHeight, _countryLabelGenerator, _linearPersonPerPopulationAxis, dataSeries);
+            return ConvertGraphToSvg(graph);
+        }
+
         private string ConvertGraphToSvg(IGraph graph) {
             if (_compressed) {
                 return graph.ToSvgCompressed();

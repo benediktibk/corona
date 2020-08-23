@@ -138,7 +138,7 @@ namespace Backend.Service {
 
                 var deathsInTimeRange = mostRecentDataPoint.DeathsTotal - previousDataPoint.DeathsTotal;
                 var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
-                var result = (double)deathsInTimeRange / country.Inhabitants / timeRangeInDays * 100;
+                var result = (double)deathsInTimeRange / country.Inhabitants / timeRangeInDays;
 
                 if (result < 0) {
                     continue;
@@ -178,7 +178,7 @@ namespace Backend.Service {
 
                 var infectedInTimeRange = mostRecentDataPoint.InfectedTotal - previousDataPoint.InfectedTotal;
                 var timeRangeInDays = (mostRecentDataPoint.Date.Date - previousDataPoint.Date.Date).TotalDays;
-                var result = (double)infectedInTimeRange / country.Inhabitants / timeRangeInDays * 100;
+                var result = (double)infectedInTimeRange / country.Inhabitants / timeRangeInDays;
 
                 if (result < 0) {
                     continue;
@@ -196,6 +196,48 @@ namespace Backend.Service {
             }
 
             return new DataSeriesBar<CountryType, double>(dataPoints);
+        }
+
+        public DataSeriesBar<CountryType, double> CreateHighestDeathsPerPopulation(IUnitOfWork unitOfWork, int topCountriesCount) {
+            var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
+            var dataPoints = new List<DataPoint<CountryType, double>>();
+
+            foreach (var country in countriesDetailed) {
+                var mostRecentDataPoint = _infectionSpreadDataPointRepository.GetMostRecentDataPoint(unitOfWork, country.CountryId);
+
+                if (mostRecentDataPoint == null) {
+                    continue;
+                }
+
+                var result = (double)mostRecentDataPoint.DeathsTotal / country.Inhabitants;
+
+                dataPoints.Add(new DataPoint<CountryType, double>(country.CountryId, result));
+            }
+
+            var countriesToSkip = System.Math.Max(0, dataPoints.Count - topCountriesCount);
+            var dataPointsSorted = dataPoints.OrderBy(x => x.YValue).Skip(countriesToSkip).Reverse().ToList();
+            return new DataSeriesBar<CountryType, double>(dataPointsSorted);
+        }
+
+        public DataSeriesBar<CountryType, double> CreateHighestInfectionsPerPopulation(IUnitOfWork unitOfWork, int topCountriesCount) {
+            var countriesDetailed = _countryDetailedRepository.GetAll(unitOfWork);
+            var dataPoints = new List<DataPoint<CountryType, double>>();
+
+            foreach (var country in countriesDetailed) {
+                var mostRecentDataPoint = _infectionSpreadDataPointRepository.GetMostRecentDataPoint(unitOfWork, country.CountryId);
+
+                if (mostRecentDataPoint == null) {
+                    continue;
+                }
+
+                var result = (double)mostRecentDataPoint.InfectedTotal / country.Inhabitants;
+
+                dataPoints.Add(new DataPoint<CountryType, double>(country.CountryId, result));
+            }
+
+            var countriesToSkip = System.Math.Max(0, dataPoints.Count - topCountriesCount);
+            var dataPointsSorted = dataPoints.OrderBy(x => x.YValue).Skip(countriesToSkip).Reverse().ToList();
+            return new DataSeriesBar<CountryType, double>(dataPointsSorted);
         }
 
         public List<DataSeriesXY<DateTime, double>> CreateInfectedPerPopulationLogarithmic(IUnitOfWork unitOfWork, IReadOnlyList<CountryType> countries) {
