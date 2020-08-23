@@ -48,6 +48,10 @@
     <Compile Include="DataSeriesBar.cs" />
     <Compile Include="DataSeriesXY.cs" />
     <Compile Include="DataSeriesRange.cs" />
+    <Compile Include="TextAnchorHelper.cs" />
+    <Compile Include="DominantBaseLineHelper.cs" />
+    <Compile Include="TextAnchor.cs" />
+    <Compile Include="DominantBaseLine.cs" />
     <Compile Include="HorizontalBarGraph.cs" />
     <Compile Include="IAxisTransformation.cs" />
     <Compile Include="DottedLine.cs" />
