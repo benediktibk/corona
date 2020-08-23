@@ -7,6 +7,7 @@ namespace ScalableVectorGraphic {
         private readonly Image _image;
         private const double _axisWidth = 0.002;
         private const double _xOffsetVerticalAxisLabel = 0.002;
+        private const double _xOffsetBarLabels = 0.002;
         private const double _yAxisOffsetForLabels = 0.05;
         private const string _legendFont = "monospace";
         private const double _legendFontSize = 0.02;
@@ -67,6 +68,7 @@ namespace ScalableVectorGraphic {
                 var valueAsDouble = numericOperations.ConvertToDoubleEquivalent(originalValue);
                 var barLength = transformation.Apply(valueAsDouble);
                 elements.Add(new Rectangle($"bar for value {originalValue}", new Point(0, yPosition + barWidth / 2), new Point(barLength, yPosition - barWidth / 2), new Color(189, 113, 38), Color.Black, 0));
+                elements.Add(new Text($"value label for {originalValue}", new Point(barLength + _xOffsetBarLabels, yPosition), horizontalAxis.CreateLabel(valueAsDouble), Color.Black, 0, _legendFont, _legendFontSize, "middle", "start"));
             }
 
             return elements;
