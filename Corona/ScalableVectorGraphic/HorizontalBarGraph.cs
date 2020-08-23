@@ -35,9 +35,10 @@ namespace ScalableVectorGraphic {
             var elements = new List<IGraphicElement>();
             var barWidth = 1.0 / values.Count * 0.9;
             var barSpacing = 1.0 / values.Count * 0.08;
+            var valuesReversed = values.Reverse().ToList();
             elements.AddRange(horizontalAxis.CreateGraphicElementsForHorizontalAxis(0, maximumValue));
-            elements.AddRange(CreateGraphicElementsForVerticalAxis(values, verticalAxis, barSpacing, barWidth));
-            elements.AddRange(CreateGraphicElementsForBars(values.Reverse().ToList(), horizontalAxis, maximumValue, barSpacing, barWidth));
+            elements.AddRange(CreateGraphicElementsForVerticalAxis(valuesReversed, verticalAxis, barSpacing, barWidth));
+            elements.AddRange(CreateGraphicElementsForBars(valuesReversed, horizontalAxis, maximumValue, barSpacing, barWidth));
 
             return elements;
         }
@@ -62,9 +63,10 @@ namespace ScalableVectorGraphic {
 
             for (var i = 0; i < values.Count; ++i) {
                 var yPosition = barSpacing + barWidth / 2.0 + barSpacing * i + barWidth * i;
-                var valueAsDouble = numericOperations.ConvertToDoubleEquivalent(values[i].YValue);
+                var originalValue = values[i].YValue;
+                var valueAsDouble = numericOperations.ConvertToDoubleEquivalent(originalValue);
                 var barLength = transformation.Apply(valueAsDouble);
-                elements.Add(new Rectangle("bar", new Point(0, yPosition + barWidth / 2), new Point(barLength, yPosition - barWidth / 2), new Color(189, 113, 38), Color.Black, 0));
+                elements.Add(new Rectangle($"bar for value {originalValue}", new Point(0, yPosition + barWidth / 2), new Point(barLength, yPosition - barWidth / 2), new Color(189, 113, 38), Color.Black, 0));
             }
 
             return elements;
