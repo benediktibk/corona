@@ -14,6 +14,7 @@ namespace Backend.Service {
         private readonly ICsvFileRepository _csvFileRepository;
         private readonly IInfectionSpreadDataPointRepository _infectionSpreadDataPointRepository;
         private readonly IGitRepository _gitRepository;
+        private readonly IImportedCommitHistoryRepository _importedCommitHistoryRepository;
         private readonly string _sourceFilePath;
         private readonly string _gitRepoUrl;
         private readonly CultureInfo _cultureInfo;
@@ -22,12 +23,14 @@ namespace Backend.Service {
             ICsvFileRepository csvFileRepository,
             IInfectionSpreadDataPointRepository infectionSpreadDataPointRepository,
             IGitRepository gitRepository,
+            IImportedCommitHistoryRepository importedCommitHistoryRepository,
             ISettings settings) {
             _csvFileRepository = csvFileRepository;
             _sourceFilePath = settings.LocalPath;
             _gitRepoUrl = settings.GitRepo;
             _infectionSpreadDataPointRepository = infectionSpreadDataPointRepository;
             _gitRepository = gitRepository;
+            _importedCommitHistoryRepository = importedCommitHistoryRepository;
             _cultureInfo = CultureInfo.CreateSpecificCulture("en-US");
         }
 
@@ -45,12 +48,21 @@ namespace Backend.Service {
                 checkoutResult = _gitRepository.Clone(_gitRepoUrl, _sourceFilePath);
             }
 
+            var commitHash = _gitRepository.GetLatestCommitHash(_sourceFilePath);
+
             stopWatch.Stop();
             _logger.Trace($"fetching the last commit via git took {stopWatch.Elapsed.TotalSeconds}s");
 
             if (!checkoutResult) {
                 _logger.Error("skipping the update process, could not fetch the latest data");
                 return false;
+            }
+
+            var latestCommit = _importedCommitHistoryRepository.GetLatest(unitOfWork);
+
+            if (latestCommit != null && latestCommit.CommitHash == commitHash) {
+                _logger.Info($"commit {commitHash} has already been imported at {latestCommit.ImportTimestamp}, skipping the rest of the import");
+                return true;
             }
 
             _logger.Info("search for daily reports");
@@ -83,6 +95,8 @@ namespace Backend.Service {
             _infectionSpreadDataPointRepository.Insert(unitOfWork, dataPointsAggregated);
             stopWatch.Stop();
             _logger.Trace($"inserting the data points into the database took {stopWatch.Elapsed.TotalSeconds}s");
+
+            _importedCommitHistoryRepository.Insert(unitOfWork, new ImportedCommitHistoryDao { CommitHash = commitHash, ImportTimestamp = DateTime.Now });
 
             _logger.Info("successfully executed the reimport");
             return true;

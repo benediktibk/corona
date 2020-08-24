@@ -1,6 +1,7 @@
 ﻿using Backend;
 using Backend.Repository;
 using Backend.Service;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace BackendTest.Service {
         private Mock<ICsvFileRepository> _csvFileRepository;
         private Mock<IInfectionSpreadDataPointRepository> _infectionSpreadDataPointRepository;
         private Mock<IGitRepository> _gitRepository;
+        private Mock<IImportedCommitHistoryRepository> _importedCommitHistoryRepository;
         private Mock<IUnitOfWork> _unitOfWork;
         private Mock<ISettings> _settings;
         private CsvFileRepository _realCsvFileRepository;
@@ -22,12 +24,14 @@ namespace BackendTest.Service {
             _csvFileRepository = new Mock<ICsvFileRepository>();
             _infectionSpreadDataPointRepository = new Mock<IInfectionSpreadDataPointRepository>();
             _gitRepository = new Mock<IGitRepository>();
+            _importedCommitHistoryRepository = new Mock<IImportedCommitHistoryRepository>();
             _unitOfWork = new Mock<IUnitOfWork>();
             _settings = new Mock<ISettings>();
-            _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, _gitRepository.Object, _settings.Object);
+            _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, _gitRepository.Object, _importedCommitHistoryRepository.Object, _settings.Object);
             _realCsvFileRepository = new CsvFileRepository();
 
             _gitRepository.Setup(x => x.Clone(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+            _gitRepository.Setup(x => x.GetLatestCommitHash(It.IsAny<string>())).Returns("99999");
         }
 
         [TestMethod]
@@ -316,6 +320,82 @@ namespace BackendTest.Service {
                         z.DeathsTotal == 0 &&
                         z.RecoveredTotal == 0))),
                 Times.Once);
+        }
+               
+        [TestMethod]
+        public void ReimportAll_CommitAlreadyImported_Success() {
+            _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns(new ImportedCommitHistoryDao {
+                CommitHash = "12345"
+            });
+            _gitRepository.Setup(x => x.GetLatestCommitHash(It.IsAny<string>())).Returns("12345");
+
+            var result = _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void ReimportAll_CommitAlreadyImported_NoCallToInfectionSpreadDataPointRepository() {
+            _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns(new ImportedCommitHistoryDao {
+                CommitHash = "12345"
+            });
+            _gitRepository.Setup(x => x.GetLatestCommitHash(It.IsAny<string>())).Returns("12345");
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(x => x.Insert(_unitOfWork.Object, It.IsAny<IReadOnlyList<InfectionSpreadDataPointDao>>()), Times.Never);
+        }
+
+        [TestMethod]
+        public void ReimportAll_CommitAlreadyImported_NoCallToListFiles() {
+            _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns(new ImportedCommitHistoryDao {
+                CommitHash = "12345"
+            });
+            _gitRepository.Setup(x => x.GetLatestCommitHash(It.IsAny<string>())).Returns("12345");
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _csvFileRepository.Verify(x => x.ListAllCsvFilesIn(It.IsAny<string>()), Times.Never);
+        }
+
+        [TestMethod]
+        public void ReimportAll_NothingYetCommitted_CallToImportDataPoints() {
+            _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns((ImportedCommitHistoryDao)null);
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/02-25-2020_txDiamondOnly.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(x => x.Insert(_unitOfWork.Object, It.IsAny<IReadOnlyList<InfectionSpreadDataPointDao>>()), Times.AtLeastOnce);
+        }
+
+        [TestMethod]
+        public void ReimportAll_OlderStuffAlreadyCommitted_CallToImportDataPoints() {
+            _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns(new ImportedCommitHistoryDao {
+                CommitHash = "98415641312"
+            });
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/02-25-2020_txDiamondOnly.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _infectionSpreadDataPointRepository.Verify(x => x.Insert(_unitOfWork.Object, It.IsAny<IReadOnlyList<InfectionSpreadDataPointDao>>()), Times.AtLeastOnce);
+        }
+
+        [TestMethod]
+        public void ReimportAll_OlderStuffAlreadyCommitted_CallToInsertCommitHistory() {
+            _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns(new ImportedCommitHistoryDao {
+                CommitHash = "98415641312"
+            });
+            _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
+            _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
+                .Returns(_realCsvFileRepository.ReadFile("testdata/02-25-2020_txDiamondOnly.csv"));
+
+            _dataReimportService.ReimportAll(_unitOfWork.Object);
+
+            _importedCommitHistoryRepository.Verify(x => x.Insert(_unitOfWork.Object, It.Is<ImportedCommitHistoryDao>(y => y.CommitHash == "99999" && y.ImportTimestamp != null)), Times.Once);
         }
     }
 }

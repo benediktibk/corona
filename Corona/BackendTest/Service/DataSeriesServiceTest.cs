@@ -89,7 +89,7 @@ namespace BackendTest.Service {
 
             dataSeries.DataPoints.Count.Should().Be(1);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Austria);
-            dataSeries.DataPoints[0].YValue.Should().BeApproximately((20.0 - 16.0) / 1000.0 / 3.0 * 100, 1e-10);
+            dataSeries.DataPoints[0].YValue.Should().BeApproximately((20.0 - 16.0) / 1000.0 / 3.0, 1e-10);
         }
 
         [TestMethod]
@@ -122,7 +122,7 @@ namespace BackendTest.Service {
 
             dataSeries.DataPoints.Count.Should().Be(1);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Austria);
-            dataSeries.DataPoints[0].YValue.Should().BeApproximately((10.0 - 9.0) / 1000.0 / 3.0 * 100, 1e-10);
+            dataSeries.DataPoints[0].YValue.Should().BeApproximately((10.0 - 9.0) / 1000.0 / 3.0, 1e-10);
         }
 
         [TestMethod]
@@ -257,9 +257,9 @@ namespace BackendTest.Service {
 
             dataSeries.DataPoints.Count.Should().Be(2);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Afghanistan);
-            dataSeries.DataPoints[0].YValue.Should().BeApproximately((20.0 - 16.0) / 888.0 / 3.0 * 100, 1e-10);
+            dataSeries.DataPoints[0].YValue.Should().BeApproximately((20.0 - 16.0) / 888.0 / 3.0, 1e-10);
             dataSeries.DataPoints[1].XValue.Should().Be(CountryType.Austria);
-            dataSeries.DataPoints[1].YValue.Should().BeApproximately((20.0 - 16.0) / 1000.0 / 3.0 * 100, 1e-10);
+            dataSeries.DataPoints[1].YValue.Should().BeApproximately((20.0 - 16.0) / 1000.0 / 3.0, 1e-10);
         }
 
         [TestMethod]
@@ -332,9 +332,9 @@ namespace BackendTest.Service {
 
             dataSeries.DataPoints.Count.Should().Be(2);
             dataSeries.DataPoints[0].XValue.Should().Be(CountryType.Afghanistan);
-            dataSeries.DataPoints[0].YValue.Should().BeApproximately((10.0 - 9.0) / 888.0 / 3.0 * 100, 1e-10);
+            dataSeries.DataPoints[0].YValue.Should().BeApproximately((10.0 - 9.0) / 888.0 / 3.0, 1e-10);
             dataSeries.DataPoints[1].XValue.Should().Be(CountryType.Austria);
-            dataSeries.DataPoints[1].YValue.Should().BeApproximately((10.0 - 9.0) / 1000.0 / 3.0 * 100, 1e-10);
+            dataSeries.DataPoints[1].YValue.Should().BeApproximately((10.0 - 9.0) / 1000.0 / 3.0, 1e-10);
         }
     }
 }
