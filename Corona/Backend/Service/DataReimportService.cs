@@ -45,6 +45,8 @@ namespace Backend.Service {
                 checkoutResult = _gitRepository.Clone(_gitRepoUrl, _sourceFilePath);
             }
 
+            var commitHash = _gitRepository.GetLatestCommitHash(_sourceFilePath);
+
             stopWatch.Stop();
             _logger.Trace($"fetching the last commit via git took {stopWatch.Elapsed.TotalSeconds}s");
 
