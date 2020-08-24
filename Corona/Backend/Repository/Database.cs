@@ -1061,6 +1061,14 @@ namespace Backend.Repository {
                     RecoveredTotal INT NOT NULL
                 )
 ");
+            unitOfWork.ExecuteDatabaseCommand(@"
+                CREATE TABLE ImportedCommitHistory 
+                (
+                    Id INT PRIMARY KEY NOT NULL IDENTITY,
+                    [ImportTimestamp] DATETIME NOT NULL,
+                    CommitHash NVARCHAR(40) NOT NULL
+                )
+");
         }
 
         private void DeleteAllTables(IUnitOfWork unitOfWork) {

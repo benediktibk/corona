@@ -27,6 +27,7 @@ namespace Backend.DependencyInjection {
                 x.For<IGitRepository>().Use<GitRepository>();
                 x.For<ICsvFileRepository>().Use<CsvFileRepository>();
                 x.For<IInfectionSpreadDataPointRepository>().Use<InfectionSpreadDataPointRepository>();
+                x.For<IImportedCommitHistoryRepository>().Use<ImportedCommitHistoryRepository>();
 
                 x.For<IDataReimportService>().Use<DataReimportService>();
                 x.For<IGraphService>().Use<GraphService>();
