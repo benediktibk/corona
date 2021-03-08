@@ -1,12 +1,17 @@
 ﻿using Backend;
 using Backend.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace CoronaSpreadViewer.Controllers {
+    [ApiController]
     public class DataController : ControllerBase {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDataReimportService _dataReimportService;
@@ -42,15 +47,18 @@ namespace CoronaSpreadViewer.Controllers {
 
             if (!importSuccess) {
                 _logger.Error("failed to update data");
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "unable to update data");
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError) {
+                    Content = new StringContent("unable to update data", System.Text.Encoding.UTF8, "text/plain"),
+                    StatusCode = HttpStatusCode.NotFound
+                };
             }
 
             _logger.Info("successfully updated data, invalidating the server side cache");
             _serverSideCache.Invalidate();
 
             _logger.Info("responding with redirect to start page");
-            var response = Request.CreateResponse(HttpStatusCode.Moved);
-            var rootUri = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+            var response = new HttpResponseMessage(HttpStatusCode.Moved);
+            var rootUri = Request.GetUri().GetLeftPart(UriPartial.Authority);
             response.Headers.Location = new Uri(rootUri);
             return response;
         }

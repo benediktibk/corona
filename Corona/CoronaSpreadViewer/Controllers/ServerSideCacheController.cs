@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 
 namespace CoronaSpreadViewer.Controllers {
+    [ApiController]
     public class ServerSideCacheController : ControllerBase {
         private readonly IServerSideCache _serverSideCache;
 
