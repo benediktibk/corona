@@ -1,13 +1,13 @@
 ﻿using Backend;
 using Backend.Service;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
 namespace CoronaSpreadViewer.Controllers {
-    public class DataController : ApiController {
+    public class DataController : ControllerBase {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDataReimportService _dataReimportService;
         private readonly IAuthorizationService _authorizationService;

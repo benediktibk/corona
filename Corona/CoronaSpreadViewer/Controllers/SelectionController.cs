@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
 namespace CoronaSpreadViewer.Controllers {
-    public class SelectionController : ApiController {
+    public class SelectionController : ControllerBase {
         [HttpPost]
         [Route("api/selection/apply")]
         public HttpResponseMessage Apply(CountrySelection countrySelection) {

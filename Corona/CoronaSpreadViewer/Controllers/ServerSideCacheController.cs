@@ -1,11 +1,11 @@
 ﻿using Backend;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Web.Http;
 
 namespace CoronaSpreadViewer.Controllers {
-    public class ServerSideCacheController : ApiController {
+    public class ServerSideCacheController : ControllerBase {
         private readonly IServerSideCache _serverSideCache;
 
         public ServerSideCacheController(IServerSideCache serverSideCache) {
