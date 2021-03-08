@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 
-    var countriesParam = Request.Params["countries"];
+    var countriesParam = Context.Request.Query["countries"].ToString();
     var selectedCountries = new HashSet<Backend.CountryType>();
 
     if (string.IsNullOrEmpty(countriesParam)) {
