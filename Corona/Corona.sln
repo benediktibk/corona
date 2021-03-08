@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Math", "Math\Math.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathTest", "MathTest\MathTest.csproj", "{6B7D0D64-F000-415F-9F81-445742C5529D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoronaSpreadViewer", "CoronaSpreadViewer\CoronaSpreadViewer.csproj", "{58F83369-21E6-43DD-B34C-6909F9DD5236}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoronaSpreadViewer", "CoronaSpreadViewer\CoronaSpreadViewer.csproj", "{58F83369-21E6-43DD-B34C-6909F9DD5236}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
