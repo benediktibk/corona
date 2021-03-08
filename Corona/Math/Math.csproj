@@ -1,77 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{97B25C89-4B52-42D5-95D3-7CA182755740}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Math</RootNamespace>
-    <AssemblyName>Math</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.7.0\lib\net45\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="NLog" Version="4.7.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DampedMassSimulator.cs" />
-    <Compile Include="FixedPoint.cs" />
-    <Compile Include="IPenaltyFunction.cs" />
-    <Compile Include="IPhysicalObject.cs" />
-    <Compile Include="ISpring.cs" />
-    <Compile Include="ISpringConnection.cs" />
-    <Compile Include="LineLinearDistancePenaltyFunction.cs" />
-    <Compile Include="LineExponentialDistancePenaltyFunction.cs" />
-    <Compile Include="Matrix.cs" />
-    <Compile Include="GradientMethodMinimization.cs" />
-    <Compile Include="NormalDistribution.cs" />
-    <Compile Include="PenaltyFunctionSum.cs" />
-    <Compile Include="PenaltyFunctionWeightedSum.cs" />
-    <Compile Include="PhysicalRectangle.cs" />
-    <Compile Include="PointLinearDistancePenaltyFunction.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PointExponentialDistancePenaltyFunction.cs" />
-    <Compile Include="RectanglePenaltySum.cs" />
-    <Compile Include="Spring.cs" />
-    <Compile Include="Vector.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

@@ -253,16 +253,6 @@
     </None>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj">
-      <Project>{73FB3627-DFF5-448F-A39A-6B71B80A867E}</Project>
-      <Name>Backend</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ScalableVectorGraphic\ScalableVectorGraphic.csproj">
-      <Project>{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}</Project>
-      <Name>ScalableVectorGraphic</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -14,17 +14,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{F1A13F
 		Production.config = Production.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{748B85B0-77E5-4CCA-BCC2-326A6CE835CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Updater", "Updater\Updater.csproj", "{748B85B0-77E5-4CCA-BCC2-326A6CE835CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTest", "BackendTest\BackendTest.csproj", "{E9352D90-84EE-439E-9B10-DDAD6A0ED6A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalableVectorGraphic", "ScalableVectorGraphic\ScalableVectorGraphic.csproj", "{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScalableVectorGraphic", "ScalableVectorGraphic\ScalableVectorGraphic.csproj", "{BF7F73F9-8B4B-4971-BCEA-5CB833EF91E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalableVectorGraphicTest", "ScalableVectorGraphicTest\ScalableVectorGraphicTest.csproj", "{712DD91B-3DFC-4425-B132-22B9E6A50A4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScalableVectorGraphicTest", "ScalableVectorGraphicTest\ScalableVectorGraphicTest.csproj", "{712DD91B-3DFC-4425-B132-22B9E6A50A4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Math", "Math\Math.csproj", "{97B25C89-4B52-42D5-95D3-7CA182755740}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Math", "Math\Math.csproj", "{97B25C89-4B52-42D5-95D3-7CA182755740}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTest", "MathTest\MathTest.csproj", "{6B7D0D64-F000-415F-9F81-445742C5529D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathTest", "MathTest\MathTest.csproj", "{6B7D0D64-F000-415F-9F81-445742C5529D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

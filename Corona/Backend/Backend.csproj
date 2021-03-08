@@ -1,17 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Service\DataSeriesService.cs~RFc71312.TMP" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="structuremap" Version="4.7.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+	<PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.AccountManagement">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.DirectoryServices.AccountManagement.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
