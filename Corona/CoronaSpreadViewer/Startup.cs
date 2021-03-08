@@ -12,7 +12,7 @@ namespace CoronaSpreadViewer {
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-            NConfigurator.UsingFiles("Config\\Corona.config").SetAsSystemDefault();
+            //NConfigurator.UsingFiles("Config\\Corona.config").SetAsSystemDefault();
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
