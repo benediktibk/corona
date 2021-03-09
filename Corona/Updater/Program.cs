@@ -4,6 +4,7 @@ using Backend.Repository;
 using Backend.Service;
 using NConfig;
 using NLog;
+using StructureMap;
 using System;
 using System.Diagnostics;
 
@@ -16,7 +17,7 @@ namespace Updater {
 
             try {
                 _logger.Info("build backend");
-                var container = new Container();
+                var container = new Container(new DependencyInjectionRegistry());
                 var database = container.GetInstance<IDatabase>();
                 var dataReimportService = container.GetInstance<IDataReimportService>();
                 var unitOfWorkFactory = container.GetInstance<IUnitOfWorkFactory>();
