@@ -1,7 +1,8 @@
-﻿@{
-    Layout = null;
+﻿@page
 
-    var countriesParam = Context.Request.Query["countries"].ToString();
+@{ Layout = null;
+
+    var countriesParam = "austria";// Context.Request.Query["countries"].ToString();
     var selectedCountries = new HashSet<Backend.CountryType>();
 
     if (string.IsNullOrEmpty(countriesParam)) {
@@ -24,8 +25,7 @@
         }
     }
 
-    var graphUriParameter = "countries=" + string.Join(",", selectedCountries);
-}
+    var graphUriParameter = "countries=" + string.Join(",", selectedCountries); }
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,32 +61,27 @@
             <div id="countrySelectionForm">
                 <form>
                     <div class="countrySelectionInForm">
-                        @{
-                            var values = Enum.GetValues(typeof(Backend.CountryType));
-                            var valuesReduced = new List<Backend.CountryType>();
+                        @{ var values = Enum.GetValues(typeof(Backend.CountryType));
+                                        var valuesReduced = new List<Backend.CountryType>();
 
-                            foreach (var value in values) {
-                                var valueCasted = (Backend.CountryType)value;
-                                if (valueCasted == Backend.CountryType.Invalid) {
-                                    continue;
-                                }
+                                        foreach (var value in values) {
+                                            var valueCasted = (Backend.CountryType)value;
+                                            if (valueCasted == Backend.CountryType.Invalid) {
+                                                continue;
+                                            }
 
-                                valuesReduced.Add(valueCasted);
-                            }
+                                            valuesReduced.Add(valueCasted);
+                                        }
 
-                            for (var i = 0; i < valuesReduced.Count(); ++i) {
-                                var value = valuesReduced[i];
-                                <div class="countrySelectionBox">
-                                    @if (selectedCountries.Contains(value)) {
-                                        <input type="checkbox" id="@value" value="@value" name="selectedCountries" checked />
-                                    }
-                                    else {
-                                        <input type="checkbox" id="@value" value="@value" name="selectedCountries" />
-                                    }
-                                    <label for="@value">@value.ToString()</label>
-                                </div>
-                            }
-                        }
+                                        for (var i = 0; i < valuesReduced.Count(); ++i) {
+                                            var value = valuesReduced[i];
+                            <div class="countrySelectionBox">
+                                @if (selectedCountries.Contains(value)) {
+                <input type="checkbox" id="@value" value="@value" name="selectedCountries" checked /> }
+                                else {
+                <input type="checkbox" id="@value" value="@value" name="selectedCountries" />}
+                                <label for="@value">@value.ToString()</label>
+                            </div> } }
                     </div>
                     <div class="countrySelectionApply">
                         <input name="apply" type="submit" formaction="api/selection/apply" formmethod="post" value="Apply Selection" />
@@ -212,12 +207,12 @@
             <p>
                 This page has been proudly made without any JS by Benedikt Schmidt (benediktibk@gmail.com). The data is based upon:
             </p>
-                <ul>
-                    <li><a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">COVID-19 cases dashboard by John Hopkins University</a>.</li>
-                    <li><a href="https://ec.europa.eu/eurostat/statistics-explained/index.php/Main_Page">eurostat</a></li>
-                    <li><a href="https://www.euromomo.eu/index.html">EURO MOMO</a></li>
-                    <li><a href="https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population">Wikipedia</a></li>
-                </ul>
+            <ul>
+                <li><a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">COVID-19 cases dashboard by John Hopkins University</a>.</li>
+                <li><a href="https://ec.europa.eu/eurostat/statistics-explained/index.php/Main_Page">eurostat</a></li>
+                <li><a href="https://www.euromomo.eu/index.html">EURO MOMO</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population">Wikipedia</a></li>
+            </ul>
             <p>The source code for this page can be found at <a href="https://bitbucket.org/benediktibk/corona">bitbucket</a>.</p>
             <p>If you do like what you see here: Great. If you do not: I do not take any legal responsibility for what you make with the information presented.</p>
             <p>Stay healthy!</p>

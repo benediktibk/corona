@@ -15,6 +15,7 @@ namespace CoronaSpreadViewer {
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
+            services.AddRazorPages();
             var container = new Container();
             container.Configure(config => {
                 config.AddRegistry(new DependencyInjectionRegistry(_configuration));
@@ -29,9 +30,11 @@ namespace CoronaSpreadViewer {
             }
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
+                endpoints.MapRazorPages();
             });
         }
     }
