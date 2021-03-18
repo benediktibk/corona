@@ -2,7 +2,6 @@
 using Backend.DependencyInjection;
 using Backend.Repository;
 using Backend.Service;
-using NConfig;
 using NLog;
 using StructureMap;
 using System;
@@ -13,8 +12,6 @@ namespace Updater {
         private static ILogger _logger = LogManager.GetCurrentClassLogger();
 
         static void Main() {
-            NConfigurator.UsingFiles("Config\\Corona.config").SetAsSystemDefault();
-
             try {
                 _logger.Info("build backend");
                 var container = new Container(new DependencyInjectionRegistry());

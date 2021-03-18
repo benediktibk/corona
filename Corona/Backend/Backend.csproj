@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="structuremap" Version="4.7.1" />
     <PackageReference Include="StructureMap.Microsoft.DependencyInjection" Version="2.0.0" />
