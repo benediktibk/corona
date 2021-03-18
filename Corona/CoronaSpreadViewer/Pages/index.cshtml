@@ -2,7 +2,7 @@
 
 @{ Layout = null;
 
-    var countriesParam = "austria";// Context.Request.Query["countries"].ToString();
+    var countriesParam = Request.Query["countries"].ToString();
     var selectedCountries = new HashSet<Backend.CountryType>();
 
     if (string.IsNullOrEmpty(countriesParam)) {
