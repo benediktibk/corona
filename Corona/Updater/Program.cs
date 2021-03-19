@@ -1,10 +1,9 @@
 ﻿using Backend;
-using Backend.DependencyInjection;
 using Backend.Repository;
 using Backend.Service;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NLog;
-using StructureMap;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -21,10 +20,12 @@ namespace Updater {
                     .AddJsonFile("appsettings.json", false)
                     .Build();
                 var settings = new Settings(configuration);
-                var container = new Container(new DependencyInjectionRegistry(settings));
-                var database = container.GetInstance<IDatabase>();
-                var dataReimportService = container.GetInstance<IDataReimportService>();
-                var unitOfWorkFactory = container.GetInstance<IUnitOfWorkFactory>();
+                var services = new ServiceCollection();
+                DependencyInjectionRegistry.ConfigureServices(services, settings);
+                var serviceProvider = services.BuildServiceProvider();
+                var database = serviceProvider.GetService<IDatabase>();
+                var dataReimportService = serviceProvider.GetService<IDataReimportService>();
+                var unitOfWorkFactory = serviceProvider.GetService<IUnitOfWorkFactory>();
                 var stopWatch = new Stopwatch();
 
                 using (var unitOfWork = unitOfWorkFactory.Create()) {
