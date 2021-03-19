@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StructureMap;
 
 namespace CoronaSpreadViewer {
     public class Startup {
@@ -15,14 +14,10 @@ namespace CoronaSpreadViewer {
         }
 
         public void ConfigureServices(IServiceCollection services) {
+            var settings = new Settings(_configuration);
+            DependencyInjectionRegistry.ConfigureServices(services, settings);
             services.AddControllers();
             services.AddRazorPages();
-            var settings = new Settings(_configuration);
-            var container = new Container();
-            container.Configure(config => {
-                config.AddRegistry(new DependencyInjectionRegistry(settings));
-                config.Populate(services);
-            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
