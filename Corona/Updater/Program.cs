@@ -50,11 +50,6 @@ namespace Updater {
             catch (Exception e) {
                 _logger.Error(e);
             }
-
-#if DEBUG
-            Console.WriteLine("Press enter to close...");
-            Console.ReadLine();
-#endif
         }
     }
 }

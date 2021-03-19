@@ -833,6 +833,26 @@ namespace Backend.Repository {
                 new CountryDao {
                     Id = CountryType.Tajikistan,
                     Name = "Tajikistan"
+                },
+                new CountryDao {
+                    Id = CountryType.SolomonIslands,
+                    Name = "Solomon Islands"
+                },
+                new CountryDao {
+                    Id = CountryType.Vanuatu,
+                    Name = "Vanuatu"
+                },
+                new CountryDao {
+                    Id = CountryType.Samoa,
+                    Name = "Samoa"
+                },
+                new CountryDao {
+                    Id = CountryType.MarshallIslands,
+                    Name = "Marshall Islands"
+                },
+                new CountryDao {
+                    Id = CountryType.Micronesia,
+                    Name = "Micronesia"
                 }
             };
 

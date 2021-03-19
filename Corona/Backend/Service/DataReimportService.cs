@@ -932,6 +932,21 @@ namespace Backend.Service {
                 case "Lesotho":
                     country = CountryType.Lesotho;
                     break;
+                case "Solomon Islands":
+                    country = CountryType.SolomonIslands;
+                    break;
+                case "Vanuatu":
+                    country = CountryType.Vanuatu;
+                    break;
+                case "Samoa":
+                    country = CountryType.Samoa;
+                    break;
+                case "Marshall Islands":
+                    country = CountryType.MarshallIslands;
+                    break;
+                case "Micronesia":
+                    country = CountryType.Micronesia;
+                    break;
                 default:
                     _logger.Warn($"unable to parse the country {countryString}");
                     country = CountryType.Invalid;

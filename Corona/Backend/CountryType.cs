@@ -204,6 +204,11 @@
         Yemen,
         Tajikistan,
         Comoros,
-        Lesotho
+        Lesotho,
+        SolomonIslands,
+        Vanuatu,
+        Samoa,
+        MarshallIslands,
+        Micronesia
     }
 }
