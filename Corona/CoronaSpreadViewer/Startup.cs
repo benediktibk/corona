@@ -1,3 +1,4 @@
+using Backend;
 using Backend.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,15 +17,15 @@ namespace CoronaSpreadViewer {
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
             services.AddRazorPages();
+            var settings = new Settings(_configuration);
             var container = new Container();
             container.Configure(config => {
-                config.AddRegistry(new DependencyInjectionRegistry(_configuration));
+                config.AddRegistry(new DependencyInjectionRegistry(settings));
                 config.Populate(services);
             });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }

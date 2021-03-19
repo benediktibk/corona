@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Backend {
     public class Settings : ISettings {
-        public Settings(string databaseConnectionString, string gitRepo, string localPath, string adminUsers, bool svgCompressed) {
-            DatabaseConnectionString = databaseConnectionString;
-            GitRepo = gitRepo;
-            LocalPath = localPath;
-            AdminUsers = adminUsers.Split(';').ToList();
-            SvgCompressed = svgCompressed;
+        public Settings(IConfiguration configuration) {
+            DatabaseConnectionString = configuration.GetConnectionString("Database");
+            GitRepo = configuration.GetSection("GitRepo").Value;
+            LocalPath = configuration.GetSection("LocalPath").Value;
+            AdminUsers = configuration.GetSection("AdminUsers").Value.Split(';').ToList();
+            SvgCompressed = bool.Parse(configuration.GetSection("SvgCompressed").Value);
         }
 
         public string DatabaseConnectionString { get; private set; }

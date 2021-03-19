@@ -2,10 +2,12 @@
 using Backend.DependencyInjection;
 using Backend.Repository;
 using Backend.Service;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using StructureMap;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace Updater {
     class Program {
@@ -14,7 +16,12 @@ namespace Updater {
         static void Main() {
             try {
                 _logger.Info("build backend");
-                var container = new Container(new DependencyInjectionRegistry());
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+                    .AddJsonFile("appsettings.json", false)
+                    .Build();
+                var settings = new Settings(configuration);
+                var container = new Container(new DependencyInjectionRegistry(settings));
                 var database = container.GetInstance<IDatabase>();
                 var dataReimportService = container.GetInstance<IDataReimportService>();
                 var unitOfWorkFactory = container.GetInstance<IUnitOfWorkFactory>();

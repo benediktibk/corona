@@ -1,18 +1,11 @@
 ﻿using Backend.Repository;
 using Backend.Service;
 using StructureMap;
-using Microsoft.Extensions.Configuration;
 
 namespace Backend.DependencyInjection {
     public class DependencyInjectionRegistry : Registry {
-        public DependencyInjectionRegistry(IConfiguration configuration) {
-            var connectionString = configuration.GetConnectionString("Database");
-            var gitRepo = configuration.GetSection("GitRepo").Value;
-            var localPath = configuration.GetSection("LocalPath").Value;
-            var adminUsers = configuration.GetSection("AdminUsers").Value;
-            var svgCompressed = bool.Parse(configuration.GetSection("SvgCompressed").Value);
-
-            For<ISettings>().Use(() => new Settings(connectionString, gitRepo, localPath, adminUsers, svgCompressed));
+        public DependencyInjectionRegistry(Settings settings) {
+            For<ISettings>().Use(() => settings);
             For<IServerSideCache>().Use<ServerSideCache>().Singleton();
 
             For<IDatabase>().Use<Database>();
