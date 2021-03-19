@@ -15,6 +15,7 @@ namespace CoronaSpreadViewer {
         public void ConfigureServices(IServiceCollection services) {
             var settings = new Settings(_configuration);
             DependencyInjectionRegistry.ConfigureServices(services, settings);
+            services.AddMvc();
             services.AddControllers();
             services.AddRazorPages();
         }

@@ -3,22 +3,12 @@ using Backend.Service;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace CoronaSpreadViewer.Controllers {
     [ApiController]
     public class GraphController : ControllerBase {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IGraphService _graphService;
-#if DEBUG
-        private const int CachingTimeInSecondsClient = 0;
-        private const int CachingTimeInSecondsServer = 0;
-#else
-        private const int CachingTimeInSecondsClient = 0;
-        private const int CachingTimeInSecondsServer = 86400;
-#endif
 
         public GraphController(IUnitOfWorkFactory unitOfWorkFactory, IGraphService graphService) {
             _unitOfWorkFactory = unitOfWorkFactory;
