@@ -7,8 +7,6 @@
 
     if (string.IsNullOrEmpty(countriesParam)) {
         selectedCountries.Add(Backend.CountryType.Austria);
-        selectedCountries.Add(Backend.CountryType.Italy);
-        selectedCountries.Add(Backend.CountryType.Usa);
     }
     else {
         var countriesAsString = countriesParam.Split(',');
