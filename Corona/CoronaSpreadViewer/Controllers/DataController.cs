@@ -1,12 +1,10 @@
 ﻿using Backend;
 using Backend.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
@@ -17,13 +15,11 @@ namespace CoronaSpreadViewer.Controllers {
         private readonly IDataReimportService _dataReimportService;
         private readonly IAuthorizationService _authorizationService;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly IServerSideCache _serverSideCache;
 
-        public DataController(IDataReimportService dataReimportService, IAuthorizationService authorizationService, IUnitOfWorkFactory unitOfWorkFactory, IServerSideCache serverSideCache) {
+        public DataController(IDataReimportService dataReimportService, IAuthorizationService authorizationService, IUnitOfWorkFactory unitOfWorkFactory) {
             _dataReimportService = dataReimportService;
             _authorizationService = authorizationService;
             _unitOfWorkFactory = unitOfWorkFactory;
-            _serverSideCache = serverSideCache;
         }
 
         [HttpPost]
@@ -54,7 +50,7 @@ namespace CoronaSpreadViewer.Controllers {
             }
 
             _logger.Info("successfully updated data, invalidating the server side cache");
-            _serverSideCache.Invalidate();
+            // @TODO invalidate server side cache
 
             _logger.Info("responding with redirect to start page");
             var response = new HttpResponseMessage(HttpStatusCode.Moved);

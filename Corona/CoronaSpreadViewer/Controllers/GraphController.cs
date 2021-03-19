@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using WebApi.OutputCache.V2;
 
 namespace CoronaSpreadViewer.Controllers {
     [ApiController]
@@ -27,7 +26,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/infected-absolute-linear")]
         public HttpResponseMessage GetInfectedAbsoluteLinear([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -41,7 +39,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/infected-absolute-logarithmic")]
         public HttpResponseMessage GetInfectedAbsoluteLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -55,7 +52,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/estimated-actual-new-infected-persons")]
         public HttpResponseMessage GetEstimatedActualNewInfectedPersons([FromQuery] string countries, [FromQuery] int estimationPastInDays) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -69,7 +65,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/infected-per-population-logarithmic")]
         public HttpResponseMessage GetInfectedPerPopulationLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -83,7 +78,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/still-infected-per-population-logarithmic")]
         public HttpResponseMessage GetStillInfectedPerPopulationLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -97,7 +91,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/still-infected")]
         public HttpResponseMessage GetStillInfected([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -111,7 +104,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/deaths-per-population-logarithmic")]
         public HttpResponseMessage GetDeathsPerPopulationLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -125,7 +117,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/deaths")]
         public HttpResponseMessage GetDeaths([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -139,7 +130,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/infected-growth-per-total-infected")]
         public HttpResponseMessage GetInfectedGrowthPerTotalInfected([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -153,7 +143,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/infected-growth-per-total-infected-per-population")]
         public HttpResponseMessage GetInfectedGrowthPerTotalInfectedPerPopulation([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -167,7 +156,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/top-countries-by-new-deaths")]
         public HttpResponseMessage GetTopCountriesByNewDeaths([FromQuery] int topCountriesCount, [FromQuery] int daysInPast) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -177,7 +165,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/top-countries-by-new-infections")]
         public HttpResponseMessage GetTopCountriesByNewInfections([FromQuery] int topCountriesCount, [FromQuery] int daysInPast) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -187,7 +174,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/top-countries-by-deaths-per-population")]
         public HttpResponseMessage GetTopCountriesByDeathsPerPopulation([FromQuery] int topCountriesCount) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
@@ -197,7 +183,6 @@ namespace CoronaSpreadViewer.Controllers {
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = CachingTimeInSecondsClient, ServerTimeSpan = CachingTimeInSecondsServer)]
         [Route("api/graph/top-countries-by-infections-per-population")]
         public HttpResponseMessage GetTopCountriesByInfectionsPerPopulation([FromQuery] int topCountriesCount) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {

@@ -6,7 +6,6 @@ namespace Backend {
     public static class DependencyInjectionRegistry {
         public static void ConfigureServices(IServiceCollection services, Settings settings) {
             services.AddSingleton<ISettings>(settings);
-            services.AddTransient<IServerSideCache, ServerSideCache>();
             services.AddTransient<IDatabase, Database>();
             services.AddTransient<IUnitOfWorkFactory, UnitOfWorkFactory>();
             services.AddTransient<ICountryRepository, CountryRepository>();
