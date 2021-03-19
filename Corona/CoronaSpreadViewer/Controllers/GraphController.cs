@@ -27,10 +27,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/infected-absolute-linear")]
-        public HttpResponseMessage GetInfectedAbsoluteLinear([FromQuery] string countries) {
+        public ActionResult GetInfectedAbsoluteLinear([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateInfectedAbsoluteLinear(unitOfWork, countriesParsed);
@@ -40,10 +40,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/infected-absolute-logarithmic")]
-        public HttpResponseMessage GetInfectedAbsoluteLogarithmic([FromQuery] string countries) {
+        public ActionResult GetInfectedAbsoluteLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateInfectedAbsoluteLogarithmic(unitOfWork, countriesParsed);
@@ -53,10 +53,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/estimated-actual-new-infected-persons")]
-        public HttpResponseMessage GetEstimatedActualNewInfectedPersons([FromQuery] string countries, [FromQuery] int estimationPastInDays) {
+        public ActionResult GetEstimatedActualNewInfectedPersons([FromQuery] string countries, [FromQuery] int estimationPastInDays) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateEstimatedActualNewInfectedPersons(unitOfWork, countriesParsed, estimationPastInDays);
@@ -66,10 +66,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/infected-per-population-logarithmic")]
-        public HttpResponseMessage GetInfectedPerPopulationLogarithmic([FromQuery] string countries) {
+        public ActionResult GetInfectedPerPopulationLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateInfectedPerPopulationLogarithmic(unitOfWork, countriesParsed);
@@ -79,10 +79,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/still-infected-per-population-logarithmic")]
-        public HttpResponseMessage GetStillInfectedPerPopulationLogarithmic([FromQuery] string countries) {
+        public ActionResult GetStillInfectedPerPopulationLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateStillInfectedPerPopulationLogarithmic(unitOfWork, countriesParsed);
@@ -92,10 +92,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/still-infected")]
-        public HttpResponseMessage GetStillInfected([FromQuery] string countries) {
+        public ActionResult GetStillInfected([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateStillInfected(unitOfWork, countriesParsed);
@@ -105,10 +105,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/deaths-per-population-logarithmic")]
-        public HttpResponseMessage GetDeathsPerPopulationLogarithmic([FromQuery] string countries) {
+        public ActionResult GetDeathsPerPopulationLogarithmic([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateDeathsPerPopulationLogarithmic(unitOfWork, countriesParsed);
@@ -118,10 +118,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/deaths")]
-        public HttpResponseMessage GetDeaths([FromQuery] string countries) {
+        public ActionResult GetDeaths([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateDeaths(unitOfWork, countriesParsed);
@@ -131,10 +131,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/infected-growth-per-total-infected")]
-        public HttpResponseMessage GetInfectedGrowthPerTotalInfected([FromQuery] string countries) {
+        public ActionResult GetInfectedGrowthPerTotalInfected([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateInfectedGrowthPerTotalInfected(unitOfWork, countriesParsed);
@@ -144,10 +144,10 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/infected-growth-per-total-infected-per-population")]
-        public HttpResponseMessage GetInfectedGrowthPerTotalInfectedPerPopulation([FromQuery] string countries) {
+        public ActionResult GetInfectedGrowthPerTotalInfectedPerPopulation([FromQuery] string countries) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 if (!TryParseCountries(countries, out var countriesParsed)) {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return NotFound();
                 }
 
                 var result = _graphService.CreateInfectedGrowthPerTotalInfectedPerPopulation(unitOfWork, countriesParsed);
@@ -157,7 +157,7 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/top-countries-by-new-deaths")]
-        public HttpResponseMessage GetTopCountriesByNewDeaths([FromQuery] int topCountriesCount, [FromQuery] int daysInPast) {
+        public ActionResult GetTopCountriesByNewDeaths([FromQuery] int topCountriesCount, [FromQuery] int daysInPast) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 var result = _graphService.CreateTopCountriesByNewDeaths(unitOfWork, topCountriesCount, daysInPast);
                 return CreateResponse(result);
@@ -166,7 +166,7 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/top-countries-by-new-infections")]
-        public HttpResponseMessage GetTopCountriesByNewInfections([FromQuery] int topCountriesCount, [FromQuery] int daysInPast) {
+        public ActionResult GetTopCountriesByNewInfections([FromQuery] int topCountriesCount, [FromQuery] int daysInPast) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 var result = _graphService.CreateTopCountriesByNewInfections(unitOfWork, topCountriesCount, daysInPast);
                 return CreateResponse(result);
@@ -175,7 +175,7 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/top-countries-by-deaths-per-population")]
-        public HttpResponseMessage GetTopCountriesByDeathsPerPopulation([FromQuery] int topCountriesCount) {
+        public ActionResult GetTopCountriesByDeathsPerPopulation([FromQuery] int topCountriesCount) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 var result = _graphService.CreateTopCountriesByDeathsPerPopulation(unitOfWork, topCountriesCount);
                 return CreateResponse(result);
@@ -184,7 +184,7 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpGet]
         [Route("api/graph/top-countries-by-infections-per-population")]
-        public HttpResponseMessage GetTopCountriesByInfectionsPerPopulation([FromQuery] int topCountriesCount) {
+        public ActionResult GetTopCountriesByInfectionsPerPopulation([FromQuery] int topCountriesCount) {
             using (var unitOfWork = _unitOfWorkFactory.Create()) {
                 var result = _graphService.CreateTopCountriesByInfectionsPerPopulation(unitOfWork, topCountriesCount);
                 return CreateResponse(result);
@@ -205,11 +205,8 @@ namespace CoronaSpreadViewer.Controllers {
             return true;
         }
 
-        private HttpResponseMessage CreateResponse(string svg) {
-            var response = new HttpResponseMessage(HttpStatusCode.OK);
-            response.Content = new StringContent(svg);
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/svg+xml");
-            return response;
+        private ContentResult CreateResponse(string svg) {
+            return Content(svg, "image/svg+xml");
         }
     }
 }
