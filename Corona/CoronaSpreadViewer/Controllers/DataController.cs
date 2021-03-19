@@ -24,12 +24,12 @@ namespace CoronaSpreadViewer.Controllers {
 
         [HttpPost]
         [Route("api/data/reimport")]
-        public HttpResponseMessage Reimport(Credentials credentials) {
+        public ActionResult Reimport(Credentials credentials) {
             _logger.Info($"user {credentials.Username} tries to update the data");
 
             if (!_authorizationService.IsAllowedToUpdateData(credentials.Username, credentials.Password)) {
                 _logger.Info($"user {credentials.Username} is not allowed to update the data");
-                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                return new UnauthorizedResult();
             }
 
             _logger.Info("triggering update of data");
@@ -43,20 +43,15 @@ namespace CoronaSpreadViewer.Controllers {
 
             if (!importSuccess) {
                 _logger.Error("failed to update data");
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError) {
-                    Content = new StringContent("unable to update data", System.Text.Encoding.UTF8, "text/plain"),
-                    StatusCode = HttpStatusCode.NotFound
-                };
+                return new StatusCodeResult(500);
             }
 
             _logger.Info("successfully updated data, invalidating the server side cache");
             // @TODO invalidate server side cache
 
             _logger.Info("responding with redirect to start page");
-            var response = new HttpResponseMessage(HttpStatusCode.Moved);
             var rootUri = Request.GetUri().GetLeftPart(UriPartial.Authority);
-            response.Headers.Location = new Uri(rootUri);
-            return response;
+            return new RedirectResult(url: rootUri, permanent: true, preserveMethod: false);
         }
     }
 }
