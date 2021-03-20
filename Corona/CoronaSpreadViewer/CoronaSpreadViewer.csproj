@@ -41,12 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Production.Corona.config" Link="Config\Production.Corona.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
