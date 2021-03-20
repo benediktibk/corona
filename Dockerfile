@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-COPY Corona/CoronaSpreadViewer/bin/Release/netcoreapp3.1/* App/
+EXPOSE 5000/tcp
+COPY Corona/CoronaSpreadViewer/bin/Release/netcoreapp5.0/* App/
 COPY appsettings_production.json App/appsettings.json
 WORKDIR /App
 ENTRYPOINT ["dotnet", "CoronaSpreadViewer.dll"]
