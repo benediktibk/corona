@@ -8,10 +8,10 @@
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "Database": "Server=192.168.42.70;Database=Corona;User Id=Corona;Password=topsecureofcourse"
+    "Database": "Server=localhost;Database=Corona;User Id=Corona;Password=##DBPASSWORD##"
   },
   "GitRepo": "https://github.com/CSSEGISandData/COVID-19.git",
   "LocalPath": "/tmp/corona/data",
   "AdminUsers": "benedikt.schmidt;laura.arrigoni",
-  "SvgCompressed": "false"
+  "SvgCompressed": "true"
 }
