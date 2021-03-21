@@ -3,6 +3,7 @@ using Backend.Repository;
 using Backend.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using NLog;
 using System;
 using System.Diagnostics;
@@ -18,6 +19,7 @@ namespace Updater {
                 var configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                     .AddJsonFile("appsettings.json", false)
+                    .AddEnvironmentVariables()
                     .Build();
                 var settings = new Settings(configuration);
                 var services = new ServiceCollection();
