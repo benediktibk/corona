@@ -1086,7 +1086,7 @@ namespace Backend.Repository {
                 (
                     Id INT PRIMARY KEY NOT NULL IDENTITY,
                     [ImportTimestamp] DATETIME NOT NULL,
-                    CommitHash NVARCHAR(40) NOT NULL
+                    CommitHash NVARCHAR(100) NOT NULL
                 )
 ");
         }
