@@ -39,24 +39,18 @@ namespace Backend.Service {
             stopWatch.Start();
 
             _logger.Info("fetching latest data via git");
-            bool checkoutResult;
             if (_gitRepository.CheckIfDirectoryExists(_sourceFilePath)) {
                 _logger.Info($"directory {_sourceFilePath} already exists, executing a pull");
-                checkoutResult = _gitRepository.Pull(_sourceFilePath);
+                _gitRepository.Pull(_sourceFilePath);
             } else {
                 _logger.Info($"directory {_sourceFilePath} does not yet exist, executing a clone");
-                checkoutResult = _gitRepository.Clone(_gitRepoUrl, _sourceFilePath);
+                _gitRepository.Clone(_gitRepoUrl, _sourceFilePath);
             }
 
             var commitHash = _gitRepository.GetLatestCommitHash(_sourceFilePath);
 
             stopWatch.Stop();
             _logger.Trace($"fetching the last commit via git took {stopWatch.Elapsed.TotalSeconds}s");
-
-            if (!checkoutResult) {
-                _logger.Error("skipping the update process, could not fetch the latest data");
-                return false;
-            }
 
             var latestCommit = _importedCommitHistoryRepository.GetLatest(unitOfWork);
 

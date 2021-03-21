@@ -2,14 +2,17 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
+using LibGit2Sharp;
 
 namespace Backend.Repository {
     public class GitRepository : IGitRepository {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
-        public bool Clone(string repoUrl, string destinationPath) {
-            var command = $"git clone {repoUrl} {destinationPath}";
-            return ExecuteGitCommand(command, Directory.GetCurrentDirectory(), out var output);
+        public void Clone(string repoUrl, string destinationPath) {
+            LibGit2Sharp.Repository.Clone(repoUrl, destinationPath);
         }
 
         public bool CheckIfDirectoryExists(string path) {
@@ -17,59 +20,16 @@ namespace Backend.Repository {
             return directory.Exists;
         }
 
-        public bool Pull(string path) {
-            var command = "git pull";
-            return ExecuteGitCommand(command, path, out var output);
+        public void Pull(string path) {
+            using (var repo = new LibGit2Sharp.Repository(path)) {
+                Commands.Pull(repo, new Signature("nobody", "nobody@blub.at", DateTime.Now), new PullOptions { MergeOptions = new MergeOptions { FastForwardStrategy = FastForwardStrategy.Default }});
+            }
         }
 
         public string GetLatestCommitHash(string path) {
-            var command = "git rev-parse HEAD";
-            ExecuteGitCommand(command, path, out var output);
-            output = output.Substring(0, output.Length - System.Environment.NewLine.Length);
-            return output;
-        }
-
-        private bool ExecuteGitCommand(string command, string workingDirectory, out string output) {
-            output = string.Empty;
-            var processStartInfo = new ProcessStartInfo {
-                WindowStyle = ProcessWindowStyle.Hidden,
-                FileName = "cmd.exe",
-                Arguments = $"/C {command}",
-                WorkingDirectory = workingDirectory,
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            var process = new Process { StartInfo = processStartInfo };
-            var stringWriter = new StringBuilder();
-
-            _logger.Info($"executing command {command}");
-            var result = process.Start();
-
-            if (!result) {
-                _logger.Error($"was not able to execute the command {command}");
-                return false;
+            using (var repo = new LibGit2Sharp.Repository(path)) {
+                return repo.Head.Tip.Id.ToString();
             }
-
-            while (!process.StandardOutput.EndOfStream) {
-                var line = process.StandardOutput.ReadLine();
-                stringWriter.AppendLine(line);
-            }
-
-            output = stringWriter.ToString();
-
-            _logger.Info($"waiting for command {command} to finish");
-            var processEnded = process.WaitForExit(1000 * 1000);
-
-            if (processEnded) {
-                _logger.Info($"command {command} did succeed in time");
-            }
-            else {
-                _logger.Error($"command {command} did not finish in time");
-                return false;
-            }
-
-            return true;
         }
     }
 }
