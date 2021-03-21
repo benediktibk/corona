@@ -5,14 +5,13 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System;
 using System.Collections.Generic;
-using LibGit2Sharp;
 
 namespace Backend.Repository {
     public class GitRepository : IGitRepository {
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public void Clone(string repoUrl, string destinationPath) {
-            LibGit2Sharp.Repository.Clone(repoUrl, destinationPath);
+            ExecuteGitCommand($"clone {repoUrl} {destinationPath}", null);
         }
 
         public bool CheckIfDirectoryExists(string path) {
@@ -21,15 +20,32 @@ namespace Backend.Repository {
         }
 
         public void Pull(string path) {
-            using (var repo = new LibGit2Sharp.Repository(path)) {
-                Commands.Pull(repo, new Signature("nobody", "nobody@blub.at", DateTime.Now), new PullOptions { MergeOptions = new MergeOptions { FastForwardStrategy = FastForwardStrategy.Default }});
-            }
+            ExecuteGitCommand("pull", path);
         }
 
         public string GetLatestCommitHash(string path) {
-            using (var repo = new LibGit2Sharp.Repository(path)) {
-                return repo.Head.Tip.Id.ToString();
-            }
+            return ExecuteGitCommand("rev-parse HEAD", path);
+        }
+
+        public string ExecuteGitCommand(string arguments, string workingDirectory) {
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            processStartInfo.CreateNoWindow = true;
+            processStartInfo.RedirectStandardError = true;
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.FileName = "git";
+
+            Process process = new Process();
+            processStartInfo.Arguments = arguments;
+            processStartInfo.WorkingDirectory = workingDirectory;
+
+            process.StartInfo = processStartInfo;
+            process.Start();
+
+            string stdout = process.StandardOutput.ReadToEnd();
+
+            process.WaitForExit(1000 * 1000);
+            process.Close();
+            return stdout;
         }
     }
 }
