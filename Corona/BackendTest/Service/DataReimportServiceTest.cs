@@ -30,7 +30,7 @@ namespace BackendTest.Service {
             _dataReimportService = new DataReimportService(_csvFileRepository.Object, _infectionSpreadDataPointRepository.Object, _gitRepository.Object, _importedCommitHistoryRepository.Object, _settings.Object);
             _realCsvFileRepository = new CsvFileRepository();
 
-            _gitRepository.Setup(x => x.Clone(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+            _gitRepository.Setup(x => x.Clone(It.IsAny<string>(), It.IsAny<string>()));
             _gitRepository.Setup(x => x.GetLatestCommitHash(It.IsAny<string>())).Returns("99999");
         }
 
