@@ -3,7 +3,7 @@
 		<TargetFramework>netcoreapp5.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="FluentAssertions" Version="6.2.0"/>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0"/>
@@ -14,5 +14,13 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Backend\Backend.csproj"/>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="testdata/01-22-2020.csv" CopyToOutputDirectory="PreserveNewest" />
+		<None Update="testdata/02-25-2020_txDiamondOnly.csv" CopyToOutputDirectory="PreserveNewest" />
+		<None Update="testdata/02-25-2020.csv" CopyToOutputDirectory="PreserveNewest" />
+		<None Update="testdata/03-27-2020_austriaOnly.csv" CopyToOutputDirectory="PreserveNewest" />
+		<None Update="testdata/03-27-2020_southKoreaOnly.csv" CopyToOutputDirectory="PreserveNewest" />
+		<None Update="testdata/03-27-2020.csv" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 </Project>

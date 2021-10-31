@@ -46,6 +46,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/01-22-2020.csv")]
         public void ReimportAll_OldFileType_CorrectValueForSouthKorea() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -65,6 +66,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/01-22-2020.csv")]
         public void ReimportAll_OldFileType_CorrectValueForChina() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -84,6 +86,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/01-22-2020.csv")]
         public void ReimportAll_OldFileType_CorrectValueForTaiwan() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -103,6 +106,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/01-22-2020.csv")]
         public void ReimportAll_OldFileType_CorrectValueForUsa() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -122,6 +126,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/01-22-2020.csv")]
         public void ReimportAll_OldFileType_CorrectValueForJapan() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -141,6 +146,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/01-22-2020.csv")]
         public void ReimportAll_OldFileType_CorrectValueForThailand() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -160,6 +166,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/01-22-2020.csv")]
         public void ReimportAll_OldFileType_CorrectTimestampForThailand() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -177,6 +184,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/03-27-2020.csv")]
         public void ReimportAll_NewFileType_CorrectValueForUsa() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -196,6 +204,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/03-27-2020.csv")]
         public void ReimportAll_NewFileType_CorrectTimestampForUsa() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -213,6 +222,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/03-27-2020.csv")]
         public void ReimportAll_NewFileType_CorrectValueForAustria() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -232,6 +242,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/03-27-2020_austriaOnly.csv")]
         public void ReimportAll_NewFileTypeReducedOnAustria_CorrectValueForAustria() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -251,6 +262,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/03-27-2020_southKoreaOnly.csv")]
         public void ReimportAll_NewFileTypeReducedOnSouthKorea_CorrectValueForSouthKorea() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -270,6 +282,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/03-27-2020.csv")]
         public void ReimportAll_NewFileType_EveryCountryGotImported() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -285,6 +298,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/02-25-2020.csv")]
         public void ReimportAll_OldFileTypeWithDiamondPrincess_CorrectValueForUsa() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -304,6 +318,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/02-25-2020_txDiamondOnly.csv")]
         public void ReimportAll_OldFileTypeWithDiamondPrincessInTxOnly_CorrectValueForUsa() {
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
             _csvFileRepository.Setup(x => x.ReadFile(It.IsAny<string>()))
@@ -359,6 +374,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/02-25-2020_txDiamondOnly.csv")]
         public void ReimportAll_NothingYetCommitted_CallToImportDataPoints() {
             _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns((ImportedCommitHistoryDao)null);
             _csvFileRepository.Setup(x => x.ListAllCsvFilesIn(It.IsAny<string>())).Returns(new List<string> { "blub" });
@@ -371,6 +387,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/02-25-2020_txDiamondOnly.csv")]
         public void ReimportAll_OlderStuffAlreadyCommitted_CallToImportDataPoints() {
             _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns(new ImportedCommitHistoryDao {
                 CommitHash = "98415641312"
@@ -385,6 +402,7 @@ namespace BackendTest.Service {
         }
 
         [TestMethod]
+        [DeploymentItem("testdata/02-25-2020_txDiamondOnly.csv")]
         public void ReimportAll_OlderStuffAlreadyCommitted_CallToInsertCommitHistory() {
             _importedCommitHistoryRepository.Setup(x => x.GetLatest(_unitOfWork.Object)).Returns(new ImportedCommitHistoryDao {
                 CommitHash = "98415641312"
