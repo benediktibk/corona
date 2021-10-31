@@ -15,17 +15,14 @@ namespace Backend {
             _logger.Info($"creating database connection string for host {databaseHost} and database {databaseName}");
 
             DatabaseConnectionString = $"Server={databaseHost};Database={databaseName};User Id={databaseUser};Password={databasePassword}";
-            GitRepo = configuration.GetSection("GitRepo").Value;
+            GitRepo = configuration.GetSection("GITREPO").Value;
             LocalPath = configuration.GetSection("LOCALTEMPPATH").Value;
-            AdminUsers = configuration.GetSection("AdminUsers").Value.Split(';').ToList();
-            SvgCompressed = bool.Parse(configuration.GetSection("SvgCompressed").Value);
+            SvgCompressed = bool.Parse(configuration.GetSection("SVGCOMPRESSED").Value);
         }
 
         public string DatabaseConnectionString { get; private set; }
         public string GitRepo { get; private set; }
         public string LocalPath { get; private set; }
-        public IReadOnlyList<string> AdminUsers { get; private set; }
-
         public bool SvgCompressed { get; private set; }
     }
 }

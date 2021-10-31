@@ -16,7 +16,7 @@ namespace Backend.Service {
         private readonly IGitRepository _gitRepository;
         private readonly IImportedCommitHistoryRepository _importedCommitHistoryRepository;
         private readonly string _sourceFilePath;
-        private readonly string _gitRepoUrl;
+    private readonly string _gitRepoUrl;
         private readonly CultureInfo _cultureInfo;
 
         public DataReimportService(
