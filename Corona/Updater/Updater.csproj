@@ -2,7 +2,9 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netcoreapp5.0</TargetFramework>
+		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
+	
 	<ItemGroup>
 		<Content Include="..\CoronaSpreadViewer\appsettings.json" Link="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>

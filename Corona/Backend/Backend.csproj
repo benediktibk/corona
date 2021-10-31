@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netcoreapp5.0</TargetFramework>
+		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.0.90"/>
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.1"/>
