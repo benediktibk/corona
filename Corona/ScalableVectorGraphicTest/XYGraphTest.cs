@@ -318,15 +318,15 @@ namespace ScalableVectorGraphicTest {
 <line x1=""55.650000000000006"" y1=""25"" x2=""506.15"" y2=""25"" style=""stroke:rgb(0,0,0);stroke-width:0.19568469536476274"" />
 <!-- horizontal axis label -->
 <text x=""51.145"" y=""195"" font-family=""monospace"" fill=""rgb(0,0,0)"" transform=""rotate(270 51.145,195)"" font-size=""7"" dominant-baseline=""middle"" text-anchor=""middle"">y</text>
-<!-- data point (2/6/2000 12:00:00 AM,123) -->
+<!-- data point (2/6/2000 12:00:00AM,123) -->
 <circle cx=""55.650000000000006"" cy=""128.14408737020153"" r=""1.9568469536476274"" fill=""rgb(0,0,255)"" />
-<!-- data point (4/6/2001 12:00:00 AM,100) -->
+<!-- data point (4/6/2001 12:00:00AM,100) -->
 <circle cx=""215.70999999999998"" cy=""256.8525155968765"" r=""1.9568469536476274"" fill=""rgb(0,0,255)"" />
-<!-- data point (7/6/2000 12:00:00 AM,9) -->
+<!-- data point (7/6/2000 12:00:00AM,9) -->
 <circle cx=""506.15"" cy=""138.33333333333337"" r=""1.9568469536476274"" fill=""rgb(0,0,255)"" />
-<!-- data point connection from (2/6/2000 12:00:00 AM,123) to (4/6/2001 12:00:00 AM,100) -->
+<!-- data point connection from (2/6/2000 12:00:00AM,123) to (4/6/2001 12:00:00AM,100) -->
 <line x1=""55.650000000000006"" y1=""128.14408737020153"" x2=""215.70999999999998"" y2=""256.8525155968765"" style=""stroke:rgb(0,0,255);stroke-width:0.782738781459051"" />
-<!-- data point connection from (4/6/2001 12:00:00 AM,100) to (7/6/2000 12:00:00 AM,9) -->
+<!-- data point connection from (4/6/2001 12:00:00AM,100) to (7/6/2000 12:00:00AM,9) -->
 <line x1=""215.70999999999998"" y1=""256.8525155968765"" x2=""506.15"" y2=""138.33333333333337"" style=""stroke:rgb(0,0,255);stroke-width:0.782738781459051"" />
 </svg>");
         }
