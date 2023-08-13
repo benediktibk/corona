@@ -209,6 +209,15 @@
         Vanuatu,
         Samoa,
         MarshallIslands,
-        Micronesia
+        Micronesia,
+        Kiribati,
+        Palau,
+        SummerOlympics2020,
+        Tonga,
+        WinterOlympics2022,
+        Antarctica,
+        NorthKorea,
+        Nauru,
+        Tuvalu
     }
 }

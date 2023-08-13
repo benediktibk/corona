@@ -941,6 +941,33 @@ namespace Backend.Service {
                 case "Micronesia":
                     country = CountryType.Micronesia;
                     break;
+                case "Kiribati":
+                    country = CountryType.Kiribati;
+                    break;
+                case "Palau":
+                    country = CountryType.Palau;
+                    break;
+                case "Summer Olympics 2020":
+                    country = CountryType.SummerOlympics2020;
+                    break;
+                case "Tonga":
+                    country = CountryType.Tonga;
+                    break;
+                case "Winter Olympics 2022":
+                    country = CountryType.WinterOlympics2022;
+                    break;
+                case "Antarctica":
+                    country = CountryType.Antarctica;
+                    break;
+                case "Korea North":
+                    country = CountryType.NorthKorea;
+                    break;
+                case "Nauru":
+                    country = CountryType.Nauru;
+                    break;
+                case "Tuvalu":
+                    country = CountryType.Tuvalu;
+                    break;
                 default:
                     _logger.Warn($"unable to parse the country {countryString}");
                     country = CountryType.Invalid;

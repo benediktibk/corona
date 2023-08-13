@@ -853,6 +853,42 @@ namespace Backend.Repository {
                 new CountryDao {
                     Id = CountryType.Micronesia,
                     Name = "Micronesia"
+                },
+                new CountryDao {
+                    Id = CountryType.Kiribati,
+                    Name = "Kiribati"
+                },
+                new CountryDao {
+                    Id = CountryType.Palau,
+                    Name = "Palau"
+                },
+                new CountryDao {
+                    Id = CountryType.SummerOlympics2020,
+                    Name = "Summer Olympics 2020"
+                },
+                new CountryDao {
+                    Id = CountryType.Tonga,
+                    Name = "Tonga"
+                },
+                new CountryDao {
+                    Id = CountryType.WinterOlympics2022,
+                    Name = "Winter Olympics 2022"
+                },
+                new CountryDao {
+                    Id = CountryType.Antarctica,
+                    Name = "Antarctica"
+                },
+                new CountryDao {
+                    Id = CountryType.NorthKorea,
+                    Name = "Korea North"
+                },
+                new CountryDao {
+                    Id = CountryType.Nauru,
+                    Name = "Nauru"
+                },
+                new CountryDao {
+                    Id = CountryType.Tuvalu,
+                    Name = "Tuvalu"
                 }
             };
 
